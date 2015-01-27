@@ -1,0 +1,436 @@
+*dubs_edit_juice.txt*	`Edit` `Juice` For `Dubsacks` `Vim`.	2015 Jan 23
+
+Edit Juice: For Searching, Editing, and Replacing Text; and a Few Dev Cmds.~
+
+EDIT JUICE				*dubs-edit-juice*
+
+1. About This Plugin			|dubs-edit-juice-about|
+2. Transparent Features			|dubs-edit-juice-transparent|
+3. Searching Buffers			|dubs-edit-juice-searching-buffers|
+4. Editing and Formatting Text		|dubs-edit-juice-editing|
+5. Common Buffer Commands		|dubs-edit-juice-buffer-commands|
+6. Developer Commands			|dubs-edit-juice-developer|
+7. Obscure But Useful Commands		|dubs-edit-juice-obscure|
+8. Alt-Shift Special Window Togglers	|dubs-edit-juice-togglers|
+
+==============================================================================
+1. About This Plugin			*dubs-edit-juice-about*
+
+This file maps a bunch of editing-related features
+to key combinations to help delete text, select text,
+edit text, move the cursor around the buffer, and
+perform single-key text searches within the buffer.
+
+This script originally started to make Vim emulate
+`EditPlus` <https://www.editplus.com/>,
+but it's grown considerably since then to
+just make Vim a more comfortable editor all around.
+
+Project page: https://github.com/landonb/dubs_edit_juice
+
+==============================================================================
+2. Transparent Features			*dubs-edit-juice-transparent*
+
+These features run automatically.
+
+Dubsacks Features~
+-----------------
+
+- Recover from accidental Ctrl-U
+
+  - See: http://vim.wikia.com/wiki/Recover_from_accidental_Ctrl-U
+
+Included Vendor Plugins~
+-----------------------
+
+This plugin includes the following third-party plugins.
+
+Smart Tabs~
+
+The `Smart Tabs` feature, located in ``dubs_edit_juice/plugin/ctab.vim``,
+translates tabs to spaces if you're tabbing but not indenting, i.e.,
+if only spaces precede the cursor to the start of the line, then tabs
+are added when <Tab> is pressed, otherwise <Spaces> are inserted instead.
+  https://github.com/vim-scripts/Smart-Tabs/blob/master/plugin/ctab.vim
+
+See also, "Indent with tabs, align with space"
+ http://vim.wikia.com/wiki/Indent_with_tabs,_align_with_spaces
+
+Optional Vendor Plugins~
+-----------------------
+
+You can enable additional functionality by installing the following
+third-party plugins.
+
+AutoAdapt
+~~~~~~~~~~
+
+AutoAdapt http://www.vim.org/scripts/script.php?script_id=4654
+will "automatically adapt timestamps, copyright notices, etc."
+
+- When you save a file, it'll check the header and footer and
+  update any "Last Modified"-like lines, and it'll update the
+  copyright years, too.
+
+  - The Dubsacks code tweaks the match algorithm to recognize
+    and use commas in the copyright, e.g., "2009, 2011-2014" might
+    become "2009, 2011-2015" or "2009, 2001-2014, 2016" depending
+    on if the current year is 2015 or 2016. This might seem a little
+    pretentious, but if you don't publish something some year, you
+    can't claim a copyright on it that year. ALTMU.
+
+  - The match is also tightened so that it'll only occur if it
+    matches at the beginning of the line, optionally after the
+    start of a comment.
+
+To install AutoAdapt and also a necessary support library,
+ingo-library http://www.vim.org/scripts/script.php?script_id=4433,
+grab the latest Vimballs and let 'em loose. Be sure to specify
+a install directory so we can install to the Pathogen directory.
+
+Download the support library to a new Pathogen location.
+
+   mkdir ~/.vim/bundle/ingo-library
+   cd ~/.vim/bundle/ingo-library
+   wget -O ingo-library-1.022.vmb.gz \
+      http://www.vim.org/scripts/download_script.php?src_id=22460
+   gvim ingo-library-1.022.vmb.gz
+
+Install from Vim.
+
+   :UseVimball ~/.vim/bundle/ingo-library
+
+Download the metadata-update-on-save program to a new Pathogen location.
+
+   mkdir ~/.vim/bundle/AutoAdapt
+   cd ~/.vim/bundle/AutoAdapt
+   wget -O AutoAdapt-1.10.vmb.gz \
+      http://www.vim.org/scripts/download_script.php?src_id=21327
+   # You can run gunzip first, or you can just run gvim.
+   gvim AutoAdapt-1.10.vmb.gz
+
+Install from Vim.
+
+   :UseVimball ~/.vim/bundle/AutoAdapt
+
+Cleanup.
+
+   rm ~/.vim/bundle/AutoAdapt/AutoAdapt-1.10.vmb.gz
+   rm ~/.vim/bundle/ingo-library/ingo-library-1.022.vmb.gz
+
+taglist
+~~~~~~~~
+
+To unlock the tag list feature, install the `taglist` plugin.
+
+   mkdir ~/.vim/bundle/taglist
+   cd ~/.vim/bundle/taglist
+   wget -N http://downloads.sourceforge.net/project/vim-taglist/vim-taglist/4.6/taglist_46.zip
+   unzip taglist_46.zip
+   /bin/rm taglist_46.zip
+
+==============================================================================
+3. Searching Buffers			*dubs-edit-juice-searching-buffers*
+
+
+Commands for searching for text within a file. Some of these commands
+are stock Vim; other commands added by Dubsacks.
+
+				*/*
+/			Start a buffer search.
+
+<F3>		or		*<F3>* *n*
+n			Move cursor forward to and highlight next search match.
+
+			
+<Shift-F3>	or		*<Shift-F3>* *<S-F3>* *N*
+N			Move cursor backward to and highlight previous search match.
+
+				*<F1>*
+<F1>			Search buffer for substring under cursor.
+
+				*star*
+*			Search buffer for exact word under cursor.
+
+				*pound*
+#			Same as "*", but search backward.
+
+<Ctrl-H>	or		*<Ctrl-H>* *<C-H>* *<Ctrl-star>* *<C-star>* <C-*>
+<Ctrl-*>		Hide search highlights.
+
+				<Leader>vl \vl
+<Leader>vl		Toggle ``*`` Whitespace Behavior
+			``VeryLiteral`` defaults to off, such that selecting
+			text with trailing whitespace and then pressing ``*``
+			to start a match matches the same text but ignores
+			whitespace, e.g., "it " (with a space) matches "it"
+			(without a space).
+
+				*\s*
+\s			Start find-replace in current buffer
+			using selected text.
+
+				*\S*
+\S			Start find-replace for all buffers listed
+			in quickfix window using selected text.
+
+==============================================================================
+4. Editing and Formatting Text		*dubs-edit-juice--editing*
+
+				*i_<F2>*
+i_<F2>			'Paragraphize' selected text to 80-characters wide.
+
+				*i_<Shift-F2>* *i_<S-F2>*
+i_<Shift-F2>		'Paragraphize' selected text to 60-characters wide.
+
+				*i_<Ctrl-Shift-F2>* *i_<C-S-F2>*
+i_<Ctrl-Shift-F2>	'Paragraphize' selected text to 70-characters wide.
+
+				*i_<Alt-Shift-F2>* *i_<M-S-F2>* *i_<A-S-F2>*
+i_<Alt-Shift-F2>	'Paragraphize' selected text to width of first line.
+
+Quadruple-click	or		*<Ctrl-Q><Shift-Click>* *<C-Q><S-Click>* *Quadruple-click*
+<Ctrl-Q><Shift-Click>	Block Select (free-form virtual space; dishonor lines).
+
+				*<Ctrl-Enter>* *<C-Enter>*
+<Ctrl-Enter>		New Line without Comment Leader.
+
+				*<Ctrl-Z>* *<C-Z>*
+<Ctrl-Z>		Undo.
+
+				*<Ctrl-Y>* *<C-Y>*
+<Ctrl-Y>		Redo.
+
+				*f/*
+f/			Change backslashes to forward slashes on current line.
+
+				*f\*
+f\			Change forward slashes to backslashes on current line.
+
+qq		and
+q		and		*qq* *q* *Q*
+Q			Start recording (qq); End recording (q); Reply (Q).
+			Hint: Use <Ctrl-o>q if ending in Insert mode.
+
+<Ctrl-C>	or		*<Ctrl-C>* *<C-C>* *<Ctrl-Insert>* *<C-Insert>*
+<Ctrl-Insert>		Copy selected text.
+
+<Ctrl-V>	or		*<Ctrl-V>* *<C-V>* *<Shift-Insert>* *<S-Insert>*
+<Shift-Insert>		Paste clipboard.
+
+				*<Ctrl-T>* *<C-T>*
+<Ctrl-T>		Transpose Characters.
+
+				*r*
+r			Replace Character.
+
+				*<Ctrl-Shift-Backspace>* *<C-S-Backspace>*
+<Ctrl-Shift-Backspace>	Delete to Start of Line.
+
+				*<Ctrl-Backspace>* *<C-Backspace>*
+<Ctrl-Backspace>	Delete to Start of Word.
+
+			
+<Ctrl-Shift-Delete>
+		or
+<Alt-Delete>			*<Ctrl-Shift-Delete>* *<C-S-Delete>* *<Alt-Delete>* *<M-Delete>*
+			Delete to End of Line.
+
+				*<Ctrl-Delete>* *<C-Delete>*
+<Ctrl-Delete>		Delete to End of Word.
+
+				*<Shift-Alt-Delete>* *<S-M-Delete>*
+<Shift-Alt-Delete>	Remove Line.
+
+				*<Ctrl-Shift-Left>* *<C-S-Left>*
+<Ctrl-Shift-Left>	Select to Cursor-Left.
+
+				*<Ctrl-Shift-Right>* *<C-S-Right>*
+<Ctrl-Shift-Right>	Select to Cursor-Right.
+
+				*<Alt-Shift-Left>* *<M-S-Left>* *<A-S-Left>*
+<Alt-Shift-Left>	Select from Cursor to Start of Line.
+
+				*<Alt-Shift-Right>* *<M-S-Right>* *<A-S-Right>*
+<Alt-Shift-Right>	Select from Cursor to End of Line.
+
+				*<Ctrl-Shift-PageUp>* *<C-S-PageUp>*
+<Ctrl-Shift-PageUp>	Select from Cursor to First Line of Window.
+			Same as <Alt-Shift-Up>.
+
+				*<Ctrl-Shift-PageDown>* *<C-S-PageDown>*
+<Ctrl-Shift-PageDown>	Select from Cursor to Last Line of Window.
+			Same as <Alt-Shift-Down>.
+
+				*<Alt-Shift-Up>* *<M-S-Up>* *<A-S-Up>*
+<Alt-Shift-Up>		Select from Cursor to First Line of Window.
+			Same as <Ctrl-Shift-PageUp>.
+
+				*<Alt-Shift-Right>* *<M-S-Right>* *<A-S-Right>*
+<Alt-Shift-Right>	Select from Cursor to Last Line of Window.
+			Same as <Ctrl-Shift-PageDown>.
+
+				*s_<Tab>*
+s_<Tab>			Indent selected text block.
+
+				*s_<Shift-Tab>* *s_<S-Tab>*
+s_<Shift-Tab>		Undent selected text block.
+
+				*<Ctrl-P>* *<C-P>*
+<Ctrl-P>		Swap Paragraphs.
+			``<Ctrl-P>`` swaps the paragraph below
+			the cursor with the paragraph above it.
+
+				*<Ctrl-L>* *<C-L>*
+<Ctrl-L>		Swap Paragraphs.
+			``<Ctrl-L>`` swaps the paragraph above
+			the cursor with the paragraph below it.
+
+				*<Leader>O* *\O*
+<Leader>O		Open hyperlink under cursor or selected.
+
+==============================================================================
+5. Common Buffer Commands		*dubs-edit-juice--buffer-commands*
+
+Some of these commands are standard Vim
+but many of them are custom to Dubsacks
+
+gg		or		gg *<Ctrl-Home>* <C-Home>
+<Ctrl-Home>		Move the cursor to the first line of the file.
+
+G		or		G *<Ctrl-End>* <C-End>
+<Ctrl-End>		Move the cursor to the last line of the file.
+
+				*{[0-9]+}G*
+{[0-9]+}G		Move the cursor the line number specified.
+
+<Ctrl-PageUp>	or		*<Ctrl-PageUp>* *<C-PageUp>* *<Alt-Up>* *<M-Up>*
+<Alt-Up>		Move the cursor to the first line of the window.
+
+<Ctrl-PageDown>	or		*<Ctrl-PageDown>* *<C-PageDown>* *<Alt-Down>* *<M-Down>*
+<Alt-Down>		Move the cursor to the last line of the window.
+
+				*M*
+M			Move the cursor to the middle line of the window.
+
+				*<Alt-F12>* *<M-F12>*
+<Alt-F12>		Start editing on the middle line of the window.
+
+				*<Alt-Left>* *<M-Left>*
+<Alt-Left>		Move the cursor to the start of the line.
+
+				*<Alt-Right>* *<M-Right>*
+<Alt-Right>		Move the cursor to the end of the line.
+
+				*<Ctrl-Left>* *<C-Left>*
+<Ctrl-Left>		Move the cursor to the start of the word.
+
+				*<Ctrl-Right>* *<C-Right>*
+<Ctrl-Right>		Move the cursor to the end of the word.
+
+				*<Ctrl-Up>* *<C-Up>*
+<Ctrl-Up>		Cursorless Scroll upward.
+
+				*<Ctrl-Down>* *<C-Down>*
+<Ctrl-Down>		Cursorless Scroll downward.
+
+				*<Shift-{?}>*
+<Shift-{?}>		Combine shift with the cursor motion commands
+			to also select over which the cursor moves.
+
+==============================================================================
+6. Developer Commands			*dubs-edit-juice-developer*
+
+Mostly built-in command reference, but a few Dubsacks commands, too.
+
+Highlights:
+
+- Map <Ctlr-]> to work in Insert and Visual modes (by default,
+  jumping to the tag under the cursor or selected text only
+  works in Normal mode).
+  
+  - Also map <Alt-]> to jump back to the last tag, since
+    another Dubsacks plugin overrides the built-in <Ctrl-t>
+    to be transpose.
+
+- Enable wildmode. In Insert mode, use <Ctrl-N> to cycle
+  through an auto-completion list from your tags file.
+  Completion happens according to wildmode.
+  See also `:help cmdline-completion`.
+
+				*<Ctrl-]>* *<C-]>*
+<Ctrl-]>		Jump to declaration of definition of symbol under cursor.
+
+				*<Alt-]>* *<M-]>* *<A-]>*
+<Alt-]>			Jumps to the tag used by the last ``<Ctrl-]>`` command.
+
+				*<Ctrl-N>* *<C-n>*
+<Ctrl-N>		Auto-Complete Using Tags. Brings up list of tag matches.
+
+				%
+%			Jump between code block ends, e.g.,
+			parentheses/braces/brackets.
+
+				[{
+[{			Jumps back to the ``{`` at the start
+			of the current code block.
+
+				gd
+gd			Jumps from the use of a variable
+			to its local definition.
+
+				*\tab*
+\tab			Toggle Tab Highlighting.
+			(Type t-a-b, not the <Tab> character.)
+
+==============================================================================
+7. Obscure But Useful Commands		*dubs-edit-juice-obscure*
+
+				*:TabMessage [cmd]*
+:TabMessage {cmd}	Send Vim {cmd} output to new tab.
+
+				*s_::*
+s_::			Run highlighted text as Vim command.
+			I.e., select text and then type two colons, '::'.
+
+				*:Lorum*
+:Lorum			Lorum Ipsum Dump.
+
+				<Ctrl-o>g<Ctrl-g>
+<Ctrl-o>g<Ctrl-g>	Count number of selected characters.
+
+m{char}		later		m{char} '{char}
+'{char}			Mark a line with m{char} and return with '{char}.
+
+				*:DiffOrig*
+:DiffOrig		See the difference between the current buffer
+			and the file it was loaded from,
+			thus the changes you've made since you last saved.
+
+Hints~
+
+A little search-and-replace trick, courtesy
+http://www.moolenaar.net/habits.html.
+
+* "Very often you will want to change one word into another.
+  If this is to be done in the whole file, you can use
+  the `:s` (substitute) command.
+  If only a few locations needs changing, a quick method
+  is to use the `*` command to find the next occurrence
+  of the word and use `cw` to change the word.
+  Then type `n` to find the next word and `.` (dot)
+  to repeat the cw command."
+
+==============================================================================
+8. Alt-Shift Special Window Togglers	*dubs-edit-juice-togglers*
+
+The alt-shift commands show and hide special windows.
+
+				*<Shift-Alt-1>* *<M-!>* *<S-M-1>* *<S-A-1>* *<Leader>ct* *\ct*
+<Shift-Alt-1>		Toggle ASCII character table.
+
+				*<Shift-Alt-6>* *<M-^>* *<S-M-6>* *<S-A-6>* *:TlistToggle_*
+<Shift-Alt-6>		Toggle Tag list.
+
+
+ vim:tw=78:ts=8:ft=help:norl:
