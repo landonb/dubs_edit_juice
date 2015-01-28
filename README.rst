@@ -4,7 +4,7 @@ Dubsacks Vim — Edit Juice
 About This Plugin
 -----------------
 
-This file maps a bunch of editing-related features
+This plugin maps a bunch of editing-related features
 to key combinations to help delete text, select text,
 edit text, move the cursor around the buffer, and
 perform single-key text searches within the buffer.
@@ -14,43 +14,35 @@ This script originally started to make Vim emulate
 but it's grown considerably since then to
 just make Vim a more comfortable editor all around.
 
-Project page: https://github.com/landonb/dubs_edit_juice
+Installation
+------------
 
-Automatic/Transparent Features
-------------------------------
+Standard Pathogen installation:
 
-These features run automatically.
+.. code-block:: bash
 
-Dubsacks Features
-^^^^^^^^^^^^^^^^^
+   cd ~/.vim/bundle/
+   git clone https://github.com/landonb/dubs_edit_juice.git
 
-- Recover from accidental Ctrl-U
+Or, Standard submodule installation:
 
-  - See: http://vim.wikia.com/wiki/Recover_from_accidental_Ctrl-U
+.. code-block:: bash
 
-Included Vendor Plugins
-^^^^^^^^^^^^^^^^^^^^^^^
+   cd ~/.vim/bundle/
+   git submodule add https://github.com/landonb/dubs_edit_juice.git
 
-This plugin includes the following third-party plugins.
+Online help:
 
-Smart Tabs
-~~~~~~~~~~
+.. code-block:: vim
 
-- The
-  `Smart Tabs
-  <https://github.com/vim-scripts/Smart-Tabs/blob/master/plugin/ctab.vim>`__
-  feature, located in ``dubs_edit_juice/plugin/ctab.vim``,
-  translates tabs to spaces if you're tabbing but not indenting, i.e.,
-  if only spaces precede the cursor to the start of the line, then tabs
-  are added when <tab> is pressed, otherwise <spaces> are inserted instead.
-  (See also, `Indent with tabs, align with spaces
-  <http://vim.wikia.com/wiki/Indent_with_tabs,_align_with_spaces>`__.)
+   :Helptags
+   :help dubs-edit-juice
 
 Optional Vendor Plugins
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-You can enable additional functionality by installing the following
-third-party plugins.
+You can enable additional functionality by
+installing the following third-party plugins.
 
 AutoAdapt
 ~~~~~~~~~
@@ -67,7 +59,7 @@ will "automatically adapt timestamps, copyright notices, etc."
     become "2009, 2011-2015" or "2009, 2001-2014, 2016" depending
     on if the current year is 2015 or 2016. This might seem a little
     pretentious, but if you don't publish something some year, you
-    can't claim a copyright on it that year. ALTMU.
+    can't claim a copyright on it that year. ALTMLU.
 
   - The match is also tightened so that it'll only occur if it
     matches at the beginning of the line, optionally after the
@@ -76,7 +68,7 @@ will "automatically adapt timestamps, copyright notices, etc."
 To install AutoAdapt and also a necessary support library,
 `ingo-library <http://www.vim.org/scripts/script.php?script_id=4433>`__,
 grab the latest Vimballs and let 'em loose. Be sure to specify
-a install directory so we can install to the Pathogen directory.
+an install directory so we can install to the Pathogen directory.
 
 Download the support library to a new Pathogen location.
 
@@ -94,7 +86,7 @@ Install from Vim.
 
    :UseVimball ~/.vim/bundle/ingo-library
 
-Download the metadata-update-on-save program to a new Pathogen location.
+Download AutoAdapt to a new Pathogen location.
 
 .. code-block:: bash
 
@@ -130,6 +122,33 @@ To unlock the tag list feature, install the `taglist` plugin.
    wget -N http://downloads.sourceforge.net/project/vim-taglist/vim-taglist/4.6/taglist_46.zip
    unzip taglist_46.zip
    /bin/rm taglist_46.zip
+
+Always-On Features (Not Mapped to Any Keys)
+-------------------------------------------
+
+Smart Tabs
+~~~~~~~~~~
+
+- The
+  `Smart Tabs
+  <https://github.com/vim-scripts/Smart-Tabs/blob/master/plugin/ctab.vim>`__
+  feature, located in ``dubs_edit_juice/plugin/ctab.vim``,
+  translates tabs to spaces if you're tabbing but not indenting, i.e.,
+  if only spaces precede the cursor to the start of the line, then tabs
+  are added when <tab> is pressed, otherwise <spaces> are inserted instead.
+  (See also, `Indent with tabs, align with spaces
+  <http://vim.wikia.com/wiki/Indent_with_tabs,_align_with_spaces>`__.)
+
+Recover from accidental Ctrl-U
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Basically, break the undo block (`<Ctrl-g>u`) before undoing so
+insertions consist of more than a single modification. This avoids
+a problem where undoing in insert mode and then undoing in command
+mode loses deleted text that cannot be recovered (i.e., isn't
+part of any undo block).
+
+- See: http://vim.wikia.com/wiki/Recover_from_accidental_Ctrl-U
 
 Features Bound to Key Commands
 ------------------------------
