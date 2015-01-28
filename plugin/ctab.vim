@@ -1,6 +1,6 @@
 " Intelligent Indent
-" Last Author: Landon Bouma (dubsacks &#x40; retrosoft &#x2E; com)
-" Last Change: 2014.11.18
+" Last Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
+" Last Change: 2015.01.27
 " Version:     2.6.1.lbfork (search [lb] to find the 2 changes)
 " ========================================================================
 " Author: Michael Geddes < vimmer at frog dot wheelycreek dot net >

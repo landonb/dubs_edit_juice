@@ -1,5 +1,5 @@
-" Last Author: Landon Bouma (dubsacks &#x40; retrosoft &#x2E; com)
-" Last Change: 2009.08.28
+" Last Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
+" Last Change: 2015.01.27
 " Version:     1.0.1.lbfork (search [lb] to find the 1 change)
 "*****************************************************************************
 "** Name:      chartab.vim - print a character table                        **

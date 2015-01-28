@@ -16,7 +16,7 @@ EDIT JUICE				*dubs-edit-juice*
 ==============================================================================
 1. About This Plugin			*dubs-edit-juice-about*
 
-This file maps a bunch of editing-related features
+This plugin maps a bunch of editing-related features
 to key combinations to help delete text, select text,
 edit text, move the cursor around the buffer, and
 perform single-key text searches within the buffer.

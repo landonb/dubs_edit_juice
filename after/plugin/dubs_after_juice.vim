@@ -1,6 +1,6 @@
 " File: after/dubs_edit_juice.vim
-" Author: Landon Bouma (dubsacks &#x40; retrosoft &#x2E; com)
-" Last Modified: 2015.01.24
+" Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
+" Last Modified: 2015.01.27
 " Project Page: https://github.com/landonb/dubs_edit_juice
 " Summary: EditPlus-inspired editing mappings
 " License: GPLv3
