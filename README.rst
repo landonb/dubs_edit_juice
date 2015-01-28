@@ -127,7 +127,7 @@ Always-On Features (Not Mapped to Any Keys)
 -------------------------------------------
 
 Smart Tabs
-~~~~~~~~~~
+^^^^^^^^^^
 
 - The
   `Smart Tabs
@@ -140,7 +140,7 @@ Smart Tabs
   <http://vim.wikia.com/wiki/Indent_with_tabs,_align_with_spaces>`__.)
 
 Recover from accidental Ctrl-U
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Basically, break the undo block (`<Ctrl-g>u`) before undoing so
 insertions consist of more than a single modification. This avoids
