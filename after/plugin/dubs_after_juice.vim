@@ -1,8 +1,8 @@
-" File: after/dubs_edit_juice.vim
+" File: after/dubs_after_juice.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2015.01.27
+" Last Modified: 2015.03.11
 " Project Page: https://github.com/landonb/dubs_edit_juice
-" Summary: EditPlus-inspired editing mappings
+" Summary: AutoAdapt wrapper.
 " License: GPLv3
 " -------------------------------------------------------------------
 " Copyright © 2015 Landon Bouma.
@@ -28,10 +28,10 @@
 " ------------------------------------------
 " About:
 
-if exists("g:after_edit_juice_vim") || &cp
+if exists("g:after_juice_vim") || &cp
   finish
 endif
-let g:after_edit_juice_vim = 1
+let g:after_juice_vim = 1
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " After Effects
@@ -66,6 +66,37 @@ let g:after_edit_juice_vim = 1
 
 let g:AutoAdapt_FirstLines = 13
 let g:AutoAdapt_LastLines = 0
+
+" If AutoAdapt is running, you can't edit any datelines and save without
+" AutoAdapt undoing what you just did (which is to try to pre-date things).
+" You could :NoAutoAdapt, but that's annoying.
+" I wanted to edit AutoAdapt's BufWritePre,FileWritePre autocmd, #Trigger,
+" to see if the only changed line is the dateline, but I couldn't figure
+" out how to get '[ and '] to work with the command.
+" I got '[,']!meld <afile> to work, sorta: it would open meld, but
+" 1. the original file is the _original_ file, and not even
+"    what's saved on disk (so probably an old swap file?), and
+" 2. after quiting meld so Vim can continue, Vim empties the buffer
+"    and saves, and your file is now truncated.
+" I would like to remap Ctrl-Shift-S, but Vim doesn't distinguish
+" between upper and lowercase A to Z with Ctrl (though it does with
+" the number/symbol row and the F1 keys, go figure). But we can map
+" a crazier combo, Ctrl-Alt-S, which for some whatever reason isn't
+" already mapped to an OS-level feature (like how Ctrl-Alt-L triggers
+" the desktop manager to lock the machine and sleep the monitors).
+" Built-ins:
+"  vnoremap <C-S> <C-C>:update<CR>
+"  noremap <C-S> :update<CR>
+
+" MAYBE: We should preserve the user's current NoAutoAdapt setting; for
+"        now, always re-enabling it. Probably okay, since Ctrl-Alt-S is
+"        a very deliberate thing keystroke.
+nnoremap <C-M-S> :NoAutoAdapt<CR>:update<CR>:AutoAdapt<CR>
+inoremap <C-M-S> <C-O>:NoAutoAdapt<CR><C-O>:update<CR><C-O>:AutoAdapt<CR>
+" TEVS: I cannot seem to override visual select and Ctrl-Alt-S, always says,
+"         E481: No range allowed
+noremap <C-M-S> :NoAutoAdapt<CR>:update<CR>:AutoAdapt<CR>
+snoremap <C-M-S> <C-O>:NoAutoAdapt<CR><C-O>:update<CR><C-O>:AutoAdapt<CR>
 
 " Copy 'n paste tests -- copy to top of file and uncomment, then save.
 "   
@@ -104,10 +135,10 @@ if exists('*AutoAdapt#DateTimeFormat#ShortTimezone') != 0
   " The copyright starts must start the line or follow one or more comment
   " characters or spaces. The match is case-insensitive and you can use
   " the actuak © mark, if you want, or (c).
-  let s:aa_patt_copyright = '\c\_^\%("\|#\|\/\*\|\/\/\|\.\.\)\?\s*\<Copyright:\?\%(\s\+\%((C)\|&copy;\|\%xa9\)\)\{0,2\}\s\+'
+  let s:aa_patt_copyright = '\c\_^\%("\|#\|\/\*\|\/\/\|\.\.\||\)\?\s*\<Copyright:\?\%(\s\+\%((C)\|&copy;\|\%xa9\)\)\{0,2\}\s\+'
 
   " LastChangedModified must also start a line or follow opening comment.
-  let s:aa_patt_last_modd = '\v\C\_^%("|#|\/\*|\/\/|\.\.)?\s*%(<%(Last)?\s*%([cC]hanged?|[mM]odified)\s*:?\s+)\zs'
+  let s:aa_patt_last_modd = '\v\C\_^%("|#|\/\*|\/\/|\.\.|\|)?\s*%(<%(Last)?\s*%([cC]hanged?|[mM]odified)\s*:?\s+)\zs'
 
   let g:AutoAdapt_Rules = [
   \   {
