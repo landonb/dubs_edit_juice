@@ -1,6 +1,6 @@
 " File: after/dubs_after_juice.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2015.03.11
+" Last Modified: 2015.04.04
 " Project Page: https://github.com/landonb/dubs_edit_juice
 " Summary: AutoAdapt wrapper.
 " License: GPLv3
@@ -132,13 +132,24 @@ if exists('*AutoAdapt#DateTimeFormat#ShortTimezone') != 0
 
 " FIXME: I don't think the plugin is pushing the change on the Undo stack?
 
+  " :h regexp  
+
   " The copyright starts must start the line or follow one or more comment
   " characters or spaces. The match is case-insensitive and you can use
   " the actuak © mark, if you want, or (c).
   let s:aa_patt_copyright = '\c\_^\%("\|#\|\/\*\|\/\/\|\.\.\||\)\?\s*\<Copyright:\?\%(\s\+\%((C)\|&copy;\|\%xa9\)\)\{0,2\}\s\+'
 
   " LastChangedModified must also start a line or follow opening comment.
+  "  \C is match case
+  "  \_^ is start of line
+  "  \v means 'very magic'
+  "  \%(\) is like \(\) but doesn't count it as a sub-expression.
+  "  \zs matches at any position, and sets the start of the match there:
+  "      the next char is the first char of the whole match.
   let s:aa_patt_last_modd = '\v\C\_^%("|#|\/\*|\/\/|\.\.|\|)?\s*%(<%(Last)?\s*%([cC]hanged?|[mM]odified)\s*:?\s+)\zs'
+  "  The sole < does, um, not sure, but it may not be needed, cause it's not needed here:
+  " script_last_modified starts a line.
+  let s:aa_patt_script_last_modd = '\v\C\_^\s*%(script_last_modified\s*\=\s*%(''|")?)\zs'
 
   let g:AutoAdapt_Rules = [
   \   {
@@ -161,6 +172,7 @@ if exists('*AutoAdapt#DateTimeFormat#ShortTimezone') != 0
   \       'patternexpr': string(s:aa_patt_copyright) . '. ''[-, 0-9]*\s*\zs\%('' . strftime("%Y") . ''\)\@!\(\d\{4\}\)\ze[^,-]\+\>''',
   \       'replacement': '\=submatch(1) . ", " . strftime("%Y")'
   \   },
+  \
   \   {
   \       'name': 'Last Change full timestamp 12h',
   \       'pattern': s:aa_patt_last_modd . '\a{3}(,?) \d{1,2} \a{3} \d{4} \d{2}:\d{2}:\d{2} [AP]M \u+',
@@ -176,6 +188,7 @@ if exists('*AutoAdapt#DateTimeFormat#ShortTimezone') != 0
   \       'pattern': s:aa_patt_last_modd . '\a{3}(,?) \a{3} \d{1,2} \d{2}:\d{2}:\d{2} \u+ \d{4}',
   \       'replacement': '\=strftime("%a" . submatch(1) . " %b %d %H:%M:%S ") . ' . string(AutoAdapt#DateTimeFormat#ShortTimezone()) . '. " " . strftime("%Y")'
   \   },
+  \
   \   {
   \       'name': 'Last Change date year-month-day',
   \       'patternexpr': string(s:aa_patt_last_modd) . '. ''%('' . strftime("%Y[- ]%%(%b|%B)[- ]%d") . '')@!\d{4}([- ])(\a{2,16})\1\d{1,2}''',
@@ -196,7 +209,15 @@ if exists('*AutoAdapt#DateTimeFormat#ShortTimezone') != 0
   \       'patternexpr': string(s:aa_patt_last_modd) . '. ''%('' . strftime("%%(%b|%B) %d, %Y") . '')@!(\a{2,16}) \d{1,2}, \d{4}''',
   \       'replacement': '\=strftime(AutoAdapt#DateTimeFormat#MonthFormat(submatch(1)) . " %d, %Y")'
   \   },
+  \
+  \   {
+  \       'name': 'script_last_modified = year-mm-day [or year.mm.day]',
+  \       'patternexpr': string(s:aa_patt_script_last_modd) . '. ''%('' . strftime("%Y[-. /]%m[-. /]%d") . '')@!\d{4}([-. /])(0\d|1[012])\1\d{1,2}''',
+  \       'replacement': '\=tr(strftime("%Y %m %d"), " ", submatch(1))'
+  \   },
   \]
+
+" \@! Matches with zero width if the preceding atom does NOT match at the current position.
 
 else
 
