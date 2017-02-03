@@ -566,3 +566,27 @@ The alt-shift commands show and hide special windows.
                                                             see ``dubs_file_finder/dubs_projects.vim``, which you can customize.
 ===========================  ============================  ==============================================================================
 
+Vim Duplicate Line
+^^^^^^^^^^^^^^^^^^
+
+yy or Y to copy the line
+or
+dd to delete (cutting) the line
+
+then
+
+p to paste the copied or deleted text after the current line
+or
+P to paste the copied or deleted text before the current line
+
+To overwrite the target line: Vp
+
+BASICALLY: yyp
+
+BONUS HINT: You cannot use period "." to repeat then previous yyp,
+e.g., say you're finding all occurrences of a variable and duplicating
+each line, because you want to add a new, similar variable. Press F1
+over the variable to start the find, ESC to enter command mode,
+yyp to duplicate first found line, F3 to jump to next match,
+and then try "." to duplicate: you'll past the old yanked text.
+
