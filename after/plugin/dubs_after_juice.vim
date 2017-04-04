@@ -1,11 +1,11 @@
 " File: after/dubs_after_juice.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2015.04.04
+" Last Modified: 2017.04.03
 " Project Page: https://github.com/landonb/dubs_edit_juice
 " Summary: AutoAdapt wrapper.
 " License: GPLv3
 " -------------------------------------------------------------------
-" Copyright © 2015 Landon Bouma.
+" Copyright © 2015, 2017 Landon Bouma.
 " 
 " This file is part of Dubsacks.
 " 
@@ -224,4 +224,43 @@ else
   echomsg "Missing: AutoAdapt#DateTimeFormat#ShortTimezone"
 
 endif
+
+" ------------------------------------------------------
+" Ctrl-H Hides Highlighting
+" ------------------------------------------------------
+
+" 2017-04-03: Moved to after-juice from normal plugin/dubs_edit_juice
+"   so that mswin.vim's Ctrl-x doesn't just dump "+x to the editor,
+"   and so that mswin.vim's Ctrl-h doesn't replace our hide highlights map.
+let s:running_windows = has("win16") || has("win32") || has("win64")
+if 1
+    if !s:running_windows
+      " :echom "XXXXXXXXXXXXXXXXXXXXXXXXXXX SOURCED ". $VIMRUNTIME . "/mswin.vim"
+      "  /usr/share/vim/vim74/mswin.vim
+      source $VIMRUNTIME/mswin.vim
+      behave mswin
+    endif
+endif
+
+" Once you initiate a search, Vim highlights all matches.
+" Type Ctrl-H to turn 'em off.
+
+" Vim's default Ctrl-H is the same as <BS>.
+" It's also the same as h, which is the
+" same as <Left>. WE GET IT!! Ctrl-H won't
+" be missed....
+" NOTE Highlighting is back next time you search.
+" NOTE Ctrl-H should toggle highlighting (not
+"      just turn it off), but nohlsearch doesn't
+"      work that way
+noremap <C-h> :nohlsearch<CR>
+inoremap <C-h> <C-O>:nohlsearch<CR>
+cnoremap <C-h> <C-C>:nohlsearch<CR>
+onoremap <C-h> <C-C>:nohlsearch<CR>
+" (NEWB|NOTE: From Insert mode, Ctrl-o
+"  is used to enter one command and
+"  execute it. If it's a :colon
+"  command, you'll need a <CR>, too.
+"  Ctrl-c is used from command and
+"  operator-pending modes.)
 
