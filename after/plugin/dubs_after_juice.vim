@@ -1,6 +1,6 @@
 " File: after/dubs_after_juice.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.04.03
+" Last Modified: 2017.06.10
 " Project Page: https://github.com/landonb/dubs_edit_juice
 " Summary: AutoAdapt wrapper.
 " License: GPLv3
@@ -225,22 +225,70 @@ else
 
 endif
 
-" ------------------------------------------------------
-" Ctrl-H Hides Highlighting
+" So-called MS Windows mode
 " ------------------------------------------------------
 
 " 2017-04-03: Moved to after-juice from normal plugin/dubs_edit_juice
 "   so that mswin.vim's Ctrl-x doesn't just dump "+x to the editor,
 "   and so that mswin.vim's Ctrl-h doesn't replace our hide highlights map.
+
+" See what OS we're on
 let s:running_windows = has("win16") || has("win32") || has("win64")
-if 1
-    if !s:running_windows
-      " :echom "XXXXXXXXXXXXXXXXXXXXXXXXXXX SOURCED ". $VIMRUNTIME . "/mswin.vim"
-      "  /usr/share/vim/vim74/mswin.vim
-      source $VIMRUNTIME/mswin.vim
-      behave mswin
-    endif
+
+" So-called MS Windows mode
+" ------------------------------------------------------
+" 2017-04-03: In Insert mode, at work, Ctrl-X is now inserting "+x -- what the hell.
+"  I didn't change anything, I swear!
+" 2017-04-03: Argh, I did compile Vim 8.0, but only at home!
+"  Speaking with a co-worker last week about Vim, I remember seeing 7.x running at work.
+"  Oops! I forgot to update also at work... (I added a custom build to
+"    github.com/landonb/home-fries/blob/master/.fries/once/custom_setup.extras.sh
+"  at 2017-02-27 10:17:12). Anyway, now I'm have a counter-problem at home!
+"  The new mvwin.vim,
+"    /srv/opt/bin/share/vim/vim80/mswin.vim
+"  sets <c-f> and <c-h> (to find, and find-replace, respectively)
+"  which overrides dubsacks' <c-h> (clear highlight!).
+" So disabling this now that I'm back home...
+" MONITOR/WATCH/2017-04-03: mswin.vim needs to load before
+"   dubs_edit_juice/plugin/dubs_edit_juice.vim (which set <c-h>)
+"   Dubs does not set <c-f>, so the mswin 'VIM - Search...' dialog pops up.
+" 2017-04-03 20:25: Crap. Still happening. Need to enable.
+"   I can move <C-h> to an after file...
+
+" The default Vim keyboard mappings were created well
+" before modern GUIs, so certain key combinations that
+" now seem ubiquitous are mapped to different commands.
+" Enable mswin mode to remap some of these commands.
+" Notes:
+" - Visual mode is CTRL-Q in mswin; in basic mode it's CTRL-V.
+"   (You can also quadruple-click to select by row,column!)
+" - Backspace and cursor keys wrap to previous/next line,
+"   rather than sounding the system bell (an-noy'ing!).
+" - CTRL-X and SHIFT-Del are Cut.
+" - CTRL-C and CTRL-Insert are Copy.
+" - CTRL-V and SHIFT-Insert are Paste.
+" - Use CTRL-Q to do what CTRL-V used to do.
+" - Use CTRL-S for saving, also in Insert mode.
+" - CTRL-Z is Undo; not in cmdline though.
+" - CTRL-Y is Redo (although not repeat); not in cmdline though.
+" - Alt-Space is System menu.
+" - CTRL-A is Select all.
+" - CTRL-Tab is Next window.
+" - CTRL-F4 is Close window.
+if !s:running_windows
+  source $VIMRUNTIME/mswin.vim
+  " 2017-04-03: In Insert mode, Ctrl-X is inserting "+x -- what the hell.
+  " 2017-06-10: See bundle_/dubs_edit_juice/after/plugin/dubs_after_juice.vim
+  "  See dubs_appearance/after/plugin/dubs_appearance.vim
+  "  - Something must be getting sourced after this that screws it up...
+  " :echom "XXXXXXXXXXXXXXXXXXXXXXXXXXX SOURCED ". $VIMRUNTIME . "/mswin.vim"
+  "  /usr/share/vim/vim74/mswin.vim
+  behave mswin
 endif
+
+" ------------------------------------------------------
+" Ctrl-H Hides Highlighting
+" ------------------------------------------------------
 
 " Once you initiate a search, Vim highlights all matches.
 " Type Ctrl-H to turn 'em off.
@@ -263,4 +311,119 @@ onoremap <C-h> <C-C>:nohlsearch<CR>
 "  command, you'll need a <CR>, too.
 "  Ctrl-c is used from command and
 "  operator-pending modes.)
+
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" Switching Buffers/Windows/Tabs
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+" Ctrl-Tab is for Tabs, Silly... no wait, Buffers!
+" --------------------------------
+" mswin.vim maps Ctrl-Tab to Next Window. To be
+" more consistent with Windows (the OS), Ctrl-Tab
+" should map to Next Tab... but in this case, I'm
+" going to deviate from the norm and ask that you
+" tab-holders-onners let go and try thinking in
+" terms of buffers. It's all about the buffers,
+" benjamin! (baby?)
+
+" TODO The cursor is not preserved between
+"      buffers! So make code that restores
+"      the cursor...
+
+" This is Ctrl-Tab to Next Buffer
+"noremap <C-Tab> :bn<CR>
+"inoremap <C-Tab> <C-O>:bn<CR>
+""cnoremap <C-Tab> <C-C>:bn<CR>
+"onoremap <C-Tab> <C-C>:bn<CR>
+"snoremap <C-Tab> <C-C>:bn<CR>
+" 2017-06-10: C-S-Tab works, but C-Tab overridden by `behave mswin`.
+"   So making these mappings an 'after' thought.
+noremap <C-Tab> :call <SID>BufNext_SkipSpecialBufs(1)<CR>
+inoremap <C-Tab> <C-O>:call <SID>BufNext_SkipSpecialBufs(1)<CR>
+"cnoremap <C-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(1)<CR>
+onoremap <C-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(1)<CR>
+snoremap <C-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(1)<CR>
+
+" This is Ctrl-Shift-Tab to Previous Buffer
+"noremap <C-S-Tab> :bN<CR>
+"inoremap <C-S-Tab> <C-O>:bN<CR>
+""cnoremap <C-S-Tab> <C-C>:bN<CR>
+"onoremap <C-S-Tab> <C-C>:bN<CR>
+"snoremap <C-S-Tab> <C-C>:bN<CR>
+noremap <C-S-Tab> :call <SID>BufNext_SkipSpecialBufs(-1)<CR>
+inoremap <C-S-Tab> <C-O>:call <SID>BufNext_SkipSpecialBufs(-1)<CR>
+"cnoremap <C-S-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(-1)<CR>
+onoremap <C-S-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(-1)<CR>
+snoremap <C-S-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(-1)<CR>
+
+"map <silent> <unique> <script>
+"  \ <Plug>DubsBufferFun_BufNextNormal
+"  \ :call <SID>BufNext_SkipSpecialBufs(1)<CR>
+"map <silent> <unique> <script>
+"  \ <Plug>DubsBufferFun_BufPrevNormal
+"  \ :call <SID>BufNext_SkipSpecialBufs(-1)<CR>
+""   2. Thunk the <Plug>
+function s:BufNext_SkipSpecialBufs(direction)
+  let start_bufnr = bufnr("%")
+  let done = 0
+  while done == 0
+    if 1 == a:direction
+      execute "bn"
+    elseif -1 == a:direction
+      execute "bN"
+    endif
+    let n = bufnr("%")
+    "echo "n = ".n." / start_bufnr = ".start_bufnr." / buftype = ".getbufvar(n, "&buftype")
+    "if (getbufvar(n, "&buftype") == "")
+    "    echo "TRUE"
+    "endif
+     " Just 1 buffer or none are editable
+    "if (start_bufnr == n)
+    "      \ || ( (getbufvar(n, "&buftype") == "")
+    "        \   && ( ((getbufvar(n, "&filetype") != "")
+    "        \       && (getbufvar(n, "&fileencoding") != ""))
+    "        \     || (getbufvar(n, "&modified") == 1)))
+" FIXME Diff against previous impl
+" FIXME Doesn't switch to .txt --> so set filetype for *.txt? another way?
+    if (start_bufnr == n)
+        \ || (getbufvar(n, "&modified") == 1)
+        \ || ( (getbufvar(n, "&buftype") == "")
+        \   && ((getbufvar(n, "&filetype") != "")
+        \     || (getbufvar(n, "&fileencoding") != "")) )
+      " (start_bufnr == n) means just 1 buffer or no candidates found
+      " (buftype == "") means not quickfix, help, etc., buffer
+      " NOTE My .txt files don't have a filetype...
+      " (filetype != "" && fileencoding != "") means not a new buffer
+      " (modified == "modified") means we don't skip dirty new buffers
+      " HACK Make sure previous buffer works
+      execute start_bufnr."buffer"
+      execute n."buffer"
+      let done = 1
+    endif
+  endwhile
+endfunction
+
+" NOTE Change :bn to :tabn and :bN to :tabN
+"      if you'd rather have your tabs back
+
+" ------------------------------------------------------
+" Ctrl-J/Ctrl-K Traverse Buffer History
+" ------------------------------------------------------
+noremap <C-j> :BufSurfBack<CR>
+inoremap <C-j> <C-O>:BufSurfBack<CR>
+cnoremap <C-j> <C-C>:BufSurfBack<CR>
+onoremap <C-j> <C-C>:BufSurfBack<CR>
+
+" 2017-06-06: Remap <C-k>, so digraph insertion works from <C-l>,
+"   and then I can continue using <C-j> and <C-k> for burfing surfing
+"   (Ctrl-Tab and Ctrl-Shift-Tab also work, but my brain is really
+"   wired to using C-j and C-k, so I prefer to keep those mappings.)
+inoremap <C-l> <C-k>
+
+" 2017-06-10: Vim's Ctrl-K maps to a :digraph feature, and we cannot remap
+"  otherwise access the feature except through Ctrl-K...
+noremap <C-k> :BufSurfForward<CR>
+inoremap <C-k> <C-O>:BufSurfForward<CR>
+cnoremap <C-k> <C-C>:BufSurfForward<CR>
+onoremap <C-k> <C-C>:BufSurfForward<CR>
 
