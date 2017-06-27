@@ -1,8 +1,10 @@
+#########################
 Dubsacks Vim — Edit Juice
-=========================
+#########################
 
+=================
 About This Plugin
------------------
+=================
 
 This plugin maps a bunch of editing-related features
 to key combinations to help delete text, select text,
@@ -14,8 +16,9 @@ This script originally started to make Vim emulate
 but it's grown considerably since then to
 just make Vim a more comfortable editor all around.
 
+============
 Installation
-------------
+============
 
 Standard Pathogen installation:
 
@@ -38,14 +41,15 @@ Online help:
    :Helptags
    :help dubs-edit-juice
 
+=======================
 Optional Vendor Plugins
-^^^^^^^^^^^^^^^^^^^^^^^
+=======================
 
 You can enable additional functionality by
-installing the following third-party plugins.
+installing the third-party plugins.
 
 AutoAdapt
-~~~~~~~~~
+---------
 
 `AutoAdapt <http://www.vim.org/scripts/script.php?script_id=4654>`__
 will "automatically adapt timestamps, copyright notices, etc."
@@ -111,7 +115,7 @@ Cleanup.
    rm ~/.vim/bundle/ingo-library/ingo-library-1.022.vmb.gz
 
 taglist
-~~~~~~~
+-------
 
 To unlock the tag list feature, install the `taglist` plugin.
 
@@ -123,11 +127,12 @@ To unlock the tag list feature, install the `taglist` plugin.
    unzip taglist_46.zip
    /bin/rm taglist_46.zip
 
+===========================================
 Always-On Features (Not Mapped to Any Keys)
--------------------------------------------
+===========================================
 
 Smart Tabs
-^^^^^^^^^^
+----------
 
 - The
   `Smart Tabs
@@ -140,7 +145,7 @@ Smart Tabs
   <http://vim.wikia.com/wiki/Indent_with_tabs,_align_with_spaces>`__.)
 
 Recover from accidental Ctrl-U
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
 Basically, break the undo block (`<Ctrl-g>u`) before undoing so
 insertions consist of more than a single modification. This avoids
@@ -150,11 +155,12 @@ part of any undo block).
 
 - See: http://vim.wikia.com/wiki/Recover_from_accidental_Ctrl-U
 
+==============================
 Features Bound to Key Commands
-------------------------------
+==============================
 
 Searching Buffers
-^^^^^^^^^^^^^^^^^
+-----------------
 
 Commands for searching for text within a file.
 
@@ -270,7 +276,7 @@ Commands for searching for text within a file.
 =================================  ==================================  ==============================================================================
 
 Editing and Formatting Text
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------
 
 =================================  ==================================  ==============================================================================
  Key Mapping                        Description                         Notes
@@ -397,7 +403,7 @@ Editing and Formatting Text
 =================================  ==================================  ==============================================================================
 
 Common Buffer Commands
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 Some cursor-, scrolling-, and selecting-related
 standard Vim and custom Dubsacks commands.
@@ -445,7 +451,7 @@ Key Mapping                            Description                         Notes
 =====================================  ==================================  ==============================================================================
 
 Developer Commands
-^^^^^^^^^^^^^^^^^^
+------------------
 
 Mostly built-in command reference, but a few Dubsacks commands, too.
 
@@ -501,7 +507,7 @@ Highlights:
           but it doesn't work. It might be conflicting with ``MoveParagraphUp()``.
 
 Obscure (Rarely Used) But Useful Commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------
 
 ===========================  ============================  ==============================================================================
  Key Mapping                  Description                   Notes
