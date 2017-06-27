@@ -450,44 +450,44 @@ Useful Digraphs
 
 A few examples.
 
-Type `<Ctrl-l>` and then::
+Type `<Ctrl-l>` and then:
 
 	O K   ✓     Check Mark
 	X X   ✗     Ballot X
 
-For Maths::
+For Maths:
 
 	D G   °     DeGree
 	+ -   ±     Plus-Minus [So obvious!]
 	M y   µ     Micro sign [For spelling µziq]
 
-For Parts::
+For Parts:
 
 	1 4   ¼     Quarter! [Vulgar Fraction One Quarter]
 	1 2   ½     Half! [Vulgar Fraction One Half]
 	3 4   ¾     Trips! [Vulgar Fraction Three Quarters]
 
-For Accents::
+For Accents:
 
 	e '   é     L’accent aigu
 	e `   è     L’accent grave
 
-For Raters::
+For Raters:
 
 	* 2   ★     Black Star [David Bowie]
 	* 1   ☆     White Star
 
-For Lawyers::
+For Lawyers:
 
 	C o   ©     Copyright
 	R g   ®     Registered sign
 
-For Multiculturals::
+For Multiculturals:
 
 	0 u   ☺     White Smiling Face
 	0 U   ☻     Black Smiling Face
 
-For Card sharks::
+For Card sharks:
 
 	c S   ♠     Black Space Suit
 	c H   ♡     White Heart Suit
@@ -495,8 +495,16 @@ For Card sharks::
 	c C   ♣     Black Club Suit
 
 For Squares:
+
 	f S   ■     Black Square ("fS": think, "Full Square")
 	O S   □     White Square ("OS": think, "Open Square")
+
+For Happies:
+
+	S o   ソ    Smiley? [Katakana letter SO]
+	o S   ソ    [Works backwards, too]
+	Z o   ゾ    [Katakana letter ZO] Smirky smile?
+	o Z   ゾ    [Oh, hey, backwards]
 
 See `:help digraph` for the list of defined digraphs.
 

@@ -666,5 +666,12 @@ For Squares::
     f S   ■     Black Square ("fS": think, "Full Square")
     O S   □     White Square ("OS": think, "Open Square")
 
+For Happies::
+
+    S o   ソ    Smiley? [Katakana letter SO]
+    o S   ソ    [Works backwards, too]
+    Z o   ゾ    [Katakana letter ZO] Smirky smile?
+    o Z   ゾ    [Oh, hey, backwards]
+
 See ``:help digraph`` for the list of defined digraphs.
 
