@@ -531,23 +531,8 @@ Obscure (Rarely Used) But Useful Commands
                                                             thus the changes you've made since you last saved.
 ===========================  ============================  ==============================================================================
 
-Hints
-^^^^^
-
-A little search-and-replace trick, courtesy
-http://www.moolenaar.net/habits.html.
-
-* "Very often you will want to change one word into another.
-  If this is to be done in the whole file, you can use
-  the ``:s`` (substitute) command.
-  If only a few locations needs changing, a quick method
-  is to use the ``*`` command to find the next occurrence
-  of the word and use ``cw`` to change the word.
-  Then type ``n`` to find the next word and ``.`` (dot)
-  to repeat the cw command."
-
 The Alt-Shift Mappings
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 The alt-shift commands show and hide special windows.
 
@@ -572,27 +557,109 @@ The alt-shift commands show and hide special windows.
                                                             see ``dubs_file_finder/dubs_projects.vim``, which you can customize.
 ===========================  ============================  ==============================================================================
 
+================================
+Hints, Tricks, and Step Throughs
+================================
+
 Vim Duplicate Line
-^^^^^^^^^^^^^^^^^^
+------------------
 
-yy or Y to copy the line
-or
-dd to delete (cutting) the line
+Use ``yy`` or ``Y`` to copy the line.
+Use ``dd`` to delete (cut) the line.
 
-then
+Use ``p`` to paste the copied or deleted text after the current line.
 
-p to paste the copied or deleted text after the current line
-or
-P to paste the copied or deleted text before the current line
+Use ``P`` to paste the copied or deleted text before the current line.
 
-To overwrite the target line: Vp
+Use ``Vp`` to overwrite the target line.
 
-BASICALLY: yyp
+HINT: ``yyp`` will copy and paste the current line.
 
-BONUS HINT: You cannot use period "." to repeat then previous yyp,
-e.g., say you're finding all occurrences of a variable and duplicating
-each line, because you want to add a new, similar variable. Press F1
-over the variable to start the find, ESC to enter command mode,
-yyp to duplicate first found line, F3 to jump to next match,
-and then try "." to duplicate: you'll past the old yanked text.
+BONUS HINT: You cannot use period ``.`` to repeat the previous ``yyp``.
+
+E.g., to find all occurrences of a variable and duplicate
+each line, because you want to add a new, similar variable:
+
+- Press ``<ESC>`` to enter command mode.
+
+- Press ``<F1>`` over a word to start the find.
+
+- Press ``<HOME>`` to get ready.
+
+- Press ``qq`` to start recording.
+
+- Press ``<F3>`` to find the next match.
+
+- Press ``yyp`` to duplicate the line.
+
+- Pree ``<DOWN>`` to move the cursor down a line.
+
+- Press ``q`` to stop recording.
+
+- Press ``Q`` to repeat the operation -- find
+  the next match and duplicate the line.
+
+Digraphs -- "A combination of two letters representing one sound, as in ph and ey"
+----------------------------------------------------------------------------------
+
+Digraphs let you type Unicode characters.
+
+E.g., type the three keys, ``<Ctrl-l>`` ``e`` ``'``
+(control-l, e, apostrophe) to produce the symbol ``é``.
+
+NOTE: Vim normally maps the digraph function to ``<Ctrl-k>``,
+but Dubsacks maps it to ``<Ctrl-l>``. Dubsacks reserves
+``<Ctrl-j>`` and ``<Ctrl-k>`` for traversing buffers
+backwards and forwards.
+
+Useful Digraphs
+^^^^^^^^^^^^^^^
+
+A few examples.
+
+Type ``<Ctrl-l>`` and then::
+
+    O K   ✓     Check Mark
+    X X   ✗     Ballot X
+
+For Maths::
+
+    D G   °     DeGree
+    + -   ±     Plus-Minus [So obvious!]
+    M y   µ     Micro sign [For spelling µziq]
+
+For Parts::
+
+    1 4   ¼     Quarter! [Vulgar Fraction One Quarter]
+    1 2   ½     Half! [Vulgar Fraction One Half]
+    3 4   ¾     Trips! [Vulgar Fraction Three Quarters]
+
+For Accents::
+
+    e '   é     L’accent aigu
+    e `   è     L’accent grave
+
+For Raters::
+
+    * 2   ★     Black Star [David Bowie]
+    * 1   ☆     White Star
+
+For Lawyers::
+
+    C o   ©     Copyright
+    R g   ®     Registered sign
+
+For Multiculturals::
+
+    0 u   ☺     White Smiling Face
+    0 U   ☻     Black Smiling Face
+
+For Card sharks::
+
+    c S   ♠     Black Space Suit
+    c H   ♡     White Heart Suit
+    c D   ♢     White Diamond Suit
+    c C   ♣     Black Club Suit
+
+See ``:help digraph`` for the list of defined digraphs.
 

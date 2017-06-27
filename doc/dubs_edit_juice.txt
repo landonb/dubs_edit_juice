@@ -432,5 +432,68 @@ The alt-shift commands show and hide special windows.
 				*<Shift-Alt-6>* *<M-^>* *<S-M-6>* *<S-A-6>* *:TlistToggle_*
 <Shift-Alt-6>		Toggle Tag list.
 
+==============================================================================
+9. Digraphs -- "A combination of two letters representing one sound, as in ph and ey"	*dubs-edit-juice-digraph*
+
+Digraphs let you type Unicode characters.
+
+E.g., type the three keys, `<Ctrl-l>` `e ` `'`
+(control-l, e, apostrophe) to produce the symbol `é`.
+
+NOTE: Vim normally maps the digraph function to <Ctrl-k>,
+but Dubsacks maps it to <Ctrl-l>. Dubsacks reserves
+<Ctrl-j> and <Ctrl-k> for traversing buffers
+backwards and forwards.
+
+Useful Digraphs
+^^^^^^^^^^^^^^^
+
+A few examples.
+
+Type `<Ctrl-l>` and then::
+
+    O K   ✓     Check Mark
+    X X   ✗     Ballot X
+
+For Maths::
+
+    D G   °     DeGree
+    + -   ±     Plus-Minus [So obvious!]
+    M y   µ     Micro sign [For spelling µziq]
+
+For Parts::
+
+    1 4   ¼     Quarter! [Vulgar Fraction One Quarter]
+    1 2   ½     Half! [Vulgar Fraction One Half]
+    3 4   ¾     Trips! [Vulgar Fraction Three Quarters]
+
+For Accents::
+
+    e '   é     L’accent aigu
+    e `   è     L’accent grave
+
+For Raters::
+
+    * 2   ★     Black Star [David Bowie]
+    * 1   ☆     White Star
+
+For Lawyers::
+
+    C o   ©     Copyright
+    R g   ®     Registered sign
+
+For Multiculturals::
+
+    0 u   ☺     White Smiling Face
+    0 U   ☻     Black Smiling Face
+
+For Card sharks::
+
+    c S   ♠     Black Space Suit
+    c H   ♡     White Heart Suit
+    c D   ♢     White Diamond Suit
+    c C   ♣     Black Club Suit
+
+See `:help digraph` for the list of defined digraphs.
 
  vim:tw=78:ts=8:ft=help:norl:
