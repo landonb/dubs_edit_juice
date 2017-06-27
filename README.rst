@@ -661,5 +661,10 @@ For Card sharks::
     c D   ♢     White Diamond Suit
     c C   ♣     Black Club Suit
 
+For Squares::
+
+    f S   ■     Black Square ("fS": think, "Full Square")
+    O S   □     White Square ("OS": think, "Open Square")
+
 See ``:help digraph`` for the list of defined digraphs.
 
