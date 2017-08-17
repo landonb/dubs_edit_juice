@@ -506,6 +506,10 @@ For Happies:
 	Z o   ゾ    [Katakana letter ZO] Smirky smile?
 	o Z   ゾ    [Oh, hey, backwards]
 
+Other faces:
+
+        0 o   ◎‿ ◎
+
 See `:help digraph` for the list of defined digraphs.
 
  vim:tw=78:ts=8:ft=help:norl:
