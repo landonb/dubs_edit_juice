@@ -673,5 +673,9 @@ For Happies::
     Z o   ゾ    [Katakana letter ZO] Smirky smile?
     o Z   ゾ    [Oh, hey, backwards]
 
+You can also find emojis online, e.g.,::
+
+    🏄 🏊 👕 🍹 🌠 🃏 🚴 🔥 🌲 🚬 🌿
+
 See ``:help digraph`` for the list of defined digraphs.
 
