@@ -677,5 +677,7 @@ You can also find emojis online, e.g.,::
 
     🏄 🏊 👕 🍹 🌠 🃏 🚴 🔥 🌲 🚬 🌿
 
+.. https://emojipedia.org
+
 See ``:help digraph`` for the list of defined digraphs.
 
