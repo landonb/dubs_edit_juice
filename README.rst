@@ -675,7 +675,7 @@ For Happies::
 
 You can also find emojis online, e.g.,::
 
-    🏄 🏊 👕 🍹 🌠 🃏 🚴 🔥 🌲 🚬 🌿
+    🏄 🏊 👕 🍹 🌠 🃏 🚴 🔥 🌲 🚬 🌿 👎 👍 👌 👻
 
 .. https://emojipedia.org
 
