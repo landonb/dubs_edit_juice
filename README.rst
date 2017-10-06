@@ -679,5 +679,11 @@ You can also find emojis online, e.g.,::
 
 .. https://emojipedia.org
 
+And also Unicode characters, e.g.,::
+
+    U+2610  ☐  BALLOT BOX (9744decimal · HTML &#9744;)
+    U+2611  ☑  BALLOT BOX WITH CHECK (9745decimal · HTML &#9745;)
+    U+2612  ☒  BALLOT BOX WITH X (9746decimal · HTML &#9746;)
+
 See ``:help digraph`` for the list of defined digraphs.
 
