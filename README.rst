@@ -677,6 +677,10 @@ You can also find emojis online, e.g.,::
 
     🏄 🏊 👕 🍹 🌠 🃏 🚴 🔥 🌲 🚬 🌿 👎 👍 👌 👻
 
+Punctuation and Symbols::
+
+    • · ߷ ๏ ‣ ․ ‥ … ※ ⁂ ⁕ ⁖ ⁓ ⸮ ⸰ ︙ ︰ ･ 𐬼 𐬽 
+
 .. https://emojipedia.org
 
 And also Unicode characters, e.g.,::
