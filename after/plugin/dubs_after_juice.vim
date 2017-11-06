@@ -1,6 +1,6 @@
 " File: after/dubs_after_juice.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.06.10
+" Last Modified: 2017.11.05
 " Project Page: https://github.com/landonb/dubs_edit_juice
 " Summary: AutoAdapt wrapper.
 " License: GPLv3
@@ -87,6 +87,7 @@ let g:AutoAdapt_LastLines = 0
 " Built-ins:
 "  vnoremap <C-S> <C-C>:update<CR>
 "  noremap <C-S> :update<CR>
+"  inoremap <C-S> <C-O>:update<CR>
 
 " MAYBE: We should preserve the user's current NoAutoAdapt setting; for
 "        now, always re-enabling it. Probably okay, since Ctrl-Alt-S is
@@ -97,6 +98,36 @@ inoremap <C-M-S> <C-O>:NoAutoAdapt<CR><C-O>:update<CR><C-O>:AutoAdapt<CR>
 "         E481: No range allowed
 noremap <C-M-S> :NoAutoAdapt<CR>:update<CR>:AutoAdapt<CR>
 snoremap <C-M-S> <C-O>:NoAutoAdapt<CR><C-O>:update<CR><C-O>:AutoAdapt<CR>
+
+" 2017-11-05: I was thinking of disabling AutoAdapt if the user undid all
+"   changes to the buffer, to allow them to go back to original Date and not
+"   have it get updated when they save. (I usually forget about the "feature",
+"   and then have to undo again, and then Ctrl-Shift-Save.)
+" You maybe can tell if the user undid all changes by checking undo stack:
+"   changenr() == 0
+" but what if they have multiple undo trees?
+" In any case, it doesn't matter, because setting noremap <C-S> here
+" doesn't stick. (You can manually set it after Vim starts, but then
+" you cannot use the <SID> identified but have to use a global function,
+" e.g., capitalized:
+"   function Autoadapt_aware_update()
+" Here's the code I tried:
+"   function s:autoadapt_aware_update()
+"     if changenr() == 0
+"       NoAutoAdapt
+"     endif
+"     update
+"     if changenr() == 0
+"       " FIXME/2017-11-05: Should honor whatever original setting was,
+"       "   rather than blindly re-enabling.
+"       "   Should also let user set bool to disable AutoAdapt...
+"       AutoAdapt
+"     endif
+"   endfunction
+"   noremap <C-S> :call <SID>autoadapt_aware_update()<CR><CR>
+"   nnoremap <C-S> :call <SID>autoadapt_aware_update()<CR><CR>
+"   inoremap <C-S> <C-O>:call <SID>autoadapt_aware_update()<CR><C-O><CR><C-O>
+"   snoremap <C-S> <C-O>:call <SID>autoadapt_aware_update()<CR><C-O><CR><C-O>
 
 " Copy 'n paste tests -- copy to top of file and uncomment, then save.
 "   
