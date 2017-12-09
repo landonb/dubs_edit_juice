@@ -109,17 +109,17 @@ let g:plugin_edit_juice_resections_vim = 1
 
 function! s:map_shift_only_punctuation(knum, punc)
   "echom "knum:punc: " . a:knum . ':' . a:punc
-  exe 'nnoremap <Leader>' . a:knum . ' yyp<C-Q>$r' . a:punc
-  exe 'nnoremap <Leader>' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP'
+  exe 'nnoremap <Leader>' . a:knum . ' yyp<C-Q>$r' . a:punc . '<UP>'
+  exe 'nnoremap <Leader>' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
   " 2017-12-08: What's the point of this? And other <l><l>; they seem redundant.
   "exe 'nnoremap <Leader><Leader>' . a:punc . ' yyp<C-Q>$r' . a:punc
-  exe 'nnoremap <Leader>\|' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP'
+  exe 'nnoremap <Leader>\|' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
 endfunction
 
 function! s:map_lower_or_upper_punctuation(punc)
   "echom "punc: " . a:punc
-  exe 'nnoremap <Leader>' . a:punc . ' yyp<C-Q>$r' . a:punc
-  exe 'nnoremap <Leader>\|' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP'
+  exe 'nnoremap <Leader>' . a:punc . ' yyp<C-Q>$r' . a:punc . '<UP>'
+  exe 'nnoremap <Leader>\|' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
 endfunction
 
 function! s:map_insider_punctuation(lpunc, rpunc)
@@ -146,15 +146,15 @@ function! s:map_special_keys()
   "   SECTION
   "   =======
   "
-  nnoremap <Leader>= yyp<C-Q>$r=
-  nnoremap <Leader>+ yyp<C-Q>$r=yykP
-  nnoremap <Leader><Leader>= yyp<C-Q>$r=
-  nnoremap <Leader>\|+ yyp<C-Q>$r=yykP
+  nnoremap <Leader>= yyp<C-Q>$r=<UP>
+  nnoremap <Leader>+ yyp<C-Q>$r=yykP<DOWN>
+  nnoremap <Leader><Leader>= yyp<C-Q>$r=<UP>
+  nnoremap <Leader>\|+ yyp<C-Q>$r=yykP<DOWN>
 
   " The pipe character is not sent to map_lower_or_upper_punctuation
   " because it needs to be escaped.
-  nnoremap <Leader>\| yyp<C-Q>$r\|
-  nnoremap <Leader>\|\| yyp<C-Q>$r\|yykP
+  nnoremap <Leader>\| yyp<C-Q>$r\|<UP>
+  nnoremap <Leader>\|\| yyp<C-Q>$r\|yykP<DOWN>
 endfunction
 
 function! s:apply_leadership_punctuation()
