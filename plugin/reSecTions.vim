@@ -1,6 +1,6 @@
 " File: dubs_edit_juice.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.12.08
+" Last Modified: 2017.12.09
 " Project Page: https://github.com/landonb/dubs_edit_juice
 " Summary: EditPlus-inspired editing mappings
 " License: GPLv3
@@ -46,7 +46,6 @@
 " HINT: To test:
 "   unlet g:plugin_edit_juice_resections_vim
 "   Then press <F9> to reload script.
-unlet g:plugin_edit_juice_resections_vim
 
 if exists("g:plugin_edit_juice_resections_vim") || &cp
   finish
