@@ -170,7 +170,7 @@ Commands for searching for text within a file.
  ``/``                              Start a buffer search               Press the forward slash key to start a buffer search in the window
                                                                         wherein your cursor lies. The cursor will jump to matches as you type;
                                                                         hit Enter when you're done typing the search command.
-                                                                        
+
                                                                         Hint: If you type lowercase characters only, the search is
                                                                         case-insensitive, but if you use one or more uppercase characters,
                                                                         the search is case sensitive.
@@ -179,14 +179,14 @@ Commands for searching for text within a file.
                                     Search Matches                      to search forward through the buffer,
                                                                         and use ``<Shift-F3>`` and ``N`` (i.e., Shift-'n')
                                                                         to search backwards through the buffer.
-                                                                        
+
                                                                         Hint: The search wraps at the end of the buffer;
                                                                         when it wraps, you'll see the scroll bar elevator jump and
                                                                         you'll see a message highlighted in red in the status window
                                                                         that reads, "search hit TOP, continuing at BOTTOM", or,
                                                                         conversely, "search hit BOTTOM, continuing at TOP".
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``<Shift-F3>``                     Backward Search Match               Like ``<F3>``, but go to the previous result, 
+ ``<Shift-F3>``                     Backward Search Match               Like ``<F3>``, but go to the previous result,
                                                                         possibly wrapping at the start of the file and continuing from
                                                                         the end, back up to the cursor.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
@@ -196,11 +196,11 @@ Commands for searching for text within a file.
  ``<F1>``                           Search Buffer for                   If there's a selection, searches the buffer for that,
                                     Word Under Cursor                   otherwise selects the word under the cursor and searches for that.
                                                                         This is a shortcut to ``/`` in a sense.
-                                                                        
+
                                                                         Hint: To start searching a buffer for a term,
                                                                         put the cursor on that term,
                                                                         hit ``<F1>`` and then use ``<F3>`` to continue searching the file.
-                                                                        
+
                                                                         Caveat: If the search term is lowercase,
                                                                         you'll get case-insensitive matches,
                                                                         but if the search term is mixed- or upper-case,
@@ -225,7 +225,7 @@ Commands for searching for text within a file.
                                                                         The set of word delimiters is obviously customizable.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``#``                              Restrictive Search                  Like ``*`` search, but backward through the buffer.
-                                    in Reverse                         
+                                    in Reverse
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``<Ctrl-H>``                       Hide Search Highlights              After you initiate a search,
                                                                         the matching words in the buffers are highlighted.
@@ -242,25 +242,25 @@ Commands for searching for text within a file.
                                     in Buffer                           replace and hit backslash and then 's'. You'll see a partially-completed
                                                                         command ready for you to type the replacement text. Hit return,
                                                                         and then hit 'y' to confirm each replacement or hit 'a' to do 'em all.
-                                                                        
+
                                                                         Caveat: the search-and-replace starts at the cursor and continues until the
                                                                         end of the file but it doesn't wrap around.
-                                                                        
+
                                                                         Hint: You'll notice that you are completing a builtin Vim search-n-replace command;
                                                                         if you'd like to do case-sensitive matching, add an 'I' to the end of the search,
                                                                         i.e., ``:.,$s/Find_Me/Replace_Me/gcI``
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``\S``                             Search and Replace                  This is similar to ``\s`` but it searches and replaces text in all of the files
                                     in All Files                        listed in the quickfix window.
-                                    Listed in Quickfix                  
+                                    Listed in Quickfix
                                                                         - Hint: Do an ``<F4>`` or ``\g`` search to populate the Quickfix window
                                                                           (these two commands are part of
                                                                           `dubs_grep_steady <https://github.com/landonb/dubs_grep_steady>`__).
-                                                                        
+
                                                                         - Double-click the first entry in the Quickfix search results to open that buffer.
-                                                                        
+
                                                                         - Highlight the text you want to replace and then hit ``\`` and then ``S``.
-                                                                        
+
                                                                         - Type the replacement text and hit return, and dubsacks will find and replace
                                                                           in all of the files in the Quickfix list.
 
@@ -296,11 +296,11 @@ Editing and Formatting Text
  ``<Ctrl-Q><Shift-Click>``          Block Select                        When you select text normally, you select a sequence of characters.
                                                                         But if your text file is pretty-printed (with well-formatted columns
                                                                         and whatnot) you can select text as a "block".
-                                                                        
+
                                                                         First, enter command mode, then hit ``<Ctrl-Q>`` and then ``<Shift-Click>``
                                                                         elsewhere to make a block selection.
                                                                         You can copy, paste and cut block selections like you can normal sequence selections.
-                                                                        
+
                                                                         (Note: In default Vim, this command is mapped to Ctrl-V, but Ctrl-V is paste, yo! =)
                                                                         so we've remapped Vim's Ctrl-V to Ctrl-Q so we can use Ctrl-V for paste
                                                                         (and since we're using Ctrl-Q for block select, if you want to quit, try ``<Alt-f>x``).)
@@ -317,18 +317,18 @@ Editing and Formatting Text
                                                                         This wouldn't be so special if dubsacks hadn't had to change Vim's default:
                                                                         in default Vim, when in select mode, Ctrl-Z lowercases what's selected.
                                                                         But in dubsacks, even when text is selected, Ctrl-Z just undoes what was dud.
-                                                                        
+
                                                                         Hint: If you pine for the lowercase operation, select text and then type ``<Ctrl-o>gu<DOWN>``
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``f/`` and ``f\``                  Change Slashes                      Use ``f/`` and ``f\`` to change the direction of slashes.
-                                                                        
+
                                                                         Press ``f/`` to change every backslash to a forward slash in the current line;
                                                                         use ``f \`` to do the opposite.
-                                                                        
+
                                                                         Hint: This is useful for converting Windows OS directory paths to Linux/Mac, and vice versa.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``qq`` and ``q`` and ``Q``         Record and Playback                 This is a shortcut to playback the recording in the q register.
-                                    Keystrokes                          
+                                    Keystrokes
                                                                         1. Start recording with ``qq``.
 
                                                                         2. End recording with ``q`` (or with ``<Ctrl-o>q`` if in Insert mode).
@@ -387,7 +387,7 @@ Editing and Formatting Text
  ``<Tab>`` and ``<Shift-Tab>``      Indent and Undent                   Select some text in one or more lines and use ``<Tab>`` and ``<Shift-Tab>``
                                     Selected Text                       to indent and undent the text according to the current tab width
                                                                         (and using tabs or spaces as appropriate).
-                                                                        
+
                                                                         Caveat: Cindent is too smart and won't shift octothorpes
                                                                         that are in the first column
                                                                         (because it thinks they're pre-compilation macros);
@@ -395,7 +395,7 @@ Editing and Formatting Text
                                                                         but he likes the other things that Cindent is good for.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``<Ctrl-P>`` and ``<Ctrl-L>``      Swap Paragraphs                     ``<Ctrl-P>`` swaps the paragraph under the cursor with the paragraph above.
-                                                                        
+
                                                                         ``<Ctrl-L>`` swaps in with the paragraph below.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``\O``                             Open hyperlink under cursor
@@ -460,7 +460,7 @@ Highlights:
 - Map ``<Ctlr-]>`` to work in Insert and Visual modes (by default,
   jumping to the tag under the cursor or selected text only
   works in Normal mode).
-  
+
   - Also map ``<Alt-]>`` to jump back to the last tag, since
     another Dubsacks plugin overrides the built-in ``<Ctrl-t>``
     to be transpose.
@@ -474,7 +474,7 @@ Highlights:
  Key Mapping                        Description                         Notes
 =================================  ==================================  ==============================================================================
  ``<Ctrl-]>``                       Jump to Definition                  Jumps to the definition of the function named under the cursor.
-                                                                        
+
                                                                         Hint: You can return to the tag from which you jumped using ``<Alt-]>``.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``<Alt-]>``                        Jump to Last Tag                    Jumps to the tag used by the last ``<Ctrl-]>`` command.
@@ -679,7 +679,7 @@ You can also find emojis online, e.g.,::
 
 Punctuation and Symbols::
 
-    • · ߷ ๏ ‣ ․ ‥ … ※ ⁂ ⁕ ⁖ ⁓ ⸮ ⸰ ︙ ︰ ･ 𐬼 𐬽 
+    • · ߷ ๏ ‣ ․ ‥ … ※ ⁂ ⁕ ⁖ ⁓ ⸮ ⸰ ︙ ︰ ･ 𐬼 𐬽
 
 .. https://emojipedia.org
 
