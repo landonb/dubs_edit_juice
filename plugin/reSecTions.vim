@@ -1,6 +1,6 @@
 " File: dubs_edit_juice.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.12.09
+" Last Modified: 2017.12.19
 " Project Page: https://github.com/landonb/dubs_edit_juice
 " Summary: EditPlus-inspired editing mappings
 " License: GPLv3
@@ -115,6 +115,13 @@ function! s:map_shift_only_punctuation(knum, punc)
   exe 'nnoremap <Leader>\|' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
 endfunction
 
+function! s:map_shift_only_punctuation_reverse(lower, upper)
+  "echom "knum:punc: " . a:knum . ':' . a:punc
+  exe 'nnoremap <Leader>' . a:lower . ' yyp<C-Q>$r' . a:lower . '<UP>'
+  exe 'nnoremap <Leader>' . a:upper . ' yyp<C-Q>$r' . a:lower . 'yykP<DOWN>'
+  exe 'nnoremap <Leader>\|' . a:lower . ' yyp<C-Q>$r' . a:lower . 'yykP<DOWN>'
+endfunction
+
 function! s:map_lower_or_upper_punctuation(punc)
   "echom "punc: " . a:punc
   exe 'nnoremap <Leader>' . a:punc . ' yyp<C-Q>$r' . a:punc . '<UP>'
@@ -159,27 +166,38 @@ endfunction
 function! s:apply_leadership_punctuation()
   let l:number_punc = [
     \ ['1', '!'], ['2', '@'], ['3', '#'], ['4', '$'],
-    \ ['5', '%'], ['6', '^'], ['7', '&'], ['8', '*']]
+    \ ['5', '%'], ['6', '^'], ['7', '&'], ['8', '*'],
+    \ ]
+
+  " 2017-12-18: Skip underscore. It is not vertically symmetric,
+  "   so looks odd, and I'd prefer to be able to Shift-``-`` to
+  "   get an upper and lower dash boundary.
+  let l:reverse_punc = [
+    \ ['-', '_'],
+    \ ]
 
   let l:simple_punc = [
-    \ '`', '~', '-', '_', '\', ';', ':', ',', '.', '?', "'", '"']
-  " NOTE: '\' is a little weird, since it's the leader key.
-  "         It works after Vim takes a brief pause to see if
-  "         more keys follow. We can skip it.
-  " \ '\'
+    \ '`', '~', '-', '\', ';', ':', ',', '.', '?', "'", '"',
+    \ ]
 
   let l:crazy_punc = [
     \ ['(', ')'], [')', '('],
     \ ['[', ']'], [']', '['],
     \ ['{', '}'], ['}', '{'],
     \ ['<', '>'], ['>', '<'],
-    \ ['\', '/'], ['/', '\']]
+    \ ['\', '/'], ['/', '\'],
+    \ ]
 
   let l:double_punc = [
-    \ '(', ')', '[', ']', '{', '}', '<', '>', '\', '/']
+    \ '(', ')', '[', ']', '{', '}', '<', '>', '\', '/',
+    \ ]
 
   for [l:knum, l:punc] in l:number_punc
     call s:map_shift_only_punctuation(l:knum, l:punc)
+  endfor
+
+  for [l:lower, l:upper] in l:reverse_punc
+    call s:map_shift_only_punctuation_reverse(l:lower, l:upper)
   endfor
 
   for l:punc in l:simple_punc
