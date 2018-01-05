@@ -1,11 +1,11 @@
 " File: after/dubs_after_juice.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.11.05
+" Last Modified: 2018.01.05
 " Project Page: https://github.com/landonb/dubs_edit_juice
 " Summary: AutoAdapt wrapper.
 " License: GPLv3
 " -------------------------------------------------------------------
-" Copyright © 2015, 2017 Landon Bouma.
+" Copyright © 2015, 2017-2018 Landon Bouma.
 " 
 " This file is part of Dubsacks.
 " 
@@ -64,8 +64,10 @@ let g:after_juice_vim = 1
 " my infos in the footer (and I'd rather not worry about something
 " accidentally changing down there), and I'm halving the top count.
 
-let g:AutoAdapt_FirstLines = 13
-let g:AutoAdapt_LastLines = 0
+"let g:AutoAdapt_FirstLines = 13
+"let g:AutoAdapt_LastLines = 0
+" 2018-01-05: It might finally be time... just use :Gblame.
+autocmd BufEnter,BufRead * NoAutoAdapt
 
 " If AutoAdapt is running, you can't edit any datelines and save without
 " AutoAdapt undoing what you just did (which is to try to pre-date things).
