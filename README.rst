@@ -681,6 +681,12 @@ Punctuation and Symbols::
 
     • · ߷ ๏ ‣ ․ ‥ … ※ ⁂ ⁕ ⁖ ⁓ ⸮ ⸰ ︙ ︰ ･ 𐬼 𐬽
 
+Footnote Symbology Typography::
+
+    § ∆ ∇ ♪ ♫ ∫ ← ┼ ◊ † ‡ ° ※ ¶
+
+.. https://en.wikipedia.org/wiki/Note_(typography)
+
 .. https://emojipedia.org
 
 And also Unicode characters, e.g.,::
