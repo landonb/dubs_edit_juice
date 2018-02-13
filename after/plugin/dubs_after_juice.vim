@@ -270,44 +270,70 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 
 " So-called MS Windows mode
 " ------------------------------------------------------
-" 2017-04-03: In Insert mode, at work, Ctrl-X is now inserting "+x -- what the hell.
-"  I didn't change anything, I swear!
-" 2017-04-03: Argh, I did compile Vim 8.0, but only at home!
-"  Speaking with a co-worker last week about Vim, I remember seeing 7.x running at work.
-"  Oops! I forgot to update also at work... (I added a custom build to
-"    github.com/landonb/home-fries/blob/master/.fries/once/custom_setup.extras.sh
-"  at 2017-02-27 10:17:12). Anyway, now I'm have a counter-problem at home!
-"  The new mvwin.vim,
-"    /srv/opt/bin/share/vim/vim80/mswin.vim
+" 2017-04-03: After updating to Vim 8.0, I've noticed that the new mswin,
+"     /srv/opt/bin/share/vim/vim80/mswin.vim
 "  sets <c-f> and <c-h> (to find, and find-replace, respectively)
-"  which overrides dubsacks' <c-h> (clear highlight!).
-" So disabling this now that I'm back home...
-" MONITOR/WATCH/2017-04-03: mswin.vim needs to load before
-"   dubs_edit_juice/plugin/dubs_edit_juice.vim (which set <c-h>)
-"   Dubs does not set <c-f>, so the mswin 'VIM - Search...' dialog pops up.
-" 2017-04-03 20:25: Crap. Still happening. Need to enable.
-"   I can move <C-h> to an after file...
+"  which overrides dubsacks' <c-h> (clear highlight!)
+"  and also overrides default Vim's <c-f> (pagedown)
+"  (and, oddly, <c-b>, pageup, I notice only works in Normal mode, and not Insert mode?)
 
-" The default Vim keyboard mappings were created well
-" before modern GUIs, so certain key combinations that
-" now seem ubiquitous are mapped to different commands.
-" Enable mswin mode to remap some of these commands.
-" Notes:
+" The default Vim keyboard mappings were created to keep one's fingers on
+" the home row, so certain key combinations that seem ubiquitous in GUI
+" editors are mapped to different commands in Vim.
+"
+" Enable mswin mode to add more recognizable mappings some of these commands.
+"
+" NOTE: I (lb) don't 100% agree with mswin mode. I appreciate some mappings,
+"       but I'm not a fan of them all, especially those that steal existing,
+"       commonly used default Vim mappings. (For instance, I use `/` to start
+"       search, so I'd rather leave <Ctrl-f> as PageDown rather than bringing
+"       up the GUI find dialog. On the other hand, the default <Ctrl-h> map
+"       seems completely unnecessary, so I don't mind re-mapping that combo.)
+"
+" NOTES:
 " - Visual mode is CTRL-Q in mswin; in basic mode it's CTRL-V.
 "   (You can also quadruple-click to select by row,column!)
-" - Backspace and cursor keys wrap to previous/next line,
-"   rather than sounding the system bell (an-noy'ing!).
+"   - Because Ctrl-V is remapped to paste.
+" - When the cursor is at the start or end of a line, the
+"   backspace and cursor keys now wrap to previous/next line,
+"   rather than sounding the system bell and not moving the cursor
+"     (an-noy'ing!).
 " - CTRL-X and SHIFT-Del are Cut.
+"     (In Vaniall Vim, Ctrl-X would "Subtract [count] from the number
+"     or alphabetic character at or after the cursor." Seems like a
+"     very obscure usage scenario for using such a feature. And it
+"     is really weird, I tested and it just decrements the number under
+"     the cursor!)
+" - CTRL-A is Select all.
+"     (In Vanilla Vim, Ctrl-A is complement to Ctrl-X, it adds [count]
+"     to the number or alphabetic character at or after the cursor. How
+"     often would I ever use this feature, if at all? So mapping to
+"     select-all seems like an okay re-mapping of a default Vim map.)
 " - CTRL-C and CTRL-Insert are Copy.
 " - CTRL-V and SHIFT-Insert are Paste.
 " - Use CTRL-Q to do what CTRL-V used to do.
 " - Use CTRL-S for saving, also in Insert mode.
-" - CTRL-Z is Undo; not in cmdline though.
-" - CTRL-Y is Redo (although not repeat); not in cmdline though.
+"     (I'm not sure Ctrl-S has a Vanvilla Vim map. The only use I can find is
+"     Ctrl-W Ctrl-S to split the current window in two. Which still works in
+"     Dubsacks (in Normal mode; in Insert mode, Ctrl-W deletes previous word.)
+" - CTRL-Z is Undo.
+"     (In Vanilla Vim, Ctrl-Z would Suspend Vim in Normal or Visual mode,
+"     and in Insert or Command-line mode, it would insert Ctrl-Z as a
+"     normal character. Are either of those behaviors useful?)
+" - CTRL-Y is Redo (although not repeat).
+"     (In Vanilla Vim, Ctrl-Y would "Scroll window [count] lines
+"     upwards in the buffer" which is not a feature I ever used.)
 " - Alt-Space is System menu.
-" - CTRL-A is Select all.
 " - CTRL-Tab is Next window.
 " - CTRL-F4 is Close window.
+"
+" HINTS:
+" - To start Vim without sourcing vimrc, use the -u NONE option:
+"     vim -u NONE
+" - To get help on a command key, you might need to use regex to persuade
+"   Vim to find the correct help, e.g., `:help Ctrl-B` returns dubs' help
+"   for Ctrl-BS; in order to get the help for Ctrl-B (the 'b' character),
+"   try `:help Ctrl-B\>`
 if !s:running_windows
   source $VIMRUNTIME/mswin.vim
   " 2017-04-03: In Insert mode, Ctrl-X is inserting "+x -- what the hell.
@@ -318,6 +344,19 @@ if !s:running_windows
   "  /usr/share/vim/vim74/mswin.vim
   behave mswin
 endif
+
+" Unmask nasty maps.
+" - Do not overtake Ctrl-F. Not that I use Ctrl-F/Ctrl-B, because I generally
+"   navigate away from the home row and use PageDown/PageUp instead, but I
+"   know some hardcore Vimmers would riducule me for taking these keys away.
+"   (In my defense, Ctrl-F and Ctrl-B are akward to type; I'd rather use one
+"   hand and one finger and not have to stretch pinky and another finger to
+"   scroll down and up through a file.)
+unmap <C-F>
+" Make sure to remove Find dialog response for Insert mode.
+unmap! <C-F>
+" NOTE: Ctrl-F and Ctrl-B do not PageDown/PageUp from Insert mode,
+"       but rather enter their respective characters into the buffer.
 
 " ------------------------------------------------------
 " Ctrl-H Hides Highlighting
@@ -330,10 +369,11 @@ endif
 " It's also the same as h, which is the
 " same as <Left>. WE GET IT!! Ctrl-H won't
 " be missed....
-" NOTE Highlighting is back next time you search.
-" NOTE Ctrl-H should toggle highlighting (not
-"      just turn it off), but nohlsearch doesn't
-"      work that way
+" NOTE: Highlighting is back next time you search.
+" NOTE: Ctrl-H should toggle highlighting (not
+"       just turn it off), but nohlsearch doesn't
+"       work that way
+" NOTE: Set this after calling `behave mswin`, which overrides C-h.
 noremap <C-h> :nohlsearch<CR>
 inoremap <C-h> <C-O>:nohlsearch<CR>
 cnoremap <C-h> <C-C>:nohlsearch<CR>
