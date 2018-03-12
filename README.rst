@@ -608,7 +608,7 @@ E.g., type the three keys, ``<Ctrl-l>`` ``e`` ``'``
 (control-l, e, apostrophe) to produce the symbol ``é``.
 
 NOTE: Vim normally maps the digraph function to ``<Ctrl-k>``,
-but Dubsacks maps it to ``<Ctrl-l>``. Dubsacks reserves
+but Dubsacks maps it to ``<Ctrl-l>``. Dubsacks uses
 ``<Ctrl-j>`` and ``<Ctrl-k>`` for traversing buffers
 backwards and forwards.
 
@@ -617,63 +617,46 @@ Useful Digraphs
 
 A few examples.
 
-Type ``<Ctrl-l>`` and then::
+Type ``<Ctrl-l>`` followed by the two characters in the left column.
+
+Civics::
 
     O K   ✓     Check Mark
     X X   ✗     Ballot X
 
-For Maths::
+Mathematics::
 
     D G   °     DeGree
     + -   ±     Plus-Minus [So obvious!]
     M y   µ     Micro sign [For spelling µziq]
 
-For Parts::
+Slices::
 
-    1 4   ¼     Quarter! [Vulgar Fraction One Quarter]
-    1 2   ½     Half! [Vulgar Fraction One Half]
-    3 4   ¾     Trips! [Vulgar Fraction Three Quarters]
+    1 4   ¼     Quarter! ["Vulgar Fraction One Quarter"]
+    1 2   ½     Half! ["Vulgar Fraction One Half"]
+    3 4   ¾     Trips! ["Vulgar Fraction Three Quarters"]
 
-For Accents::
+Diacritics::
 
     e '   é     L’accent aigu
     e `   è     L’accent grave
 
-For Raters::
+Astrological::
 
     * 2   ★     Black Star [David Bowie]
     * 1   ☆     White Star
 
-For Lawyers::
+Edicts::
 
     C o   ©     Copyright
     R g   ®     Registered sign
 
-For Multiculturals::
-
-    0 u   ☺     White Smiling Face
-    0 U   ☻     Black Smiling Face
-
-For Card sharks::
-
-    c S   ♠     Black Space Suit
-    c H   ♡     White Heart Suit
-    c D   ♢     White Diamond Suit
-    c C   ♣     Black Club Suit
-
-For Squares::
+Quadratic::
 
     f S   ■     Black Square ("fS": think, "Full Square")
     O S   □     White Square ("OS": think, "Open Square")
 
-For Happies::
-
-    S o   ソ    Smiley? [Katakana letter SO]
-    o S   ソ    [Works backwards, too]
-    Z o   ゾ    [Katakana letter ZO] Smirky smile?
-    o Z   ゾ    [Oh, hey, backwards]
-
-You can also find emojis online, e.g.,::
+You can also find emojis online to copy-paste, e.g.,::
 
     🏄 🏊 👕 🍹 🌠 🃏 🚴 🔥 🌲 🚬 🌿 👎 👍 👌 👻
 
@@ -685,15 +668,9 @@ Footnote Symbology Typography::
 
     § ∆ ∇ ♪ ♫ ∫ ← ┼ ◊ † ‡ ° ※ ¶
 
-.. https://en.wikipedia.org/wiki/Note_(typography)
+And you can dig into your own font file, e.g.,::
 
-.. https://emojipedia.org
-
-And also Unicode characters, e.g.,::
-
-    U+2610  ☐  BALLOT BOX (9744decimal · HTML &#9744;)
-    U+2611  ☑  BALLOT BOX WITH CHECK (9745decimal · HTML &#9745;)
-    U+2612  ☒  BALLOT BOX WITH X (9746decimal · HTML &#9746;)
+  charmap --font="Hack Regular 9"
 
 See ``:help digraph`` for the list of defined digraphs.
 
