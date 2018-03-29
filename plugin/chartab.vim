@@ -87,10 +87,11 @@ let ct_chartable = 1
 "************************** C O N F I G U R A T I O N ************************
 "*****************************************************************************
 
-" the mappings:
-if !hasmapto('<Plug>CT_CharTable')
-    map <silent> <unique> <Leader>ct <Plug>CT_CharTable
-endif
+" 2018-03-29 16:23: DISABLED: Conflicts with new intended \c purpose, grep-case.
+"" the mappings:
+"if !hasmapto('<Plug>CT_CharTable')
+"    map <silent> <unique> <Leader>ct <Plug>CT_CharTable
+"endif
 
 map <silent> <unique> <script> <Plug>CT_CharTable  :call <SID>CT_CharTable()<CR>
 
