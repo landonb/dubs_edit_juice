@@ -352,9 +352,13 @@ endif
 "   (In my defense, Ctrl-F and Ctrl-B are akward to type; I'd rather use one
 "   hand and one finger and not have to stretch pinky and another finger to
 "   scroll down and up through a file.)
-unmap <C-F>
+if has("gui_running")
+  unmap <C-F>
+endif
 " Make sure to remove Find dialog response for Insert mode.
-unmap! <C-F>
+if has("gui_running")
+  unmap! <C-F>
+endif
 " NOTE: Ctrl-F and Ctrl-B do not PageDown/PageUp from Insert mode,
 "       but rather enter their respective characters into the buffer.
 
