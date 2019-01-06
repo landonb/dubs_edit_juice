@@ -658,7 +658,7 @@ Quadratic::
 
 You can also find emojis online to copy-paste, e.g.,::
 
-    🏄 🏊 👕 🍹 🌠 🃏 🚴 🔥 🌲 🚬 🌿 👎 👍 👌 👻
+    🏄 🏊 👕 🍹 🌠 🃏 🚴 🔥 🌲 🚬 🌿 👎 👍 👌 👻 🍍 💀 🍆 🐚
 
 Punctuation and Symbols::
 
