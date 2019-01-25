@@ -1,4 +1,4 @@
-*dubs_edit_juice.txt*	`Edit` `Juice` For `Dubsacks` `Vim`.	2015 Jan 23
+*dubs_edit_juice.txt*	`Edit` `Juice` For `Dubs` `Vim`.	2015 Jan 23
 
 Edit Juice: For Searching, Editing, and Replacing Text; and a Few Dev Cmds.~
 
@@ -33,7 +33,7 @@ Project page: https://github.com/landonb/dubs_edit_juice
 
 These features run automatically.
 
-Dubsacks Features~
+Dubs Vim Features~
 -----------------
 
 - Recover from accidental Ctrl-U
@@ -72,7 +72,7 @@ will "automatically adapt timestamps, copyright notices, etc."
   update any "Last Modified"-like lines, and it'll update the
   copyright years, too.
 
-  - The Dubsacks code tweaks the match algorithm to recognize
+  - The Dubs Vim code tweaks the match algorithm to recognize
     and use commas in the copyright, e.g., "2009, 2011-2014" might
     become "2009, 2011-2015" or "2009, 2001-2014, 2016" depending
     on if the current year is 2015 or 2016. This might seem a little
@@ -134,7 +134,7 @@ To unlock the tag list feature, install the `taglist` plugin.
 
 
 Commands for searching for text within a file. Some of these commands
-are stock Vim; other commands added by Dubsacks.
+are stock Vim; other commands added by Dubs Vim.
 
 				*/*
 /			Start a buffer search.
@@ -293,7 +293,7 @@ s_<Shift-Tab>		Undent selected text block.
 5. Common Buffer Commands		*dubs-edit-juice--buffer-commands*
 
 Some of these commands are standard Vim
-but many of them are custom to Dubsacks
+but many of them are custom to Dubs Vim
 
 gg		or		gg *<Ctrl-Home>* <C-Home>
 <Ctrl-Home>		Move the cursor to the first line of the file.
@@ -341,7 +341,7 @@ M			Move the cursor to the middle line of the window.
 ==============================================================================
 6. Developer Commands			*dubs-edit-juice-developer*
 
-Mostly built-in command reference, but a few Dubsacks commands, too.
+Mostly built-in command reference, but a few Dubs Vim commands, too.
 
 Highlights:
 
@@ -350,7 +350,7 @@ Highlights:
   works in Normal mode).
   
   - Also map <Alt-]> to jump back to the last tag, since
-    another Dubsacks plugin overrides the built-in <Ctrl-t>
+    another Dubs Vim plugin overrides the built-in <Ctrl-t>
     to be transpose.
 
 - Enable wildmode. In Insert mode, use <Ctrl-N> to cycle
@@ -441,7 +441,7 @@ E.g., type the three keys, `<Ctrl-l>` `e ` `'`
 (control-l, e, apostrophe) to produce the symbol `é`.
 
 NOTE: Vim normally maps the digraph function to <Ctrl-k>,
-but Dubsacks maps it to <Ctrl-l>. Dubsacks reserves
+but Dubs Vim maps it to <Ctrl-l>. Dubs Vim reserves
 <Ctrl-j> and <Ctrl-k> for traversing buffers
 backwards and forwards.
 

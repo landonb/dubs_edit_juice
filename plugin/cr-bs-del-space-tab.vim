@@ -114,7 +114,7 @@ function! Return_key ()
 endfunction
 
 nnoremap <silent> <DEL> :call Delete_key()<CR>
-" (lb): Dubsacks recently starting mapping <CR>, before I added this plugin:
+" (lb): Dubs Vim recently starting mapping <CR>, before I added this plugin:
 "   n  <CR>        * Highlighting()
 " So disabled, at least for now:
 "   nnoremap <silent> <CR> :call Return_key()<CR>

@@ -1,6 +1,6 @@
-#########################
-Dubsacks Vim — Edit Juice
-#########################
+#####################
+Dubs Vim — Edit Juice
+#####################
 
 =================
 About This Plugin
@@ -58,7 +58,7 @@ will "automatically adapt timestamps, copyright notices, etc."
   update any "Last Modified"-like lines, and it'll update the
   copyright years, too.
 
-  - The Dubsacks code tweaks the match algorithm to recognize
+  - The Dubs Vim code tweaks the match algorithm to recognize
     and use commas in the copyright, e.g., "2009, 2011-2014" might
     become "2009, 2011-2015" or "2009, 2001-2014, 2016" depending
     on if the current year is 2015 or 2016. This might seem a little
@@ -261,7 +261,7 @@ Commands for searching for text within a file.
 
                                                                         - Highlight the text you want to replace and then hit ``\`` and then ``S``.
 
-                                                                        - Type the replacement text and hit return, and dubsacks will find and replace
+                                                                        - Type the replacement text and hit return, and the plugin will find and replace
                                                                           in all of the files in the Quickfix list.
 
                                                                         Caveat: If you are not happy with the results, you'll have to ``<Ctrl-Z>``
@@ -314,9 +314,9 @@ Editing and Formatting Text
                                                                         typing code, hit ``<Ctrl-Enter>`` to start a new line with the comment leader.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``<Ctrl-Z>`` and ``<Ctrl-Y>``      Undo and Redo                       ``<Ctrl-Z>`` and ``<Ctrl-Y>`` work like most apps, undoing and redoing.
-                                                                        This wouldn't be so special if dubsacks hadn't had to change Vim's default:
+                                                                        This would not be so special if the plugin had not had to change Vim's default:
                                                                         in default Vim, when in select mode, Ctrl-Z lowercases what's selected.
-                                                                        But in dubsacks, even when text is selected, Ctrl-Z just undoes what was dud.
+                                                                        But with this plugin, even when text is selected, Ctrl-Z just undoes what was dud.
 
                                                                         Hint: If you pine for the lowercase operation, select text and then type ``<Ctrl-o>gu<DOWN>``
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
@@ -406,7 +406,7 @@ Common Buffer Commands
 ----------------------
 
 Some cursor-, scrolling-, and selecting-related
-standard Vim and custom Dubsacks commands.
+standard Vim and custom Dubs Vim commands.
 
 =====================================  ==================================  ==============================================================================
 Key Mapping                            Description                         Notes
@@ -453,7 +453,7 @@ Key Mapping                            Description                         Notes
 Developer Commands
 ------------------
 
-Mostly built-in command reference, but a few Dubsacks commands, too.
+Mostly built-in command reference, but a few Dubs Vim commands, too.
 
 Highlights:
 
@@ -462,7 +462,7 @@ Highlights:
   works in Normal mode).
 
   - Also map ``<Alt-]>`` to jump back to the last tag, since
-    another Dubsacks plugin overrides the built-in ``<Ctrl-t>``
+    another Dubs Vim plugin overrides the built-in ``<Ctrl-t>``
     to be transpose.
 
 - Enable wildmode. In Insert mode, use ``<Ctrl-N>`` to cycle
@@ -478,7 +478,7 @@ Highlights:
                                                                         Hint: You can return to the tag from which you jumped using ``<Alt-]>``.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``<Alt-]>``                        Jump to Last Tag                    Jumps to the tag used by the last ``<Ctrl-]>`` command.
-                                                                        Dubsacks adds the ``<Alt-]>`` mapping because it remaps the built-in
+                                                                        Dubs Vim adds the ``<Alt-]>`` mapping because it remaps the built-in
                                                                         ``<Ctrl-T>`` to be transpose (also, it feels weird that
                                                                         the opposite of ``<Ctrl-]>`` is ``<Ctrl-t>``, two combinations
                                                                         that seem unrelated; at least ``<Ctrl-]>`` and ``<Alt-]>``
@@ -608,7 +608,7 @@ E.g., type the three keys, ``<Ctrl-l>`` ``e`` ``'``
 (control-l, e, apostrophe) to produce the symbol ``é``.
 
 NOTE: Vim normally maps the digraph function to ``<Ctrl-k>``,
-but Dubsacks maps it to ``<Ctrl-l>``. Dubsacks uses
+but Dubs Vim maps it to ``<Ctrl-l>``. Dubs Vim uses
 ``<Ctrl-j>`` and ``<Ctrl-k>`` for traversing buffers
 backwards and forwards.
 

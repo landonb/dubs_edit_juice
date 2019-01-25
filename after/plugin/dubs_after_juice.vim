@@ -7,20 +7,20 @@
 " -------------------------------------------------------------------
 " Copyright © 2015, 2017-2018 Landon Bouma.
 " 
-" This file is part of Dubsacks.
+" This file is part of Dubs Vim.
 " 
-" Dubsacks is free software: you can redistribute it and/or
+" Dubs Vim is free software: you can redistribute it and/or
 " modify it under the terms of the GNU General Public License
 " as published by the Free Software Foundation, either version
 " 3 of the License, or (at your option) any later version.
 " 
-" Dubsacks is distributed in the hope that it will be useful,
+" Dubs Vim is distributed in the hope that it will be useful,
 " but WITHOUT ANY WARRANTY; without even the implied warranty
 " of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
 " the GNU General Public License for more details.
 " 
 " You should have received a copy of the GNU General Public License
-" along with Dubsacks. If not, see <http://www.gnu.org/licenses/>
+" along with Dubs Vim. If not, see <http://www.gnu.org/licenses/>
 " or write Free Software Foundation, Inc., 51 Franklin Street,
 "                     Fifth Floor, Boston, MA 02110-1301, USA.
 " ===================================================================
@@ -273,7 +273,7 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 " 2017-04-03: After updating to Vim 8.0, I've noticed that the new mswin,
 "     /srv/opt/bin/share/vim/vim80/mswin.vim
 "  sets <c-f> and <c-h> (to find, and find-replace, respectively)
-"  which overrides dubsacks' <c-h> (clear highlight!)
+"  which overrides Dubs Vim's <c-h> (clear highlight!)
 "  and also overrides default Vim's <c-f> (pagedown)
 "  (and, oddly, <c-b>, pageup, I notice only works in Normal mode, and not Insert mode?)
 
@@ -315,7 +315,7 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 " - Use CTRL-S for saving, also in Insert mode.
 "     (I'm not sure Ctrl-S has a Vanvilla Vim map. The only use I can find is
 "     Ctrl-W Ctrl-S to split the current window in two. Which still works in
-"     Dubsacks (in Normal mode; in Insert mode, Ctrl-W deletes previous word.)
+"     Dubs Vim (in Normal mode; in Insert mode, Ctrl-W deletes previous word.)
 " - CTRL-Z is Undo.
 "     (In Vanilla Vim, Ctrl-Z would Suspend Vim in Normal or Visual mode,
 "     and in Insert or Command-line mode, it would insert Ctrl-Z as a
