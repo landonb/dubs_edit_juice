@@ -1,8 +1,9 @@
-#####################
-Dubs Vim — Edit Juice
-#####################
+#############################
+Dubs Vim |em_dash| Edit Juice
+#############################
 
-=================
+.. |em_dash| unicode:: 0x2014 .. em dash
+
 About This Plugin
 =================
 
@@ -16,7 +17,6 @@ This script originally started to make Vim emulate
 but it's grown considerably since then to
 just make Vim a more comfortable editor all around.
 
-============
 Installation
 ============
 
@@ -41,7 +41,6 @@ Online help:
    :Helptags
    :help dubs-edit-juice
 
-=======================
 Optional Vendor Plugins
 =======================
 
@@ -127,7 +126,6 @@ To unlock the tag list feature, install the `taglist` plugin.
    unzip taglist_46.zip
    /bin/rm taglist_46.zip
 
-===========================================
 Always-On Features (Not Mapped to Any Keys)
 ===========================================
 
@@ -155,7 +153,6 @@ part of any undo block).
 
 - See: http://vim.wikia.com/wiki/Recover_from_accidental_Ctrl-U
 
-==============================
 Features Bound to Key Commands
 ==============================
 
@@ -557,7 +554,6 @@ The alt-shift commands show and hide special windows.
                                                             see ``dubs_file_finder/dubs_projects.vim``, which you can customize.
 ===========================  ============================  ==============================================================================
 
-================================
 Hints, Tricks, and Step Throughs
 ================================
 
