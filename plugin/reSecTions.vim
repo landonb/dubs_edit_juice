@@ -281,7 +281,7 @@ function! s:apply_leadership_punctuation()
     \ ]
 
   let l:simple_punc = [
-    \ '`', '~', '-', '\', ';', ':', ',', '.', '?', "'", '"',
+    \ '`', '~', '\', ';', ':', ',', '.', '?', "'", '"',
     \ ]
 
   let l:crazy_punc = [
