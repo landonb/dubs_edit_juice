@@ -110,8 +110,10 @@ let g:plugin_edit_juice_resections_vim = 1
 "   <leader>-<shift-leader>-{char}
 " to select the underline or underline/overline character.
 
-function! s:map_shift_only_punctuation(knum, punc)
-  "echom "knum:punc: " . a:knum . ':' . a:punc
+" ***
+
+function! s:map_shift_only_punctuation_addtext_normal(knum, punc)
+  "echom "text/nml: knum:punc: " . a:knum . ':' . a:punc
   exe 'nunmap <Leader>' . a:knum
   exe 'nunmap <Leader>' . a:punc
   exe 'nunmap <Leader>\|' . a:punc
@@ -123,8 +125,24 @@ function! s:map_shift_only_punctuation(knum, punc)
   exe 'nnoremap <Leader>\|' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
 endfunction
 
-function! s:map_shift_only_punctuation_replace(knum, punc)
-  "echom "knum:punc: " . a:knum . ':' . a:punc
+function! s:map_shift_only_punctuation_addtext_insert(knum, punc)
+  "echom "text/ins: knum:punc: " . a:knum . ':' . a:punc
+  exe 'iunmap <Leader>' . a:knum
+  exe 'iunmap <Leader>' . a:punc
+  exe 'iunmap <Leader>\|' . a:punc
+  "
+  " (lb): I'm not sure prepending <C-O> to every command is the ideal way
+  " to do this, but it works! (Not knowing is what I get for only poking
+  " at my Vim code every once in a blue moon!)
+  exe 'inoremap <Leader>' . a:knum . ' <C-O>yy<C-O>p<C-O><C-Q>$r' . a:punc . '<UP>'
+  exe 'inoremap <Leader>' . a:punc . ' <C-O>yy<C-O>p<C-O><C-Q>$r' . a:punc . '<C-O>yy<C-O>k<C-O>P<DOWN>'
+  exe 'inoremap <Leader>\|' . a:punc . ' <C-O>yy<C-O>p<C-O><C-Q>$r' . a:punc . '<C-O>yy<C-O>k<C-O>P<DOWN>'
+endfunction
+
+" ***
+
+function! s:map_shift_only_punctuation_replace_normal(knum, punc)
+  "echom "repl/nml: knum:punc: " . a:knum . ':' . a:punc
   exe 'nunmap <Leader><Leader>' . a:knum
   exe 'nunmap <Leader><Leader>' . a:punc
   exe 'nunmap <Leader><Leader>\|' . a:punc
@@ -133,6 +151,19 @@ function! s:map_shift_only_punctuation_replace(knum, punc)
   exe 'nnoremap <Leader><Leader>' . a:punc . ' <UP>dd<DOWN>dd<UP>yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
   exe 'nnoremap <Leader><Leader>\|' . a:punc . ' <UP>dd<DOWN>dd<UP>yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
 endfunction
+
+function! s:map_shift_only_punctuation_replace_insert(knum, punc)
+  "echom "repl/ins: knum:punc: " . a:knum . ':' . a:punc
+  exe 'iunmap <Leader><Leader>' . a:knum
+  exe 'iunmap <Leader><Leader>' . a:punc
+  exe 'iunmap <Leader><Leader>\|' . a:punc
+  "
+  exe 'inoremap <Leader><Leader>' . a:knum . ' <DOWN><C-O>dd<UP><C-O>yy<C-O>p<C-O><C-Q>$r' . a:punc . '<UP>'
+  exe 'inoremap <Leader><Leader>' . a:punc . ' <UP><C-O>dd<DOWN><C-O>dd<UP><C-O>yy<C-O>p<C-O><C-Q>$r' . a:punc . '<C-O>yy<C-O>k<C-O>P<DOWN>'
+  exe 'inoremap <Leader><Leader>\|' . a:punc . ' <UP><C-O>dd<DOWN><C-O>dd<UP><C-O>yy<C-O>p<C-O><C-Q>$r' . a:punc . '<C-O>yy<C-O>k<C-O>P<DOWN>'
+endfunction
+
+" ***
 
 function! s:map_shift_only_punctuation_reverse(lower, upper)
   "echom "knum:punc: " . a:knum . ':' . a:punc
@@ -173,6 +204,8 @@ function! s:map_doubled_punctuation(dpunc)
   exe 'nnoremap <Leader>\|' . a:dpunc . a:dpunc . ' yyp<C-Q>$r' . a:dpunc . 'yykP' . '<DOWN>'
 endfunction
 
+" ***
+
 function! s:map_special_keys()
   " We don't use '+' as a section delimiter because the
   "   reST syntax parser sees that as a table delimiter.
@@ -189,6 +222,13 @@ function! s:map_special_keys()
   nnoremap <Leader>= yyp<C-Q>$r=<UP>
   nnoremap <Leader>+ yyp<C-Q>$r=yykP<DOWN>
   nnoremap <Leader>\|+ yyp<C-Q>$r=yykP<DOWN>
+  "
+  iunmap <Leader>=
+  iunmap <Leader>+
+  iunmap <Leader>\|+
+  inoremap <Leader>= <C-O>yy<C-O>p<C-O><C-Q>$r=<UP>
+  inoremap <Leader>+ <C-O>yy<C-O>p<C-O><C-Q>$r=<C-O>yy<C-O>k<C-O>P<DOWN>
+  inoremap <Leader>\|+ <C-O>yy<C-O>p<C-O><C-Q>$r=<C-O>yy<C-O>k<C-O>P<DOWN>
 
   " 2019-02-08: Whatever: I couldn't get -d | +d | normal k to work,
   " but that's okay, UP DOWN (LEFT RIGHT) also works! (The minus ``-``
@@ -211,6 +251,11 @@ function! s:map_special_keys()
   nunmap <Leader><Leader>+
   nnoremap <Leader><Leader>= <DOWN>dd<UP>yyp<C-Q>$r=<UP>
   nnoremap <Leader><Leader>+ <UP>dd<DOWN>dd<UP>yyp<C-Q>$r=yykP<DOWN>
+  "
+  iunmap <Leader><Leader>=
+  iunmap <Leader><Leader>+
+  inoremap <Leader><Leader>= <DOWN><C-O>dd<UP><C-O>yy<C-O>p<C-O><C-Q>$r=<UP>
+  inoremap <Leader><Leader>+ <UP><C-O>dd<DOWN><C-O>dd<UP><C-O>yy<C-O>p<C-O><C-Q>$r=<C-O>yy<C-O>k<C-O>P<DOWN>
 
   " The pipe character is not sent to map_lower_or_upper_punctuation
   " because it needs to be escaped.
@@ -219,6 +264,8 @@ function! s:map_special_keys()
   nnoremap <Leader>\| yyp<C-Q>$r\|<UP>
   nnoremap <Leader>\|\| yyp<C-Q>$r\|yykP<DOWN>
 endfunction
+
+" ***
 
 function! s:apply_leadership_punctuation()
   let l:number_punc = [
@@ -250,8 +297,10 @@ function! s:apply_leadership_punctuation()
     \ ]
 
   for [l:knum, l:punc] in l:number_punc
-    call s:map_shift_only_punctuation(l:knum, l:punc)
-    call s:map_shift_only_punctuation_replace(l:knum, l:punc)
+    call s:map_shift_only_punctuation_addtext_normal(l:knum, l:punc)
+    call s:map_shift_only_punctuation_addtext_insert(l:knum, l:punc)
+    call s:map_shift_only_punctuation_replace_normal(l:knum, l:punc)
+    call s:map_shift_only_punctuation_replace_insert(l:knum, l:punc)
   endfor
 
   for [l:lower, l:upper] in l:reverse_punc
