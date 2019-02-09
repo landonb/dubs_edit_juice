@@ -112,77 +112,128 @@ let g:plugin_edit_juice_resections_vim = 1
 
 " ***
 
-function! s:map_shift_only_punctuation_addtext_normal(knum, punc)
-  "echom "text/nml: knum:punc: " . a:knum . ':' . a:punc
-  exe 'nunmap <Leader>' . a:knum
-  exe 'nunmap <Leader>' . a:punc
-  exe 'nunmap <Leader>\|' . a:punc
-  "
-  exe 'nnoremap <Leader>' . a:knum . ' yyp<C-Q>$r' . a:punc . '<UP>'
-  exe 'nnoremap <Leader>' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
-  " 2017-12-08: What's the point of this? And other <l><l>; they seem redundant.
-  "exe 'nnoremap <Leader><Leader>' . a:punc . ' yyp<C-Q>$r' . a:punc
-  exe 'nnoremap <Leader>\|' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
+" (lb): I'm not sure prepending <C-O> to every command is the ideal way
+" to do this, but it works! (Not knowing is what I get for only poking
+" at my Vim code every once in a blue moon!)
+
+let s:yank_put_replace_n = 'yyp<C-Q>$r'
+
+let s:up_n = '<UP>'
+let s:yank_up_putbefore_down_n = 'yykP<DOWN>'
+
+let s:delete_line_above_n = '<UP>dd'
+let s:delete_line_below_n = '<DOWN>dd<UP>'
+
+" ***
+
+function! s:map_shift_only_punctuation_install_below_normal(keych, delim)
+  "echom "map_shift_only_punctuation_install_below_normal: keych:delim: " . a:keych . ':' . a:delim
+  exe 'silent! nunmap <Leader>' . a:keych
+  exe 'nnoremap <Leader>' . a:keych . ' ' . s:yank_put_replace_n . a:delim . s:up_n
 endfunction
 
-function! s:map_shift_only_punctuation_addtext_insert(knum, punc)
-  "echom "text/ins: knum:punc: " . a:knum . ':' . a:punc
-  exe 'iunmap <Leader>' . a:knum
-  exe 'iunmap <Leader>' . a:punc
-  exe 'iunmap <Leader>\|' . a:punc
-  "
-  " (lb): I'm not sure prepending <C-O> to every command is the ideal way
-  " to do this, but it works! (Not knowing is what I get for only poking
-  " at my Vim code every once in a blue moon!)
-  exe 'inoremap <Leader>' . a:knum . ' <C-O>yy<C-O>p<C-O><C-Q>$r' . a:punc . '<UP>'
-  exe 'inoremap <Leader>' . a:punc . ' <C-O>yy<C-O>p<C-O><C-Q>$r' . a:punc . '<C-O>yy<C-O>k<C-O>P<DOWN>'
-  exe 'inoremap <Leader>\|' . a:punc . ' <C-O>yy<C-O>p<C-O><C-Q>$r' . a:punc . '<C-O>yy<C-O>k<C-O>P<DOWN>'
+function! s:map_shift_only_punctuation_install_aboth_normal(keych, delim, extra)
+  "echom "shift-install-aboth-normal: keych:delim: " . a:keych . ':' . a:delim . ':' . a:extra
+  exe 'silent! nunmap <Leader>' . a:extra . a:keych
+  exe 'nnoremap <Leader>' . a:extra . a:keych . ' ' . s:yank_put_replace_n . a:delim . s:yank_up_putbefore_down_n
 endfunction
 
 " ***
 
-function! s:map_shift_only_punctuation_replace_normal(knum, punc)
-  "echom "repl/nml: knum:punc: " . a:knum . ':' . a:punc
-  exe 'nunmap <Leader><Leader>' . a:knum
-  exe 'nunmap <Leader><Leader>' . a:punc
-  exe 'nunmap <Leader><Leader>\|' . a:punc
-  "
-  exe 'nnoremap <Leader><Leader>' . a:knum . ' <DOWN>dd<UP>yyp<C-Q>$r' . a:punc . '<UP>'
-  exe 'nnoremap <Leader><Leader>' . a:punc . ' <UP>dd<DOWN>dd<UP>yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
-  exe 'nnoremap <Leader><Leader>\|' . a:punc . ' <UP>dd<DOWN>dd<UP>yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
+function! s:map_shift_only_punctuation_install_below_insert(keych, delim)
+  "echom "map_shift_only_punctuation_install_below_insert: keych:delim: " . a:keych . ':' . a:delim
+  exe 'silent! iunmap <Leader>' . a:keych
+  " MAYBE/2019-02-09: Use function, and restore cursor position. For now, goes to first character of line.
+  exe 'inoremap <Leader>' . a:keych . ' ' . '<ESC>' . s:yank_put_replace_n . a:delim . s:up_n . 'i'
 endfunction
 
-function! s:map_shift_only_punctuation_replace_insert(knum, punc)
-  "echom "repl/ins: knum:punc: " . a:knum . ':' . a:punc
-  exe 'iunmap <Leader><Leader>' . a:knum
-  exe 'iunmap <Leader><Leader>' . a:punc
-  exe 'iunmap <Leader><Leader>\|' . a:punc
-  "
-  exe 'inoremap <Leader><Leader>' . a:knum . ' <DOWN><C-O>dd<UP><C-O>yy<C-O>p<C-O><C-Q>$r' . a:punc . '<UP>'
-  exe 'inoremap <Leader><Leader>' . a:punc . ' <UP><C-O>dd<DOWN><C-O>dd<UP><C-O>yy<C-O>p<C-O><C-Q>$r' . a:punc . '<C-O>yy<C-O>k<C-O>P<DOWN>'
-  exe 'inoremap <Leader><Leader>\|' . a:punc . ' <UP><C-O>dd<DOWN><C-O>dd<UP><C-O>yy<C-O>p<C-O><C-Q>$r' . a:punc . '<C-O>yy<C-O>k<C-O>P<DOWN>'
+function! s:map_shift_only_punctuation_install_aboth_insert(keych, delim, extra)
+  "echom "map_shift_only_punctuation_install_aboth_insert: keych:delim: " . a:keych . ':' . a:delim
+  exe 'silent! iunmap <Leader>' . a:extra . a:keych
+  exe 'inoremap <Leader>' . a:extra . a:keych . ' ' . '<ESC>' . s:yank_put_replace_n . a:delim . s:yank_up_putbefore_down_n . 'i'
 endfunction
 
 " ***
 
-function! s:map_shift_only_punctuation_reverse(lower, upper)
-  "echom "knum:punc: " . a:knum . ':' . a:punc
-  exe 'nunmap <Leader>' . a:lower
-  exe 'nunmap <Leader>' . a:upper
-  exe 'nunmap <Leader>\|' . a:lower
-  "
-  exe 'nnoremap <Leader>' . a:lower . ' yyp<C-Q>$r' . a:lower . '<UP>'
-  exe 'nnoremap <Leader>' . a:upper . ' yyp<C-Q>$r' . a:lower . 'yykP<DOWN>'
-  exe 'nnoremap <Leader>\|' . a:lower . ' yyp<C-Q>$r' . a:lower . 'yykP<DOWN>'
+function! s:map_shift_only_punctuation_replace_below_normal(keych, delim)
+  "echom "map_shift_only_punctuation_replace_below_normal: keych:delim: " . a:keych . ':' . a:delim
+  exe 'silent! nunmap <Leader><Leader>' . a:keych
+  exe 'nnoremap <Leader><Leader>' . a:keych . ' ' . s:delete_line_below_n . s:yank_put_replace_n . a:delim . s:up_n
 endfunction
+
+" :help function-argument
+
+function! s:map_shift_only_punctuation_replace_aboth_normal(keych, delim)
+  "echom "map_shift_only_punctuation_replace_aboth_normal: keych:delim: " . a:keych . ':' . a:delim
+  exe 'silent! nunmap <Leader><Leader>' . a:keych
+  exe 'nnoremap <Leader><Leader>' . a:keych . ' ' . s:delete_line_above_n . s:delete_line_below_n . s:yank_put_replace_n . a:delim . s:yank_up_putbefore_down_n
+endfunction
+
+" ***
+
+function! s:map_shift_only_punctuation_replace_below_insert(keych, delim)
+  "echom "map_shift_only_punctuation_replace_below_insert: keych:delim: " . a:keych . ':' . a:delim
+  exe 'silent! iunmap <Leader><Leader>' . a:keych
+  exe 'inoremap <Leader><Leader>' . a:keych . ' ' . '<ESC>' . s:delete_line_below_n . s:yank_put_replace_n . a:delim . s:up_n . 'i'
+endfunction
+
+function! s:map_shift_only_punctuation_replace_aboth_insert(keych, delim)
+  "echom "map_shift_only_punctuation_replace_aboth_insert: keych:delim: " . a:keych . ':' . a:delim
+  exe 'silent! iunmap <Leader><Leader>' . a:keych
+  exe 'inoremap <Leader><Leader>' . a:keych . ' ' . '<ESC>' . s:delete_line_above_n . s:delete_line_below_n . s:yank_put_replace_n . a:delim . s:yank_up_putbefore_down_n . 'i'
+endfunction
+
+" ***
+
+function! s:map_shift_only_punctuation_addtext_maps(knum, punc)
+  "echom "map_shift_only_punctuation_addtext_maps: knum:punc: " . a:knum . ':' . a:punc
+  call s:map_shift_only_punctuation_install_below_normal(a:knum, a:punc)
+  call s:map_shift_only_punctuation_install_aboth_normal(a:punc, a:punc, '')
+  call s:map_shift_only_punctuation_replace_below_normal(a:knum, a:punc)
+  call s:map_shift_only_punctuation_replace_aboth_normal(a:punc, a:punc)
+  " The leader-pipe maps are redundant but included for parity with, e.g., ``\|;``.
+  call s:map_shift_only_punctuation_install_aboth_normal(a:knum, a:punc, '\|')
+  call s:map_shift_only_punctuation_install_aboth_normal(a:punc, a:punc, '\|')
+  "
+  call s:map_shift_only_punctuation_install_below_insert(a:knum, a:punc)
+  call s:map_shift_only_punctuation_install_aboth_insert(a:punc, a:punc, '')
+  call s:map_shift_only_punctuation_replace_below_insert(a:knum, a:punc)
+  call s:map_shift_only_punctuation_replace_aboth_insert(a:punc, a:punc)
+  " The leader-pipe maps are redundant but included for parity with, e.g., ``\|;``.
+  call s:map_shift_only_punctuation_install_aboth_insert(a:knum, a:punc, '\|')
+  call s:map_shift_only_punctuation_install_aboth_insert(a:punc, a:punc, '\|')
+endfunction
+
+" ***
+
+function! s:map_lower_only_punctuation_addtext_maps(lower, upper)
+  "echom "map_lower_only_punctuation_addtext_maps: lower:upper: " . a:lower . ':' . a:upper
+  call s:map_shift_only_punctuation_install_below_normal(a:lower, a:lower)
+  call s:map_shift_only_punctuation_install_aboth_normal(a:upper, a:lower, '')
+  call s:map_shift_only_punctuation_replace_below_normal(a:lower, a:lower)
+  call s:map_shift_only_punctuation_replace_aboth_normal(a:upper, a:lower)
+  " The leader-pipe maps are redundant but included for parity with, e.g., ``\|;``.
+  call s:map_shift_only_punctuation_install_aboth_normal(a:lower, a:lower, '\|')
+  call s:map_shift_only_punctuation_install_aboth_normal(a:upper, a:lower, '\|')
+  "
+  call s:map_shift_only_punctuation_install_below_insert(a:lower, a:lower)
+  call s:map_shift_only_punctuation_install_aboth_insert(a:upper, a:lower, '')
+  call s:map_shift_only_punctuation_replace_below_insert(a:lower, a:lower)
+  call s:map_shift_only_punctuation_replace_aboth_insert(a:upper, a:lower)
+  " The leader-pipe maps are redundant but included for parity with, e.g., ``\|;``.
+  call s:map_shift_only_punctuation_install_aboth_insert(a:lower, a:lower, '\|')
+  call s:map_shift_only_punctuation_install_aboth_insert(a:upper, a:lower, '\|')
+endfunction
+
+" ***
 
 function! s:map_lower_or_upper_punctuation(punc)
   "echom "punc: " . a:punc
-  exe 'nunmap <Leader>' . a:punc
-  exe 'nunmap <Leader>\|' . a:punc
+  exe 'silent! nunmap <Leader>'   . a:punc
+  exe 'silent! nunmap <Leader>\|' . a:punc
   "
-  exe 'nnoremap <Leader>' . a:punc . ' yyp<C-Q>$r' . a:punc . '<UP>'
-  exe 'nnoremap <Leader>\|' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
+  exe 'nnoremap <Leader>'   . a:punc . ' ' . s:yank_put_replace_n . a:punc . s:up_n
+  exe 'nnoremap <Leader>\|' . a:punc . ' ' . s:yank_put_replace_n . a:punc . s:yank_up_putbefore_down_n
 endfunction
 
 function! s:map_insider_punctuation(lpunc, rpunc)
@@ -190,18 +241,18 @@ function! s:map_insider_punctuation(lpunc, rpunc)
   " Inside Inside Inside The Delimiters
   " )))))))))))))))))))))))))))))))))))
   "echom "lpunc:rpunc: " . a:lpunc . ':' . a:rpunc
-  exe 'nunmap <Leader>' . a:lpunc . a:rpunc
+  exe 'silent! nunmap <Leader>' . a:lpunc . a:rpunc
   "
   exe 'nnoremap <Leader>' . a:lpunc . a:rpunc . ' yyP<C-Q>$r' . a:lpunc . '<DOWN>yyp<C-Q>$r' . a:rpunc . '<UP>'
 endfunction
 
 function! s:map_doubled_punctuation(dpunc)
   "echom "dpunc: " . a:dpunc
-  exe 'nunmap <Leader>' . a:dpunc . a:dpunc
-  exe 'nunmap <Leader>\|' . a:dpunc . a:dpunc
+  exe 'silent! nunmap <Leader>'   . a:dpunc . a:dpunc
+  exe 'silent! nunmap <Leader>\|' . a:dpunc . a:dpunc
   "
-  exe 'nnoremap <Leader>' . a:dpunc . a:dpunc . ' yyp<C-Q>$r' . a:dpunc . '<UP>'
-  exe 'nnoremap <Leader>\|' . a:dpunc . a:dpunc . ' yyp<C-Q>$r' . a:dpunc . 'yykP' . '<DOWN>'
+  exe 'nnoremap <Leader>'   . a:dpunc . a:dpunc . ' ' . s:yank_put_replace_n . a:dpunc . '<UP>'
+  exe 'nnoremap <Leader>\|' . a:dpunc . a:dpunc . ' ' . s:yank_put_replace_n . a:dpunc . 'yykP' . '<DOWN>'
 endfunction
 
 " ***
@@ -216,16 +267,16 @@ function! s:map_special_keys()
   "   SECTION
   "   =======
   "
-  nunmap <Leader>=
-  nunmap <Leader>+
-  nunmap <Leader>\|+
+  silent! nunmap <Leader>=
+  silent! nunmap <Leader>+
+  silent! nunmap <Leader>\|+
   nnoremap <Leader>= yyp<C-Q>$r=<UP>
   nnoremap <Leader>+ yyp<C-Q>$r=yykP<DOWN>
   nnoremap <Leader>\|+ yyp<C-Q>$r=yykP<DOWN>
   "
-  iunmap <Leader>=
-  iunmap <Leader>+
-  iunmap <Leader>\|+
+  silent! iunmap <Leader>=
+  silent! iunmap <Leader>+
+  silent! iunmap <Leader>\|+
   inoremap <Leader>= <C-O>yy<C-O>p<C-O><C-Q>$r=<UP>
   inoremap <Leader>+ <C-O>yy<C-O>p<C-O><C-Q>$r=<C-O>yy<C-O>k<C-O>P<DOWN>
   inoremap <Leader>\|+ <C-O>yy<C-O>p<C-O><C-Q>$r=<C-O>yy<C-O>k<C-O>P<DOWN>
@@ -247,20 +298,20 @@ function! s:map_special_keys()
   "     =================
   "     header got longer
   "     =================
-  nunmap <Leader><Leader>=
-  nunmap <Leader><Leader>+
+  silent! nunmap <Leader><Leader>=
+  silent! nunmap <Leader><Leader>+
   nnoremap <Leader><Leader>= <DOWN>dd<UP>yyp<C-Q>$r=<UP>
   nnoremap <Leader><Leader>+ <UP>dd<DOWN>dd<UP>yyp<C-Q>$r=yykP<DOWN>
   "
-  iunmap <Leader><Leader>=
-  iunmap <Leader><Leader>+
+  silent! iunmap <Leader><Leader>=
+  silent! iunmap <Leader><Leader>+
   inoremap <Leader><Leader>= <DOWN><C-O>dd<UP><C-O>yy<C-O>p<C-O><C-Q>$r=<UP>
   inoremap <Leader><Leader>+ <UP><C-O>dd<DOWN><C-O>dd<UP><C-O>yy<C-O>p<C-O><C-Q>$r=<C-O>yy<C-O>k<C-O>P<DOWN>
 
   " The pipe character is not sent to map_lower_or_upper_punctuation
   " because it needs to be escaped.
-  nunmap <Leader>\|
-  nunmap <Leader>\|\|
+  silent! nunmap <Leader>\|
+  silent! nunmap <Leader>\|\|
   nnoremap <Leader>\| yyp<C-Q>$r\|<UP>
   nnoremap <Leader>\|\| yyp<C-Q>$r\|yykP<DOWN>
 endfunction
@@ -297,14 +348,11 @@ function! s:apply_leadership_punctuation()
     \ ]
 
   for [l:knum, l:punc] in l:number_punc
-    call s:map_shift_only_punctuation_addtext_normal(l:knum, l:punc)
-    call s:map_shift_only_punctuation_addtext_insert(l:knum, l:punc)
-    call s:map_shift_only_punctuation_replace_normal(l:knum, l:punc)
-    call s:map_shift_only_punctuation_replace_insert(l:knum, l:punc)
+    call s:map_shift_only_punctuation_addtext_maps(l:knum, l:punc)
   endfor
 
   for [l:lower, l:upper] in l:reverse_punc
-    call s:map_shift_only_punctuation_reverse(l:lower, l:upper)
+    call s:map_lower_only_punctuation_addtext_maps(l:lower, l:upper)
   endfor
 
   for l:punc in l:simple_punc
