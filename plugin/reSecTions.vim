@@ -123,6 +123,17 @@ function! s:map_shift_only_punctuation(knum, punc)
   exe 'nnoremap <Leader>\|' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
 endfunction
 
+function! s:map_shift_only_punctuation_replace(knum, punc)
+  "echom "knum:punc: " . a:knum . ':' . a:punc
+  exe 'nunmap <Leader><Leader>' . a:knum
+  exe 'nunmap <Leader><Leader>' . a:punc
+  exe 'nunmap <Leader><Leader>\|' . a:punc
+  "
+  exe 'nnoremap <Leader><Leader>' . a:knum . ' <DOWN>dd<UP>yyp<C-Q>$r' . a:punc . '<UP>'
+  exe 'nnoremap <Leader><Leader>' . a:punc . ' <UP>dd<DOWN>dd<UP>yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
+  exe 'nnoremap <Leader><Leader>\|' . a:punc . ' <UP>dd<DOWN>dd<UP>yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
+endfunction
+
 function! s:map_shift_only_punctuation_reverse(lower, upper)
   "echom "knum:punc: " . a:knum . ':' . a:punc
   exe 'nunmap <Leader>' . a:lower
@@ -177,8 +188,29 @@ function! s:map_special_keys()
   nunmap <Leader>\|+
   nnoremap <Leader>= yyp<C-Q>$r=<UP>
   nnoremap <Leader>+ yyp<C-Q>$r=yykP<DOWN>
-  nnoremap <Leader><Leader>= yyp<C-Q>$r=<UP>
   nnoremap <Leader>\|+ yyp<C-Q>$r=yykP<DOWN>
+
+  " 2019-02-08: Whatever: I couldn't get -d | +d | normal k to work,
+  " but that's okay, UP DOWN (LEFT RIGHT) also works! (The minus ``-``
+  " key is apparently mapped to NerdTree, so typing ``-d`` does not
+  " exactly work, as the minus press immediately triggers NerdTree.)
+  " Oh, anyway: this mapping removes the line above and line below,
+  " and replaces the section border.
+  "   e.g., if::
+  "
+  "     ======
+  "     header got longer
+  "     ======
+  "
+  "   then the mapping could, in one swoop, produce::
+  "
+  "     =================
+  "     header got longer
+  "     =================
+  nunmap <Leader><Leader>=
+  nunmap <Leader><Leader>+
+  nnoremap <Leader><Leader>= <DOWN>dd<UP>yyp<C-Q>$r=<UP>
+  nnoremap <Leader><Leader>+ <UP>dd<DOWN>dd<UP>yyp<C-Q>$r=yykP<DOWN>
 
   " The pipe character is not sent to map_lower_or_upper_punctuation
   " because it needs to be escaped.
@@ -219,6 +251,7 @@ function! s:apply_leadership_punctuation()
 
   for [l:knum, l:punc] in l:number_punc
     call s:map_shift_only_punctuation(l:knum, l:punc)
+    call s:map_shift_only_punctuation_replace(l:knum, l:punc)
   endfor
 
   for [l:lower, l:upper] in l:reverse_punc
