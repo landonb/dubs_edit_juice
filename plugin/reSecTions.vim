@@ -48,7 +48,11 @@
 "   Then press <F9> to reload script.
 
 if exists("g:plugin_edit_juice_resections_vim") || &cp
-  finish
+  " 2019-02-08: This script is now reloadable; you
+  " can comment out the `finish` and hit <F9> to see!
+  " MAYBE/2019-02-08: Can/Should we remove the `finish`?
+  "finish
+  :
 endif
 let g:plugin_edit_juice_resections_vim = 1
 
@@ -108,6 +112,10 @@ let g:plugin_edit_juice_resections_vim = 1
 
 function! s:map_shift_only_punctuation(knum, punc)
   "echom "knum:punc: " . a:knum . ':' . a:punc
+  exe 'nunmap <Leader>' . a:knum
+  exe 'nunmap <Leader>' . a:punc
+  exe 'nunmap <Leader>\|' . a:punc
+  "
   exe 'nnoremap <Leader>' . a:knum . ' yyp<C-Q>$r' . a:punc . '<UP>'
   exe 'nnoremap <Leader>' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
   " 2017-12-08: What's the point of this? And other <l><l>; they seem redundant.
@@ -117,6 +125,10 @@ endfunction
 
 function! s:map_shift_only_punctuation_reverse(lower, upper)
   "echom "knum:punc: " . a:knum . ':' . a:punc
+  exe 'nunmap <Leader>' . a:lower
+  exe 'nunmap <Leader>' . a:upper
+  exe 'nunmap <Leader>\|' . a:lower
+  "
   exe 'nnoremap <Leader>' . a:lower . ' yyp<C-Q>$r' . a:lower . '<UP>'
   exe 'nnoremap <Leader>' . a:upper . ' yyp<C-Q>$r' . a:lower . 'yykP<DOWN>'
   exe 'nnoremap <Leader>\|' . a:lower . ' yyp<C-Q>$r' . a:lower . 'yykP<DOWN>'
@@ -124,6 +136,9 @@ endfunction
 
 function! s:map_lower_or_upper_punctuation(punc)
   "echom "punc: " . a:punc
+  exe 'nunmap <Leader>' . a:punc
+  exe 'nunmap <Leader>\|' . a:punc
+  "
   exe 'nnoremap <Leader>' . a:punc . ' yyp<C-Q>$r' . a:punc . '<UP>'
   exe 'nnoremap <Leader>\|' . a:punc . ' yyp<C-Q>$r' . a:punc . 'yykP<DOWN>'
 endfunction
@@ -133,18 +148,23 @@ function! s:map_insider_punctuation(lpunc, rpunc)
   " Inside Inside Inside The Delimiters
   " )))))))))))))))))))))))))))))))))))
   "echom "lpunc:rpunc: " . a:lpunc . ':' . a:rpunc
+  exe 'nunmap <Leader>' . a:lpunc . a:rpunc
+  "
   exe 'nnoremap <Leader>' . a:lpunc . a:rpunc . ' yyP<C-Q>$r' . a:lpunc . '<DOWN>yyp<C-Q>$r' . a:rpunc . '<UP>'
 endfunction
 
 function! s:map_doubled_punctuation(dpunc)
   "echom "dpunc: " . a:dpunc
+  exe 'nunmap <Leader>' . a:dpunc . a:dpunc
+  exe 'nunmap <Leader>\|' . a:dpunc . a:dpunc
+  "
   exe 'nnoremap <Leader>' . a:dpunc . a:dpunc . ' yyp<C-Q>$r' . a:dpunc . '<UP>'
-  exe 'nnoremap <Leader>\|' . a:dpunc  . a:dpunc . ' yyp<C-Q>$r' . a:dpunc . 'yykP' . '<DOWN>'
+  exe 'nnoremap <Leader>\|' . a:dpunc . a:dpunc . ' yyp<C-Q>$r' . a:dpunc . 'yykP' . '<DOWN>'
 endfunction
 
 function! s:map_special_keys()
-  " We don't map '+' because the reST syntax parser sees
-  "   that as a table delimiter, so let's just not use it.
+  " We don't use '+' as a section delimiter because the
+  "   reST syntax parser sees that as a table delimiter.
   " Instead, map <Leader>= to under-section with equal signs
   "   and then map <Leader>+ to over-under-section with equals.
   "
@@ -152,6 +172,9 @@ function! s:map_special_keys()
   "   SECTION
   "   =======
   "
+  nunmap <Leader>=
+  nunmap <Leader>+
+  nunmap <Leader>\|+
   nnoremap <Leader>= yyp<C-Q>$r=<UP>
   nnoremap <Leader>+ yyp<C-Q>$r=yykP<DOWN>
   nnoremap <Leader><Leader>= yyp<C-Q>$r=<UP>
@@ -159,6 +182,8 @@ function! s:map_special_keys()
 
   " The pipe character is not sent to map_lower_or_upper_punctuation
   " because it needs to be escaped.
+  nunmap <Leader>\|
+  nunmap <Leader>\|\|
   nnoremap <Leader>\| yyp<C-Q>$r\|<UP>
   nnoremap <Leader>\|\| yyp<C-Q>$r\|yykP<DOWN>
 endfunction
