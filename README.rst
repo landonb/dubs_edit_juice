@@ -20,25 +20,46 @@ just make Vim a more comfortable editor all around.
 Installation
 ============
 
-Standard Pathogen installation:
+Installation is easy using the packages feature (see ``:help packages``).
+
+To install the package so that it will automatically load on Vim startup,
+use a ``start`` directory, e.g.,
 
 .. code-block:: bash
 
-   cd ~/.vim/bundle/
-   git clone https://github.com/landonb/dubs_edit_juice.git
+    mkdir -p ~/.vim/pack/landonb/start
+    cd ~/.vim/pack/landonb/start
 
-Or, Standard submodule installation:
+If you want to test the package first, make it optional instead
+(see ``:help pack-add``):
 
 .. code-block:: bash
 
-   cd ~/.vim/bundle/
-   git submodule add https://github.com/landonb/dubs_edit_juice.git
+    mkdir -p ~/.vim/pack/landonb/opt
+    cd ~/.vim/pack/landonb/opt
 
-Online help:
+Clone the project to the desired path:
+
+.. code-block:: bash
+
+    git clone https://github.com/landonb/dubs_edit_juice.git
+
+If you installed to the optional path, tell Vim to load the package:
+
+.. code-block:: vim
+
+   :packadd! dubs_edit_juice
+
+Just once, tell Vim to build the online help:
 
 .. code-block:: vim
 
    :Helptags
+
+Then whenever you want to reference the help from Vim, run:
+
+.. code-block:: vim
+
    :help dubs-edit-juice
 
 Optional Vendor Plugins
@@ -73,12 +94,12 @@ To install AutoAdapt and also a necessary support library,
 grab the latest Vimballs and let 'em loose. Be sure to specify
 an install directory so we can install to the Pathogen directory.
 
-Download the support library to a new Pathogen location.
+Download the support library to the appropriate ``packages`` directory.
 
 .. code-block:: bash
 
-   mkdir ~/.vim/bundle/ingo-library
-   cd ~/.vim/bundle/ingo-library
+   mkdir -p ~/.vim/pack/vim-scripts/start/ingo-library
+   cd ~/.vim/pack/vim-scripts/start/ingo-library
    wget -O ingo-library-1.022.vmb.gz \
       http://www.vim.org/scripts/download_script.php?src_id=22460
    gvim ingo-library-1.022.vmb.gz
@@ -87,14 +108,14 @@ Install from Vim.
 
 .. code-block:: vim
 
-   :UseVimball ~/.vim/bundle/ingo-library
+   :UseVimball ~/.vim/pack/vim-scripts/start/ingo-library
 
 Download AutoAdapt to a new Pathogen location.
 
 .. code-block:: bash
 
-   mkdir ~/.vim/bundle/AutoAdapt
-   cd ~/.vim/bundle/AutoAdapt
+   mkdir ~/.vim/pack/vim-scripts/start/AutoAdapt
+   cd ~/.vim/pack/vim-scripts/start/AutoAdapt
    wget -O AutoAdapt-1.10.vmb.gz \
       http://www.vim.org/scripts/download_script.php?src_id=21327
    # You can run gunzip first, or you can just run gvim.
@@ -104,14 +125,14 @@ Install from Vim.
 
 .. code-block:: vim
 
-   :UseVimball ~/.vim/bundle/AutoAdapt
+   :UseVimball ~/.vim/pack/vim-scripts/start/AutoAdapt
 
 Cleanup.
 
 .. code-block:: bash
 
-   rm ~/.vim/bundle/AutoAdapt/AutoAdapt-1.10.vmb.gz
-   rm ~/.vim/bundle/ingo-library/ingo-library-1.022.vmb.gz
+   rm ~/.vim/pack/vim-scripts/start/AutoAdapt/AutoAdapt-1.10.vmb.gz
+   rm ~/.vim/pack/vim-scripts/start/ingo-library/ingo-library-1.022.vmb.gz
 
 taglist
 -------
@@ -120,8 +141,8 @@ To unlock the tag list feature, install the `taglist` plugin.
 
 .. code-block:: bash
 
-   mkdir ~/.vim/bundle/taglist
-   cd ~/.vim/bundle/taglist
+   mkdir ~/.vim/pack/vim-scripts/start/taglist
+   cd ~/.vim/pack/vim-scripts/start/taglist
    wget -N http://downloads.sourceforge.net/project/vim-taglist/vim-taglist/4.6/taglist_46.zip
    unzip taglist_46.zip
    /bin/rm taglist_46.zip

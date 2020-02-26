@@ -88,22 +88,22 @@ ingo-library http://www.vim.org/scripts/script.php?script_id=4433,
 grab the latest Vimballs and let 'em loose. Be sure to specify
 a install directory so we can install to the Pathogen directory.
 
-Download the support library to a new Pathogen location.
+Download the support library to a new Vim packages location.
 
-   mkdir ~/.vim/bundle/ingo-library
-   cd ~/.vim/bundle/ingo-library
+   mkdir -p ~/.vim/pack/vim-scripts/start/ingo-library
+   cd ~/.vim/pack/vim-scripts/start/ingo-library
    wget -O ingo-library-1.022.vmb.gz \
       http://www.vim.org/scripts/download_script.php?src_id=22460
    gvim ingo-library-1.022.vmb.gz
 
 Install from Vim.
 
-   :UseVimball ~/.vim/bundle/ingo-library
+   :UseVimball ~/.vim/pack/vim-scripts/start/ingo-library
 
 Download the metadata-update-on-save program to a new Pathogen location.
 
-   mkdir ~/.vim/bundle/AutoAdapt
-   cd ~/.vim/bundle/AutoAdapt
+   mkdir -p ~/.vim/pack/vim-scripts/start/AutoAdapt
+   cd ~/.vim/pack/vim-scripts/start/AutoAdapt
    wget -O AutoAdapt-1.10.vmb.gz \
       http://www.vim.org/scripts/download_script.php?src_id=21327
    # You can run gunzip first, or you can just run gvim.
@@ -111,20 +111,20 @@ Download the metadata-update-on-save program to a new Pathogen location.
 
 Install from Vim.
 
-   :UseVimball ~/.vim/bundle/AutoAdapt
+   :UseVimball ~/.vim/pack/vim-scripts/start/AutoAdapt
 
 Cleanup.
 
-   rm ~/.vim/bundle/AutoAdapt/AutoAdapt-1.10.vmb.gz
-   rm ~/.vim/bundle/ingo-library/ingo-library-1.022.vmb.gz
+   rm ~/.vim/pack/vim-scripts/start/AutoAdapt/AutoAdapt-1.10.vmb.gz
+   rm ~/.vim/pack/vim-scripts/start/ingo-library/ingo-library-1.022.vmb.gz
 
 taglist
 ~~~~~~~~
 
 To unlock the tag list feature, install the `taglist` plugin.
 
-   mkdir ~/.vim/bundle/taglist
-   cd ~/.vim/bundle/taglist
+   mkdir -p ~/.vim/pack/vim-scripts/start/taglist
+   cd ~/.vim/pack/vim-scripts/start/taglist
    wget -N http://downloads.sourceforge.net/project/vim-taglist/vim-taglist/4.6/taglist_46.zip
    unzip taglist_46.zip
    /bin/rm taglist_46.zip
