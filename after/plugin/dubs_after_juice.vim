@@ -46,18 +46,15 @@ let g:after_juice_vim = 1
 " Uses that author's ingo-library: "Vimscript library of common functions."
 "   http://www.vim.org/scripts/script.php?script_id=4433
 
-" We need to call an AutoAdapt function, which would normally work
-" since the AutoAdapt script loads from an autoload plugin. But
-" since we're using Pathogen, we have to use an after script
-" to wait for it to be loaded, since bundles are loaded whenever
-" and Pathogen only defers the after scripts.
+" We need to call an AutoAdapt function, which is exposed from an autoload
+" plugin. Use an after script to ensure that autoload plugin is available.
 "
-" Note: We do, however, have to set a few other globals *before*
-"       AutoAdapt loads; search: g:AutoAdapt_FirstLines/_LastLines.
+" Note: We do, however, set a few globals *before* AutoAdapt loads. Search:
+"         g:AutoAdapt_FirstLines/_LastLines
 
 " HINT: Toggle with :NoAutoAdapt and then :Adapt
 
-" See: ~/.vim/bundle/AutoAdapt/plugin/AutoAdapt.vim
+" See: ~/.vim/pack/vim-scripts/start/AutoAdapt/plugin/AutoAdapt.vim
 
 " The plugin defaults to checking the top 25 and bottom 10 lines.
 " [lb] is skipping the end of the file, though, since I never put
@@ -337,8 +334,10 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 if !s:running_windows
   source $VIMRUNTIME/mswin.vim
   " 2017-04-03: In Insert mode, Ctrl-X is inserting "+x -- what the hell.
-  " 2017-06-10: See bundle_/dubs_edit_juice/after/plugin/dubs_after_juice.vim
-  "  See dubs_appearance/after/plugin/dubs_appearance.vim
+  " 2017-06-10: See:
+  "     ~/.vim/pack/landonb/start/dubs_edit_juice/after/plugin/dubs_after_juice.vim
+  "  - See:
+  "     ~/.vim/pack/landonb/start/dubs_appearance/after/plugin/dubs_appearance.vim
   "  - Something must be getting sourced after this that screws it up...
   " :echom "XXXXXXXXXXXXXXXXXXXXXXXXXXX SOURCED ". $VIMRUNTIME . "/mswin.vim"
   "  /usr/share/vim/vim74/mswin.vim
