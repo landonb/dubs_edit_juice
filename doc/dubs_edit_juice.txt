@@ -286,8 +286,8 @@ s_<Shift-Tab>		Undent selected text block.
 			``<Ctrl-L>`` swaps the paragraph above
 			the cursor with the paragraph below it.
 
-				*<Leader>O* *\O*
-<Leader>O		Open hyperlink under cursor or selected.
+				*<Leader>o* *\o*
+<Leader>o		Open hyperlink under cursor or selected.
 
 ==============================================================================
 5. Common Buffer Commands		*dubs-edit-juice--buffer-commands*
