@@ -485,10 +485,10 @@ endfunction
 " ------------------------------------------------------
 " Ctrl-J/Ctrl-K Traverse Buffer History
 " ------------------------------------------------------
-noremap <C-j> :BufSurfBack<CR>
-inoremap <C-j> <C-O>:BufSurfBack<CR>
-cnoremap <C-j> <C-C>:BufSurfBack<CR>
-onoremap <C-j> <C-C>:BufSurfBack<CR>
+noremap <C-j> :BufferRingReverse<CR>
+inoremap <C-j> <C-O>:BufferRingReverse<CR>
+cnoremap <C-j> <C-C>:BufferRingReverse<CR>
+onoremap <C-j> <C-C>:BufferRingReverse<CR>
 
 " 2017-06-06: Remap <C-k>, so digraph insertion works from <C-l>,
 "   and then I can continue using <C-j> and <C-k> for burfing surfing
@@ -498,10 +498,10 @@ inoremap <C-l> <C-k>
 
 " 2017-06-10: Vim's Ctrl-K maps to a :digraph feature, and we cannot remap
 "  otherwise access the feature except through Ctrl-K...
-noremap <C-k> :BufSurfForward<CR>
-inoremap <C-k> <C-O>:BufSurfForward<CR>
-cnoremap <C-k> <C-C>:BufSurfForward<CR>
-onoremap <C-k> <C-C>:BufSurfForward<CR>
+noremap <C-k> :BufferRingForward<CR>
+inoremap <C-k> <C-O>:BufferRingForward<CR>
+cnoremap <C-k> <C-C>:BufferRingForward<CR>
+onoremap <C-k> <C-C>:BufferRingForward<CR>
 
 " -------------------------------------------------------------------------
 " Automatically center curson on search
