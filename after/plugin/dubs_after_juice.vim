@@ -487,8 +487,8 @@ endfunction
 " ------------------------------------------------------
 noremap <C-j> :BufferRingReverse<CR>
 inoremap <C-j> <C-O>:BufferRingReverse<CR>
-cnoremap <C-j> <C-C>:BufferRingReverse<CR>
-onoremap <C-j> <C-C>:BufferRingReverse<CR>
+"cnoremap <C-j> <C-C>:BufferRingReverse<CR>
+"onoremap <C-j> <C-C>:BufferRingReverse<CR>
 
 " 2017-06-06: Remap <C-k>, so digraph insertion works from <C-l>,
 "   and then I can continue using <C-j> and <C-k> for burfing surfing
@@ -500,8 +500,8 @@ inoremap <C-l> <C-k>
 "  otherwise access the feature except through Ctrl-K...
 noremap <C-k> :BufferRingForward<CR>
 inoremap <C-k> <C-O>:BufferRingForward<CR>
-cnoremap <C-k> <C-C>:BufferRingForward<CR>
-onoremap <C-k> <C-C>:BufferRingForward<CR>
+"cnoremap <C-k> <C-C>:BufferRingForward<CR>
+"onoremap <C-k> <C-C>:BufferRingForward<CR>
 
 " -------------------------------------------------------------------------
 " Automatically center curson on search
