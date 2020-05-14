@@ -163,7 +163,7 @@ function! s:Del2EndOfWsAz09OrPunct(wasInsertMode, deleteToEndOfLine)
     "         but not something that has to behave exactly how I want;
     "         but something that, after years of enough wanting, I'll
     "         finally get around to tweaking).
-    let @/ = "\\(\\(\\_^\\|\\<\\|\\s\\+\\)\\zs\\)"
+    let @/ = "\\(\\(\\_^\\|\\<\\|\\>\\|\\s\\+\\)\\zs\\)"
     normal! dn
     let @/ = l:last_pttrn
 
