@@ -47,11 +47,27 @@ function! s:delete_back_word(mode)
     endif
     execute "set whichwrap=" . l:was_ww
   else
+    let curpos = getcurpos()
+    let curswant = curpos[4]
+    let last_col = virtcol("$")
+
     let last_pttrn = @/
     let @/ = "\\(\\(\\_^\\|\\<\\|\\s\\+\\)\\zs\\|\\>\\)"
     normal! dN
-    if l:curr_col >= l:line_nbytes
+    if (a:mode == 'i' && l:curswant >= l:last_col)
+      \ || (a:mode == 'n' && (l:curswant + 1) >= l:last_col)
+      " The final character escaped the dN motion. Delete it.
       normal! x
+      " Weird: I'm seeing getcurpos() report incoorect curswant.
+      " E.g., if the line is
+      "         foo bar
+      " and I C-BS to delete the 'bar' in insert mode, so what's
+      " left is 'foo ', and the cursor is after the space, the
+      " curswant should be 5, but getcurpos says 4. If I hit
+      " '$' though, the cursor does not move, but curswant updates
+      " to 5. So ensure curswant is accurate if this function
+      " called again.
+      normal! $
     endif
     let @/ = l:last_pttrn
   endif
