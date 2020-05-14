@@ -110,26 +110,19 @@ endfunction
 " --------------------------------
 "  [CURRENT] Better Function
 function! s:Del2EndOfWsAz09OrPunct(wasInsertMode, deleteToEndOfLine)
-  " If the character under the cursor is
-  " whitespace, do 'dw'; if it's an alphanum, do
-  " 'dw'; if punctuation, delete one character
-  " at a time -- this way, each Ctrl-Del deletes
-  " a sequence of characters or a chunk of
-  " whitespace, but never both (and punctuation
-  " is deleted one-by-one, seriously, this is
-  " the way's I like's it).
-  " 2010.01.01 First New Year's Resolution
-  "            Fix Ctrl-Del when EOL (it cur-
-  "            rently deletes back a char, rath-
-  "            er than sucking up the next line)
-  " MAYBE/2020-05-14: I might want to consider the @/ I use elsewhere:
-  "            let @/ = "\\(\\(\\_^\\|\\<\\|\\s\\+\\)\\zs\\|\\>\\)"
+  let curpos = getcurpos()
+  let curswant = curpos[4]
+  let last_col = virtcol("$")
+  if a:wasInsertMode && (l:last_col == (l:curswant + 1))
+    " Special case: In insert mode, and in penultimate column.
+    " - Just delete the last character, and fix the cursor.
+    normal! x$
+    return
+  endif
+
+  " MAYBE/2020-05-14 03:27: Clean up this if-condition, which I wrote
+  " 5-10 years ago. This seems very overly complicated.
   let l:char_under_cursor = getline(".")[col(".") - 1]
-  " echom('char ' . l:char_under_cursor
-  "       \ . ' / char2nr ' . char2nr(l:char_under_cursor)
-  "       \ . ' / col. ' . col(".")
-  "       \ . ' / col$ ' . col("$"))
-  " 2020-05-14: This condition seems overly complicated...
   if (       ( ((col(".") + 1) == col("$"))
         \     && (col("$") != 2) )
         \ || ( ((col(".") == col("$"))
@@ -138,67 +131,46 @@ function! s:Del2EndOfWsAz09OrPunct(wasInsertMode, deleteToEndOfLine)
     " At end of line; delete newline after cursor
     " (what vi calls join lines)
     normal! gJ
-    "execute 'j!'
-    " [2020-05-14: Wicked old comment. Could probably solve with getcurpos()
-    "  and the 'curswant' value.]
-    " BUGBUG Vi returns the same col(".") for both
-    " the last and next-to-last cursor positions (in insert mode),
-    " so we're not sure whether to join lines or
-    " to delete the last character on the line.
-    " Fortunately, we can just go forward a
-    " character and then delete the previous char,
-    " which has the desired effect
-    " Or not, I can't get this to work...
-    "execute 'normal ^<Right'
-    "execute 'normal X'
-    "let this_col = col(".")
-    "execute 'normal l'
-    "let prev_col = col(".")
-    "call confirm('this ' . this_col . ' prev ' . prev_col)
-    "
-    let l:cur_col = col(".")
-    let l:tot_col = col("$")
-    " This is a little hack; the d$ command below, which executes if the
-    " cursor is not in the last position, moves the cursor one left, so the
-    " callee moves the cursor back to the right. However, our gJ command
-    " above doesn't move the cursor, so, since we know the callee is going
-    " to move it, we just move it left
-    " Fix cursor position, but avoid screen blinking if cannot move cursor.
-    if a:deleteToEndOfLine == 1 && l:cur_col > 1
-      normal! h
+  elseif a:deleteToEndOfLine == 1
+    normal! d$
+    if a:wasInsertMode
+      " Ensure when changing back to insert mode the Vim does
+      " not move cursor back one, to penultimate position.
+      normal! $
     endif
   else
-    let l:cur_col = col(".")
-    let l:tot_col = col("$")
-    "let l:char_under_cursor =
-    "  \ getline(".")[col(".")]
-    " Can't get this to work:
-    "    if l:char_under_cursor =~ "[^a-zA-Z0-9\\s]"
-    " But this works:
-    if a:deleteToEndOfLine == 1
-      normal! d$
-      if a:wasInsertMode
-        " Ensure when changing back to insert mode the Vim does
-        " not move cursor back one, to penultimate position.
-        normal! $
-      endif
-    else
-      let last_pttrn = @/
-      " NOTE: (lb): I use this pattern in vim-select-mode-stopped-down plugin:
-      "         let @/ = "\\(\\(\\_^\\|\\<\\|\\s\\+\\)\\zs\\|\\>\\)"
-      "       but the final \> causes edge case when trying to delete final
-      "       word in a line: it leaves the last character behind.
-      let @/ = "\\(\\(\\_^\\|\\<\\|\\s\\+\\)\\zs\\)"
-      " FIXME/2020-05-14 02:13: C-Del deletes '78' but not '9': 7ddd89
-      normal! dn
-      let @/ = l:last_pttrn
+    let last_pttrn = @/
+    " NOTE: (lb): I use a search pattern in the vim-select-mode-stopped-down
+    "       plugin to help with selecting words, which looks like:
+    "         let @/ = "\\(\\(\\_^\\|\\<\\|\\s\\+\\)\\zs\\|\\>\\)"
+    "       which we can repurpose here to delete words. But note that
+    "       the final "\\>" tickles an edge case when trying to delete
+    "       the last word in a line: it leaves the last character behind.
+    "       - So remove the \>, but with the caveat that when you
+    "         C-Del the last word from a line, the newline is also removed,
+    "         and the cursor moves to the first visible character.
+    "         (lb): This is not quite in line with how I would naturally
+    "         expect this operation to behave -- e.g., imagine two words
+    "         on the line, 'foo bar', if you ctrl-del from the first
+    "         column 'foo ' is removed; and then I'd expect another
+    "         ctrl-del to delete the 'bar', but here it deletes the
+    "         'bar\n', which I think should be two separate operations.
+    "         Nonetheless, I've already invested enough time in this
+    "         function today (2020-05-14) so calling it good (at least
+    "         for another 5-10 years, because this function, per a comment
+    "         I deleted today, was writ '2010.01.01', and remained largely
+    "         untouched since 2015; a staple in my repertoire, for sure,
+    "         but not something that has to behave exactly how I want;
+    "         but something that, after years of enough wanting, I'll
+    "         finally get around to tweaking).
+    let @/ = "\\(\\(\\_^\\|\\<\\|\\s\\+\\)\\zs\\)"
+    normal! dn
+    let @/ = l:last_pttrn
+
+    let last_now = virtcol("$")
+    if a:wasInsertMode && l:curswant >= l:last_now
+      normal! $
     endif
-  endif
-  if a:wasInsertMode && ((l:cur_col + 2) == l:tot_col)
-    " <ESC> Made us back up, so move forward one,
-    " but not if we're the first column or the
-    " second-to-last column
-    "execute 'normal h'
   endif
 endfunction
 
