@@ -34,7 +34,7 @@ let g:loaded_plugin_edit_juice_ctrl_backspace = 1
 function! s:delete_back_word(mode)
   " Mimic `db`, but behave different at end of line, and at beginning.
   let curr_col = col(".")
-  let line_nbytes = len(getline(line(".")))
+  let line_nbytes = len(getline("."))
   if l:curr_col == 1
     let was_ww = &whichwrap
     set whichwrap=h
@@ -107,7 +107,7 @@ endfunction
 " ========================================================================
 
 function! s:free_keys_delete_backwards_c_bs()
-silent! nunmap <C-BS>
+  silent! nunmap <C-BS>
   silent! iunmap <C-BS>
 endfunction
 
