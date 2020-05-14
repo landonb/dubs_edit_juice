@@ -34,16 +34,19 @@ let g:loaded_plugin_edit_juice_ctrl_backspace = 1
 function! s:delete_back_word(mode)
   " Mimic `db`, but behave different at end of line, and at beginning.
   let curr_col = col(".")
+  let line_nbytes = len(getline(line(".")))
   if l:curr_col == 1
     let was_ww = &whichwrap
     set whichwrap=h
     normal! dh
-    execute "set whichwrap=" . l:was_ww
-    if a:mode == 'i'
+    if a:mode == 'i' && l:line_nbytes == 0
+      " A `dh` on an empty line deletes the newline but moves the cursor one
+      " before the final character (probably because of virtualedit behavior),
+      " so jump to the final cursor position.
       normal! $
     endif
+    execute "set whichwrap=" . l:was_ww
   else
-    let line_nbytes = len(getline(line(".")))
     let last_pttrn = @/
     let @/ = "\\(\\(\\_^\\|\\<\\|\\s\\+\\)\\zs\\|\\>\\)"
     normal! dN
