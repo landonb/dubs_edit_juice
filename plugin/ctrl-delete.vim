@@ -107,6 +107,49 @@ endfunction
 
 " ========================================================================
 
+function! s:PositionCursorAtEndWithoutCurswanting(wasInsertMode)
+  if ! a:wasInsertMode | return | endif
+
+  " Ensure when changing back to insert mode the Vim does
+  " not move cursor back one, to penultimate position.
+  " - We use $ and not <Right>, which might wrap the cursor around
+  "   to the next line (if the line is now empty), or might blink
+  "   the screen (if <Right>-whichwrap is allowed (ww="l")).
+  "   - Also, (lb): I've tested, and <Right> gets undone when Vim
+  "     switches back to insert mode, not sure why.
+  "     - But using cursor() seems to stick.
+  "   - Note that another alternative is to add "<right>" after
+  "     the inoremap, but I wouldn't be sure how to handle the
+  "     case of an empty line.
+  normal! $
+  " Because '$' sets curswant to 2147483647, this makes arrow-down
+  " awkward, e.g., if there are a few lines in a row whose columns
+  " line up, and user wants to Ctrl-Delete, <Down>, Ctrl-Delete, etc.,
+  " to delete each line after the same column, if we returned now,
+  " because of the '$', pressing <Down> would move the cursor all the
+  " way to the end of the next line. E.g.,
+  "            v
+  "     foo bar = baz bat
+  "     foo bar = baz bat
+  " From the cursor (in the first line, at 'v'), if the user presses
+  " Ctrl-Delete, you get:
+  "            v
+  "     foo bar
+  "     foo bar = baz bat
+  " And pressing <Down> should keep the cursor in the same column:
+  "     foo bar
+  "     foo bar = baz bat
+  "            ^
+  " But if curswant is set large, the cursor blows all the way right:
+  "     foo bar
+  "     foo bar = baz bat
+  "                      ^
+  " Apparently, setting cursor() works, (lb): but I think it's because
+  " we set curswant.
+  let [cp_bufn, cp_lnum, cp_col, cp_off, cp_curswant] = getcurpos()
+  call cursor([l:cp_lnum, l:cp_col, l:cp_off, virtcol('$')])
+endfunction
+
 " --------------------------------
 "  [CURRENT] Better Function
 function! s:Del2EndOfWsAz09OrPunct(wasInsertMode, deleteToEndOfLine)
@@ -116,7 +159,8 @@ function! s:Del2EndOfWsAz09OrPunct(wasInsertMode, deleteToEndOfLine)
   if a:wasInsertMode && (l:last_col == (l:curswant + 1))
     " Special case: In insert mode, and in penultimate column.
     " - Just delete the last character, and fix the cursor.
-    normal! x$
+    normal! x
+    call s:PositionCursorAtEndWithoutCurswanting(a:wasInsertMode)
     return
   endif
 
@@ -133,11 +177,7 @@ function! s:Del2EndOfWsAz09OrPunct(wasInsertMode, deleteToEndOfLine)
     normal! gJ
   elseif a:deleteToEndOfLine == 1
     normal! d$
-    if a:wasInsertMode
-      " Ensure when changing back to insert mode the Vim does
-      " not move cursor back one, to penultimate position.
-      normal! $
-    endif
+    call s:PositionCursorAtEndWithoutCurswanting(a:wasInsertMode)
   else
     let last_pttrn = @/
     " NOTE: (lb): I use a search pattern in the vim-select-mode-stopped-down
@@ -169,7 +209,7 @@ function! s:Del2EndOfWsAz09OrPunct(wasInsertMode, deleteToEndOfLine)
 
     let last_now = virtcol("$")
     if a:wasInsertMode && l:curswant >= l:last_now
-      normal! $
+      call s:PositionCursorAtEndWithoutCurswanting(a:wasInsertMode)
     endif
   endif
 endfunction
