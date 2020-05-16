@@ -109,56 +109,60 @@ function! s:DeleteForwardLogically(wasInsertMode, deleteToEndOfLine)
     return
   endif
 
-  if 1
-    let last_pttrn = @/
-    " NOTE: (lb): I use a search pattern in another plugin I maintain
-    "       that implements meta- and arrow-based motion selection,
-    "       vim-select-mode-stopped-down, which looks like this:
-    "         let @/ = "\\(\\(\\_^\\|\\<\\|\\s\\+\\)\\zs\\|\\>\\)"
-    "       which we can repurpose here to delete words. But note that
-    "       the final "\\>" tickles an edge case when trying to delete
-    "       the last word in a line: it leaves the last character behind.
-    "       - So remove the \>, but with the caveat that when you
-    "         C-Del the last word from a line, the newline is also removed,
-    "         and the cursor moves to the first visible character.
-    "         (lb): This is not quite in line with how I would naturally
-    "         expect this operation to behave -- e.g., imagine two words
-    "         on the line, 'foo bar', if you ctrl-del from the first
-    "         column 'foo ' is removed; and then I'd expect another
-    "         ctrl-del to delete the 'bar', but here it deletes the
-    "         'bar\n', which I think should be two separate operations.
-    "         Nonetheless, I've already invested enough time in this
-    "         function today (2020-05-14) so calling it good (at least
-    "         for another 5-10 years, because this function, per a comment
-    "         I deleted today, was writ '2010.01.01', and remained largely
-    "         untouched since 2015; a staple in my repertoire, for sure,
-    "         but not something that has to behave exactly how I want;
-    "         but something that, after years of enough wanting, I'll
-    "         finally get around to tweaking).
-    "       - Here's the regex without the final \\>, end-of-word boundary
-    "         match, but we can move it inside the regex, like so:
-    "           let @/ = "\\(\\(\\_^\\|\\<\\|\\>\\|\\s\\+\\)\\zs\\)"
-    "         However, that leaves an edge case with the final word on the
-    "         line, where all but the last character are deleted.
-    "         So add a not-followed-by-newline [^\\n] check,
-    "         and sprinkle the \zs sets-start-of-match appropriately,
-    "         which lets us check not-newline without using a lookahead.
-    " Match:
-    "   at beginning of line;
-    "   at beginning of word boundary;
-    "   at end of word boundary but not end of line (otherwise the final word
-    "     is not fully deleted, but the final character remains undeleted); or
-    "   after whitespace.
-    let @/ = ""
-      \ . "\\(\\_^\\zs"
-      \ . "\\|\\<\\zs"
-      \ . "\\|\\>\\zs[^\\n]"
-      \ . "\\|\\s\\+\\zs"
-      \ . "\\)"
-    normal! dn
-    let @/ = l:last_pttrn
-    call s:trace("the pattern is the pattern")
-  endif
+  call s:DeleteForwardWord()
+endfunction
+
+" ========================================================================
+
+" NOTE: (lb): I use a search pattern in another plugin I maintain
+"       that implements meta- and arrow-based motion selection,
+"       vim-select-mode-stopped-down, which looks like this:
+"         let @/ = "\\(\\(\\_^\\|\\<\\|\\s\\+\\)\\zs\\|\\>\\)"
+"       which we can repurpose here to delete words. But note that
+"       the final "\\>" tickles an edge case when trying to delete
+"       the last word in a line: it leaves the last character behind.
+"       - So remove the \>, but with the caveat that when you
+"         C-Del the last word from a line, the newline is also removed,
+"         and the cursor moves to the first visible character.
+"         (lb): This is not quite in line with how I would naturally
+"         expect this operation to behave -- e.g., imagine two words
+"         on the line, 'foo bar', if you ctrl-del from the first
+"         column 'foo ' is removed; and then I'd expect another
+"         ctrl-del to delete the 'bar', but here it deletes the
+"         'bar\n', which I think should be two separate operations.
+"         Nonetheless, I've already invested enough time in this
+"         function today (2020-05-14) so calling it good (at least
+"         for another 5-10 years, because this function, per a comment
+"         I deleted today, was writ '2010.01.01', and remained largely
+"         untouched since 2015; a staple in my repertoire, for sure,
+"         but not something that has to behave exactly how I want;
+"         but something that, after years of enough wanting, I'll
+"         finally get around to tweaking).
+"       - Here's the regex without the final \\>, end-of-word boundary
+"         match, but we can move it inside the regex, like so:
+"           let @/ = "\\(\\(\\_^\\|\\<\\|\\>\\|\\s\\+\\)\\zs\\)"
+"         However, that leaves an edge case with the final word on the
+"         line, where all but the last character are deleted.
+"         So add a not-followed-by-newline [^\\n] check,
+"         and sprinkle the \zs sets-start-of-match appropriately,
+"         which lets us check not-newline without using a lookahead.
+function! s:DeleteForwardWord()
+  let last_pttrn = @/
+  " Match:
+  "   at beginning of line;
+  "   at beginning of word boundary;
+  "   at end of word boundary but not end of line (otherwise the final word
+  "     is not fully deleted, but the final character remains undeleted); or
+  "   after whitespace.
+  let @/ = ""
+    \ . "\\(\\_^\\zs"
+    \ . "\\|\\<\\zs"
+    \ . "\\|\\>\\zs[^\\n]"
+    \ . "\\|\\s\\+\\zs"
+    \ . "\\)"
+  normal! dn
+  let @/ = l:last_pttrn
+  call s:trace("the pattern is the pattern")
 endfunction
 
 " ========================================================================
