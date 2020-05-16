@@ -25,6 +25,19 @@ let g:loaded_plugin_edit_juice_ctrl_delete = 1
 
 " ========================================================================
 
+let s:_trace_level = 0
+" YOU: Uncomment to see trace messages.
+"
+"  let s:_trace_level = 1
+
+function! s:trace(msg)
+  if s:_trace_level > 0
+    echom a:msg
+  endif
+endfunction
+
+" ========================================================================
+
 " ------------------------------------------------------
 " A Delicious Delete
 " ------------------------------------------------------
@@ -32,7 +45,7 @@ let g:loaded_plugin_edit_juice_ctrl_delete = 1
 " In EditPlus, Ctrl-Delete deletes characters
 " starting at the cursor and continuing to the
 " end of the word, or until certain punctuation.
-" If the cursor is on whitespace instead of a
+" If the cursor precedes whitespace instead of a
 " non-whitespace character, Ctrl-Delete just
 " deletes the continuous block of whitespace,
 " up until the next non-whitespace character.
@@ -40,148 +53,67 @@ let g:loaded_plugin_edit_juice_ctrl_delete = 1
 " In Vim, the 'dw' and 'de' commands perform
 " similarly, but they include whitespace, either
 " after the word is deleted ('dw'), or before
-" it ('de'). Therefore, to achieve the desired
-" behaviour -- such that contiguous blocks of
-" whitespace and non-whitespace are treated
-" independently -- we need a function to tell
-" if the character under the cursor is whitespace
-" or not, and to call 'dw' or 'de' as appropriate.
+" it ('de'). Here we bake our own delete-forward
+" using `dn` and a specially-crafted @/ regex
+" to get the deletion *just* right.
 "
-" NOTE Was originally called
-"        DeleteToEndOfWord
-"      and then at some point renamed to
-"        DeleteToEndOfWhitespaceAlphanumOrPunctuation
-"      but after that rename-abbreviated to
-"        Del2EndOfWsAz09OrPunct
-"      where Ws: whitespace, Az: a-z, 09: 0-9, and Punct: uation.
+" We also handle other special cases, such as
+" when the cursor is at the end of the line,
+" which is tricky in Vim because of how the two
+" modes, insert and normal, behave, and because
+" virtualmode. Also the special case of an empty
+" line. And a few others. Tricky, tricky business.
 
 " ========================================================================
 
-" --------------------------------
-"  [DEPRECATED] Original Function
-function! s:Del2EndOfWsAz09OrPunct_ORIG()
-  " If the character under the cursor is
-  " whitespace, do 'dw'; if it's an alphanum, do
-  " 'dw'; if punctuation, delete one character
-  " at a time -- this way, each Ctrl-Del deletes
-  " a sequence of characters or a chunk of
-  " whitespace, but never both (and punctuation
-  " is deleted one-by-one, seriously, this is
-  " the way's I like's it).
-  let char_under_cursor =
-    \ getline(".")[col(".") - 1]
-  " Can't get this to work:
-  "    if l:char_under_cursor =~ "[^a-zA-Z0-9\\s]"
-  " But this works:
-  if (l:char_under_cursor =~ "[^a-zA-Z0-9]")
-        \ && (l:char_under_cursor !~ "\\s")
-    " Punctuation et al.; just delete the
-    " char or sequence of the same char.
-    " Well, I can't get sequence-delete to
-    " work, i.e.,
-    "      execute 'normal' .
-    "        \ '"xd/' . l:char_under_cursor . '*'
-    " doesn't do squat. In fact, any time I try
-    " the 'd/' motion it completely fails...
-    " Anyway, enough boo-hooing, just delete the
-    " character-under-cursor:
-    execute 'normal' . '"xdl'
-  elseif l:char_under_cursor =~ '[a-zA-Z0-9]'
-    " This is an alphanum; and same spiel as
-    " above, using 'd/' does not work, so none of
-    " this:
-    "   execute 'normal' . '"xd/[a-zA-Z0-9]*'
-    " Instead try this:
-    "execute 'normal' . '"xde'
-    execute 'normal' . '"xdw'
-  elseif l:char_under_cursor =~ '\s'
-    " whitespace
-    " Again -- blah, blah, blah -- this does not
-    " work: execute 'normal' . '"xd/\s*'
-    execute 'normal' . '"xdw'
-  " else
-  "   huh? this isn't/shouldn't be
-  "         an executable code path
-  endif
-endfunction
-
-" ========================================================================
-
-function! s:PositionCursorAtEndWithoutCurswanting(wasInsertMode)
-  if ! a:wasInsertMode | return | endif
-
-  " Ensure when changing back to insert mode the Vim does
-  " not move cursor back one, to penultimate position.
-  " - We use $ and not <Right>, which might wrap the cursor around
-  "   to the next line (if the line is now empty), or might blink
-  "   the screen (if <Right>-whichwrap is allowed (ww="l")).
-  "   - Also, (lb): I've tested, and <Right> gets undone when Vim
-  "     switches back to insert mode, not sure why.
-  "     - But using cursor() seems to stick.
-  "   - Note that another alternative is to add "<right>" after
-  "     the inoremap, but I wouldn't be sure how to handle the
-  "     case of an empty line.
-  normal! $
-  " Because '$' sets curswant to 2147483647, this makes arrow-down
-  " awkward, e.g., if there are a few lines in a row whose columns
-  " line up, and user wants to Ctrl-Delete, <Down>, Ctrl-Delete, etc.,
-  " to delete each line after the same column, if we returned now,
-  " because of the '$', pressing <Down> would move the cursor all the
-  " way to the end of the next line. E.g.,
-  "            v
-  "     foo bar = baz bat
-  "     foo bar = baz bat
-  " From the cursor (in the first line, at 'v'), if the user presses
-  " Ctrl-Delete, you get:
-  "            v
-  "     foo bar
-  "     foo bar = baz bat
-  " And pressing <Down> should keep the cursor in the same column:
-  "     foo bar
-  "     foo bar = baz bat
-  "            ^
-  " But if curswant is set large, the cursor blows all the way right:
-  "     foo bar
-  "     foo bar = baz bat
-  "                      ^
-  " Apparently, setting cursor() works, (lb): but I think it's because
-  " we set curswant.
-  let [cp_bufn, cp_lnum, cp_col, cp_off, cp_curswant] = getcurpos()
-  call cursor([l:cp_lnum, l:cp_col, l:cp_off, virtcol('$')])
-endfunction
-
-" --------------------------------
-"  [CURRENT] Better Function
 function! s:Del2EndOfWsAz09OrPunct(wasInsertMode, deleteToEndOfLine)
+  call s:DeleteForwardLogically(a:wasInsertMode, a:deleteToEndOfLine)
+  call s:FixCursorIfAtEndOfLine(a:wasInsertMode)
+endfunction
+
+" ========================================================================
+
+function! s:DeleteForwardLogically(wasInsertMode, deleteToEndOfLine)
+  let last_col = virtcol("$")
+
   let curpos = getcurpos()
   let curswant = curpos[4]
-  let last_col = virtcol("$")
   if a:wasInsertMode && (l:last_col == (l:curswant + 1))
-    " Special case: In insert mode, and in penultimate column.
+    " Use case: In insert mode, and in penultimate column.
     " - Just delete the last character, and fix the cursor.
     normal! x
-    call s:PositionCursorAtEndWithoutCurswanting(a:wasInsertMode)
+    call s:trace("X marks the spot")
     return
   endif
 
-  " MAYBE/2020-05-14 03:27: Clean up this if-condition, which I wrote
-  " 5-10 years ago. This seems very overly complicated.
-  let l:char_under_cursor = getline(".")[col(".") - 1]
-  if (       ( ((col(".") + 1) == col("$"))
-        \     && (col("$") != 2) )
-        \ || ( ((col(".") == col("$"))
-        \     && (col("$") == 1))
-        \     && (char2nr(l:char_under_cursor) == 0) ) )
-    " At end of line; delete newline after cursor
-    " (what vi calls join lines)
+  if len(getline(".")) == 0
+    " Use case: (Cursor is on) an empty line.
     normal! gJ
-  elseif a:deleteToEndOfLine == 1
+    call s:trace("Emptied empty")
+    return
+  endif
+
+  let l:curs_col = virtcol(".")
+  if l:last_col == (l:curs_col + 1)
+    " Use case: At the end of the line.
+    " Delete the newline after the cursor using the 'join lines' feature.
+    " I also tried `,s/\n/` which sorta works but feels wonky.
+    normal! gJ
+    call s:trace("Join together (with the band)")
+    return
+  endif
+
+  if a:deleteToEndOfLine == 1
     normal! d$
-    call s:PositionCursorAtEndWithoutCurswanting(a:wasInsertMode)
-  else
+    call s:trace("d<money> to the end of line")
+    return
+  endif
+
+  if 1
     let last_pttrn = @/
-    " NOTE: (lb): I use a search pattern in the vim-select-mode-stopped-down
-    "       plugin to help with selecting words, which looks like:
+    " NOTE: (lb): I use a search pattern in another plugin I maintain
+    "       that implements meta- and arrow-based motion selection,
+    "       vim-select-mode-stopped-down, which looks like this:
     "         let @/ = "\\(\\(\\_^\\|\\<\\|\\s\\+\\)\\zs\\|\\>\\)"
     "       which we can repurpose here to delete words. But note that
     "       the final "\\>" tickles an edge case when trying to delete
@@ -203,14 +135,64 @@ function! s:Del2EndOfWsAz09OrPunct(wasInsertMode, deleteToEndOfLine)
     "         but not something that has to behave exactly how I want;
     "         but something that, after years of enough wanting, I'll
     "         finally get around to tweaking).
-    let @/ = "\\(\\(\\_^\\|\\<\\|\\>\\|\\s\\+\\)\\zs\\)"
+    "       - Here's the regex without the final \\>, end-of-word boundary
+    "         match, but we can move it inside the regex, like so:
+    "           let @/ = "\\(\\(\\_^\\|\\<\\|\\>\\|\\s\\+\\)\\zs\\)"
+    "         However, that leaves an edge case with the final word on the
+    "         line, where all but the last character are deleted.
+    "         So add a not-followed-by-newline [^\\n] check,
+    "         and sprinkle the \zs sets-start-of-match appropriately,
+    "         which lets us check not-newline without using a lookahead.
+    " Match:
+    "   at beginning of line;
+    "   at beginning of word boundary;
+    "   at end of word boundary but not end of line (otherwise the final word
+    "     is not fully deleted, but the final character remains undeleted); or
+    "   after whitespace.
+    let @/ = ""
+      \ . "\\(\\_^\\zs"
+      \ . "\\|\\<\\zs"
+      \ . "\\|\\>\\zs[^\\n]"
+      \ . "\\|\\s\\+\\zs"
+      \ . "\\)"
     normal! dn
     let @/ = l:last_pttrn
+    call s:trace("the pattern is the pattern")
+  endif
+endfunction
 
-    let last_now = virtcol("$")
-    if a:wasInsertMode && l:curswant >= l:last_now
-      call s:PositionCursorAtEndWithoutCurswanting(a:wasInsertMode)
-    endif
+" ========================================================================
+
+" If we bopped outta insert mode to run the deletion and are returning
+" to insert mode, it's tricky to get the cursor back to where we want.
+" - If we did not join lines and if we deleted everything from the
+"   cursor until the end of the line, the default Vim behaviour will
+"   be to put the insert mode cursor in the penultimate position
+"   (because Vim generally moves the cursor back one when transitioning
+"   from normal to inert mode).
+"   - We could use `$` here, which sets `curswant` very large, which
+"     would essentially move the cursor to the last column -- but
+"     then if the user moves the cursor to the line above or to
+"     the line below, the cursor shoots off to the right if it can.
+"     Which is annoying if you're using this feature to delete the ends
+"     of multiple lines from the same column, e.g., if you're typing
+"     <Ctrl-Shift-Delete> <Down> <Ctrl-Shift-Delete> <Down>, etc.
+"   - We cannot use <Right> or call, say, `normal l` either, because,
+"     technically, since we bopped out to normal mode, the cursor
+"     *is* in the final column position! (So a <Right> would move the
+"     cursor to the nexst line, and an `l` might blink the screen,
+"     (unless whichwrap) because the cursor cannot move further right.)
+"   - I tried using a mark as a work-around, as suggested by this post:
+"       https://sanctum.geek.nz/arabesque/vim-annoyances/
+"     e.g., instead of just ‘gJ’, call ‘mzJg`z’. But this has same issue,
+"     and the insert cursor still appears leftward one column of desired.
+"   - I first tried calling cursor() with a [List] that included curswant,
+"     and then setpos() with the same, but it seems a simple cursor with
+"     just two parameters, lnum and col, is sufficient (where lnum==0
+"     means to 'stay in the current line').
+function! s:FixCursorIfAtEndOfLine(wasInsertMode)
+  if a:wasInsertMode && (virtcol(".") + 1) == virtcol("$")
+    call cursor(0, col('.') + 1)
   endif
 endfunction
 
