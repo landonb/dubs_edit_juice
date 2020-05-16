@@ -97,8 +97,29 @@ function! s:DeleteForwardLogically(mode, deleteToEndOfLine)
   let l:curs_col = virtcol(".")
   if l:last_col == (l:curs_col + 1)
     " Use case: At the end of the line.
-    " Delete the newline after the cursor using the 'join lines' feature.
-    " I also tried `,s/\n/` which sorta works but feels wonky.
+    " Delete the newline after the cursor using the 'join lines' feature (`J`).
+    " - I also tried `,s/\n/` which sorta works but feels wonky.
+    " - Note that without the cursor adjustment later (FixCursorIfAtEndOfLine)
+    "   I noticed some weird behavior after the `gJ`, such as curswant being
+    "   decremented by 1. E.g., in insert mode, remember that col('.') is the
+    "   same in the penultimate column as it is in the final column. But you
+    "   can use getcurpos() to test curswant, which is at least one more than
+    "   col('.') when the cursor is in the final position, after the final
+    "   character (curswant is generally either col('.') + 1, or 2147483647).
+    "   But after a `gJ`, curswant == col('.'), which seems like a bug to me,
+    "   because the curswant == col('.') position is actually the column *before*
+    "   where the cursor still appears. And, indeed, if you <Up> and then <Down>,
+    "   the cursor is positioned back one position from where it was (because
+    "   it looked at curswant and positioned itself accordingly).
+    "   - But more drastically, if you Ctrl-Delete again, rather than the next
+    "     line being joined on the second call to `gJ`, the last character on
+    "     the line is deleted instead, because our `x` case, above, runs. This
+    "     is because our code senses that the cursor is in the penultimate
+    "     position, according to the value of curswant (which is incorrect,
+    "     and doesn't match what your eyes see on the screen).
+    "   - I suppose if I wanted to submit a bug patch, maybe this is a
+    "     candidate, but I'd be wicked afraid to change how this behavior
+    "     works in Vim, it'd probably break things for everyone else.
     normal! gJ
     call s:trace("Join together (with the band)")
     return
