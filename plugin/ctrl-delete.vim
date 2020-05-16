@@ -66,19 +66,20 @@ endfunction
 
 " ========================================================================
 
-function! s:Del2EndOfWsAz09OrPunct(wasInsertMode, deleteToEndOfLine)
-  call s:DeleteForwardLogically(a:wasInsertMode, a:deleteToEndOfLine)
-  call s:FixCursorIfAtEndOfLine(a:wasInsertMode)
+function! s:Del2EndOfWsAz09OrPunct(mode, deleteToEndOfLine)
+  let l:curs_col = virtcol(".")
+  call s:DeleteForwardLogically(a:mode, a:deleteToEndOfLine)
+  call s:FixCursorIfAtEndOfLine(a:mode, l:curs_col)
 endfunction
 
 " ========================================================================
 
-function! s:DeleteForwardLogically(wasInsertMode, deleteToEndOfLine)
+function! s:DeleteForwardLogically(mode, deleteToEndOfLine)
   let last_col = virtcol("$")
 
   let curpos = getcurpos()
   let curswant = curpos[4]
-  if a:wasInsertMode && (l:last_col == (l:curswant + 1))
+  if (a:mode == 'i') && (l:last_col == (l:curswant + 1))
     " Use case: In insert mode, and in penultimate column.
     " - Just delete the last character, and fix the cursor.
     normal! x
@@ -160,6 +161,8 @@ function! s:DeleteForwardWord()
     \ . "\\|\\>\\zs[^\\n]"
     \ . "\\|\\s\\+\\zs"
     \ . "\\)"
+  " Here's the same on one line, for easy copy-paste, or ::<CR>.
+  "  let @/ = "\\(\\_^\\zs\\|\\<\\zs\\|\\>\\zs[^\\n]\\|\\s\\+\\zs\\)"
   normal! dn
   let @/ = l:last_pttrn
   call s:trace("the pattern is the pattern")
@@ -194,8 +197,16 @@ endfunction
 "     and then setpos() with the same, but it seems a simple cursor with
 "     just two parameters, lnum and col, is sufficient (where lnum==0
 "     means to 'stay in the current line').
-function! s:FixCursorIfAtEndOfLine(wasInsertMode)
-  if a:wasInsertMode && (virtcol(".") + 1) == virtcol("$")
+function! s:FixCursorIfAtEndOfLine(mode, curs_col)
+  if a:curs_col == 1
+    " Use case: Vim will move the cursor to the first visible character,
+    " but the user had the cursor in the first column and deleted from
+    " there, so don't move the cursor from there.
+    normal! 0
+  elseif (a:mode == 'i') && (virtcol(".") + 1) == virtcol("$")
+    " Use case: The cursor is in the final column and we want the insert
+    " mode cursor to reappear after the final character when this command
+    " finishes.
     call cursor(0, col('.') + 1)
   endif
 endfunction
@@ -234,7 +245,7 @@ endfunction
 function! s:wire_keys_delete_forwards_c_del()
   " Map the function to Ctrl-Delete in normal and
   " insert modes.
-  noremap <C-Del> :call <SID>Del2EndOfWsAz09OrPunct(0, 0)<CR>
+  noremap <C-Del> :call <SID>Del2EndOfWsAz09OrPunct('n', 0)<CR>
   " 2020-05-15: I switched from using <Esc> to <C-O>,
   " to break out of insert mode. My rationale was:
   "   - If we <C-O> and the cursor is on either the last
@@ -256,7 +267,7 @@ function! s:wire_keys_delete_forwards_c_del()
   "   those issues, and I prefer <C-O>, so that I can run a one-off
   "   command and not have to worry about 'i' later, or explicitly
   "   re-entering insert mode.
-  inoremap <C-Del> <C-O>:call <SID>Del2EndOfWsAz09OrPunct(1, 0)<CR>
+  inoremap <C-Del> <C-O>:call <SID>Del2EndOfWsAz09OrPunct('i', 0)<CR>
 endfunction
 
 function! s:wire_keys_delete_forwards_c_s_del()
@@ -265,14 +276,14 @@ function! s:wire_keys_delete_forwards_c_s_del()
   "       noremap <C-S-Del> d$
   "       inoremap <C-S-Del> <C-O>d$
   "   but more robuster.
-  noremap <C-S-Del> :call <SID>Del2EndOfWsAz09OrPunct(0, 1)<CR>
-  inoremap <C-S-Del> <C-O>:call <SID>Del2EndOfWsAz09OrPunct(1, 1)<CR>
+  noremap <C-S-Del> :call <SID>Del2EndOfWsAz09OrPunct('n', 1)<CR>
+  inoremap <C-S-Del> <C-O>:call <SID>Del2EndOfWsAz09OrPunct('i', 1)<CR>
 endfunction
 
 function! s:wire_keys_delete_forwards_m_del()
   " 2011.02.01 Doing same [as Ctrl-Shift-Delete] for Alt-Delete.
-  noremap <M-Del> :call <SID>Del2EndOfWsAz09OrPunct(0, 1)<CR>
-  inoremap <M-Del> <C-O>:call <SID>Del2EndOfWsAz09OrPunct(1, 1)<CR>
+  noremap <M-Del> :call <SID>Del2EndOfWsAz09OrPunct('n', 1)<CR>
+  inoremap <M-Del> <C-O>:call <SID>Del2EndOfWsAz09OrPunct('i', 1)<CR>
 endfunction
 
 function! s:wire_keys_delete_forwards_m_s_del()
