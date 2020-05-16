@@ -249,44 +249,48 @@ function! s:wire_keys_delete_forwards_c_del()
   " Map the function to Ctrl-Delete in normal and
   " insert modes.
   noremap <C-Del> :call <SID>Del2EndOfWsAz09OrPunct(0, 0)<CR>
-  " BUGBUG To call a function from Insert Mode -- or to even get
-  "        the current column number of the cursor -- we need
-  "        to either <C-O> or <Esc> out of Insert mode. If
-  "        we <C-O> and the cursor is on either the last
-  "        column or the second-to-last-column, the cursor
-  "        is moved to the last column. Likewise, if we
-  "        <Esc> and the cursor is on either the first column
-  "        or the second column, the cursor is moved to the
-  "        first column. I cannot figure out a work-around.
-  "        I choose <Esc> as the lesser of two evils. I.e.,
-  "        using <C-O>, if the cursor is at the second-to-
-  "        last column, a join happens but the last character
-  "        remains; using <Esc>, if you <Ctrl-Del> from the
-  "        second column, both the first and second columns
-  "        are deleted. I <Ctrl-Del> from the end of a line
-  "        much more ofter than from the second column of a
-  "        line.
-  "inoremap <C-Del>
-  "         \ <C-O>:call <SID>Del2EndOfWsAz09OrPunct()<CR>
+  " 2020-05-15: I switched from using <Esc> to <C-O>,
+  " to break out of insert mode. My rationale was:
+  "   - If we <C-O> and the cursor is on either the last
+  "     column or the second-to-last-column, the cursor
+  "     is moved to the last column.
+  "   - If we <Esc> and the cursor is on either the first
+  "     column or the second column, the cursor is moved
+  "     to the first column.
+  "   - At the time I chose <Esc> (5-10 years ago), I did not solve the
+  "     problem, but I figured I had to live with one of two scenarios:
+  "     - With <C-O>, if the cursor is at the second-to-last column,
+  "       a join happens, but the last character remains.
+  "     - With <Esc>, if you <Ctrl-Del> from the second column, both the
+  "       first and second columns are deleted.
+  "     - And I chose <Esc>'s behavior, because, I noted:
+  "       I <Ctrl-Del> from the end of a line much more often than from
+  "       the second column of a line.
+  " - But now it's 2020 and I seem to have been able to handle both
+  "   those issues, and I prefer <C-O>, so that I can run a one-off
+  "   command and not have to worry about 'i' later, or explicitly
+  "   re-entering insert mode.
   inoremap <C-Del> <C-O>:call <SID>Del2EndOfWsAz09OrPunct(1, 0)<CR>
 endfunction
 
 function! s:wire_keys_delete_forwards_c_s_del()
-  " Ctrl-Shift-Delete deletes to end of line
-  "noremap <C-S-Del> d$
-  "inoremap <C-S-Del> <C-O>d$
+  " Ctrl-Shift-Delete deletes to end of line.
+  " - Sort like
+  "       noremap <C-S-Del> d$
+  "       inoremap <C-S-Del> <C-O>d$
+  "   but more robuster.
   noremap <C-S-Del> :call <SID>Del2EndOfWsAz09OrPunct(0, 1)<CR>
   inoremap <C-S-Del> <C-O>:call <SID>Del2EndOfWsAz09OrPunct(1, 1)<CR>
 endfunction
 
 function! s:wire_keys_delete_forwards_m_del()
-  " 2011.02.01 Doing same [as Ctrl-Shift-Delete] for Alt-Delete
+  " 2011.02.01 Doing same [as Ctrl-Shift-Delete] for Alt-Delete.
   noremap <M-Del> :call <SID>Del2EndOfWsAz09OrPunct(0, 1)<CR>
   inoremap <M-Del> <C-O>:call <SID>Del2EndOfWsAz09OrPunct(1, 1)<CR>
 endfunction
 
 function! s:wire_keys_delete_forwards_m_s_del()
-  " Alt-Shift-Delete deletes entire line
+  " Alt-Shift-Delete deletes the entire line. Which `dd` does perfectly.
   noremap <M-S-Del> dd
   inoremap <M-S-Del> <C-O>dd
 endfunction
