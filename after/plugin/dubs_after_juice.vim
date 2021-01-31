@@ -332,6 +332,7 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 "   for Ctrl-BS; in order to get the help for Ctrl-B (the 'b' character),
 "   try `:help Ctrl-B\>`
 if !s:running_windows
+  " Map <Ctrl-V>, <Ctrl-X>, and <Ctrl-C> keys.
   source $VIMRUNTIME/mswin.vim
   " 2017-04-03: In Insert mode, Ctrl-X is inserting "+x -- what the hell.
   " 2017-06-10: See:
@@ -340,7 +341,7 @@ if !s:running_windows
   "     ~/.vim/pack/landonb/start/dubs_appearance/after/plugin/dubs_appearance.vim
   "  - Something must be getting sourced after this that screws it up...
   " :echom "XXXXXXXXXXXXXXXXXXXXXXXXXXX SOURCED ". $VIMRUNTIME . "/mswin.vim"
-  "  /usr/share/vim/vim74/mswin.vim
+  "  /usr/share/vim/vim80/mswin.vim
   behave mswin
 endif
 
