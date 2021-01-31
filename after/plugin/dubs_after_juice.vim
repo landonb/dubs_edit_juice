@@ -362,6 +362,42 @@ endif
 " NOTE: Ctrl-F and Ctrl-B do not PageDown/PageUp from Insert mode,
 "       but rather enter their respective characters into the buffer.
 
+" ***
+
+" New ``\cl`` command to swap selection and clipboard contents.
+
+" 2021-01-31: Trying a Clipboard Paste-Copy-Swapper.
+"
+" Ref:
+"
+"   https://stackoverflow.com/questions/1502218/copy-from-one-register-to-another
+"   https://vim.fandom.com/wiki/Comfortable_handling_of_registers
+"
+" Use Case: I want to highlight something to paste over it, but I want
+"           selection to become next clipboard contents.
+"
+" - I.e., press `\cl` to swap highlighted text with clipboard contents.
+" How it works:
+"   "ax       Delete selection and store deleted text in register 'a'.
+"   "+gP      Put text (from @+ register, aka Paste clipboard), and leave
+"             the cursor after the pasted text (so ends in insert mode).
+"   :let ...  Swap @a and @+ registers, using @x for temporary storage.
+"             (The Vim tip has an example where `\s` rotates @", @a, and @b,
+"              which seems cool, but I'm not sure I'd use it; I mean, I've
+"              survived almost two decades using just the 1 clipboard value!
+"              So I'm not sure that I'd know how to manage *3* such values!!
+"              I'm not even sure I'll use this mapping that often; it's just
+"              something every once in a while I think about... and who does
+"              not love to grind their Vim teeth every once in a while to put
+"              out a new, slightly novel mapping?)
+" Mnemonic: 'cl'ippy swap. (Not really sold on it, just using... something.)
+silent! unmap <leader>cl
+vnoremap <leader>cl "ax"+gP:let @x=@+ \| let @+=@a \| let @a=@x<CR>
+" MAYBE/2021-01-31: Show other modes map same combo to rotate the 2 registers?
+" - Seems legit after a quick test... let's try it!
+nnoremap <leader>cl :let @x=@+ \| let @+=@a \| let @a=@x<CR>
+inoremap <leader>cl <C-O>:let @x=@+ \| let @+=@a \| let @a=@x<CR>
+
 " ------------------------------------------------------
 " Ctrl-H Hides Highlighting
 " ------------------------------------------------------
