@@ -390,13 +390,16 @@ endif
 "              something every once in a while I think about... and who does
 "              not love to grind their Vim teeth every once in a while to put
 "              out a new, slightly novel mapping?)
+" - Thanks @quickcougar for the great find! This was not working with `put`.
+"   - Copy something with <Ctrl-c>, run :reg, and it updates three registers:
+"     <""> <"*> <"+> (without the <>'s, which are just a highlight jammer)
+"     - "": unnamed register (*always* filled on "d", "c", "s", "x" and "y")
+"     - "*: clipboard (not system)
 " Mnemonic: 'cl'ippy swap. (Not really sold on it, just using... something.)
 silent! unmap <leader>cl
-vnoremap <leader>cl "ax"+gP:let @x=@+ \| let @+=@a \| let @a=@x<CR>
-" MAYBE/2021-01-31: Show other modes map same combo to rotate the 2 registers?
-" - Seems legit after a quick test... let's try it!
-nnoremap <leader>cl :let @x=@+ \| let @+=@a \| let @a=@x<CR>
-inoremap <leader>cl <C-O>:let @x=@+ \| let @+=@a \| let @a=@x<CR>
+vnoremap <leader>cl "ax"+gP:let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
+nnoremap <leader>cl :let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
+inoremap <leader>cl <C-O>:let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
 
 " ------------------------------------------------------
 " Ctrl-H Hides Highlighting
