@@ -335,7 +335,7 @@ function! s:apply_leadership_punctuation()
     \ '`', '~', '\', ';', ':', ',', '.', '?', "'", '"',
     \ ]
 
-  let l:crazy_punc = [
+  let l:insider_punc = [
     \ ['(', ')'], [')', '('],
     \ ['[', ']'], [']', '['],
     \ ['{', '}'], ['}', '{'],
@@ -359,7 +359,7 @@ function! s:apply_leadership_punctuation()
     call s:map_lower_or_upper_punctuation(l:punc)
   endfor
 
-  for [l:lpunc, l:rpunc] in l:crazy_punc
+  for [l:lpunc, l:rpunc] in l:insider_punc
     call s:map_insider_punctuation(l:lpunc, l:rpunc)
   endfor
 
