@@ -168,7 +168,7 @@ function! s:wire_keys_delete_backwards_m_bs()
 endfunction
 
 function! s:wire_keys_delete_backwards_c_s_bs()
-  " Ctrl-Shift-Backspace deletes to start of line
+  " Ctrl-Shift-Backspace deletes to start of line. Aka *<C-S-Backspace>*
   " - 2020-05-13: The old, simple way:
   "     noremap <C-S-BS> d<Home>
   "     inoremap <C-S-BS> <C-O>d<Home>
