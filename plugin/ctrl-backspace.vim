@@ -175,6 +175,8 @@ function! s:wire_keys_delete_backwards_c_s_bs()
   "   And now for something completely more complicated.
   nnoremap <C-S-BS> :<C-U>call <SID>delete_back_line('n')<CR>
   inoremap <C-S-BS> <C-O>:<C-U>call <SID>delete_back_line('i')<CR>
+  " Ctrl-Shift-W like Ctrl-Shift-BS (default <c-s-w> is same as <c-w>).
+  inoremap <c-s-w> <C-O>:<C-U>call <SID>delete_back_line('i')<CR>
 endfunction
 
 function! s:wire_keys_delete_backwards()
