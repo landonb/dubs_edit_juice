@@ -61,10 +61,31 @@ let g:after_juice_vim = 1
 " my infos in the footer (and I'd rather not worry about something
 " accidentally changing down there), and I'm halving the top count.
 
-"let g:AutoAdapt_FirstLines = 13
-"let g:AutoAdapt_LastLines = 0
-" 2018-01-05: It might finally be time... just use :Gblame.
-autocmd BufEnter,BufRead * NoAutoAdapt
+" ISOFF/2023-10-06:
+" - Original setup, circa 2015-01-26, restricted AutoAdapt to leading lines:
+"     let g:AutoAdapt_FirstLines = 13
+"     let g:AutoAdapt_LastLines = 0
+" - Later, circa 2018-01-05, I tried to disable AutoAdapt by default:
+"     autocmd BufEnter,BufRead * NoAutoAdapt
+" - Except, circa now, I noticed that on reload, before user moves
+"   focus away from the buffer (to not trigger BufEnter), AutoAdapt
+"   can still become enabled!
+"   - E.g., you rebase some work, need to resolve a conflict in a file,
+"     and that file was already open in Vim, when you switch back to Vim,
+"     after answering Load File to the file-changed prompt, AutoAdapt is
+"     back on.
+"   - Note that AutoAdapt also sets an augroup:
+"     - Unless g:AutoAdapt_FilePattern is empty, AutoAdapt sets BufWrite
+"       and FileWritePre hooks, but this is an after/ script, so too late:
+"         let g:AutoAdapt_FilePattern = ""
+"     - Nor does deleting the group work (which suggests that the augroup
+"       is not resposible for reenabling AutoAdapt):
+"         augroup! AutoAdapt
+"   - The trick is to disable AutoAdapt on FileChangedShellPost.
+autocmd BufEnter,BufRead,FileChangedShellPost * NoAutoAdapt
+" USAGE: The idea is to start each file with AutoAdapt off, and then the
+"        user can opt-in via the <C-M-S> AutoAdapt/NoAutoAdapt toggle,
+"        defined next.
 
 " If AutoAdapt is running, you can't edit any datelines and save without
 " AutoAdapt undoing what you just did (which is to try to pre-date things).
