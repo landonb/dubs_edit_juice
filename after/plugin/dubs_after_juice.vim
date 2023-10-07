@@ -2,7 +2,7 @@
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
 " Last Modified: 2018.01.05
 " Project Page: https://github.com/landonb/dubs_edit_juice
-" Summary: AutoAdapt wrapper.
+" Summary: AutoAdapt wrapper. And more.
 " License: GPLv3
 " -------------------------------------------------------------------
 " Copyright © 2015, 2017-2018 Landon Bouma.
@@ -43,18 +43,18 @@ let g:after_juice_vim = 1
 
 " AutoAdapt: "Automatically adapt timestamps, copyright notices, etc."
 "   http://www.vim.org/scripts/script.php?script_id=4654
-" Uses that author's ingo-library: "Vimscript library of common functions."
+" Uses that author's ingo-library: 'Vimscript library of common functions.'
 "   http://www.vim.org/scripts/script.php?script_id=4433
 
 " We need to call an AutoAdapt function, which is exposed from an autoload
 " plugin. Use an after script to ensure that autoload plugin is available.
 "
-" Note: We do, however, set a few globals *before* AutoAdapt loads. Search:
-"         g:AutoAdapt_FirstLines/_LastLines
+" REFER: We set a few globals *before* AutoAdapt loads. Search:
+"          g:AutoAdapt_FirstLines/_LastLines
 
-" HINT: Toggle with :NoAutoAdapt and then :Adapt
+" USAGE: Toggle with :NoAutoAdapt and then :Adapt
 
-" See: ~/.vim/pack/vim-scripts/start/AutoAdapt/plugin/AutoAdapt.vim
+" CXREF: ~/.vim/pack/vim-scripts/start/AutoAdapt/plugin/AutoAdapt.vim
 
 " The plugin defaults to checking the top 25 and bottom 10 lines.
 " [lb] is skipping the end of the file, though, since I never put
@@ -100,7 +100,7 @@ snoremap <C-M-S> <C-O>:NoAutoAdapt<CR><C-O>:update<CR><C-O>:AutoAdapt<CR>
 
 " 2017-11-05: I was thinking of disabling AutoAdapt if the user undid all
 "   changes to the buffer, to allow them to go back to original Date and not
-"   have it get updated when they save. (I usually forget about the "feature",
+"   have it get updated when they save. (I usually forget about the 'feature',
 "   and then have to undo again, and then Ctrl-Shift-Save.)
 " You maybe can tell if the user undid all changes by checking undo stack:
 "   changenr() == 0
@@ -255,11 +255,12 @@ else
 
 endif
 
+" ------------------------------------------------------
 " So-called MS Windows mode
 " ------------------------------------------------------
 
 " 2017-04-03: Moved to after-juice from normal plugin/dubs_edit_juice
-"   so that mswin.vim's Ctrl-x doesn't just dump "+x to the editor,
+"   so that mswin.vim's Ctrl-x doesn't just dump "+x to the editor,  "
 "   and so that mswin.vim's Ctrl-h doesn't replace our hide highlights map.
 
 " See what OS we're on
@@ -296,8 +297,8 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 "   rather than sounding the system bell and not moving the cursor
 "     (an-noy'ing!).
 " - CTRL-X and SHIFT-Del are Cut.
-"     (In Vaniall Vim, Ctrl-X would "Subtract [count] from the number
-"     or alphabetic character at or after the cursor." Seems like a
+"     (In Vaniall Vim, Ctrl-X would 'Subtract [count] from the number
+"     or alphabetic character at or after the cursor.' Seems like a
 "     very obscure usage scenario for using such a feature. And it
 "     is really weird, I tested and it just decrements the number under
 "     the cursor!)
@@ -318,8 +319,8 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 "     and in Insert or Command-line mode, it would insert Ctrl-Z as a
 "     normal character. Are either of those behaviors useful?)
 " - CTRL-Y is Redo (although not repeat).
-"     (In Vanilla Vim, Ctrl-Y would "Scroll window [count] lines
-"     upwards in the buffer" which is not a feature I ever used.)
+"     (In Vanilla Vim, Ctrl-Y would 'Scroll window [count] lines
+"     upwards in the buffer' which is not a feature I ever used.)
 " - Alt-Space is System menu.
 " - CTRL-Tab is Next window.
 " - CTRL-F4 is Close window.
@@ -362,7 +363,9 @@ endif
 " NOTE: Ctrl-F and Ctrl-B do not PageDown/PageUp from Insert mode,
 "       but rather enter their respective characters into the buffer.
 
-" ***
+" ------------------------------------------------------
+" Swap selection and clipboard contents
+" ------------------------------------------------------
 
 " New ``\cl`` command to swap selection and clipboard contents.
 
