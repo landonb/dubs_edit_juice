@@ -63,63 +63,83 @@ let g:after_juice_vim = 1
 " my infos in the footer (and I'd rather not worry about something
 " accidentally changing down there), and I'm halving the top count.
 
-" ISOFF/2023-10-06:
-" - Original setup, circa 2015-01-26, restricted AutoAdapt to leading lines:
-"     let g:AutoAdapt_FirstLines = 13
-"     let g:AutoAdapt_LastLines = 0
-" - Later, circa 2018-01-05, I tried to disable AutoAdapt by default:
-"     autocmd BufEnter,BufRead * NoAutoAdapt
-" - Except, circa now, I noticed that on reload, before user moves
-"   focus away from the buffer (to not trigger BufEnter), AutoAdapt
-"   can still become enabled!
-"   - E.g., you rebase some work, need to resolve a conflict in a file,
-"     and that file was already open in Vim, when you switch back to Vim,
-"     after answering Load File to the file-changed prompt, AutoAdapt is
-"     back on.
-"   - Note that AutoAdapt also sets an augroup:
-"     - Unless g:AutoAdapt_FilePattern is empty, AutoAdapt sets BufWrite
-"       and FileWritePre hooks, but this is an after/ script, so too late:
-"         let g:AutoAdapt_FilePattern = ""
-"     - Nor does deleting the group work (which suggests that the augroup
-"       is not resposible for reenabling AutoAdapt):
-"         augroup! AutoAdapt
-"   - The trick is to disable AutoAdapt on FileChangedShellPost.
-autocmd BufEnter,BufRead,FileChangedShellPost * NoAutoAdapt
-" USAGE: The idea is to start each file with AutoAdapt off, and then the
-"        user can opt-in via the <C-M-S> AutoAdapt/NoAutoAdapt toggle,
-"        defined next.
+function! s:CreateAutoAdaptAutocmds() abort
+  if !exists(":NoAutoAdapt")
 
-" If AutoAdapt is running, you can't edit any datelines and save without
-" AutoAdapt undoing what you just did (which is to try to pre-date things).
-" You could :NoAutoAdapt, but that's annoying.
-" I wanted to edit AutoAdapt's BufWritePre,FileWritePre autocmd, #Trigger,
-" to see if the only changed line is the dateline, but I couldn't figure
-" out how to get '[ and '] to work with the command.
-" I got '[,']!meld <afile> to work, sorta: it would open meld, but
-" 1. the original file is the _original_ file, and not even
-"    what's saved on disk (so probably an old swap file?), and
-" 2. after quiting meld so Vim can continue, Vim empties the buffer
-"    and saves, and your file is now truncated.
-" I would like to remap Ctrl-Shift-S, but Vim doesn't distinguish
-" between upper and lowercase A to Z with Ctrl (though it does with
-" the number/symbol row and the F1 keys, go figure). But we can map
-" a crazier combo, Ctrl-Alt-S, which for some whatever reason isn't
-" already mapped to an OS-level feature (like how Ctrl-Alt-L triggers
-" the desktop manager to lock the machine and sleep the monitors).
-" Built-ins:
-"  vnoremap <C-S> <C-C>:update<CR>
-"  noremap <C-S> :update<CR>
-"  inoremap <C-S> <C-O>:update<CR>
+    return
+  endif
 
-" MAYBE: We should preserve the user's current NoAutoAdapt setting; for
-"        now, always re-enabling it. Probably okay, since Ctrl-Alt-S is
-"        a very deliberate thing keystroke.
-nnoremap <C-M-S> :NoAutoAdapt<CR>:update<CR>:AutoAdapt<CR>
-inoremap <C-M-S> <C-O>:NoAutoAdapt<CR><C-O>:update<CR><C-O>:AutoAdapt<CR>
-" TEVS: I cannot seem to override visual select and Ctrl-Alt-S, always says,
-"         E481: No range allowed
-noremap <C-M-S> :NoAutoAdapt<CR>:update<CR>:AutoAdapt<CR>
-snoremap <C-M-S> <C-O>:NoAutoAdapt<CR><C-O>:update<CR><C-O>:AutoAdapt<CR>
+  " ISOFF/2023-10-06:
+  " - Original setup, circa 2015-01-26, restricted AutoAdapt to leading lines:
+  "     let g:AutoAdapt_FirstLines = 13
+  "     let g:AutoAdapt_LastLines = 0
+  " - Later, circa 2018-01-05, I tried to disable AutoAdapt by default:
+  "     autocmd BufEnter,BufRead * NoAutoAdapt
+  " - Except, circa now, I noticed that on reload, before user moves
+  "   focus away from the buffer (to not trigger BufEnter), AutoAdapt
+  "   can still become enabled!
+  "   - E.g., you rebase some work, need to resolve a conflict in a file,
+  "     and that file was already open in Vim, when you switch back to Vim,
+  "     after answering Load File to the file-changed prompt, AutoAdapt is
+  "     back on.
+  "   - Note that AutoAdapt also sets an augroup:
+  "     - Unless g:AutoAdapt_FilePattern is empty, AutoAdapt sets BufWrite
+  "       and FileWritePre hooks, but this is an after/ script, so too late:
+  "         let g:AutoAdapt_FilePattern = ""
+  "     - Nor does deleting the group work (which suggests that the augroup
+  "       is not resposible for reenabling AutoAdapt):
+  "         augroup! AutoAdapt
+  "   - The trick is to disable AutoAdapt on FileChangedShellPost.
+  autocmd BufEnter,BufRead,FileChangedShellPost * NoAutoAdapt
+  " USAGE: The idea is to start each file with AutoAdapt off, and then the
+  "        user can opt-in via the <C-M-S> AutoAdapt/NoAutoAdapt toggle,
+  "        defined next.
+endfunction
+
+call s:CreateAutoAdaptAutocmds()
+
+" ***
+
+function! s:CreateAutoAdaptMaps() abort
+  if !exists(":NoAutoAdapt")
+
+    return
+  endif
+
+  " If AutoAdapt is running, you can't edit any datelines and save without
+  " AutoAdapt undoing what you just did (which is to try to pre-date things).
+  " You could :NoAutoAdapt, but that's annoying.
+  " I wanted to edit AutoAdapt's BufWritePre,FileWritePre autocmd, #Trigger,
+  " to see if the only changed line is the dateline, but I couldn't figure
+  " out how to get '[ and '] to work with the command.
+  " I got '[,']!meld <afile> to work, sorta: it would open meld, but
+  " 1. the original file is the _original_ file, and not even
+  "    what's saved on disk (so probably an old swap file?), and
+  " 2. after quiting meld so Vim can continue, Vim empties the buffer
+  "    and saves, and your file is now truncated.
+  " I would like to remap Ctrl-Shift-S, but Vim doesn't distinguish
+  " between upper and lowercase A to Z with Ctrl (though it does with
+  " the number/symbol row and the F1 keys, go figure). But we can map
+  " a crazier combo, Ctrl-Alt-S, which for some whatever reason isn't
+  " already mapped to an OS-level feature (like how Ctrl-Alt-L triggers
+  " the desktop manager to lock the machine and sleep the monitors).
+  " Built-ins:
+  "  vnoremap <C-S> <C-C>:update<CR>
+  "  noremap <C-S> :update<CR>
+  "  inoremap <C-S> <C-O>:update<CR>
+
+  " MAYBE: We should preserve the user's current NoAutoAdapt setting; for
+  "        now, always re-enabling it. Probably okay, since Ctrl-Alt-S is
+  "        a very deliberate thing keystroke.
+  nnoremap <C-M-S> :NoAutoAdapt<CR>:update<CR>:AutoAdapt<CR>
+  inoremap <C-M-S> <C-O>:NoAutoAdapt<CR><C-O>:update<CR><C-O>:AutoAdapt<CR>
+  " TEVS: I cannot seem to override visual select and Ctrl-Alt-S, always says,
+  "         E481: No range allowed
+  noremap <C-M-S> :NoAutoAdapt<CR>:update<CR>:AutoAdapt<CR>
+  snoremap <C-M-S> <C-O>:NoAutoAdapt<CR><C-O>:update<CR><C-O>:AutoAdapt<CR>
+endfunction
+
+" ***
 
 " 2017-11-05: I was thinking of disabling AutoAdapt if the user undid all
 "   changes to the buffer, to allow them to go back to original Date and not
@@ -182,8 +202,8 @@ snoremap <C-M-S> <C-O>:NoAutoAdapt<CR><C-O>:update<CR><C-O>:AutoAdapt<CR>
 "   " Last Modified: 2015.01.08
 
 if exists('*AutoAdapt#DateTimeFormat#ShortTimezone') != 0
-
-" FIXME: I don't think the plugin is pushing the change on the Undo stack?
+  " INERT: I don't think the plugin is pushing the change on the Undo stack?
+  " - INERT/2024-12-09: AutoAdapt is disabled by default now.
 
   " :h regexp  
 
@@ -204,6 +224,7 @@ if exists('*AutoAdapt#DateTimeFormat#ShortTimezone') != 0
   " script_last_modified starts a line.
   let s:aa_patt_script_last_modd = '\v\C\_^\s*%(script_last_modified\s*\=\s*%(''|")?)\zs'
 
+  " \@! Matches with zero width if the preceding atom does NOT match at the current position.
   let g:AutoAdapt_Rules = [
   \   {
   \       'name': '(c) notice / {-LastYear} / E.g., "Copyright © 2009, 2011-2014 Your Name" to "Copyright © 2009, 2011-2015 Your Name"',
@@ -269,13 +290,6 @@ if exists('*AutoAdapt#DateTimeFormat#ShortTimezone') != 0
   \       'replacement': '\=tr(strftime("%Y %m %d"), " ", submatch(1))'
   \   },
   \]
-
-" \@! Matches with zero width if the preceding atom does NOT match at the current position.
-
-else
-
-  echomsg "Missing: AutoAdapt#DateTimeFormat#ShortTimezone"
-
 endif
 
 " -------------------------------------------------------------------
