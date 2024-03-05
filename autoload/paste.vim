@@ -25,10 +25,20 @@ func! paste#Paste()
   if @+ != ''
     normal! "+gP
   endif
-  let c = col(".")
+  let c0 = col(".")
   normal! i
-  " KLUGE/2024-03-05: Use <= not <, so cursor at EOL after pasting to EOL selection.
-  if col(".") <= c	" compensate for i<ESC> moving the cursor left
+  let c1 = col(".")
+  " KLUGE/2024-03-05: Nudge cursor one right for specific cases:
+  " - compensate for i<ESC> moving the cursor left:
+  "   - when you copy-paste selection that's not EOL, c1 == c0 - 1
+  "       (c1 < c0)
+  "   - when you copy-paste selection that goes to EOL, c1 == c0
+  "       (c1 <= c0)
+  "   - check that col not 1 before and after (means newline is final char
+  "     in selection, e.g., user selected line of text; don't move cursor
+  "     right, but keep at ^ position)
+  "       (c0 != 1) || (c1 != 1)
+  if (c1 <= c0) && ((c0 != 1) || (c1 != 1))
     normal! l
   endif
   let &ve = ove
