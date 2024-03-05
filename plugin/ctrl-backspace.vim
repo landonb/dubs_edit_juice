@@ -101,6 +101,15 @@ endfunction
 "     all it would take to clear the entire buffer would be n+1 C-S-BS
 "     presses, where n is the number of lines originally in the file.
 function! s:delete_back_line(mode)
+  " SAVVY: <c-g>u starts a new Undo set, so the deletion can be undone.
+  " - REFER: :help undo-break
+  " - BWARE: Note that running <c-g>u moves the cursor, e.g., if the
+  "   user <S-C-W>'s from the end of a line and this fcn. starts with:
+  "     execute "normal i\<C-g>u\<ESC>"
+  "   then the final 2 chars from that line are left behind.
+  "   - So use the other trick to close the undo block, assign to undolevels:
+  let &g:undolevels = &g:undolevels
+
   " Mimic `d<Home>`, but behave better at end of line.
   let curr_col = col(".")
   let line_nbytes = len(getline(line(".")))
