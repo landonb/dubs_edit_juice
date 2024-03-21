@@ -145,7 +145,7 @@ To unlock the tag list feature, install the `taglist` plugin.
    cd ~/.vim/pack/vim-scripts/start/taglist
    wget -N http://downloads.sourceforge.net/project/vim-taglist/vim-taglist/4.6/taglist_46.zip
    unzip taglist_46.zip
-   /bin/rm taglist_46.zip
+   command rm taglist_46.zip
 
 Always-On Features (Not Mapped to Any Keys)
 ===========================================
