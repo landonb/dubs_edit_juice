@@ -7,7 +7,7 @@
 " Version: 2.6
 " Last Modified: December 2010
 "
-" Histroy:
+" History:
 "   1.0: - Added RetabIndent command - similar to :retab, but doesn't cause
 "         internal tabs to be modified.
 "   1.1: - Added support for backspacing over spaced tabs 'smarttab' style
@@ -266,7 +266,7 @@ if ! exists('g:ctab_disable_checkalign') || g:ctab_disable_checkalign==0
   fun! s:SID()
     return matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze_SID$')
   endfun
-  " Get the spaces at the end of the  indent correct.
+  " Get the spaces at the end of the indent correct.
   " This is trickier than it should be, but this seems to work.
   fun! s:CheckCR()
     " echo 'SID:'.s:SID()
