@@ -5,7 +5,7 @@
 " Summary: AutoAdapt wrapper. And more.
 " License: GPLv3
 " -------------------------------------------------------------------
-" Copyright © 2015, 2017-2018 Landon Bouma.
+" Copyright Â© 2015, 2017-2018 Landon Bouma.
 " 
 " This file is part of Dubs Vim.
 " 
@@ -153,13 +153,13 @@ snoremap <C-M-S> <C-O>:NoAutoAdapt<CR><C-O>:update<CR><C-O>:AutoAdapt<CR>
 "   
 "   " Last Changed: Fri 23 Jan 2015 00:57:07 C
 "   " Modifiedddd: 2014 Jan 15
-"   " Copyright: © 2009-2010, 2014 Your Name
-"   " Copyright © 2011-2013 Your Name
-"   " Copyright © 2009, 2009-2014 Your Name
-"   " Copyright © 2009, 2009-2013 Your Name
-"   " Copyright © 2014-2015 Your Name
-"   " Copyright © 2014 Your Name
-"   " Copyright © 2013, 2014-2015 Your Name
+"   " Copyright: Â© 2009-2010, 2014 Your Name
+"   " Copyright Â© 2011-2013 Your Name
+"   " Copyright Â© 2009, 2009-2014 Your Name
+"   " Copyright Â© 2009, 2009-2013 Your Name
+"   " Copyright Â© 2014-2015 Your Name
+"   " Copyright Â© 2014 Your Name
+"   " Copyright Â© 2013, 2014-2015 Your Name
 "   
 "    Last Changed: Fri 23 Jan 2015 02:01:49 C
 "   /// Last Changed: Fri 22 Jan 2015 00:57:07 C
@@ -187,7 +187,7 @@ if exists('*AutoAdapt#DateTimeFormat#ShortTimezone') != 0
 
   " The copyright starts must start the line or follow one or more comment
   " characters or spaces. The match is case-insensitive and you can use
-  " the actuak © mark, if you want, or (c).
+  " the actuak Â© mark, if you want, or (c).
   let s:aa_patt_copyright = '\c\_^\%("\|#\|\/\*\|\/\/\|\.\.\||\)\?\s*\<Copyright:\?\%(\s\+\%((C)\|&copy;\|\%xa9\)\)\{0,2\}\s\+'
 
   " LastChangedModified must also start a line or follow opening comment.
@@ -204,22 +204,22 @@ if exists('*AutoAdapt#DateTimeFormat#ShortTimezone') != 0
 
   let g:AutoAdapt_Rules = [
   \   {
-  \       'name': '(c) notice / {-LastYear} / E.g., "Copyright © 2009, 2011-2014 Your Name" to "Copyright © 2009, 2011-2015 Your Name"',
+  \       'name': '(c) notice / {-LastYear} / E.g., "Copyright Â© 2009, 2011-2014 Your Name" to "Copyright Â© 2009, 2011-2015 Your Name"',
   \       'patternexpr': string(s:aa_patt_copyright) . '. ''[-, 0-9]*-\zs\('' . (strftime("%Y")-1) . ''\)\ze\>''',
   \       'replacement': '\=strftime("%Y")'
   \   },
   \   {
-  \       'name': '(c) notice / {, LastYear} / E.g., "Copyright © 2009-2010, 2014 Your Name" to "Copyright © 2009-2010, 2014-2015 Your Name"',
+  \       'name': '(c) notice / {, LastYear} / E.g., "Copyright Â© 2009-2010, 2014 Your Name" to "Copyright Â© 2009-2010, 2014-2015 Your Name"',
   \       'patternexpr': string(s:aa_patt_copyright) . '. ''[-, 0-9]*,\s*\zs\('' . (strftime("%Y")-1) . ''\)\ze\%([-, 0-9]*'' . strftime("%Y") . ''\)\@!\>''',
   \       'replacement': '\=submatch(1) . "-" . strftime("%Y")'
   \   },
   \   {
-  \       'name': '(c) notice / {LastYear} / E.g., "Copyright © 2014 Your Name" to "Copyright © 2014-2015 Your Name"',
+  \       'name': '(c) notice / {LastYear} / E.g., "Copyright Â© 2014 Your Name" to "Copyright Â© 2014-2015 Your Name"',
   \       'patternexpr': string(s:aa_patt_copyright) . '. ''\zs\('' . (strftime("%Y")-1) . ''\)\ze\%([-, 0-9]*'' . strftime("%Y") . ''\)\@!\>''',
   \       'replacement': '\=submatch(1) . "-" . strftime("%Y")'
   \   },
   \   {
-  \       'name': '(c) notice / {LastLastYear+} / E.g., "Copyright: © 2006, 2009-2013 Your Name" to "Copyright: © 2006, 2009-2013, 2015 Your Name"',
+  \       'name': '(c) notice / {LastLastYear+} / E.g., "Copyright: Â© 2006, 2009-2013 Your Name" to "Copyright: Â© 2006, 2009-2013, 2015 Your Name"',
   \       'patternexpr': string(s:aa_patt_copyright) . '. ''[-, 0-9]*\s*\zs\%('' . strftime("%Y") . ''\)\@!\(\d\{4\}\)\ze[^,-]\+\>''',
   \       'replacement': '\=submatch(1) . ", " . strftime("%Y")'
   \   },
