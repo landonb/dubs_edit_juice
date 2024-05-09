@@ -456,43 +456,39 @@ onoremap <C-h> <C-C>:nohlsearch<CR>
 " Switching Buffers/Windows/Tabs
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-" Ctrl-Tab is for Tabs, Silly... no wait, Buffers!
-" --------------------------------
-" mswin.vim maps Ctrl-Tab to Next Window. To be
-" more consistent with Windows (the OS), Ctrl-Tab
-" should map to Next Tab... but in this case, I'm
-" going to deviate from the norm and ask that you
-" tab-holders-onners let go and try thinking in
-" terms of buffers. It's all about the buffers,
-" benjamin! (baby?)
+" Ctrl-Tab / Shift-Ctrl-Tab
+" ------------------------
+" → Next / Previous Buffer
+"
+" - mswin.vim maps <Ctrl-Tab> to Next Window, which Dubs changes.
+" - Dubs maps <M-S-Up> / <M-S-Down> to Next Window / Prev Window.
+" - Dubs maps <Ctrl-Tab> / <C-S-Tab> to Next Buffer / Prev Buffer,
+"   sorted by buffer number.
+"   - CXREF: See also vim-buffer-ring, which maps <C-j> / <C-k> to
+"     Prev Buffer / Next Buffer, sorted by recently viewed order:
+"       https://github.com/landonb/vim-buffer-ring
 
-" TODO The cursor is not preserved between
-"      buffers! So make code that restores
-"      the cursor...
-
-" This is Ctrl-Tab to Next Buffer
-"noremap <C-Tab> :bn<CR>
-"inoremap <C-Tab> <C-O>:bn<CR>
-""cnoremap <C-Tab> <C-C>:bn<CR>
-"onoremap <C-Tab> <C-C>:bn<CR>
-"snoremap <C-Tab> <C-C>:bn<CR>
-" 2017-06-10: C-S-Tab works, but C-Tab overridden by `behave mswin`.
-"   So making these mappings an 'after' thought.
+" Ctrl-Tab: Next Buffer
+" - Note that `behave mswin` sets <C-Tab>,
+"   so keep this code under after/.
+" - A simple approach:
+"   noremap <C-Tab> :bn<CR>
+"   inoremap <C-Tab> <C-O>:bn<CR>
+"   onoremap <C-Tab> <C-C>:bn<CR>
+"   snoremap <C-Tab> <C-C>:bn<CR>
 noremap <C-Tab> :call <SID>BufNext_SkipSpecialBufs(1)<CR>
 inoremap <C-Tab> <C-O>:call <SID>BufNext_SkipSpecialBufs(1)<CR>
-"cnoremap <C-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(1)<CR>
 onoremap <C-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(1)<CR>
 snoremap <C-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(1)<CR>
 
-" This is Ctrl-Shift-Tab to Previous Buffer
-"noremap <C-S-Tab> :bN<CR>
-"inoremap <C-S-Tab> <C-O>:bN<CR>
-""cnoremap <C-S-Tab> <C-C>:bN<CR>
-"onoremap <C-S-Tab> <C-C>:bN<CR>
-"snoremap <C-S-Tab> <C-C>:bN<CR>
+" Ctrl-Shift-Tab: Previous Buffer
+" - A simple approach:
+"   noremap <C-S-Tab> :bN<CR>
+"   inoremap <C-S-Tab> <C-O>:bN<CR>
+"   onoremap <C-S-Tab> <C-C>:bN<CR>
+"   snoremap <C-S-Tab> <C-C>:bN<CR>
 noremap <C-S-Tab> :call <SID>BufNext_SkipSpecialBufs(-1)<CR>
 inoremap <C-S-Tab> <C-O>:call <SID>BufNext_SkipSpecialBufs(-1)<CR>
-"cnoremap <C-S-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(-1)<CR>
 onoremap <C-S-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(-1)<CR>
 snoremap <C-S-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(-1)<CR>
 
@@ -502,7 +498,6 @@ snoremap <C-S-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(-1)<CR>
 "map <silent> <unique> <script>
 "  \ <Plug>DubsBufferFun_BufPrevNormal
 "  \ :call <SID>BufNext_SkipSpecialBufs(-1)<CR>
-""   2. Thunk the <Plug>
 function s:BufNext_SkipSpecialBufs(direction)
   let start_bufnr = bufnr("%")
   let done = 0
@@ -523,7 +518,6 @@ function s:BufNext_SkipSpecialBufs(direction)
     "        \   && ( ((getbufvar(n, "&filetype") != "")
     "        \       && (getbufvar(n, "&fileencoding") != ""))
     "        \     || (getbufvar(n, "&modified") == 1)))
-" FIXME Diff against previous impl
 " FIXME Doesn't switch to .txt --> so set filetype for *.txt? another way?
     if (start_bufnr == n)
         \ || (getbufvar(n, "&modified") == 1)
