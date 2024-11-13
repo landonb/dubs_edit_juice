@@ -273,7 +273,7 @@ Commands for searching for text within a file.
                                     Listed in Quickfix
                                                                         - Hint: Do an ``<F4>`` or ``\g`` search to populate the Quickfix window
                                                                           (these two commands are part of
-                                                                          `dubs_grep_steady <https://github.com/landonb/dubs_grep_steady>`__).
+                                                                          `dubs_grep_steady <https://github.com/landonb/dubs_grep_steady#🧐>`__).
 
                                                                         - Double-click the first entry in the Quickfix search results to open that buffer.
 
