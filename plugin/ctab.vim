@@ -85,7 +85,7 @@ if exists('g:ctab_enable_default_filetype_maps') && ctab_enable_default_filetype
 endif
 
 if !exists('g:ctab_disable_tab_maps') || ! g:ctab_disable_tab_maps
-  exe  'imap '.s:buff_map.'<silent> <expr> <tab> <SID>InsertSmartTab()'
+  exe  'imap '.s:buff_map.'<silent> <expr> <tab> InsertSmartTab()'
 " [lb] doesn't like DoSmartDelete:
 "  exe  'inoremap '.s:buff_map.'<silent> <expr> <BS> <SID>DoSmartDelete()."\<BS>"'
 endif
@@ -108,7 +108,7 @@ endif
 " endfun
 
 " Insert a smart tab.
-fun! s:InsertSmartTab()
+fun! InsertSmartTab()
   " Clear the status
   echo ''
   if strpart(getline('.'),0,col('.')-1) =~'^\s*$'
