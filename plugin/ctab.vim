@@ -1,12 +1,10 @@
-" Intelligent Indent
-" Last Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Change: 2015.01.27
-" Version:     2.6.1.lbfork (search [lb] to find the 2 changes)
+" Author: Landon Bouma <https://tallybark.com/>
+" Project: https://github.com/landonb/dubs_edit_juice#¿
+" Summary: For tabbed file, insert <Tab>s before first character, <Space>s after
 " ========================================================================
+" Forkof: https://www.vim.org/scripts/script.php?script_id=231
 " Author: Michael Geddes < vimmer at frog dot wheelycreek dot net >
-" Version: 2.6
-" Last Modified: December 2010
-"
+" Version: 2.6 (December 2010)
 " History:
 "   1.0: - Added RetabIndent command - similar to :retab, but doesn't cause
 "         internal tabs to be modified.
