@@ -1,6 +1,6 @@
-" Last Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Change: 2015.01.27
-" Version:     1.0.1.lbfork (search [lb] to find the 1 change)
+" Author: Landon Bouma <https://tallybark.com/> 
+" Project: https://github.com/landonb/dubs_edit_juice#🧃
+" Version: 1.0.1.lbfork (search [lb] to find the 1 change) (2015.01.27)
 "*****************************************************************************
 "** Name:      chartab.vim - print a character table                        **
 "**                                                                         **
