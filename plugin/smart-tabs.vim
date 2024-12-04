@@ -123,6 +123,7 @@ fun! s:Column(line)
   endwhile
   return c
 endfun
+
 fun! s:StartColumn(lineNo)
   return s:Column(matchstr(getline(a:lineNo),'^\s*'))
 endfun
@@ -274,11 +275,9 @@ fun! s:RetabIndent( bang, firstl, lastl, tab )
   if newtabstop != &tabstop | let &tabstop = newtabstop | endif
 endfun
 
-
 " Retab the indent of a file - ie only the first nonspace.
 "   Optional argument specified the value of the new tabstops
 "   Bang (!) causes trailing whitespace to be gobbled.
 com! -nargs=? -range=% -bang -bar RetabIndent call <SID>RetabIndent(<q-bang>,<line1>, <line2>, <q-args> )
-
 
 " vim: sts=2 sw=2 et
