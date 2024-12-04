@@ -1,7 +1,9 @@
 " Author: Landon Bouma <https://tallybark.com/>
 " Project: https://github.com/landonb/dubs_edit_juice#🧃
 " Summary: For tabbed file, insert <Tab>s before first character, <Space>s after
-" ========================================================================
+
+" -------------------------------------------------------------------
+
 " Forkof: https://www.vim.org/scripts/script.php?script_id=231
 " Author: Michael Geddes < vimmer at frog dot wheelycreek dot net >
 " Version: 2.6 (December 2010)
@@ -27,6 +29,8 @@
 "   2.4: - Fix bug in Retab
 "   2.5: - Fix issue with <CR> not aligning
 "   2.6: - Fix issue with alignment not disappearing.
+
+" -------------------------------------------------------------------
 
 " This is designed as a filetype plugin (originally a 'Buffoptions.vim' script).
 "
@@ -58,6 +62,8 @@
 "   disable the filetype specific maps
 " g:ctab_disable_tab_maps
 "   disable the (original) tab mappings
+
+" -------------------------------------------------------------------
 
 " 2014.11.18: Set by [lb] 
 let g:ctab_disable_checkalign = 1
