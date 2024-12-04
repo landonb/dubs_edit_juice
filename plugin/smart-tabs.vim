@@ -1,5 +1,5 @@
 " Author: Landon Bouma <https://tallybark.com/>
-" Project: https://github.com/landonb/dubs_edit_juice#
+" Project: https://github.com/landonb/dubs_edit_juice#🧃
 " Summary: For tabbed file, insert <Tab>s before first character, <Space>s after
 " ========================================================================
 " Forkof: https://www.vim.org/scripts/script.php?script_id=231
