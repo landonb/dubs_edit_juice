@@ -73,7 +73,7 @@ if exists('g:ctab_enable_default_filetype_maps') && ctab_enable_default_filetype
     if (&filetype =~ '^\(cpp\|idl\)$' )
       imap <silent> <buffer> <expr> <m-;> CTabAlignTo(20).'//'
       imap <silent> <buffer> <expr> <m-s-;> CTabAlignTo(30).'//'
-      imap <silent> <buffer> º <m-s-;>
+      imap <silent> <buffer> M-: <m-s-;>
     elseif &filetype == 'c'
       imap <expr> <silent> <buffer> <m-;> CTabAlignTo(10).'/*  */<left><left><left>'
     endif
