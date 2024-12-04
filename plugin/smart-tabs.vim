@@ -76,26 +76,7 @@ endif
 
 if !exists('g:ctab_disable_tab_maps') || ! g:ctab_disable_tab_maps
   exe  'imap '.s:buff_map.'<silent> <expr> <tab> InsertSmartTab()'
-" [lb] doesn't like DoSmartDelete:
-"  exe  'inoremap '.s:buff_map.'<silent> <expr> <BS> <SID>DoSmartDelete()."\<BS>"'
 endif
-
-"exe 'imap '.s:buff_map.'<silent> <expr> <BS> <SID>KeepDelLine()."\<BS>"
-
-" MRG: TODO
-"exe 'imap '.s:buff_map.'<silent> <expr> <c-d> :call <SID>SmartDeleteTab()<CR>'
-"exe 'imap '.s:buff_map.'<silent> <c-t> <SID>SmartInsertTab()'
-" fun! s:SmartDeleteTab()
-"   let curcol=col('.')-&sw
-"   let origtxt=getline('.')
-"   let repl=matchstr(origtxt,'^\s\{-}\%'.(&sw+2)."v')
-"   if repl == '' then
-"     return "\<c-o>".':s/	*\zs	/'.repeat(' ',(&ts-&sw)).'/'."\<CR>\<c-o>".curcol.'|'
-"   else
-"     return "\<c-o>".':s/^\s\{-}\%'.(&sw+1)."v//\<CR>\<c-o>".curcol."|"
-"   end
-"
-" endfun
 
 " Insert a smart tab.
 fun! InsertSmartTab()
@@ -126,48 +107,6 @@ endfun
 aug Ctab
 au! InsertLeave * call <SID>CheckLeaveLine(line('.'))
 aug END
-
-
-" Do a smart delete.
-" The <BS> is included at the end so that deleting back over line ends
-" works as expected.
-fun! s:DoSmartDelete()
-  " Clear the status
-  "echo ''
-  let uptohere=strpart(getline('.'),0,col('.')-1)
-  " If at the first part of the line, fall back on defaults... or if the
-  " preceding character is a <TAB>, then similarly fall back on defaults.
-  "
-  let lastchar=matchstr(uptohere,'.$')
-  if lastchar == "\<tab>" || uptohere =~ '^\s*$' | return '' | endif        " Simple cases
-  if lastchar != ' ' | return ((&digraph)?("\<BS>".lastchar): '')  | endif  " Delete non space at end / Maintain digraphs
-
-  " Work out how many tabs to use
-  let sts=(exists("b:insidetabs")?(b:insidetabs):((&sts==0)?(&sw):(&sts)))
-
-  let ovc=virtcol('.')              " Find where we are
-  let sp=(ovc % sts)                " How many virtual characters to delete
-  if sp==0 | let sp=sts | endif     " At least delete a whole tabstop
-  let vc=ovc-sp                     " Work out the new virtual column
-  " Find how many characters we need to delete (using \%v to do virtual column
-  " matching, and making sure we don't pass an invalid value to vc)
-  let uthlen=strlen(uptohere)
-  let bs= uthlen-((vc<1)?0:(  match(uptohere,'\%'.(vc-1).'v')))
-  let uthlen=uthlen-bs
-  " echo 'ovc = '.ovc.' sp = '.sp.' vc = '.vc.' bs = '.bs.' uthlen='.uthlen
-  if bs <= 0 | return  '' | endif
-
-  " Delete the specifed number of whitespace characters up to the first non-whitespace
-  let ret=''
-  let bs=bs-1
-  if uptohere[uthlen+bs] !~ '\s'| return '' | endif
-  while bs>=-1
-    let bs=bs-1
-    if uptohere[uthlen+bs] !~ '\s' | break | endif
-    let ret=ret."\<BS>"
-  endwhile
-  return ret
-endfun
 
 fun! s:Column(line)
   let c=0
