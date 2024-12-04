@@ -32,6 +32,21 @@
 
 " -------------------------------------------------------------------
 
+" REFER: See similar plugins:
+"
+" - *IndentTab : Use tabs for indent at the beginning, spaces for alignment in the rest of a line*
+"   https://www.vim.org/scripts/script.php?script_id=4243
+"
+"   - On GH:
+"
+"     - *Use tabs for indent at the beginning, spaces for alignment in the rest of a line.*
+"       https://github.com/inkarkat/vim-IndentTab
+"
+" - *Use tabs for indent at the beginning, spaces for alignment in the rest of a line*
+"   https://github.com/vim-scripts/IndentTab
+
+" -------------------------------------------------------------------
+
 " This is designed as a filetype plugin (originally a 'Buffoptions.vim' script).
 "
 " The aim of this script is to be able to handle the mode of tab usage which
