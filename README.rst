@@ -156,7 +156,7 @@ Smart Tabs
 - The
   `Smart Tabs
   <https://github.com/vim-scripts/Smart-Tabs/blob/master/plugin/ctab.vim>`__
-  feature, located in ``dubs_edit_juice/plugin/ctab.vim``,
+  feature, located in ``dubs_edit_juice/plugin/smart-tabs.vim``,
   translates tabs to spaces if you're tabbing but not indenting, i.e.,
   if only spaces precede the cursor to the start of the line, then tabs
   are added when <tab> is pressed, otherwise <spaces> are inserted instead.

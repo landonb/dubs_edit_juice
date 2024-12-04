@@ -47,7 +47,7 @@ This plugin includes the following third-party plugins.
 
 Smart Tabs~
 
-The `Smart Tabs` feature, located in ``dubs_edit_juice/plugin/ctab.vim``,
+The `Smart Tabs` feature, located in ``dubs_edit_juice/plugin/smart-tabs.vim``,
 translates tabs to spaces if you're tabbing but not indenting, i.e.,
 if only spaces precede the cursor to the start of the line, then tabs
 are added when <Tab> is pressed, otherwise <Spaces> are inserted instead.
