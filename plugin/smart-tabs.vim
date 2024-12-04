@@ -68,22 +68,6 @@ else
   let s:buff_map=''
 endif
 
-if exists('g:ctab_enable_default_filetype_maps') && ctab_enable_default_filetype_maps
-  if s:buff_map != ''
-    if (&filetype =~ '^\(cpp\|idl\)$' )
-      imap <silent> <buffer> <expr> <m-;> CTabAlignTo(20).'//'
-      imap <silent> <buffer> <expr> <m-s-;> CTabAlignTo(30).'//'
-      imap <silent> <buffer> M-: <m-s-;>
-    elseif &filetype == 'c'
-      imap <expr> <silent> <buffer> <m-;> CTabAlignTo(10).'/*  */<left><left><left>'
-    endif
-  else
-    au FileType cpp,idl imap <expr> <silent> <buffer> <m-;> CTabAlignTo(20).'//'
-    au FileType cpp,idl imap <expr> <silent> <buffer> <m-:> CTabAlignTo(30).'//'
-    au FileType c imap <expr> <silent> <buffer> <m-;> CTabAlignTo(10).'/*  */<left><left>'
-  endif
-endif
-
 if !exists('g:ctab_disable_tab_maps') || ! g:ctab_disable_tab_maps
   exe  'imap '.s:buff_map.'<silent> <expr> <tab> InsertSmartTab()'
 " [lb] doesn't like DoSmartDelete:
