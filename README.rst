@@ -547,6 +547,12 @@ Obscure (Rarely Used) But Useful Commands
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
  ``:DiffOrig``                Diff Buffer Against File      See the difference between the current buffer and the file it was loaded from,
                                                             thus the changes you've made since you last saved.
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
+ ``<Leader>ct``               Toggle ASCII                  Decimal and Hexadecimal 8-bit character set
+                              Character Table               (based on `CharTab <http://www.vim.org/scripts/script.php?script_id=898>`__).
+
+                                                            *Hint:* Hit ``b`` to toggle between bases (radices).
+                                                            To return to the previous buffer, hit ``q``, ``<ESC>`` or ``<Shift-Alt-1>``.
 ===========================  ============================  ==============================================================================
 
 The Alt-Shift Mappings
@@ -557,13 +563,7 @@ The alt-shift commands show and hide special windows.
 ===========================  ============================  ==============================================================================
  Key Mapping                  Description                   Notes
 ===========================  ============================  ==============================================================================
- ``<Shift-Alt-1>``            Toggle ASCII                  Decimal and Hexadecimal 8-bit character set
-                              Character Table               (based on `CharTab <http://www.vim.org/scripts/script.php?script_id=898>`__).
-
-                                                            *Hint:* Hit ``b`` to toggle between bases (radices).
-                                                            To return to the previous buffer, hit ``q``, ``<ESC>`` or ``<Shift-Alt-1>``.
----------------------------  ----------------------------  ------------------------------------------------------------------------------
- ``<Shift-Alt-6>``            Toggle Tag list               Show/Hide the
+ ``<Shift-Alt-1>``            Toggle Tag list               Show/Hide the
                                                             `Tag List <http://www.vim.org/scripts/script.php?script_id=273>`__
                                                             window.
 
