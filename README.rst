@@ -572,7 +572,7 @@ The alt-shift commands show and hide special windows.
                                                             *Hint:* Run ``ctags`` on your code to make a ``tags`` file first,
                                                             and then ``:set tags=<path,path,...>`` in Vim to point to the ``tags`` file.
                                                             You can setup different tags for different file types and projects;
-                                                            see ``dubs_file_finder/dubs_projects.vim``, which you can customize.
+                                                            see ``dubs_grep_steady/dubs_projects.vim``, which you can customize.
 ===========================  ============================  ==============================================================================
 
 Hints, Tricks, and Step Throughs
