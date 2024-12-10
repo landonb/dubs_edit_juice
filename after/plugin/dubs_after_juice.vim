@@ -37,6 +37,8 @@ let g:after_juice_vim = 1
 " After Effects
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+" -------------------------------------------------------------------
+
 " ------------------------------------------------------
 " Configure AutoAdapt
 " ------------------------------------------------------
@@ -276,6 +278,8 @@ else
 
 endif
 
+" -------------------------------------------------------------------
+
 " ------------------------------------------------------
 " So-called MS Windows mode
 " ------------------------------------------------------
@@ -384,6 +388,8 @@ endif
 " NOTE: Ctrl-F and Ctrl-B do not PageDown/PageUp from Insert mode,
 "       but rather enter their respective characters into the buffer.
 
+" -------------------------------------------------------------------
+
 " ------------------------------------------------------
 " Swap selection and clipboard contents
 " ------------------------------------------------------
@@ -425,6 +431,8 @@ vnoremap <leader>cl "ax"+gP:let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| 
 nnoremap <leader>cl :let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
 inoremap <leader>cl <C-O>:let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
 
+" -------------------------------------------------------------------
+
 " ------------------------------------------------------
 " Ctrl-H Hides Highlighting
 " ------------------------------------------------------
@@ -451,6 +459,8 @@ onoremap <C-h> <C-C>:nohlsearch<CR>
 "  command, you'll need a <CR>, too.
 "  Ctrl-c is used from command and
 "  operator-pending modes.)
+
+" -------------------------------------------------------------------
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Switching Buffers/Windows/Tabs
@@ -540,6 +550,8 @@ endfunction
 " NOTE Change :bn to :tabn and :bN to :tabN
 "      if you'd rather have your tabs back
 
+" -------------------------------------------------------------------
+
 " ------------------------------------------------------
 " Ctrl-J/Ctrl-K Traverse Buffer History
 " ------------------------------------------------------
@@ -560,6 +572,8 @@ noremap <C-k> :BufferRingForward<CR>
 inoremap <C-k> <C-O>:BufferRingForward<CR>
 "cnoremap <C-k> <C-C>:BufferRingForward<CR>
 "onoremap <C-k> <C-C>:BufferRingForward<CR>
+
+" -------------------------------------------------------------------
 
 " -------------------------------------------------------------------------
 " Automatically center curson on search
@@ -606,6 +620,8 @@ nnoremap g# g#zz
 " why the baseball reference.)
 "
 "  :nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+
+" -------------------------------------------------------------------
 
 " -------------------------------------------------------------------------
 " Fast save-and-exit for special commands
