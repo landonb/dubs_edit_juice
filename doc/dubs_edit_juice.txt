@@ -104,8 +104,8 @@ N			Move cursor backward to and highlight previous search match.
 <Ctrl-H>	or		*<Ctrl-H>* *<C-H>* *<Ctrl-star>* *<C-star>* <C-*>
 <Ctrl-*>		Hide search highlights.
 
-				<Leader>vl \vl
-<Leader>vl		Toggle ``*`` Whitespace Behavior
+				*<Leader>ds* *\ds*
+<Leader>ds		Toggle ``*`` Whitespace Behavior
 			``VeryLiteral`` defaults to off, such that selecting
 			text with trailing whitespace and then pressing ``*``
 			to start a match matches the same text but ignores
@@ -177,10 +177,8 @@ r			Replace Character.
 <Ctrl-Backspace>	Delete to Start of Word.
 
 			
-<Ctrl-Shift-Delete>
-		or
-<Alt-Delete>			*<Ctrl-Shift-Delete>* *<C-S-Delete>* *<Alt-Delete>* *<M-Delete>*
-			Delete to End of Line.
+<Alt-Delete>	or		*<Ctrl-Shift-Delete>* *<C-S-Delete>* *<Alt-Delete>* *<M-Delete>*
+<Ctrl-Shift-Delete>	Delete to End of Line.
 
 				*<Ctrl-Delete>* *<C-Delete>*
 <Ctrl-Delete>		Delete to End of Word.
@@ -232,16 +230,20 @@ s_<Shift-Tab>		Undent selected text block.
 			``<Ctrl-L>`` swaps the paragraph above
 			the cursor with the paragraph below it.
 
+				*<Leader>dS* *\dS*
+<Leader>dS		Toggle OS clipboard with select text
+			or text under cursor.
+
 ==============================================================================
 5. Common Buffer Commands		*dubs-edit-juice--buffer-commands*
 
 Some of these commands are standard Vim
 but many of them are custom to Dubs Vim
 
-gg		or		gg *<Ctrl-Home>* <C-Home>
+gg		or		gg *<Ctrl-Home>* *<C-Home>*
 <Ctrl-Home>		Move the cursor to the first line of the file.
 
-G		or		G *<Ctrl-End>* <C-End>
+G		or		G *<Ctrl-End>* *<C-End>*
 <Ctrl-End>		Move the cursor to the last line of the file.
 
 				*{[0-9]+}G*
@@ -301,11 +303,11 @@ Highlights:
   Completion happens according to wildmode.
   See also `:help cmdline-completion`.
 
-				*<Ctrl-]>* *<C-]>*
+				<Ctrl-]> <C-]>
 <Ctrl-]>		Jump to declaration of definition of symbol under cursor.
 
-				*<Alt-]>* *<M-]>* *<A-]>*
-<Alt-]>			Jumps to the tag used by the last ``<Ctrl-]>`` command.
+				<Alt-]> <M-]> <A-]>
+<Alt-]>			Jumps to the tag used by the last `<Ctrl-]>` command.
 
 				*<Ctrl-N>* *<C-n>*
 <Ctrl-N>		Auto-Complete Using Tags. Brings up list of tag matches.
@@ -322,8 +324,8 @@ Highlights:
 gd			Jumps from the use of a variable
 			to its local definition.
 
-				*\tab*
-\tab			Toggle Tab Highlighting.
+				*\dt*
+\dt			Toggle Tab Highlighting.
 			(Type t-a-b, not the <Tab> character.)
 
 ==============================================================================
@@ -334,10 +336,9 @@ TTT			Insert time as "YYYY-MM-DD".
 
 				*TTT_*
 TTT_			Insert time as "YYYY_MM_DD".
-
-				*TTTtt* *:::*
-TTTtt			Insert time as "YYYY-MM-DD HH:MM".
-:::
+	
+TTTtt		or		*TTTtt* *:::*
+:::			Insert time as "YYYY-MM-DD HH:MM".
 
 				*TTTTtt*
 TTTTtt			Insert time as "YYYY-MM-DD-HH:MM".
@@ -357,23 +358,49 @@ ttt			Insert time as "HH:MM".
 				*:TabMessage [cmd]*
 :TabMessage {cmd}	Send Vim {cmd} output to new tab.
 
-				*s_::*
-s_::			Run highlighted text as Vim command.
+				*::* *s_::*
+::			Use highlighted text to start a Vim command.
 			I.e., select text and then type two colons, '::'.
 
-				*:Lorum*
-:Lorum			Lorum Ipsum Dump.
+				*:?* *s_:?*
+:?			Immediately open Vim help on selected text.
+			I.e., select text and then type colon-question-mark, ':?'.
 
-				<Ctrl-o>g<Ctrl-g>
+				*:Lorum*
+:Lorum			Lorum Ipsum dump.
+
+				*:Foobar*
+:Foobar			Metasyntactic terms dump.
+
+				*<Ctrl-o>g<Ctrl-g>*
 <Ctrl-o>g<Ctrl-g>	Count number of selected characters.
 
-m{char}		later		m{char} '{char}
+m{char}		later		*m{char}* *'{char}*
 '{char}			Mark a line with m{char} and return with '{char}.
 
 				*:DiffOrig*
 :DiffOrig		See the difference between the current buffer
 			and the file it was loaded from,
 			thus the changes you've made since you last saved.
+
+				*<Leader>dA* *\dA*
+<Leader>dA		Toggle ASCII character table.
+
+				*<Leader>dl* *\dl*
+<Leader>dl		Close left window of a three-way diff.
+
+				*<Leader>dc* *\dc*
+<Leader>dc		Close center window of a three-way diff.
+
+				*<Leader>dr* *\dr*
+<Leader>dr		Close right window of a three-way diff.
+
+				*<Leader>dr* *\dr*
+<Leader>dr		Close right window of a three-way diff.
+
+				*<Leader>dd* *\dd*
+<Leader>dd		Left-justify the current line (remove leading whitespace).
+
 
 Hints~
 
@@ -394,11 +421,8 @@ http://www.moolenaar.net/habits.html.
 
 The alt-shift commands show and hide special windows.
 
-				*<Shift-Alt-1>* *<M-!>* *<S-M-1>* *<S-A-1>* *<Leader>ct* *\ct*
-<Shift-Alt-1>		Toggle ASCII character table.
-
 				*<Shift-Alt-6>* *<M-^>* *<S-M-6>* *<S-A-6>* *:TlistToggle_*
-<Shift-Alt-6>		Toggle Tag list.
+<Shift-Alt-1>		Toggle Tag list.
 
 ==============================================================================
 10. Digraphs -- "A combination of two letters representing one sound, as in ph and ey"	*dubs-edit-juice-digraph*

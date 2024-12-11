@@ -183,7 +183,7 @@ Commands for searching for text within a file.
                                                                         the matching words in the buffers are highlighted.
                                                                         To disable the highlight, type ``<Ctrl-H>``
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``\vl``                            Toggle ``*`` Whitespace             ``VeryLiteral`` defaults to off, such that selecting text with trailing
+ ``\ds``                            Toggle ``*`` Whitespace             ``VeryLiteral`` defaults to off, such that selecting text with trailing
                                     Behavior                            whitespace and then pressing ``*`` to start a match matches the same text
                                                                         but ignores whitespace, e.g., "it " (with a space) matches "it" (without a space).
                                                                         You probably won't ever use this command, since you'll normally use ``*``
@@ -447,7 +447,7 @@ Highlights:
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``gd``                             Jump to a Declaration               Jumps from the use of a variable to its local definition.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``\tab``                           Toggle Tab Highlighting             Type backslash and then ``t`` ``a`` ``b`` to enable or disable
+ ``\dt``                            Toggle Tab Highlighting             Type backslash and then ``t`` ``a`` ``b`` to enable or disable
                                                                         tab highlighting. When enabled, tabs will be shown with a solid blue underline.
 =================================  ==================================  ==============================================================================
 
@@ -489,10 +489,16 @@ Obscure (Rarely Used) But Useful Commands
                                                             Use ``:TabMessage`` to execute a command and copy the output
                                                             to a new Tab window, where you can peruse and copy it freely.
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
- ``::``                       Run Highlighted Text          Starts the highlighted text as a Vim command,
-                              as Vim Command                i.e., type 'help', highlight it, hit ':', hit Enter, and you'll see the Vim help window.
+ ``::``                       Use Highlighted Text          Starts the highlighted text as a Vim command,
+                              to start Vim Command          i.e., type 'help', highlight it, hit '::', hit Enter, and you'll see the Vim help window.
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
+ ``:?``                       Immediately open Vim          Immediately runs ``:help {selected-text}`` on the selected text.
+                              Help on Selected Text
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
  ``:Lorem``                   Lorum Ipsum Dump              Pastes the first paragraph of Lorum Ipsum at the prompt.
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
+ ``:Foobar``                  Foo Bar Baz Bat... Dump       Pastes a list of
+                                                            `metasyntactic jargon terms <https://en.wikipedia.org/wiki/Metasyntactic_variable#General_usage>`__.
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
  ``<Ctrl-o>g<Ctrl-g>``        Count Selected Characters
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
@@ -501,11 +507,19 @@ Obscure (Rarely Used) But Useful Commands
  ``:DiffOrig``                Diff Buffer Against File      See the difference between the current buffer and the file it was loaded from,
                                                             thus the changes you've made since you last saved.
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
- ``<Leader>ct``               Toggle ASCII                  Decimal and Hexadecimal 8-bit character set
+ ``<Leader>dA``               Toggle ASCII                  Decimal and Hexadecimal 8-bit character set
                               Character Table               (based on `CharTab <http://www.vim.org/scripts/script.php?script_id=898>`__).
 
                                                             *Hint:* Hit ``b`` to toggle between bases (radices).
                                                             To return to the previous buffer, hit ``q``, ``<ESC>`` or ``<Shift-Alt-1>``.
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
+ ``<Leader>dl``               Diff-toggle left              Close left window of a three-way diff.
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
+ ``<Leader>dc``               Diff-toggle center            Close center window of a three-way diff.
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
+ ``<Leader>dr``               Diff-toggle right             Close right window of a three-way diff.
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
+ ``<Leader>dd``               Left-justify                  Left-justify the current line (remove leading whitespace).
 ===========================  ============================  ==============================================================================
 
 The Alt-Shift Mappings
