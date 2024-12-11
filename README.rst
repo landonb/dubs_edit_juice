@@ -9,13 +9,16 @@ About This Plugin
 
 This plugin maps a bunch of editing-related features
 to key combinations to help delete text, select text,
-edit text, move the cursor around the buffer, and
-perform single-key text searches within the buffer.
+edit text, move the cursor around the buffer.
 
-This script originally started to make Vim emulate
-`EditPlus <https://www.editplus.com/>`__,
-but it's grown considerably since then to
-just make Vim a more comfortable editor all around.
+This author originally created this script to emulate
+`EditPlus <https://www.editplus.com/>`__/>, which the author
+used in the early aughts on Windows before making the
+leap to Vim.
+
+But this plugin has grown considerably since then to
+just make Vim a more comfortable editor all around
+(at least for me!).
 
 Installation
 ============
@@ -108,8 +111,8 @@ part of any undo block).
 
 - See: http://vim.wikia.com/wiki/Recover_from_accidental_Ctrl-U
 
-Features Bound to Key Commands
-==============================
+Command Mappings
+================
 
 Searching Buffers
 -----------------
@@ -119,112 +122,46 @@ Commands for searching for text within a file.
 =================================  ==================================  ==============================================================================
  Key Mapping                        Description                         Notes
 =================================  ==================================  ==============================================================================
- ``/``                              Start a buffer search               Press the forward slash key to start a buffer search in the window
-                                                                        wherein your cursor lies. The cursor will jump to matches as you type;
-                                                                        hit Enter when you're done typing the search command.
+ ``\s``                             Search and Replace                  Start find-replace in current buffer using selected
+                                    in Buffer                           text.
 
-                                                                        Hint: If you type lowercase characters only, the search is
-                                                                        case-insensitive, but if you use one or more uppercase characters,
-                                                                        the search is case sensitive.
+                                                                        To substitute matching text throughout a file, select
+                                                                        the text you want to replace and hit backslash and
+                                                                        then ``s``. You'll see a partially-completed command
+                                                                        ready for you to type the replacement text. Hit
+                                                                        ``<Enter>``, and then hit ``y`` to confirm each replacement
+                                                                        or hit ``a`` to do 'em all.
+
+                                                                        Caveat: the search-and-replace starts at the cursor
+                                                                        and continues until the end of the file but it does
+                                                                        not wrap around.
+
+                                                                        Hint: You'll notice that you are completing a builtin
+                                                                        Vim search-n-replace command; if you'd like to do
+                                                                        case-sensitive matching, add an 'I' to the end of the
+                                                                        search, e.g., ``:.,$s/Find_Me/Replace_Me/gcI``
+
+                                                                        - REFER: There's a similar command in another plugin
+                                                                          that starts a substitute command for all buffers
+                                                                          listed in the quickfix window using the selected
+                                                                          text.
+
+                                                                          - See ``<Leader>S`` (``\S``) in ``dubs_quickfix_wrap``:
+
+                                                                            https://github.com/landonb/dubs_quickfix_wrap#🌯
+
+                                                                          - Though the author now prefers to use a Git
+                                                                            pipeline to replace text across the files.
+                                                                            See that plugin's help for details.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``<F3>``                           Forward and Backward                After you've started a buffer search, use ``<F3>`` or ``n``
-                                    Search Matches                      to search forward through the buffer,
-                                                                        and use ``<Shift-F3>`` and ``N`` (i.e., Shift-'n')
-                                                                        to search backwards through the buffer.
+ ``\S#``                            Search and Replace in Buffer       Same as ``\s``, but uses the pound symbol (``#``) as the
+                                    — Using ``#`` regexp delimiter     pattern delimiter. This is useful if you want to
+                                                                       find-and-replace a path string, so you don't have
+                                                                       have to escape the path separators.
 
-                                                                        Hint: The search wraps at the end of the buffer;
-                                                                        when it wraps, you'll see the scroll bar elevator jump and
-                                                                        you'll see a message highlighted in red in the status window
-                                                                        that reads, "search hit TOP, continuing at BOTTOM", or,
-                                                                        conversely, "search hit BOTTOM, continuing at TOP".
----------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``<Shift-F3>``                     Backward Search Match               Like ``<F3>``, but go to the previous result,
-                                                                        possibly wrapping at the start of the file and continuing from
-                                                                        the end, back up to the cursor.
----------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``n`` and ``N``                    Forward and Backward                Same as ``<F3>`` and ``<Shift-F3>``, respectively.
-                                    Search Matches
----------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``<F1>``                           Search Buffer for                   If there's a selection, searches the buffer for that,
-                                    Word Under Cursor                   otherwise selects the word under the cursor and searches for that.
-                                                                        This is a shortcut to ``/`` in a sense.
+                                                                       - E.g., instead of: ``/\/foo\/bar\//\/baz\/bat\//g``
 
-                                                                        Hint: To start searching a buffer for a term,
-                                                                        put the cursor on that term,
-                                                                        hit ``<F1>`` and then use ``<F3>`` to continue searching the file.
-
-                                                                        Caveat: If the search term is lowercase,
-                                                                        you'll get case-insensitive matches,
-                                                                        but if the search term is mixed- or upper-case,
-                                                                        you'll get case-sensitive matches.
----------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``<Shift-F1>``                     Highlight Word Under                Like ``<F1>`` -- starts a search for the word under the cursor -- but
-                                    Cursor on Start Search              doesn't jump to the next match, but rather the cursor stays put.
----------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``*``                              Restrictive Search                  The star-search is a Vim builtin.
-                                    Selected                            It does a case-insensitive "word-search"
-                                    or Under Cursor                     for the word under the cursor, that is,
-                                                                        it only matches exact words.
-                                                                        It also excludes special characters, like hyphens,
-                                                                        but it combines words across underscores.
-                                                                        It does not match supersets
-                                                                        (unlike ``<F1>`` where, e.g., 'ord' matches 'word').
-                                                                        So, e.g., starting a \*-search on 'john\_doe' would
-                                                                        match 'John\_doe' but not 'john-doe', and starting
-                                                                        a \*-search on the reverse,
-                                                                        i.e., on the first half of 'john-doe',
-                                                                        would match just 'john' or 'John' or 'JOHN', etc.).
-                                                                        The set of word delimiters is obviously customizable.
----------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``#``                              Restrictive Search                  Like ``*`` search, but backward through the buffer.
-                                    in Reverse
----------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``<Ctrl-H>``                       Hide Search Highlights              After you initiate a search,
-                                                                        the matching words in the buffers are highlighted.
-                                                                        To disable the highlight, type ``<Ctrl-H>``
----------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``\ds``                            Toggle ``*`` Whitespace             ``VeryLiteral`` defaults to off, such that selecting text with trailing
-                                    Behavior                            whitespace and then pressing ``*`` to start a match matches the same text
-                                                                        but ignores whitespace, e.g., "it " (with a space) matches "it" (without a space).
-                                                                        You probably won't ever use this command, since you'll normally use ``*``
-                                                                        in insert or command mode for the word under the cursor, rather than
-                                                                        selecting text first and using ``*`` in visual mode.
----------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``\s``                             Search and Replace                  To substitute matching text throughout a file, select the text you want to
-                                    in Buffer                           replace and hit backslash and then 's'. You'll see a partially-completed
-                                                                        command ready for you to type the replacement text. Hit return,
-                                                                        and then hit 'y' to confirm each replacement or hit 'a' to do 'em all.
-
-                                                                        Caveat: the search-and-replace starts at the cursor and continues until the
-                                                                        end of the file but it doesn't wrap around.
-
-                                                                        Hint: You'll notice that you are completing a builtin Vim search-n-replace command;
-                                                                        if you'd like to do case-sensitive matching, add an 'I' to the end of the search,
-                                                                        i.e., ``:.,$s/Find_Me/Replace_Me/gcI``
----------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``\S``                             Search and Replace                  This is similar to ``\s`` but it searches and replaces text in all of the files
-                                    in All Files                        listed in the quickfix window.
-                                    Listed in Quickfix
-                                                                        - Hint: Do an ``<F4>`` or ``\g`` search to populate the Quickfix window
-                                                                          (these two commands are part of
-                                                                          `dubs_grep_steady <https://github.com/landonb/dubs_grep_steady#🧐>`__).
-
-                                                                        - Double-click the first entry in the Quickfix search results to open that buffer.
-
-                                                                        - Highlight the text you want to replace and then hit ``\`` and then ``S``.
-
-                                                                        - Type the replacement text and hit return, and the plugin will find and replace
-                                                                          in all of the files in the Quickfix list.
-
-                                                                        Caveat: If you are not happy with the results, you'll have to ``<Ctrl-Z>``
-                                                                        each file that was edited; fortunately, a single Ctrl-Z undoes all of the
-                                                                        changes in each buffer.
-
-                                                                        (FIXME: We could make a :bufdo to run Ctrl-Z once in each open buffer.)
-
-                                                                        Caveat: If a substring of your replacement text matches the original text,
-                                                                        the function will endlessly recurse, oops!
-                                                                        Just type ``<Ctrl-C>`` to stop it.
+                                                                         use this pattern: ``#/foo/bar/#/baz/bat/g#``
 =================================  ==================================  ==============================================================================
 
 Editing and Formatting Text
@@ -682,4 +619,7 @@ And you can dig into your own font file, e.g.,::
   charmap --font="Hack Regular 9"
 
 See ``:help digraph`` for the list of defined digraphs.
+
+REFER: See also author's Unicode reference:
+https://github.com/DepoXy/emoji-lookup#🙄
 

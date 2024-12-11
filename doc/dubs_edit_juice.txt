@@ -6,7 +6,7 @@ EDIT JUICE				*dubs-edit-juice*
 
 1. About This Plugin			|dubs-edit-juice-about|
 2. Transparent Features			|dubs-edit-juice-transparent|
-3. Searching Buffers			|dubs-edit-juice-searching-buffers|
+3. Substitute Commands			|dubs-edit-juice-substitute-commands|
 4. Editing and Formatting Text		|dubs-edit-juice-editing|
 5. Common Buffer Commands		|dubs-edit-juice-buffer-commands|
 5. Buffer Changing Commands		|dubs-edit-juice-change-buffer-commands|
@@ -21,13 +21,16 @@ EDIT JUICE				*dubs-edit-juice*
 
 This plugin maps a bunch of editing-related features
 to key combinations to help delete text, select text,
-edit text, move the cursor around the buffer, and
-perform single-key text searches within the buffer.
+edit text, and to move the cursor around the buffer.
 
-This script originally started to make Vim emulate
-`EditPlus` <https://www.editplus.com/>,
-but it's grown considerably since then to
-just make Vim a more comfortable editor all around.
+This author originally created this script to emulate
+`EditPlus` <https://www.editplus.com/>, which the author
+used in the early aughts on Windows before making the
+leap to Vim.
+
+But this plugin has grown considerably since then to
+just make Vim a more comfortable editor all around
+(at least for me!).
 
 Project page: https://github.com/landonb/dubs_edit_juice
 
@@ -77,49 +80,47 @@ To unlock the tag list feature, install the `taglist` plugin.
    command rm taglist_46.zip
 
 ==============================================================================
-3. Searching Buffers			*dubs-edit-juice-searching-buffers*
+3. Substitute Commands			*dubs-edit-juice-substitute-commands*
 
+				*<Leader>s* *\s*
+\s			Start find-replace in current buffer using selected
+			text.
 
-Commands for searching for text within a file. Some of these commands
-are stock Vim; other commands added by Dubs Vim.
+			To substitute matching text throughout a file, select
+			the text you want to replace and hit backslash and
+			then `s`. You'll see a partially-completed command
+			ready for you to type the replacement text. Hit
+			<Enter>, and then hit `y` to confirm each replacement
+			or hit `a` to do 'em all.
 
-				*/*
-/			Start a buffer search.
+			Caveat: the search-and-replace starts at the cursor
+			and continues until the end of the file but it does
+			not wrap around.
 
-<F3>		or		*<F3>* *n*
-n			Move cursor forward to and highlight next search match.
+			Hint: You'll notice that you are completing a builtin
+			Vim search-n-replace command; if you'd like to do
+			case-sensitive matching, add an 'I' to the end of the
+			search, e.g., `:.,$s/Find_Me/Replace_Me/gcI`
 
-			
-<Shift-F3>	or		*<Shift-F3>* *<S-F3>* *N*
-N			Move cursor backward to and highlight previous search match.
+			- REFER: There's a similar command in another plugin
+			  that starts a substitute command for all buffers
+			  listed in the quickfix window using the selected
+			  text.
+			  - See |<Leader>S| (|\S|) in `dubs_quickfix_wrap`:
+			    https://github.com/landonb/dubs_quickfix_wrap#🌯
+			  - Though the author now prefers to use a Git
+			    pipeline to replace text across the files.
+			    See that plugin's help for details.
 
-				*<F1>*
-<F1>			Search buffer for substring under cursor.
+				*<Leader>S#* *\S#*
+\S#			Search and Replace in Buffer — Using `#` regexp delimiter
 
-				*star*
-*			Search buffer for exact word under cursor.
-
-				*pound*
-#			Same as "*", but search backward.
-
-<Ctrl-H>	or		*<Ctrl-H>* *<C-H>* *<Ctrl-star>* *<C-star>* <C-*>
-<Ctrl-*>		Hide search highlights.
-
-				*<Leader>ds* *\ds*
-<Leader>ds		Toggle ``*`` Whitespace Behavior
-			``VeryLiteral`` defaults to off, such that selecting
-			text with trailing whitespace and then pressing ``*``
-			to start a match matches the same text but ignores
-			whitespace, e.g., "it " (with a space) matches "it"
-			(without a space).
-
-				*\s*
-\s			Start find-replace in current buffer
-			using selected text.
-
-				*\S*
-\S			Start find-replace for all buffers listed
-			in quickfix window using selected text.
+			Same as `\s`, but uses the pound symbol (#) as the
+			pattern delimiter. This is useful if you want to
+			find-and-replace a path string, so you don't have
+			have to escape the path separators.
+			- E.g., instead of: `/\/foo\/bar\//\/baz\/bat\//g`
+			  use this pattern: `#/foo/bar/#/baz/bat/g#`
 
 ==============================================================================
 4. Editing and Formatting Text		*dubs-edit-juice--editing*
@@ -466,29 +467,31 @@ Useful Digraphs
 
 A few examples.
 
-Type `<Ctrl-l>` and then:
+Type <Ctrl-l> followed by the two characters in the left column.
+
+For Voters::
 
 	O K   ✓     Check Mark
 	X X   ✗     Ballot X
 
-For Maths:
+For Algebraists:
 
 	D G   °     DeGree
 	+ -   ±     Plus-Minus [So obvious!]
 	M y   µ     Micro sign [For spelling µziq]
 
-For Parts:
+For Dividers:
 
 	1 4   ¼     Quarter! [Vulgar Fraction One Quarter]
 	1 2   ½     Half! [Vulgar Fraction One Half]
 	3 4   ¾     Trips! [Vulgar Fraction Three Quarters]
 
-For Accents:
+For Multiculturals:
 
 	e '   é     L’accent aigu
 	e `   è     L’accent grave
 
-For Raters:
+For Dreamers:
 
 	* 2   ★     Black Star [David Bowie]
 	* 1   ☆     White Star
@@ -498,34 +501,34 @@ For Lawyers:
 	C o   ©     Copyright
 	R g   ®     Registered sign
 
-For Multiculturals:
+For Happy Folx:
 
 	0 u   ☺     White Smiling Face
 	0 U   ☻     Black Smiling Face
 
-For Card sharks:
+For Card Sharks:
 
 	c S   ♠     Black Space Suit
 	c H   ♡     White Heart Suit
 	c D   ♢     White Diamond Suit
 	c C   ♣     Black Club Suit
 
-For Squares:
+For You Squares:
 
 	f S   ■     Black Square ("fS": think, "Full Square")
 	O S   □     White Square ("OS": think, "Open Square")
 
-For Happies:
+For Smiley People:
 
 	S o   ソ    Smiley? [Katakana letter SO]
 	o S   ソ    [Works backwards, too]
 	Z o   ゾ    [Katakana letter ZO] Smirky smile?
 	o Z   ゾ    [Oh, hey, backwards]
-
-Other faces:
-
-        0 o   ◎‿ ◎
+        0 o   ◎     As in ◎‿ ◎
 
 See `:help digraph` for the list of defined digraphs.
+
+REFER: See also author's Unicode reference:
+https://github.com/DepoXy/emoji-lookup#🙄
 
  vim:tw=78:ts=8:ft=help:norl:
