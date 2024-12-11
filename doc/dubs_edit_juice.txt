@@ -10,8 +10,10 @@ EDIT JUICE				*dubs-edit-juice*
 4. Editing and Formatting Text		|dubs-edit-juice-editing|
 5. Common Buffer Commands		|dubs-edit-juice-buffer-commands|
 6. Developer Commands			|dubs-edit-juice-developer|
-7. Obscure But Useful Commands		|dubs-edit-juice-obscure|
-8. Alt-Shift Special Window Togglers	|dubs-edit-juice-togglers|
+7. Insert Date and Time Commands	|dubs-edit-juice-date-and-time|
+8. Obscure But Useful Commands		|dubs-edit-juice-obscure|
+9. Alt-Shift Special Window Togglers	|dubs-edit-juice-togglers|
+10. Digraphs Discussion			|dubs-edit-juice-digraph|
 
 ==============================================================================
 1. About This Plugin			*dubs-edit-juice-about*
@@ -328,7 +330,32 @@ gd			Jumps from the use of a variable
 			(Type t-a-b, not the <Tab> character.)
 
 ==============================================================================
-7. Obscure But Useful Commands		*dubs-edit-juice-obscure*
+7. Insert Date and Time Commands	*dubs-edit-juice-date-and-time*
+
+				*TTT*
+TTT			Insert time as "YYYY-MM-DD".
+
+				*TTT_*
+TTT_			Insert time as "YYYY_MM_DD".
+
+				*TTTtt* *:::*
+TTTtt			Insert time as "YYYY-MM-DD HH:MM".
+:::
+
+				*TTTTtt*
+TTTTtt			Insert time as "YYYY-MM-DD-HH:MM".
+
+				*ttt*
+ttt			Insert time as "HH:MM".
+
+				*<Leader>T* *\T*
+<Leader>T		Insert time as "/YYYY-MM-DD: ".
+
+				*<F12>*
+<F12>			Insert time as "/YYYY-MM-DD HH-MM: ".
+
+==============================================================================
+8. Obscure But Useful Commands		*dubs-edit-juice-obscure*
 
 				*:TabMessage [cmd]*
 :TabMessage {cmd}	Send Vim {cmd} output to new tab.
@@ -366,7 +393,7 @@ http://www.moolenaar.net/habits.html.
   to repeat the cw command."
 
 ==============================================================================
-8. Alt-Shift Special Window Togglers	*dubs-edit-juice-togglers*
+9. Alt-Shift Special Window Togglers	*dubs-edit-juice-togglers*
 
 The alt-shift commands show and hide special windows.
 
@@ -377,7 +404,7 @@ The alt-shift commands show and hide special windows.
 <Shift-Alt-6>		Toggle Tag list.
 
 ==============================================================================
-9. Digraphs -- "A combination of two letters representing one sound, as in ph and ey"	*dubs-edit-juice-digraph*
+10. Digraphs -- "A combination of two letters representing one sound, as in ph and ey"	*dubs-edit-juice-digraph*
 
 Digraphs let you type Unicode characters.
 
