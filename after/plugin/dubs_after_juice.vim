@@ -153,8 +153,6 @@ endif
 " Swap selection and clipboard contents
 " ------------------------------------------------------
 
-" New ``\cl`` command to swap selection and clipboard contents.
-
 " 2021-01-31: Trying a Clipboard Paste-Copy-Swapper.
 "
 " Ref:
@@ -165,7 +163,7 @@ endif
 " Use Case: I want to highlight something to paste over it, but I want
 "           selection to become next clipboard contents.
 "
-" - I.e., press `\cl` to swap highlighted text with clipboard contents.
+" - I.e., press `\dS` to swap highlighted text with clipboard contents.
 " How it works:
 "   "ax       Delete selection and store deleted text in register 'a'.
 "   "+gP      Put text (from @+ register, aka Paste clipboard), and leave
