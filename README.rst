@@ -349,9 +349,6 @@ Editing and Formatting Text
  ``<Ctrl-P>`` and ``<Ctrl-L>``      Swap Paragraphs                     ``<Ctrl-P>`` swaps the paragraph under the cursor with the paragraph above.
 
                                                                         ``<Ctrl-L>`` swaps in with the paragraph below.
----------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``\O``                             Open hyperlink under cursor
-                                    or selected.
 =================================  ==================================  ==============================================================================
 
 Common Buffer Commands

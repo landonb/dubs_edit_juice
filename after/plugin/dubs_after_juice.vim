@@ -184,11 +184,18 @@ endif
 "     <""> <"*> <"+> (without the <>'s, which are just a highlight jammer)
 "     - "": unnamed register (*always* filled on "d", "c", "s", "x" and "y")
 "     - "*: clipboard (not system)
-" Mnemonic: 'cl'ippy swap. (Not really sold on it, just using... something.)
-silent! unmap <leader>cl
-vnoremap <leader>cl "ax"+gP:let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
-nnoremap <leader>cl :let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
-inoremap <leader>cl <C-O>:let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
+" HSTRY/2024-12-10: Was <Leader>cl, but I'm moving all the Dubs maps to \d prefix.
+" - HSTRY: Mnemonic: 'cl'ippy swap. (Not really sold on it, just using... something.)
+" - Also note normal mode \cl has been CoC 'codeLensAction' for a while.
+"   And I haven't used this feature much/at all.
+"   - See also YankRing
+"       https://github.com/vim-scripts/YankRing.vim
+"     Or consider using built-in numbered registers that contain last 9 deletes.
+" - Let's try \dS for 'swap'
+silent! unmap <Leader>dS
+vnoremap <Leader>dS "ax"+gP:let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
+nnoremap <Leader>dS :let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
+inoremap <Leader>dS <C-O>:let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
 
 " -------------------------------------------------------------------
 
