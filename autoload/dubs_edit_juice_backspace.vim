@@ -30,7 +30,7 @@
 "     all it would take to clear the entire buffer would be n+1 C-S-BS
 "     presses, where n is the number of lines originally in the file.
 
-function! dubs_edit_juice_backspace#delete_back_line(mode) abort
+function! dubs_edit_juice_backspace#delete_back_line() abort
   " SAVVY: <c-g>u starts a new Undo set, so the deletion can be undone.
   " - REFER: :help undo-break
   " - BWARE: Note that running <c-g>u moves the cursor, e.g., if the
