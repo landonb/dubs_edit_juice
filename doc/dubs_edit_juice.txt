@@ -62,62 +62,6 @@ Optional Vendor Plugins~
 You can enable additional functionality by installing the following
 third-party plugins.
 
-AutoAdapt
-~~~~~~~~~~
-
-AutoAdapt http://www.vim.org/scripts/script.php?script_id=4654
-will "automatically adapt timestamps, copyright notices, etc."
-
-- When you save a file, it'll check the header and footer and
-  update any "Last Modified"-like lines, and it'll update the
-  copyright years, too.
-
-  - The Dubs Vim code tweaks the match algorithm to recognize
-    and use commas in the copyright, e.g., "2009, 2011-2014" might
-    become "2009, 2011-2015" or "2009, 2001-2014, 2016" depending
-    on if the current year is 2015 or 2016. This might seem a little
-    pretentious, but if you don't publish something some year, you
-    can't claim a copyright on it that year. ALTMU.
-
-  - The match is also tightened so that it'll only occur if it
-    matches at the beginning of the line, optionally after the
-    start of a comment.
-
-To install AutoAdapt and also a necessary support library,
-ingo-library http://www.vim.org/scripts/script.php?script_id=4433,
-grab the latest Vimballs and let 'em loose. Be sure to specify
-a install directory so we can install to the Pathogen directory.
-
-Download the support library to a new Vim packages location.
-
-   mkdir -p ~/.vim/pack/vim-scripts/start/ingo-library
-   cd ~/.vim/pack/vim-scripts/start/ingo-library
-   wget -O ingo-library-1.022.vmb.gz \
-      http://www.vim.org/scripts/download_script.php?src_id=22460
-   gvim ingo-library-1.022.vmb.gz
-
-Install from Vim.
-
-   :UseVimball ~/.vim/pack/vim-scripts/start/ingo-library
-
-Download the metadata-update-on-save program to a new Pathogen location.
-
-   mkdir -p ~/.vim/pack/vim-scripts/start/AutoAdapt
-   cd ~/.vim/pack/vim-scripts/start/AutoAdapt
-   wget -O AutoAdapt-1.10.vmb.gz \
-      http://www.vim.org/scripts/download_script.php?src_id=21327
-   # You can run gunzip first, or you can just run gvim.
-   gvim AutoAdapt-1.10.vmb.gz
-
-Install from Vim.
-
-   :UseVimball ~/.vim/pack/vim-scripts/start/AutoAdapt
-
-Cleanup.
-
-   rm ~/.vim/pack/vim-scripts/start/AutoAdapt/AutoAdapt-1.10.vmb.gz
-   rm ~/.vim/pack/vim-scripts/start/ingo-library/ingo-library-1.022.vmb.gz
-
 taglist
 ~~~~~~~~
 
