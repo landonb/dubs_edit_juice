@@ -389,14 +389,14 @@ m{char}		later		*m{char}* *'{char}*
 				*<Leader>dl* *\dl*
 <Leader>dl		Close left window of a three-way diff.
 
-				*<Leader>dc* *\dc*
-<Leader>dc		Close center window of a three-way diff.
+				*<Leader>dTc* *\dTc*
+<Leader>dTc		Close center window of a three-way diff.
 
-				*<Leader>dr* *\dr*
-<Leader>dr		Close right window of a three-way diff.
+				*<Leader>dTr* *\dTr*
+<Leader>dTr		Close right window of a three-way diff.
 
-				*<Leader>dr* *\dr*
-<Leader>dr		Close right window of a three-way diff.
+				*<Leader>dTr* *\dTr*
+<Leader>dTr		Close right window of a three-way diff.
 
 				*<Leader>dd* *\dd*
 <Leader>dd		Left-justify the current line (remove leading whitespace).

@@ -513,11 +513,11 @@ Obscure (Rarely Used) But Useful Commands
                                                             *Hint:* Hit ``b`` to toggle between bases (radices).
                                                             To return to the previous buffer, hit ``q``, ``<ESC>`` or ``<Shift-Alt-1>``.
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
- ``<Leader>dl``               Diff-toggle left              Close left window of a three-way diff.
+ ``<Leader>dTl``              Diff-toggle left              Close left window of a three-way diff.
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
- ``<Leader>dc``               Diff-toggle center            Close center window of a three-way diff.
+ ``<Leader>dTc``              Diff-toggle center            Close center window of a three-way diff.
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
- ``<Leader>dr``               Diff-toggle right             Close right window of a three-way diff.
+ ``<Leader>dTr``              Diff-toggle right             Close right window of a three-way diff.
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
  ``<Leader>dd``               Left-justify                  Left-justify the current line (remove leading whitespace).
 ===========================  ============================  ==============================================================================
