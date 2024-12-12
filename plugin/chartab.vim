@@ -1,4 +1,4 @@
-" Author: Landon Bouma <https://tallybark.com/> 
+" Author: Landon Bouma <https://tallybark.com/>
 " Project: https://github.com/landonb/dubs_edit_juice#🧃
 " Version: 1.0.1.lbfork (search [lb] to find the 1 change) (2015.01.27)
 "*****************************************************************************

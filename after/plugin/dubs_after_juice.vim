@@ -1,8 +1,5 @@
-" File: after/dubs_after_juice.vim
-" Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2018.01.05
-" Project Page: https://github.com/landonb/dubs_edit_juice
-" Summary: AutoAdapt wrapper. And more.
+" Author: Landon Bouma <https://tallybark.com/>
+" Project: https://github.com/landonb/dubs_edit_juice#🧃
 " License: GPLv3
 " -------------------------------------------------------------------
 " Copyright © 2015, 2017-2018 Landon Bouma.

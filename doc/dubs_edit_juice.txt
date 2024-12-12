@@ -1,6 +1,6 @@
 *dubs_edit_juice.txt*	`Edit` `Juice` For `Dubs` `Vim`.	2015 Jan 23
 
-Edit Juice: For Searching, Editing, and Replacing Text; and a Few Dev Cmds.~
+Edit Juice 🧃 For Searching, Editing, and Replacing Text; and a Few Dev Cmds.~
 
 EDIT JUICE				*dubs-edit-juice*
 
