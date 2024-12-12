@@ -117,7 +117,7 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 "   for Ctrl-BS; in order to get the help for Ctrl-B (the 'b' character),
 "   try `:help Ctrl-B\>`
 if !s:running_windows
-  " Map <Ctrl-V>, <Ctrl-X>, and <Ctrl-C> keys.
+  " Map <Ctrl-V>, <Ctrl-X>, and <Ctrl-C> keys, and insert mode <Ctrl-Z>.
   source $VIMRUNTIME/mswin.vim
   " 2017-04-03: In Insert mode, Ctrl-X is inserting "+x -- what the hell.
   " 2017-06-10: See:
