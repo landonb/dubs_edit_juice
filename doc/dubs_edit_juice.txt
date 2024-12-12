@@ -346,8 +346,8 @@ TTTTtt			Insert time as "YYYY-MM-DD-HH:MM".
 				*ttt*
 ttt			Insert time as "HH:MM".
 
-				*<Leader>T* *\T*
-<Leader>T		Insert time as "/YYYY-MM-DD: ".
+				*<Leader>t* *\t*
+<Leader>t		Insert time as "/YYYY-MM-DD: ".
 
 				*<F12>*
 <F12>			Insert time as "/YYYY-MM-DD HH-MM: ".

@@ -80,7 +80,7 @@ iabbrev <expr> ttt strftime("%H:%M")
 "
 " - I tried using the abbreviation, '::', but the '/' after the FIVER is
 "   not a keyword character, and neither is ':', so an iabbrev doesn't work.
-silent! iunmap <Leader>T
-inoremap <silent> <unique> <Leader>T <C-R>=strftime("/%Y-%m-%d: ")<CR>
+silent! iunmap <Leader>t
+inoremap <silent> <unique> <Leader>t <C-R>=strftime("/%Y-%m-%d: ")<CR>
 inoremap <F12> <C-R>=strftime("/%Y-%m-%d %H:%M: ")<CR>
 
