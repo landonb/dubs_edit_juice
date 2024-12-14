@@ -289,7 +289,6 @@ function s:BufNext_SkipSpecialBufs(direction)
     "if (getbufvar(n, "&buftype") == "")
     "    echo "TRUE"
     "endif
-" FIXME Doesn't switch to .txt --> so set filetype for *.txt? another way?
     if (start_bufnr == n)
         \ || (getbufvar(n, "&modified") == 1)
         \ || ( (getbufvar(n, "&buftype") == "")
@@ -297,7 +296,6 @@ function s:BufNext_SkipSpecialBufs(direction)
         \     || (getbufvar(n, "&fileencoding") != "")) )
       " (start_bufnr == n) means just 1 buffer or no candidates found
       " (buftype == "") means not quickfix, help, etc., buffer
-      " NOTE My .txt files don't have a filetype...
       " (filetype != "" && fileencoding != "") means not a new buffer
       " (modified == "modified") means we don't skip dirty new buffers
       " HACK Make sure previous buffer works
