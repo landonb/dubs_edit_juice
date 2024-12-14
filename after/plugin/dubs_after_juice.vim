@@ -285,10 +285,11 @@ function s:BufNext_SkipSpecialBufs(direction)
       execute "bN"
     endif
     let n = bufnr("%")
-    "echo "n = ".n." / start_bufnr = ".start_bufnr." / buftype = ".getbufvar(n, "&buftype")
-    "if (getbufvar(n, "&buftype") == "")
-    "    echo "TRUE"
-    "endif
+    " echom 'n = ' .. n .. ' / start_bufnr = ' .. start_bufnr
+    "   \ .. ' / buftype = ' .. getbufvar(n, '&buftype')
+    " if (getbufvar(n, '&buftype') == '')
+    "   echo '- buffer has no buftype'
+    " endif
     if (start_bufnr == n)
         \ || (getbufvar(n, "&modified") == 1)
         \ || ( (getbufvar(n, "&buftype") == "")
