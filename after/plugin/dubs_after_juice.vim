@@ -289,12 +289,6 @@ function s:BufNext_SkipSpecialBufs(direction)
     "if (getbufvar(n, "&buftype") == "")
     "    echo "TRUE"
     "endif
-     " Just 1 buffer or none are editable
-    "if (start_bufnr == n)
-    "      \ || ( (getbufvar(n, "&buftype") == "")
-    "        \   && ( ((getbufvar(n, "&filetype") != "")
-    "        \       && (getbufvar(n, "&fileencoding") != ""))
-    "        \     || (getbufvar(n, "&modified") == 1)))
 " FIXME Doesn't switch to .txt --> so set filetype for *.txt? another way?
     if (start_bufnr == n)
         \ || (getbufvar(n, "&modified") == 1)
