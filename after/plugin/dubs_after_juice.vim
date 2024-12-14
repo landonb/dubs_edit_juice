@@ -134,6 +134,12 @@ endif
 "   (In my defense, Ctrl-F and Ctrl-B are akward to type; I'd rather use one
 "   hand and one finger and not have to stretch pinky and another finger to
 "   scroll down and up through a file.)
+" - SAVVY/2024-12-14: This doesn't seem to matter in MacVim — there is not
+"   <C-f> find dialog map. Also in console (Mac)Vim, <C-f> in both insert
+"   and normal modes starts a / search. In GUI MacVim, normal <C-f> pages
+"   down, and insert <C-f> moves cursor forward a character.
+"   - SPIKE: I'm curious if latest Linux Vim is the same.
+"     - Also do we really need *two* unmap commands?
 if has("gui_running")
   unmap <C-F>
 endif
