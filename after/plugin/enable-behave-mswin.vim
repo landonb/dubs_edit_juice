@@ -85,14 +85,6 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 if !s:running_windows
   " Map <Ctrl-V>, <Ctrl-X>, and <Ctrl-C> keys, and insert mode <Ctrl-Z>.
   source $VIMRUNTIME/mswin.vim
-  " 2017-04-03: In Insert mode, Ctrl-X is inserting "+x -- what the hell.
-  " 2017-06-10: See:
-  "     ~/.vim/pack/landonb/start/dubs_edit_juice/after/plugin/dubs_after_juice.vim
-  "  - See:
-  "     ~/.vim/pack/landonb/start/dubs_appearance/after/plugin/dubs_appearance.vim
-  "  - Something must be getting sourced after this that screws it up...
-  " :echom "XXXXXXXXXXXXXXXXXXXXXXXXXXX SOURCED ". $VIMRUNTIME . "/mswin.vim"
-  "  /usr/share/vim/vim80/mswin.vim
   behave mswin
 endif
 
