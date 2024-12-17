@@ -19,7 +19,7 @@
 "   sorted by buffer number.
 "   - CXREF: See also vim-buffer-ring, which maps <C-j> / <C-k> to
 "     Prev Buffer / Next Buffer, sorted by recently viewed order:
-"       https://github.com/landonb/vim-buffer-ring
+"       https://github.com/landonb/vim-buffer-ring#💍
 
 " Ctrl-Tab: Next Buffer
 " - Note that `behave mswin` sets <C-Tab>,
