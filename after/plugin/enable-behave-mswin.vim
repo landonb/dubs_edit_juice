@@ -119,3 +119,12 @@ endif
 " NOTE: Ctrl-F and Ctrl-B do not PageDown/PageUp from Insert mode,
 "       but rather enter their respective characters into the buffer.
 
+" Unsure why mswin.vim doesn't also map the reverse...
+"
+" CTRL-Tab is Previous window
+" - REFER: :h CTRL-W_W
+noremap <C-S-Tab> <C-W>W
+inoremap <C-S-Tab> <C-O><C-W>W
+cnoremap <C-S-Tab> <C-C><C-W>W
+onoremap <C-S-Tab> <C-C><C-W>W
+
