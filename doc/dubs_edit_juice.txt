@@ -184,8 +184,8 @@ r			Replace Character.
 				*<Ctrl-Delete>* *<C-Delete>*
 <Ctrl-Delete>		Delete to End of Word.
 
-				*<Shift-Alt-Delete>* *<S-M-Delete>*
-<Shift-Alt-Delete>	Remove Line.
+				*<Alt-Shift-Delete>* *<M-S-Delete>*
+<Alt-Shift-Delete>	Remove Line.
 
 				*<Ctrl-Shift-Left>* *<C-S-Left>*
 <Ctrl-Shift-Left>	Select to Cursor-Left.
