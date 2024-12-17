@@ -408,6 +408,18 @@ and last buffers in the history stack.
 ===========================  ============================  ==============================================================================
  Key Mapping                  Description                   Notes
 ===========================  ============================  ==============================================================================
+ ``<Ctrl-J>``                 Reverse Traverse Buffers      Traverse buffer history backwards by most recently
+                                                            viewed; opposite of ``<Ctrl-K>``.
+                                                            - Hint: If you find yourself down a rabbit hole,
+                                                              opening file after file, and you can't remember
+                                                              what you were doing, hit ``<Ctrl-J>`` to crawl
+                                                              out of it.
+                                                            - Caveat: Splitting and Closing windows can mess
+                                                              up the buffer history, 'natch.
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
+ ``<Ctrl-K>``                 Forward Traverse History      Traverse buffer history forwards by most recentlt
+                                                            viewed; opposite of ``<Ctrl-J>``.
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
  ``<Shift-Ctrl-Tab>``         Reverse Traverse Buffers      Traverse buffer list backward in the order that
                                                             they were originally loaded; opposite of ``<Ctrl-Alt-Tab>``.
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------

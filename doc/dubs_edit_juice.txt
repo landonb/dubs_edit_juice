@@ -292,6 +292,20 @@ and last buffers in the history stack.
 
 Walking the buffer chain~
 
+				*<Ctrl-J>* *<C-J>*
+<Ctrl-j>		Traverse buffer history backwards by most recently
+			viewed; opposite of `<Ctrl-k>`.
+			- Hint: If you find yourself down a rabbit hole,
+			  opening file after file, and you can't remember
+			  what you were doing, hit `<Ctrl-J>` to crawl out
+			  of it.
+			- Caveat: Splitting and Closing windows can mess
+			  up the buffer history, 'natch.
+
+				*<Ctrl-K>* *<C-K>*
+<Ctrl-k>		Traverse buffer history forwards by most recently
+			viewed; opposite of `<Ctrl-j>`.
+
 				*<Shift-Ctrl-Alt-Tab>* *<C-S-Tab>*
 <Shift-Ctrl-Alt-Tab>	Traverse buffer list backward in the order that
 			they were originally loaded; opposite of <Ctrl-Alt-Tab>.
