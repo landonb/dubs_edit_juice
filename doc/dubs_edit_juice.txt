@@ -9,11 +9,12 @@ EDIT JUICE				*dubs-edit-juice*
 3. Searching Buffers			|dubs-edit-juice-searching-buffers|
 4. Editing and Formatting Text		|dubs-edit-juice-editing|
 5. Common Buffer Commands		|dubs-edit-juice-buffer-commands|
-6. Developer Commands			|dubs-edit-juice-developer|
-7. Insert Date and Time Commands	|dubs-edit-juice-date-and-time|
-8. Obscure But Useful Commands		|dubs-edit-juice-obscure|
-9. Alt-Shift Special Window Togglers	|dubs-edit-juice-togglers|
-10. Digraphs Discussion			|dubs-edit-juice-digraph|
+5. Buffer Changing Commands		|dubs-edit-juice-change-buffer-commands|
+7. Developer Commands			|dubs-edit-juice-developer|
+8. Insert Date and Time Commands	|dubs-edit-juice-date-and-time|
+9. Obscure But Useful Commands		|dubs-edit-juice-obscure|
+10. Alt-Shift Special Window Togglers	|dubs-edit-juice-togglers|
+11. Digraphs Discussion			|dubs-edit-juice-digraph|
 
 ==============================================================================
 1. About This Plugin			*dubs-edit-juice-about*
@@ -284,7 +285,23 @@ M			Move the cursor to the middle line of the window.
 			to also select over which the cursor moves.
 
 ==============================================================================
-6. Developer Commands			*dubs-edit-juice-developer*
+6. Buffer Changing Commands		*dubs-edit-juice-change-buffer-commands*
+
+It's easy to switch between buffers between the next
+and last buffers in the history stack.
+
+Walking the buffer chain~
+
+				*<Shift-Ctrl-Alt-Tab>* *<C-S-Tab>*
+<Shift-Ctrl-Alt-Tab>	Traverse buffer list backward in the order that
+			they were originally loaded; opposite of <Ctrl-Alt-Tab>.
+
+				*<Ctrl-Tab>* *<C-Tab>*
+<Ctrl-Alt-Tab>		Traverse buffer list forward in the order that
+			they were originally loaded; opposite of <Shift-ACtrl-lt-Tab>.
+
+==============================================================================
+7. Developer Commands			*dubs-edit-juice-developer*
 
 Mostly built-in command reference, but a few Dubs Vim commands, too.
 
@@ -329,7 +346,7 @@ gd			Jumps from the use of a variable
 			(Type t-a-b, not the <Tab> character.)
 
 ==============================================================================
-7. Insert Date and Time Commands	*dubs-edit-juice-date-and-time*
+8. Insert Date and Time Commands	*dubs-edit-juice-date-and-time*
 
 				*TTT*
 TTT			Insert time as "YYYY-MM-DD".
@@ -353,7 +370,7 @@ ttt			Insert time as "HH:MM".
 <F12>			Insert time as "/YYYY-MM-DD HH-MM: ".
 
 ==============================================================================
-8. Obscure But Useful Commands		*dubs-edit-juice-obscure*
+9. Obscure But Useful Commands		*dubs-edit-juice-obscure*
 
 				*:TabMessage [cmd]*
 :TabMessage {cmd}	Send Vim {cmd} output to new tab.
@@ -417,7 +434,7 @@ http://www.moolenaar.net/habits.html.
   to repeat the cw command."
 
 ==============================================================================
-9. Alt-Shift Special Window Togglers	*dubs-edit-juice-togglers*
+10. Alt-Shift Special Window Togglers	*dubs-edit-juice-togglers*
 
 The alt-shift commands show and hide special windows.
 
@@ -425,7 +442,7 @@ The alt-shift commands show and hide special windows.
 <Shift-Alt-1>		Toggle Tag list.
 
 ==============================================================================
-10. Digraphs -- "A combination of two letters representing one sound, as in ph and ey"	*dubs-edit-juice-digraph*
+11. Digraphs -- "A combination of two letters representing one sound, as in ph and ey"	*dubs-edit-juice-digraph*
 
 Digraphs let you type Unicode characters.
 

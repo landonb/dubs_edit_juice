@@ -9,11 +9,12 @@
 " Switching Buffers/Windows/Tabs
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-" Ctrl-Tab / Shift-Ctrl-Tab
+" Ctrl-Alt-Tab / Shift-Ctrl-Alt-Tab
 " ------------------------
 " → Next / Previous Buffer
 "
-" - mswin.vim maps <Ctrl-Tab> to Next Window, which Dubs changes.
+" - mswin.vim maps <Ctrl-Tab> to Next Window.
+"   - And our `behave mswin` script maps <Shift-Ctrl-Tab> to Prev Window.
 " - Dubs maps <M-S-Up> / <M-S-Down> to Next Window / Prev Window.
 " - Dubs maps <Ctrl-Tab> / <C-S-Tab> to Next Buffer / Prev Buffer,
 "   sorted by buffer number.
@@ -21,29 +22,21 @@
 "     Prev Buffer / Next Buffer, sorted by recently viewed order:
 "       https://github.com/landonb/vim-buffer-ring#💍
 
-" Ctrl-Tab: Next Buffer
+" Ctrl-Alt-Tab: Next Buffer
 " - Note that `behave mswin` sets <C-Tab>,
 "   so keep this code under after/.
 " - A simple approach:
-"   noremap <C-Tab> :bn<CR>
-"   inoremap <C-Tab> <C-O>:bn<CR>
-"   onoremap <C-Tab> <C-C>:bn<CR>
-"   snoremap <C-Tab> <C-C>:bn<CR>
-noremap <C-Tab> :call <SID>BufNext_SkipSpecialBufs(1)<CR>
-inoremap <C-Tab> <C-O>:call <SID>BufNext_SkipSpecialBufs(1)<CR>
-onoremap <C-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(1)<CR>
-snoremap <C-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(1)<CR>
+"   noremap <C-M-Tab> :bn<CR>
+"   inoremap <C-M-Tab> <C-O>:bn<CR>
+noremap <C-M-Tab> :call <SID>BufNext_SkipSpecialBufs(1)<CR>
+inoremap <C-M-Tab> <C-O>:call <SID>BufNext_SkipSpecialBufs(1)<CR>
 
-" Ctrl-Shift-Tab: Previous Buffer
+" Shift-Ctrl-Alt-Tab: Previous Buffer
 " - A simple approach:
-"   noremap <C-S-Tab> :bN<CR>
-"   inoremap <C-S-Tab> <C-O>:bN<CR>
-"   onoremap <C-S-Tab> <C-C>:bN<CR>
-"   snoremap <C-S-Tab> <C-C>:bN<CR>
-noremap <C-S-Tab> :call <SID>BufNext_SkipSpecialBufs(-1)<CR>
-inoremap <C-S-Tab> <C-O>:call <SID>BufNext_SkipSpecialBufs(-1)<CR>
-onoremap <C-S-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(-1)<CR>
-snoremap <C-S-Tab> <C-C>:call <SID>BufNext_SkipSpecialBufs(-1)<CR>
+"   noremap <C-S-M-Tab> :bN<CR>
+"   inoremap <C-S-M-Tab> <C-O>:bN<CR>
+noremap <C-S-M-Tab> :call <SID>BufNext_SkipSpecialBufs(-1)<CR>
+inoremap <C-S-M-Tab> <C-O>:call <SID>BufNext_SkipSpecialBufs(-1)<CR>
 
 "map <silent> <unique> <script>
 "  \ <Plug>DubsBufferFun_BufNextNormal

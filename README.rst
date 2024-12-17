@@ -399,6 +399,22 @@ Key Mapping                            Description                         Notes
                                                                            to select the text that the cursor flies over.
 =====================================  ==================================  ==============================================================================
 
+Changing Buffers
+----------------
+
+It's easy to switch between buffers between the next
+and last buffers in the history stack.
+
+===========================  ============================  ==============================================================================
+ Key Mapping                  Description                   Notes
+===========================  ============================  ==============================================================================
+ ``<Shift-Ctrl-Tab>``         Reverse Traverse Buffers      Traverse buffer list backward in the order that
+                                                            they were originally loaded; opposite of ``<Ctrl-Alt-Tab>``.
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
+ ``<Ctrl-Tab>``               Forward Traverse Buffers      Traverse buffer list forward in the order that
+                                                            they were originally loaded; opposite of ``<Shift-Ctrl-Alt-Tab>``.
+===========================  ============================  ==============================================================================
+
 Developer Commands
 ------------------
 
