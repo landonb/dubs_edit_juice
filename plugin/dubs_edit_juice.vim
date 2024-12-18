@@ -1572,7 +1572,7 @@ vnoremap :: :<C-U>
 "   - But ':?' is also an interesting choice, and it's quicker to type
 "     (you can hold down <Shift> with your right hand and thump-thump
 "     colon-question easily with another finger).
-vnoremap :? :<C-U><CR>gvy:help <C-R>"<CR>
+vnoremap :? :<C-U><CR>gvy:help <C-R>"<CR>:call histadd('cmd', 'help <C-R>"')<CR>
 
 " -------------------------------------------------------------------
 
