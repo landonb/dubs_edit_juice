@@ -201,19 +201,9 @@ r			Replace Character.
 
 				*<Ctrl-Shift-PageUp>* *<C-S-PageUp>*
 <Ctrl-Shift-PageUp>	Select from Cursor to First Line of Window.
-			Same as <Alt-Shift-Up>.
 
 				*<Ctrl-Shift-PageDown>* *<C-S-PageDown>*
 <Ctrl-Shift-PageDown>	Select from Cursor to Last Line of Window.
-			Same as <Alt-Shift-Down>.
-
-				*<Alt-Shift-Up>* *<M-S-Up>* *<A-S-Up>*
-<Alt-Shift-Up>		Select from Cursor to First Line of Window.
-			Same as <Ctrl-Shift-PageUp>.
-
-				*<Alt-Shift-Right>* *<M-S-Right>* *<A-S-Right>*
-<Alt-Shift-Right>	Select from Cursor to Last Line of Window.
-			Same as <Ctrl-Shift-PageDown>.
 
 				*s_<Tab>*
 s_<Tab>			Indent selected text block.
@@ -417,14 +407,11 @@ m{char}		later		*m{char}* *'{char}*
 				*<Leader>dA* *\dA*
 <Leader>dA		Toggle ASCII character table.
 
-				*<Leader>dl* *\dl*
-<Leader>dl		Close left window of a three-way diff.
+				*<Leader>dTl* *\dTl*
+<Leader>dTl		Close left window of a three-way diff.
 
 				*<Leader>dTc* *\dTc*
 <Leader>dTc		Close center window of a three-way diff.
-
-				*<Leader>dTr* *\dTr*
-<Leader>dTr		Close right window of a three-way diff.
 
 				*<Leader>dTr* *\dTr*
 <Leader>dTr		Close right window of a three-way diff.

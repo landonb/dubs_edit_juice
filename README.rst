@@ -324,16 +324,10 @@ Editing and Formatting Text
  ``<Alt-Shift-Right>``              Select from Cursor                  Same as ``<Shift-End>``, or ``v$``.
                                     to End of Line
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``<Ctrl-Shift-PageUp>``            Select from Cursor                  Executes ``vH``; same as ``<Alt-Shift-Up>``.
+ ``<Ctrl-Shift-PageUp>``            Select from Cursor                  Executes ``vH``.
                                     to First Line of Window
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``<Ctrl-Shift-PageDown>``          Select from Cursor                  Executes ``vL``; same as ``<Alt-Shift-Down>``.
-                                    to Last Line of Window
----------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``<Alt-Shift-Up>``                 Select from Cursor                  Executes ``vH``; same as ``<Ctrl-Shift-PageUp>``.
-                                    to First Line of Window
----------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``<Alt-Shift-Down>``               Select from Cursor                  Executes ``vL``; same as ``<Ctrl-Shift-PageDown>``.
+ ``<Ctrl-Shift-PageDown>``          Select from Cursor                  Executes ``vL``.
                                     to Last Line of Window
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``<Tab>`` and ``<Shift-Tab>``      Indent and Undent                   Select some text in one or more lines and use ``<Tab>`` and ``<Shift-Tab>``
