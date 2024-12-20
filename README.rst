@@ -372,6 +372,9 @@ Key Mapping                            Description                         Notes
 ``M``                                  Move Cursor                         Moves the cursor to the middle of the window without scrolling the buffer.
                                        to Window Middle
 -------------------------------------  ----------------------------------  ------------------------------------------------------------------------------
+``<Leader>dz``                         Recenter Window Vertically          Scrolls the window to move the cursor line to the center of the window.
+                                                                           (Same as builtin ``zz`` command, but also works from insert mode.)
+-------------------------------------  ----------------------------------  ------------------------------------------------------------------------------
 ``<Alt-F12>``                          Start Editing                       This is an obscure command: Moves the cursor to the middle of the window
                                        at Window Middle                    without scrolling the buffer and starts an edit session.
 -------------------------------------  ----------------------------------  ------------------------------------------------------------------------------

@@ -249,6 +249,12 @@ G		or		G *<Ctrl-End>* *<C-End>*
 				*M*
 M			Move the cursor to the middle line of the window.
 
+				*<Leader>dz* *\dz*
+<Leader>dz		Recenter Window Vertically. Scrolls the window to
+			move the cursor line to the center of the window.
+                        (Same as builtin |zz| command, but also works from
+			insert mode.)
+
 				*<Alt-F12>* *<M-F12>*
 <Alt-F12>		Start editing on the middle line of the window.
 

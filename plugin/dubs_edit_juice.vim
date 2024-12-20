@@ -1207,6 +1207,14 @@ noremap <Leader>S# "sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
 
 " -------------------------------------------------------------------
 
+" SAVVY/2024-12-18: Send cursor line to middle of window — Now from Insert mode!
+" - AKA reposition the cursor line vertically in the middle of the window.
+
+nnoremap <Leader>dz zz
+inoremap <Leader>dz <C-O>zz
+
+" -------------------------------------------------------------------
+
 " ------------------------------------------------------
 " Truncate and Pad Line to Specific Width
 " ------------------------------------------------------
