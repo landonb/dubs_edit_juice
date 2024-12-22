@@ -637,52 +637,56 @@ function! s:MoveParagraphDown() abort
   endif
 endfunction
 
-" Default Vim makes <Up> and <CTRL-P> map to [count] lines upward |linewise|.
-" Default Vim makes <CTRL-O> Go to [count] Older cursor posit in jump list.
-" Default Vim makes <CTRL-O> in insert mode start a replace operation...
-" Default Vim makes <CTRL-U> "Scroll window Upwards in the buffer."
-"
-" 2017-06-07: I want to use Ctrl-l for what was Ctrl-k (BufferRingForward) so
-"   that Ctrl-k can be used for :digraph insertions.
-"noremap <C-p> :call <sid>MoveParagraphUp()<CR>
-"inoremap <C-p> <C-O>:call <sid>MoveParagraphUp()<CR>
-"cnoremap <C-p> <C-C>:call <sid>MoveParagraphUp()<CR>
-"onoremap <C-p> <C-C>:call <sid>MoveParagraphUp()<CR>
-"noremap <C-l> :call <sid>MoveParagraphDown()<CR>
-"inoremap <C-l> <C-O>:call <sid>MoveParagraphDown()<CR>
-"cnoremap <C-l> <C-C>:call <sid>MoveParagraphDown()<CR>
-"onoremap <C-l> <C-C>:call <sid>MoveParagraphDown()<CR>
-"
-" 2017-06-10: I was fiddling with the existing Ctrl-j and Ctrl-k mappings,
-" for :BufferRingReverse and :BufferRingForward, and remapped these so that
-" I could use <Ctrl-l> to replace Vim's built-in <Ctrl-k> :digraph feature.
-noremap <C-u> :call <sid>MoveParagraphUp()<CR>
-inoremap <C-u> <C-O>:call <sid>MoveParagraphUp()<CR>
-cnoremap <C-u> <C-C>:call <sid>MoveParagraphUp()<CR>
-onoremap <C-u> <C-C>:call <sid>MoveParagraphUp()<CR>
-" Crud. Remapping <C-i> also remaps <TAB>, da fuh!?
-"noremap <C-i> :call <sid>MoveParagraphDown()<CR>
-"inoremap <C-i> <C-O>:call <sid>MoveParagraphDown()<CR>
-"cnoremap <C-i> <C-C>:call <sid>MoveParagraphDown()<CR>
-"onoremap <C-i> <C-C>:call <sid>MoveParagraphDown()<CR>
-" 2017-10-17: Crud again. Ctrl-p blocks the auto-complete ctrl-n/ctrl-p...
-"   :TabMessage map <c-p>
-"   o  <C-P>       * <C-C>:call <SNR>28_MoveParagraphDown()<CR>
-"   nv <C-P>       * :call <SNR>28_MoveParagraphDown()<CR>
-" Normally, it's:
-"   n  <C-P>       * :<C-U>CtrlP<CR>
-noremap <C-p> :call <sid>MoveParagraphDown()<CR>
-cnoremap <C-p> <C-C>:call <sid>MoveParagraphDown()<CR>
-onoremap <C-p> <C-C>:call <sid>MoveParagraphDown()<CR>
-"inoremap <C-p> <C-O>:call <sid>MoveParagraphDown()<CR>
-" Without the insert mode blocker, it works.
-" Not sure how to see the old mapping, though...
-"   o  <C-P>       * <C-C>:call <SNR>28_MoveParagraphDown()<CR>
-"   nv <C-P>       * :call <SNR>28_MoveParagraphDown()<CR>
-" And trying to map it myself isn't working, e.g.:
-"   inoremap <C-p> <C-O>:<C-U>CtrlP<CR>
-" though CtrlP seems like the other CtrlP, the "Full path fuzzy
-" file buffer, mru, tag, ... finder with an intuitive interface."
+function! s:CreateMaps_MoveParagraph(seq_up = '<Leader>dU', seq_down = '<Leader>dD') abort
+  " Default Vim makes <Up> and <CTRL-P> map to [count] lines upward |linewise|.
+  " Default Vim makes <CTRL-O> Go to [count] Older cursor posit in jump list.
+  " Default Vim makes <CTRL-O> in insert mode start a replace operation...
+  " Default Vim makes <CTRL-U> "Scroll window Upwards in the buffer."
+  "
+  " 2017-06-07: I want to use Ctrl-l for what was Ctrl-k (BufferRingForward) so
+  "   that Ctrl-k can be used for :digraph insertions.
+  "noremap <C-p> :call <sid>MoveParagraphUp()<CR>
+  "inoremap <C-p> <C-O>:call <sid>MoveParagraphUp()<CR>
+  "cnoremap <C-p> <C-C>:call <sid>MoveParagraphUp()<CR>
+  "onoremap <C-p> <C-C>:call <sid>MoveParagraphUp()<CR>
+  "noremap <C-l> :call <sid>MoveParagraphDown()<CR>
+  "inoremap <C-l> <C-O>:call <sid>MoveParagraphDown()<CR>
+  "cnoremap <C-l> <C-C>:call <sid>MoveParagraphDown()<CR>
+  "onoremap <C-l> <C-C>:call <sid>MoveParagraphDown()<CR>
+  "
+  " 2017-06-10: I was fiddling with the existing Ctrl-j and Ctrl-k mappings,
+  " for :BufferRingReverse and :BufferRingForward, and remapped these so that
+  " I could use <Ctrl-l> to replace Vim's built-in <Ctrl-k> :digraph feature.
+  execute 'noremap ' .. a:seq_up .. ' :call <SID>MoveParagraphUp()<CR>'
+  execute 'inoremap ' .. a:seq_up .. ' <C-O>:call <SID>MoveParagraphUp()<CR>'
+  execute 'cnoremap ' .. a:seq_up .. ' <C-C>:call <SID>MoveParagraphUp()<CR>'
+  execute 'onoremap ' .. a:seq_up .. ' <C-C>:call <SID>MoveParagraphUp()<CR>'
+  " Crud. Remapping <C-i> also remaps <TAB>, da fuh!?
+  "noremap <C-i> :call <sid>MoveParagraphDown()<CR>
+  "inoremap <C-i> <C-O>:call <sid>MoveParagraphDown()<CR>
+  "cnoremap <C-i> <C-C>:call <sid>MoveParagraphDown()<CR>
+  "onoremap <C-i> <C-C>:call <sid>MoveParagraphDown()<CR>
+  " 2017-10-17: Crud again. Ctrl-p blocks the auto-complete ctrl-n/ctrl-p...
+  "   :TabMessage map <c-p>
+  "   o  <C-P>       * <C-C>:call <SNR>28_MoveParagraphDown()<CR>
+  "   nv <C-P>       * :call <SNR>28_MoveParagraphDown()<CR>
+  " Normally, it's:
+  "   n  <C-P>       * :<C-U>CtrlP<CR>
+  execute 'noremap ' .. a:seq_down .. ' :call <SID>MoveParagraphDown()<CR>'
+  execute 'cnoremap ' .. a:seq_down .. ' <C-C>:call <SID>MoveParagraphDown()<CR>'
+  execute 'onoremap ' .. a:seq_down .. ' <C-C>:call <SID>MoveParagraphDown()<CR>'
+  "inoremap <C-p> <C-O>:call <sid>MoveParagraphDown()<CR>
+  " Without the insert mode blocker, it works.
+  " Not sure how to see the old mapping, though...
+  "   o  <C-P>       * <C-C>:call <SNR>28_MoveParagraphDown()<CR>
+  "   nv <C-P>       * :call <SNR>28_MoveParagraphDown()<CR>
+  " And trying to map it myself isn't working, e.g.:
+  "   inoremap <C-p> <C-O>:<C-U>CtrlP<CR>
+  " though CtrlP seems like the other CtrlP, the "Full path fuzzy
+  " file buffer, mru, tag, ... finder with an intuitive interface."
+endfunction
+
+call s:CreateMaps_MoveParagraph('<Leader>dU', '<Leader>dD')
 
 " -------------------------------------------------------------------
 
