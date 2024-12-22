@@ -66,7 +66,7 @@ inoremap <c-w> <c-g>u<c-w>
 " Wire Ctrl-Left/-Right to Jumping Cursor by Word
 " -------------------------------------------------------------------
 
-function! s:wire_keys_move_to_word_previous_and_next()
+function! s:wire_keys_move_to_word_previous_and_next() abort
   nnoremap <C-Left> b
   inoremap <C-Left> <C-O>b
   " Don't vmap C-Left, or after C-S-Left it'll keep selecting without
@@ -89,7 +89,7 @@ call <SID>wire_keys_move_to_word_previous_and_next()
 " Wire Alt-Shift-Left/-Right to Selecting from Cursor to Edge of Line
 " -------------------------------------------------------------------
 
-function! s:wire_keys_select_text_to_line_beg_and_end()
+function! s:wire_keys_select_text_to_line_beg_and_end() abort
   " Alt-Shift-Left selects from cursor to start of line
   " (same as Shift-Home)
   noremap <M-S-Left> v0<C-G>
@@ -115,7 +115,7 @@ call <SID>wire_keys_select_text_to_line_beg_and_end()
 " Wire Ctrl-Shift-PageUp/-PageDown to Selecting from Cursor to Edge of Window
 " ---------------------------------------------------------------------------
 
-function! s:wire_keys_select_lines_to_window_first_and_last()
+function! s:wire_keys_select_lines_to_window_first_and_last() abort
   " Much like Ctrl-PageUp and Ctrl-PageDown move the cursor to the top of
   " the window or to the bottom of the window, respectively, without changing
   " the view, Ctrl-Shift-PageUp and Ctrl-Shift-PageDown select text from the
@@ -153,7 +153,7 @@ call <SID>wire_keys_select_lines_to_window_first_and_last()
 " states. Really, it just moves the scrollbar,
 " i.e., scrolls your view without moving your
 " cursor.
-function! s:wire_keys_scroll_window_sticky_cursor()
+function! s:wire_keys_scroll_window_sticky_cursor() abort
   " 2018-09-17/EXPLAIN: What's the magic that maps <C-y> to
   " scroll window upward, as opposed to Redo (which Dubs maps
   " to <C-y> at some point)? Is it down to load order?
@@ -175,7 +175,7 @@ call <SID>wire_keys_scroll_window_sticky_cursor()
 " Quick Cursor Jumping
 " ------------------------------------------------------
 
-function! s:Smart_PageUpDown(direction)
+function! s:Smart_PageUpDown(direction) abort
   let cursor_cur_line = line(".")
   if a:direction == 1
     let window_first_line = line("w0")
@@ -208,7 +208,7 @@ endfunction
 " - Note, too, that in some programs, C-PageUp/Down switches to the next/previous
 "   tab/pane/window. In Dubs Vim, you can prev/next windows with Ctrl-Shift-Up/Down,
 "   and you can prev/next tabs with Alt-Shift-Up/Down.
-function! s:wire_keys_cursor_to_line_first_and_last()
+function! s:wire_keys_cursor_to_line_first_and_last() abort
   " Ctrl-PageUp moves cursor to the top of the window, or, if
   " it's already there, it scrolls up one viewable-window-full.
   noremap <C-PageUp> :call <SID>Smart_PageUpDown(1)<CR>
@@ -239,7 +239,7 @@ call <SID>wire_keys_cursor_to_line_first_and_last()
 
 " SAVVY/2024-05-07: gvy: `gv` reselects the previous Visual area; `y` yanks.
 
-function! s:add_alt_left_alt_right_maps_move_cursor_to_line_beg_line_end()
+function! s:add_alt_left_alt_right_maps_move_cursor_to_line_beg_line_end() abort
   " Alt-Left moves the cursor to the beginning of the line.
   noremap <M-Left> <Home>
   inoremap <M-Left> <C-O><Home>
@@ -253,7 +253,7 @@ endfunction
 call <SID>add_alt_left_alt_right_maps_move_cursor_to_line_beg_line_end()
 
 " For macOS Parity (where <Cmd-Left>/<Cmd-Right> move cursor to line start/end).
-function! s:add_cmd_left_cmd_right_maps_move_cursor_to_line_beg_line_end()
+function! s:add_cmd_left_cmd_right_maps_move_cursor_to_line_beg_line_end() abort
   " Cmd-Left moves the cursor to the beginning of the line.
   noremap <D-Left> <Home>
   inoremap <D-Left> <C-O><Home>
@@ -284,7 +284,7 @@ call <SID>add_cmd_left_cmd_right_maps_move_cursor_to_line_beg_line_end()
 "       \ <CR>gvy
 "       \ :execute "normal! M0"<CR>
 "
-function! s:wire_key_insert_mode_middle_line()
+function! s:wire_key_insert_mode_middle_line() abort
   noremap <M-F12> M0i
   inoremap <M-F12> <C-O>M<C-O>0
   vnoremap <M-F12> :<C-U>
@@ -330,7 +330,7 @@ if !hasmapto('<Plug>DubsEditJuice_ToggleTabHighlighting')
 endif
 
 " The function.
-function! s:ToggleTabHighlighting()
+function! s:ToggleTabHighlighting() abort
   " Visualizing tabs <http://tedlogan.com/techblog3.html>
   " "So what do you do when you open a new source file and you're trying
   "  to figure out what tab style the last author used? (And how do you make
@@ -438,7 +438,7 @@ vnoremap <C-Y> :<C-U>
 "      completely different. So use 'Xp' if the
 "      cursor is anywhere but the first column,
 "      but use 'xp' otherwise.
-function! s:TransposeCharacters()
+function! s:TransposeCharacters() abort
   let l:cursorCol = col('.')
 
   if 1 == l:cursorCol
@@ -596,7 +596,7 @@ inoremap <silent> <leader>dd <C-O>:left<cr><END>
 " - DUNNO/2024-05-08: Lost to the ages: Which 'popular' app?
 
 " Move the paragraph under the cursor up a paragraph.
-function! s:MoveParagraphUp()
+function! s:MoveParagraphUp() abort
   " The '.' is the current cursor position.
   let lineno = line('.')
   if lineno != 1
@@ -617,7 +617,7 @@ function! s:MoveParagraphUp()
 endfunction
 
 " Move the paragraph under the cursor down a paragraph.
-function! s:MoveParagraphDown()
+function! s:MoveParagraphDown() abort
   " The '.' is the current cursor position.
   let line_1 = line('.')
   " The '$' is the last line in the current buffer.
@@ -862,13 +862,13 @@ inoremap <Leader>dz <C-O>zz
 "http://vim.wikia.com/wiki/Add_trailing_blanks_to_lines_for_easy_visual_blocks
 
 " truncate line 'line' to no more than 'limit' width
-function! Truncate(line, limit)
+function! Truncate(line, limit) abort
   call cursor(a:line,a:limit)
   norm d$
 endfunc
 
 " Pad all lines with trailing blanks to 'limit' length.
-function! AtOnce(limit)
+function! AtOnce(limit) abort
   norm mm
   g/^/norm 100A
   g/^/call Truncate(getline('.'), a:limit)
@@ -1173,7 +1173,7 @@ nnoremap Q @q
 " TabMessage runs the specified command
 " and pastes the output to a new buffer
 " in a new tab
-function! s:TabMessage(cmd)
+function! s:TabMessage(cmd) abort
   " Redirect Ex output to a varibale
   " we'll call 'message'
 	redir => message
@@ -1299,7 +1299,7 @@ endif
 " at a time. Inspired by Steve Losh's Splice
 " - DUNNO/2024-12-09: Why was this called Toggle when it did no such thing?
 "   - I added a guard clause to restore non-diff mode when called again.
-function! s:DiffToggle(window)
+function! s:DiffToggle(window) abort
   if &diff
       let l:prev_window = winnr()
       let l:prev_cursor = getpos('.')
@@ -1375,7 +1375,7 @@ autocmd BufWritePost * call s:SeekForSecurityHolePluginFileToLoad(1, 'BufWritePo
 
 " Search updards for a specially named file to be sourced at runtime,
 " whenever the buffer of a file in a directory thereunder is opened.
-function! s:SeekForSecurityHolePluginFileToLoad(on_save, because)
+function! s:SeekForSecurityHolePluginFileToLoad(on_save, because) abort
   " Avoid looking for trustme.vim plugin for unsaved (new) buffers,
   " e.g., those without a path; and for other special buffer types.
   " - E.g., vim-fugitive paths look like:
@@ -1442,7 +1442,7 @@ endfunction
 " upward till the root directory' (per :h file-searching). So '.;' searches
 " up from the current directory. Note, too, the semi-colon can be followed
 " by a list of stop-directories, which behave as one might expect.
-function! s:SeekForSecurityHolePlugin_SeekupForTrustmeDotDir()
+function! s:SeekForSecurityHolePlugin_SeekupForTrustmeDotDir() abort
   let l:trustme_dir = finddir(g:DUBS_TRUST_ME_PLUGIN_DIR, '.;')
 
   " echomsg 'Find-up for dir ‘' .. g:DUBS_TRUST_ME_PLUGIN_DIR .. '’ / found: ' .. l:trustme_dir
@@ -1450,7 +1450,7 @@ function! s:SeekForSecurityHolePlugin_SeekupForTrustmeDotDir()
   return l:trustme_dir
 endfunction
 
-function! s:SeekForSecurityHolePlugin_SeekUpForTrustmeDotVim(start_dir)
+function! s:SeekForSecurityHolePlugin_SeekUpForTrustmeDotVim(start_dir) abort
   let l:trustme_vim = findfile(g:DUBS_TRUST_ME_PLUGIN_FILE, a:start_dir .. ';')
 
   " echomsg 'Find-up for plug from: ' .. a:start_dir .. ' / found: ' .. l:trustme_vim
@@ -1507,7 +1507,7 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 "         about, but when you rediscover this comment, at least you can
 "         demo the feature without needing to change anything.
 inoremap <S-M-B> <C-O>:call <SID>HighlightNearCursor()<CR>
-function! s:HighlightNearCursor()
+function! s:HighlightNearCursor() abort
   if !exists("s:highlightcursor")
     match Todo /\k*\%#\k*/
     let s:highlightcursor=1
