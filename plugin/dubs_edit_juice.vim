@@ -299,7 +299,7 @@ call <SID>wire_key_insert_mode_middle_line()
 " NOTE: Adding the 'a' guioptions option as suggested by this unrelated
 "       function to start a search with highlights but not moving cursor:
 "         http://vim.wikia.com/wiki/Highlight_all_search_pattern_matches
-function! YankSelectedTextAutomatically_ExceptOnmacOS()
+function! s:YankSelectedTextAutomatically_ExceptOnmacOS() abort
   " Automatically copy text when (visually) selected w/ guioptions `a` flag.
   " - When text is selected, it is yanked into register *.
   " - Note that on macOS, this copies into the system clipboard,
@@ -308,7 +308,8 @@ function! YankSelectedTextAutomatically_ExceptOnmacOS()
     set guioptions+=a
   endif
 endfunction
-call YankSelectedTextAutomatically_ExceptOnmacOS()
+
+call s:YankSelectedTextAutomatically_ExceptOnmacOS()
 
 " -------------------------------------------------------------------
 
@@ -1298,7 +1299,7 @@ endif
 " at a time. Inspired by Steve Losh's Splice
 " - DUNNO/2024-12-09: Why was this called Toggle when it did no such thing?
 "   - I added a guard clause to restore non-diff mode when called again.
-function! DiffToggle(window)
+function! s:DiffToggle(window)
   if &diff
       let l:prev_window = winnr()
       let l:prev_cursor = getpos('.')
@@ -1328,9 +1329,9 @@ function! DiffToggle(window)
   call setpos('.', l:save_cursor)
 endfunction
 " Toggle diff view on the left, center, or right windows
-nmap <silent> <Leader>dTl :call DiffToggle(1)<cr>
-nmap <silent> <Leader>dTc :call DiffToggle(2)<cr>
-nmap <silent> <Leader>dTr :call DiffToggle(3)<cr>
+nmap <silent> <Leader>dTl :call <SID>DiffToggle(1)<cr>
+nmap <silent> <Leader>dTc :call <SID>DiffToggle(2)<cr>
+nmap <silent> <Leader>dTr :call <SID>DiffToggle(3)<cr>
 
 " -------------------------------------------------------------------
 
@@ -1505,8 +1506,8 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 "       - We'll keep this alive as a zombie feature that you'll forget
 "         about, but when you rediscover this comment, at least you can
 "         demo the feature without needing to change anything.
-inoremap <S-M-B> <C-O>:call HighlightNearCursor()<CR>
-function! HighlightNearCursor()
+inoremap <S-M-B> <C-O>:call <SID>HighlightNearCursor()<CR>
+function! s:HighlightNearCursor()
   if !exists("s:highlightcursor")
     match Todo /\k*\%#\k*/
     let s:highlightcursor=1
