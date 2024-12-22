@@ -22,13 +22,19 @@
 
 " -------------------------------------------------------------------
 
-" USAGE: After editing this file, disable this `finish`, then
-" press <F9> to reload this file.
-" - CXREF: https://github.com/landonb/vim-source-reloader
-if exists("g:plugin_edit_juice_vim") || &cp
+" GUARD: Press <F9> to reload this plugin (or :source it).
+" - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
+
+if expand("%:p") ==# expand("<sfile>:p")
+  unlet g:loaded_dubs_edit_juice_plugin
+endif
+
+if exists("g:loaded_dubs_edit_juice_plugin") || &cp
+
   finish
 endif
-let g:plugin_edit_juice_vim = 1
+
+let g:loaded_dubs_edit_juice_plugin = 1
 
 " -------------------------------------------------------------------
 
