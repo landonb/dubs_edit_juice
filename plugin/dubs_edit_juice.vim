@@ -1227,6 +1227,11 @@ vnoremap :: :<C-U>
 "     colon-question easily with another finger).
 vnoremap :? :<C-U><CR>gvy:help <C-R>"<CR>:call histadd('cmd', 'help <C-R>"')<CR>
 
+" SAVVY/2024-12-22: Select text and type `:?` to echom it.
+" - DUNNO: Should this use echo instead?
+"   - Should this send final <CR> or not?
+vnoremap :" :<C-U><CR>gvy:call histadd('cmd', 'echom <C-R>"')<CR>:echom <C-R>"<CR>
+
 " -------------------------------------------------------------------
 
 " ------------------------------------------------------
