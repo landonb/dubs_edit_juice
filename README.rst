@@ -209,10 +209,10 @@ Editing and Formatting Text
                                                                         
                                                                         Hint: If you pine for the lowercase operation, select text and then type ``<Ctrl-o>gu<DOWN>``
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
- ``f/`` and ``f\``                  Change Slashes                      Use ``f/`` and ``f\`` to change the direction of slashes.
+ ``f/`` and ``f\\``                 Change Slashes                      Use ``f/`` and ``f\\`` to change the direction of slashes.
                                                                         
                                                                         Press ``f/`` to change every backslash to a forward slash in the current line;
-                                                                        use ``f \`` to do the opposite.
+                                                                        use ``f \\`` to do the opposite.
                                                                         
                                                                         Hint: This is useful for converting Windows OS directory paths to Linux/Mac, and vice versa.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
