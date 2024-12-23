@@ -124,32 +124,32 @@ Commands for searching for text within a file.
 =================================  ==================================  ==============================================================================
  ``\s``                             Search and Replace                  Start find-replace in current buffer using selected
                                     in Buffer                           text.
-
+                                                                       
                                                                         To substitute matching text throughout a file, select
                                                                         the text you want to replace and hit backslash and
                                                                         then ``s``. You'll see a partially-completed command
                                                                         ready for you to type the replacement text. Hit
                                                                         ``<Enter>``, and then hit ``y`` to confirm each replacement
                                                                         or hit ``a`` to do 'em all.
-
+                                                                       
                                                                         Caveat: the search-and-replace starts at the cursor
                                                                         and continues until the end of the file but it does
                                                                         not wrap around.
-
+                                                                       
                                                                         Hint: You'll notice that you are completing a builtin
                                                                         Vim search-n-replace command; if you'd like to do
                                                                         case-sensitive matching, add an 'I' to the end of the
                                                                         search, e.g., ``:.,$s/Find_Me/Replace_Me/gcI``
-
+                                                                       
                                                                         - REFER: There's a similar command in another plugin
                                                                           that starts a substitute command for all buffers
                                                                           listed in the quickfix window using the selected
                                                                           text.
-
+                                                                       
                                                                           - See ``<Leader>S`` (``\S``) in ``dubs_quickfix_wrap``:
-
+                                                                       
                                                                             https://github.com/landonb/dubs_quickfix_wrap#🌯
-
+                                                                       
                                                                           - Though the author now prefers to use a Git
                                                                             pipeline to replace text across the files.
                                                                             See that plugin's help for details.
@@ -158,9 +158,9 @@ Commands for searching for text within a file.
                                     — Using ``#`` regexp delimiter     pattern delimiter. This is useful if you want to
                                                                        find-and-replace a path string, so you don't have
                                                                        have to escape the path separators.
-
+                                                                       
                                                                        - E.g., instead of: ``/\/foo\/bar\//\/baz\/bat\//g``
-
+                                                                       
                                                                          use this pattern: ``#/foo/bar/#/baz/bat/g#``
 =================================  ==================================  ==============================================================================
 
@@ -185,11 +185,11 @@ Editing and Formatting Text
  ``<Ctrl-Q><Shift-Click>``          Block Select                        When you select text normally, you select a sequence of characters.
                                                                         But if your text file is pretty-printed (with well-formatted columns
                                                                         and whatnot) you can select text as a "block".
-
+                                                                        
                                                                         First, enter command mode, then hit ``<Ctrl-Q>`` and then ``<Shift-Click>``
                                                                         elsewhere to make a block selection.
                                                                         You can copy, paste and cut block selections like you can normal sequence selections.
-
+                                                                        
                                                                         (Note: In default Vim, this command is mapped to Ctrl-V, but Ctrl-V is paste, yo! =)
                                                                         so we've remapped Vim's Ctrl-V to Ctrl-Q so we can use Ctrl-V for paste
                                                                         (and since we're using Ctrl-Q for block select, if you want to quit, try ``<Alt-f>x``).)
@@ -206,22 +206,22 @@ Editing and Formatting Text
                                                                         This would not be so special if the plugin had not had to change Vim's default:
                                                                         in default Vim, when in select mode, Ctrl-Z lowercases what's selected.
                                                                         But with this plugin, even when text is selected, Ctrl-Z just undoes what was dud.
-
+                                                                        
                                                                         Hint: If you pine for the lowercase operation, select text and then type ``<Ctrl-o>gu<DOWN>``
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``f/`` and ``f\``                  Change Slashes                      Use ``f/`` and ``f\`` to change the direction of slashes.
-
+                                                                        
                                                                         Press ``f/`` to change every backslash to a forward slash in the current line;
                                                                         use ``f \`` to do the opposite.
-
+                                                                        
                                                                         Hint: This is useful for converting Windows OS directory paths to Linux/Mac, and vice versa.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``qq`` and ``q`` and ``Q``         Record and Playback                 This is a shortcut to playback the recording in the q register.
                                     Keystrokes
                                                                         1. Start recording with ``qq``.
-
+                                                                        
                                                                         2. End recording with ``q`` (or with ``<Ctrl-o>q`` if in Insert mode).
-
+                                                                        
                                                                         3. Playback with ``Q``.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``<Ctrl-C>``                       Copy                                ``<Ctrl-Insert>`` and ``<Shift-Insert>`` are aliases
@@ -270,7 +270,7 @@ Editing and Formatting Text
  ``<Tab>`` and ``<Shift-Tab>``      Indent and Undent                   Select some text in one or more lines and use ``<Tab>`` and ``<Shift-Tab>``
                                     Selected Text                       to indent and undent the text according to the current tab width
                                                                         (and using tabs or spaces as appropriate).
-
+                                                                        
                                                                         Caveat: Cindent is too smart and won't shift octothorpes
                                                                         that are in the first column
                                                                         (because it thinks they're pre-compilation macros);
@@ -385,7 +385,7 @@ Highlights:
  Key Mapping                        Description                         Notes
 =================================  ==================================  ==============================================================================
  ``<Ctrl-]>``                       Jump to Definition                  Jumps to the definition of the function named under the cursor.
-
+                                                                        
                                                                         Hint: You can return to the tag from which you jumped using ``<Alt-]>``.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``<Alt-]>``                        Jump to Last Tag                    Jumps to the tag used by the last ``<Ctrl-]>`` command.
@@ -471,7 +471,7 @@ Obscure (Rarely Used) But Useful Commands
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
  ``<Leader>dA``               Toggle ASCII                  Decimal and Hexadecimal 8-bit character set
                               Character Table               (based on `CharTab <http://www.vim.org/scripts/script.php?script_id=898>`__).
-
+                                                            
                                                             *Hint:* Hit ``b`` to toggle between bases (radices).
                                                             To return to the previous buffer, hit ``q``, ``<ESC>`` or ``<Shift-Alt-1>``.
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
@@ -495,9 +495,9 @@ The alt-shift commands show and hide special windows.
  ``<Shift-Alt-1>``            Toggle Tag list               Show/Hide the
                                                             `Tag List <http://www.vim.org/scripts/script.php?script_id=273>`__
                                                             window.
-
+                                                            
                                                             Calls ``:TlistToggle``. See ``:help taglist``.
-
+                                                            
                                                             *Hint:* Run ``ctags`` on your code to make a ``tags`` file first,
                                                             and then ``:set tags=<path,path,...>`` in Vim to point to the ``tags`` file.
                                                             You can setup different tags for different file types and projects;
