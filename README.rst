@@ -223,6 +223,12 @@ Editing and Formatting Text
                                                                         2. End recording with ``q`` (or with ``<Ctrl-o>q`` if in Insert mode).
                                                                         
                                                                         3. Playback with ``Q``.
+                                                                        
+                                                                        NOTE: This replaces the built-in ``Q`` command,
+                                                                        which switches to ``Ex`` mode. But you can also
+                                                                        switch to ``Ex`` mode using ``gQ``, albeit the
+                                                                        latter enables command line editing, completion,
+                                                                        etc.
 ---------------------------------  ----------------------------------  ------------------------------------------------------------------------------
  ``<Ctrl-C>``                       Copy                                ``<Ctrl-Insert>`` and ``<Shift-Insert>`` are aliases
                                                                         for ``<Ctrl-C>`` and ``<Ctrl-V>``, which are aliases

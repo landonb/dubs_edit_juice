@@ -1140,6 +1140,12 @@ let tlist_actionscript_settings = 'actionscript;c:class;f:method;p:property;v:va
 "   2. End recording with q (or with
 "      Ctrl-o q if in Insert mode)
 "   3. Playback with Q
+"
+" BWARE: This replaces builtin `Q` command, which switches to "Ex" mode.
+" - SAVVY: But you can run `gQ` instead. It's the same as `Q`, but with
+"   command-line editing and completion enabled.
+" - DUNNO: Why doesn't `normal! Q` or `execute 'normal! Q'` bypass the map?
+
 nnoremap Q @q
 
 " -------------------------------------------------------------------
