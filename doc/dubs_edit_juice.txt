@@ -394,6 +394,10 @@ ttt			Insert time as "HH:MM".
 :?			Immediately open Vim help on selected text.
 			I.e., select text and then type colon-question-mark, ':?'.
 
+				`:"` `s_:"` *:quote*
+:"			Immediately run |echom| on selected text.
+			I.e., select text and then type colon-double-quote, ':"'.
+
 				*:Lorum*
 :Lorum			Lorum Ipsum dump.
 

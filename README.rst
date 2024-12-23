@@ -457,6 +457,9 @@ Obscure (Rarely Used) But Useful Commands
  ``:?``                       Immediately open Vim          Immediately runs ``:help {selected-text}`` on the selected text.
                               Help on Selected Text
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
+ ``:"``                       Immediately ``echom``         Immediately runs ``:echom {selected-text}`` on the selected text.
+                              Selected Text
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
  ``:Lorem``                   Lorum Ipsum Dump              Pastes the first paragraph of Lorum Ipsum at the prompt.
 ---------------------------  ----------------------------  ------------------------------------------------------------------------------
  ``:Foobar``                  Foo Bar Baz Bat... Dump       Pastes a list of
