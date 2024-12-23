@@ -5,22 +5,18 @@
 
 " ========================================================================
 
-" YOU: 1.) Uncomment the `let` to enable this feature; then
-"      2.) Use <F9> to reload this script.
-"      - HINT: <F9> defined by: landonb/dubs_ftype_mess or run:
-"        noremap <silent><buffer> <F9> :exec 'source '.bufname('%')<CR>
-"
-"  let s:reloadable = 1
-if exists("s:reloadable") && s:reloadable &&
-    \ exists("g:loaded_plugin_edit_juice_ctrl_backspace")
-  unlet g:loaded_plugin_edit_juice_ctrl_backspace
+" GUARD: Press <F9> to reload this plugin (or :source it).
+" - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
+
+if expand('%:p') ==# expand('<sfile>:p')
+  unlet! g:loaded_plugin_edit_juice_ctrl_backspace
 endif
 
-" ***
+if exists('g:loaded_plugin_edit_juice_ctrl_backspace') || &cp
 
-if exists("g:loaded_plugin_edit_juice_ctrl_backspace") || &cp
   finish
 endif
+
 let g:loaded_plugin_edit_juice_ctrl_backspace = 1
 
 " ========================================================================

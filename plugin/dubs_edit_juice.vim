@@ -25,11 +25,11 @@
 " GUARD: Press <F9> to reload this plugin (or :source it).
 " - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
 
-if expand("%:p") ==# expand("<sfile>:p")
-  unlet g:loaded_dubs_edit_juice_plugin
+if expand('%:p') ==# expand('<sfile>:p')
+  unlet! g:loaded_dubs_edit_juice_plugin
 endif
 
-if exists("g:loaded_dubs_edit_juice_plugin") || &cp
+if exists('g:loaded_dubs_edit_juice_plugin') || &cp
 
   finish
 endif
