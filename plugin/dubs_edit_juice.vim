@@ -1238,7 +1238,7 @@ function! s:CreateAutocmdMapsVimFunctions() abort
     " - Dunno, :) seems obvious, because Fcn() has parentheses. But :>
     "   is easier to type (and period sometimes means to run something?).
     " - FTREQ: Strip leading 'function!' and esp. trailing 'abort'
-    autocmd FileType vim,rst,md,txt vnoremap <buffer>
+    autocmd FileType vim,rst,md,txt vnoremap <buffer> <silent>
       \ :> :<C-U><CR>gvy:call <SID>CallSelected(@")<CR>
   augroup END
 endfunction
