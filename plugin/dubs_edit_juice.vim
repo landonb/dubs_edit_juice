@@ -1186,13 +1186,13 @@ nnoremap Q @q
 function! s:TabMessage(cmd) abort
   " Redirect Ex output to a varibale
   " we'll call 'message'
-	redir => message
-	silent execute a:cmd
-	redir END
+  redir => l:message
+  silent execute a:cmd
+  redir END
   " Create a new tab and put the
   " captured output
   tabnew
-	silent put=message
+  silent put=l:message
   " Tell Vim not to ask us to save
   " when we close the buffer
   setlocal buftype=nowrite
