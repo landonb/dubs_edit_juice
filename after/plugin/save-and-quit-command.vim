@@ -1,7 +1,6 @@
 " Author: Landon Bouma <https://tallybark.com/>
 " Project: https://github.com/landonb/dubs_edit_juice#🧃
-" License: GPLv3
-" Copyright © 2015, 2017-2018, 2024 Landon Bouma.
+" License: GPLv3 | Copyright © 2015, 2017-2018, 2024 Landon Bouma.
 
 " -------------------------------------------------------------------
 
