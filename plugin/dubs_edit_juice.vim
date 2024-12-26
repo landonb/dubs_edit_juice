@@ -122,17 +122,13 @@ function! s:wire_keys_select_lines_to_window_first_and_last() abort
   " cursor to the top or bottom of the window without shifting the view.
 
   " Ctrl-Shift-PageUp selects from cursor to first line of window
-  noremap <C-S-PageUp> vH
+  nnoremap <C-S-PageUp> vH
   inoremap <C-S-PageUp> <C-O>vH
-  cnoremap <C-S-PageUp> <C-C>vH
-  onoremap <C-S-PageUp> <C-C>vH
   vnoremap <C-S-PageUp> H
 
   " Ctrl-Shift-PageDown selects from cursor to last line of window
-  noremap <C-S-PageDown> vL
+  nnoremap <C-S-PageDown> vL
   inoremap <C-S-PageDown> <C-O>vL
-  cnoremap <C-S-PageDown> <C-C>vL
-  onoremap <C-S-PageDown> <C-C>vL
   vnoremap <C-S-PageDown> L
 endfunction
 
@@ -157,14 +153,11 @@ function! s:wire_keys_scroll_window_sticky_cursor() abort
   " 2018-09-17/EXPLAIN: What's the magic that maps <C-y> to
   " scroll window upward, as opposed to Redo (which Dubs maps
   " to <C-y> at some point)? Is it down to load order?
-  noremap <C-Up> <C-y>
+  nnoremap <C-Up> <C-y>
   inoremap <C-Up> <C-O><C-y>
-  cnoremap <C-Up> <C-C><C-y>
-  onoremap <C-Up> <C-C><C-y>
-  noremap <C-Down> <C-e>
+
+  nnoremap <C-Down> <C-e>
   inoremap <C-Down> <C-O><C-e>
-  cnoremap <C-Down> <C-C><C-e>
-  onoremap <C-Down> <C-C><C-e>
 endfunction
 
 call <SID>wire_keys_scroll_window_sticky_cursor()
@@ -645,36 +638,26 @@ function! s:CreateMaps_MoveParagraph(seq_up = '<Leader>dU', seq_down = '<Leader>
   "
   " 2017-06-07: I want to use Ctrl-l for what was Ctrl-k (BufferRingForward) so
   "   that Ctrl-k can be used for :digraph insertions.
-  "noremap <C-p> :call <sid>MoveParagraphUp()<CR>
+  "nnoremap <C-p> :call <sid>MoveParagraphUp()<CR>
   "inoremap <C-p> <C-O>:call <sid>MoveParagraphUp()<CR>
-  "cnoremap <C-p> <C-C>:call <sid>MoveParagraphUp()<CR>
-  "onoremap <C-p> <C-C>:call <sid>MoveParagraphUp()<CR>
-  "noremap <C-l> :call <sid>MoveParagraphDown()<CR>
+  "nnoremap <C-l> :call <sid>MoveParagraphDown()<CR>
   "inoremap <C-l> <C-O>:call <sid>MoveParagraphDown()<CR>
-  "cnoremap <C-l> <C-C>:call <sid>MoveParagraphDown()<CR>
-  "onoremap <C-l> <C-C>:call <sid>MoveParagraphDown()<CR>
   "
   " 2017-06-10: I was fiddling with the existing Ctrl-j and Ctrl-k mappings,
   " for :BufferRingReverse and :BufferRingForward, and remapped these so that
   " I could use <Ctrl-l> to replace Vim's built-in <Ctrl-k> :digraph feature.
-  execute 'noremap ' .. a:seq_up .. ' :call <SID>MoveParagraphUp()<CR>'
+  execute 'nnoremap ' .. a:seq_up .. ' :call <SID>MoveParagraphUp()<CR>'
   execute 'inoremap ' .. a:seq_up .. ' <C-O>:call <SID>MoveParagraphUp()<CR>'
-  execute 'cnoremap ' .. a:seq_up .. ' <C-C>:call <SID>MoveParagraphUp()<CR>'
-  execute 'onoremap ' .. a:seq_up .. ' <C-C>:call <SID>MoveParagraphUp()<CR>'
   " Crud. Remapping <C-i> also remaps <TAB>, da fuh!?
-  "noremap <C-i> :call <sid>MoveParagraphDown()<CR>
+  "nnoremap <C-i> :call <sid>MoveParagraphDown()<CR>
   "inoremap <C-i> <C-O>:call <sid>MoveParagraphDown()<CR>
-  "cnoremap <C-i> <C-C>:call <sid>MoveParagraphDown()<CR>
-  "onoremap <C-i> <C-C>:call <sid>MoveParagraphDown()<CR>
   " 2017-10-17: Crud again. Ctrl-p blocks the auto-complete ctrl-n/ctrl-p...
   "   :TabMessage map <c-p>
   "   o  <C-P>       * <C-C>:call <SNR>28_MoveParagraphDown()<CR>
   "   nv <C-P>       * :call <SNR>28_MoveParagraphDown()<CR>
   " Normally, it's:
   "   n  <C-P>       * :<C-U>CtrlP<CR>
-  execute 'noremap ' .. a:seq_down .. ' :call <SID>MoveParagraphDown()<CR>'
-  execute 'cnoremap ' .. a:seq_down .. ' <C-C>:call <SID>MoveParagraphDown()<CR>'
-  execute 'onoremap ' .. a:seq_down .. ' <C-C>:call <SID>MoveParagraphDown()<CR>'
+  execute 'nnoremap ' .. a:seq_down .. ' :call <SID>MoveParagraphDown()<CR>'
   "inoremap <C-p> <C-O>:call <sid>MoveParagraphDown()<CR>
   " Without the insert mode blocker, it works.
   " Not sure how to see the old mapping, though...
@@ -982,8 +965,6 @@ inoremap <silent> <M-[> <C-]>
 " - SPIKE/2024-12-11: Does this inhibit <C-]> from completing iabbrev?
 "noremap <silent> <C-]> :call <SID>GrepPrompt_Auto_Prev_Location("<C-R><C-W>")<CR>
 inoremap <silent> <C-]> <C-O>:tag <C-R><C-W><CR>
-"cnoremap <silent> <C-]> <C-C>:call <SID>GrepPrompt_Auto_Prev_Location("<C-R><C-W>")<CR>
-"onoremap <silent> <C-]> <C-C>:call <SID>GrepPrompt_Auto_Prev_Location("<C-R><C-W>")<CR>
 " Selected word
 vnoremap <silent> <C-]> :<C-U>
   \ <CR>gvy
@@ -997,7 +978,6 @@ vnoremap <silent> <C-]> :<C-U>
 
 " Hmpf. I cannot get this to work right now. It remaps all my other Escapes,
 " too... and <C-}>, <C-S-]> and <C-S-}> don't work, either
-"cnoremap <C-[> :normal <C-t><CR>
 "inoremap <C-[> <C-O>:normal <C-t><CR>
 "vnoremap <C-[> :<C-U>
 "  \ <CR>gvy

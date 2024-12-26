@@ -117,8 +117,6 @@ endif
 "
 " CTRL-Tab is Previous window
 " - REFER: :h CTRL-W_W
-noremap <C-S-Tab> <C-W>W
+nnoremap <C-S-Tab> <C-W>W
 inoremap <C-S-Tab> <C-O><C-W>W
-cnoremap <C-S-Tab> <C-C><C-W>W
-onoremap <C-S-Tab> <C-C><C-W>W
 

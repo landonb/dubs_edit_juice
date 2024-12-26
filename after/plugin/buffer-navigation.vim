@@ -84,7 +84,7 @@ endfunction
 " ------------------------------------------------------
 " Ctrl-J/Ctrl-K Traverse Buffer History
 " ------------------------------------------------------
-noremap <C-j> :BufferRingReverse<CR>
+nnoremap <C-j> :BufferRingReverse<CR>
 inoremap <C-j> <C-O>:BufferRingReverse<CR>
 " Enable these if you want <C-j> to work from command mode
 " or operator-pending mode. Which seems silly, IMO.
@@ -99,7 +99,7 @@ inoremap <C-l> <C-k>
 
 " 2017-06-10: Vim's Ctrl-K maps to a :digraph feature, and we cannot remap
 "  otherwise access the feature except through Ctrl-K...
-noremap <C-k> :BufferRingForward<CR>
+nnoremap <C-k> :BufferRingForward<CR>
 inoremap <C-k> <C-O>:BufferRingForward<CR>
 " Enable these if you want <C-k> to work from command mode
 " or operator-pending mode. Which seems silly, IMO.
