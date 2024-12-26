@@ -1231,12 +1231,20 @@ vnoremap :: :<C-U>
 "   - But ':?' is also an interesting choice, and it's quicker to type
 "     (you can hold down <Shift> with your right hand and thump-thump
 "     colon-question easily with another finger).
-vnoremap :? :<C-U><CR>gvy:call histadd('cmd', 'help <C-R>"')<CR>:help <C-R>"<CR>
+" - Note that :help |tags-definitions| may contain |single 'quotes'|,
+"   but Vim returns error if help tag |uses "double"| quotes, e.g.,
+"     E149: Sorry, no help for vim-"double"-mint
+"   though you'll see the tag listed in the tags file.
+"   - We'll still escape them, though, so user doesn't see error
+"     from the map, just from :help.
+vnoremap :? :<C-U><CR>gvy:call histadd('cmd', 'help ' .. escape(@", '"'))<CR>:help <C-R>"<CR>
 
 " SAVVY/2024-12-22: Select text and type `:?` to echom it.
 " - DUNNO: Should this use echo instead?
 "   - Should this send final <CR> or not?
-vnoremap :" :<C-U><CR>gvy:call histadd('cmd', 'echom <C-R>"')<CR>:echom <C-R>"<CR>
+" - Note the escape in case selection contains double quotes,
+"   e.g., --> 'foo "bar" <-- --> "'baz' quux" <--
+vnoremap :" :<C-U><CR>gvy:call histadd('cmd', 'echom "' .. escape(@", '"') .. '"')<CR>:echom <C-R>"<CR>
 
 " -------------------------------------------------------------------
 
