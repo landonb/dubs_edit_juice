@@ -1199,38 +1199,51 @@ command! -nargs=+ -complete=command
 " put in Command mode. Also note that <Ctrl-R> is
 " interpreted literally and does nothing; use <C-R>.
 
-"vnoremap : :<C-U>
+" The :? :" :> maps are restricted to certain files types,
+" but :: seems like it might be useful from any buffer.
+"  vnoremap : :<C-U><CR>gvy:<C-R>"
 vnoremap :: :<C-U>
   \ <CR>gvy
   \ :<C-R>"
 
-" SAVVY/2024-12-09: Select text and type `:?` to run |:help| on it.
-" - Question is, what's a visual mode binding you're not likely to type
-"   normally? I'll often select text and start typing to replace it.
-"   - I considered ':h' at first (seems obvious; matches the `:h` command).
-"   - But ':?' is also an interesting choice, and it's quicker to type
-"     (you can hold down <Shift> with your right hand and thump-thump
-"     colon-question easily with another finger).
-" - Note that :help |tags-definitions| may contain |single 'quotes'|,
-"   but Vim returns error if help tag |uses "double"| quotes, e.g.,
-"     E149: Sorry, no help for vim-"double"-mint
-"   though you'll see the tag listed in the tags file.
-"   - We'll still escape them, though, so user doesn't see error
-"     from the map, just from :help.
-vnoremap :? :<C-U><CR>gvy:call histadd('cmd', 'help ' .. escape(@", '"'))<CR>:help <C-R>"<CR>
+function! s:CreateAutocmdMapsVimFunctions() abort
+  augroup dubs_edit_juice-vim-commands
+    au!
 
-" SAVVY/2024-12-22: Select text and type `:?` to |:echom| it.
-" - DUNNO: Should this use echo instead?
-"   - Should this send final <CR> or not?
-" - Note the escape in case selection contains double quotes,
-"   e.g., --> 'foo "bar" <-- --> "'baz' quux" <--
-vnoremap :" :<C-U><CR>gvy:call histadd('cmd', 'echom "' .. escape(@", '"') .. '"')<CR>:echom <C-R>"<CR>
+    " SAVVY/2024-12-09: Select text and type `:?` to run |:help| on it.
+    " - Question is, what's a visual mode binding you're not likely to type
+    "   normally? I'll often select text and start typing to replace it.
+    "   - I considered ':h' at first (seems obvious; matches the `:h` command).
+    "   - But ':?' is also an interesting choice, and it's quicker to type
+    "     (you can hold down <Shift> with your right hand and thump-thump
+    "     colon-question easily with another finger).
+    " - Note that :help |tags-definitions| may contain |single 'quotes'|,
+    "   but Vim returns error if help tag |uses "double"| quotes, e.g.,
+    "     E149: Sorry, no help for vim-"double"-mint
+    "   though you'll see the tag listed in the tags file.
+    "   - We'll still escape them, though, so user doesn't see error
+    "     from the map, just from :help.
+    autocmd FileType vim,rst,md,txt vnoremap <buffer>
+      \ :? :<C-U><CR>gvy:call histadd('cmd', 'help ' .. escape(@", '"'))<CR>:help <C-R>"<CR>
 
-" SAVVY/2024-12-26 08:14: Select text and type :> to |:call| it.
-" - Dunno, :) seems obvious, because Fcn() has parentheses. But :>
-"   is easier to type (and period sometimes means to run something?).
-" - FTREQ: Strip leading 'function!' and esp. trailing 'abort'
-vnoremap :> :<C-U><CR>gvy:call <SID>CallSelected(@")<CR>
+    " SAVVY/2024-12-22: Select text and type `:?` to |:echom| it.
+    " - DUNNO: Should this use echo instead?
+    "   - Should this send final <CR> or not?
+    " - Note the escape in case selection contains double quotes,
+    "   e.g., --> 'foo "bar" <-- --> "'baz' quux" <--
+    autocmd FileType vim,rst,md,txt vnoremap <buffer>
+      \ :" :<C-U><CR>gvy:call histadd('cmd', 'echom "' .. escape(@", '"') .. '"')<CR>:echom <C-R>"<CR>
+
+    " SAVVY/2024-12-26 08:14: Select text and type :> to |:call| it.
+    " - Dunno, :) seems obvious, because Fcn() has parentheses. But :>
+    "   is easier to type (and period sometimes means to run something?).
+    " - FTREQ: Strip leading 'function!' and esp. trailing 'abort'
+    autocmd FileType vim,rst,md,txt vnoremap <buffer>
+      \ :> :<C-U><CR>gvy:call <SID>CallSelected(@")<CR>
+  augroup END
+endfunction
+
+call s:CreateAutocmdMapsVimFunctions()
 
 function! s:CallSelected(text) abort
   let l:fcncall = a:text
