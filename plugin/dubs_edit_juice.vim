@@ -1204,7 +1204,7 @@ vnoremap :: :<C-U>
   \ <CR>gvy
   \ :<C-R>"
 
-" SAVVY/2024-12-09: Select text and type `:?` to run help on it.
+" SAVVY/2024-12-09: Select text and type `:?` to run |:help| on it.
 " - Question is, what's a visual mode binding you're not likely to type
 "   normally? I'll often select text and start typing to replace it.
 "   - I considered ':h' at first (seems obvious; matches the `:h` command).
@@ -1219,7 +1219,7 @@ vnoremap :: :<C-U>
 "     from the map, just from :help.
 vnoremap :? :<C-U><CR>gvy:call histadd('cmd', 'help ' .. escape(@", '"'))<CR>:help <C-R>"<CR>
 
-" SAVVY/2024-12-22: Select text and type `:?` to echom it.
+" SAVVY/2024-12-22: Select text and type `:?` to |:echom| it.
 " - DUNNO: Should this use echo instead?
 "   - Should this send final <CR> or not?
 " - Note the escape in case selection contains double quotes,
