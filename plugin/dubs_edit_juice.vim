@@ -1226,6 +1226,22 @@ vnoremap :? :<C-U><CR>gvy:call histadd('cmd', 'help ' .. escape(@", '"'))<CR>:he
 "   e.g., --> 'foo "bar" <-- --> "'baz' quux" <--
 vnoremap :" :<C-U><CR>gvy:call histadd('cmd', 'echom "' .. escape(@", '"') .. '"')<CR>:echom <C-R>"<CR>
 
+" SAVVY/2024-12-26 08:14: Select text and type :> to |:call| it.
+" - Dunno, :) seems obvious, because Fcn() has parentheses. But :>
+"   is easier to type (and period sometimes means to run something?).
+" - FTREQ: Strip leading 'function!' and esp. trailing 'abort'
+vnoremap :> :<C-U><CR>gvy:call <SID>CallSelected(@")<CR>
+
+function! s:CallSelected(text) abort
+  let l:fcncall = a:text
+  let l:fcncall = substitute(l:fcncall, '^function!\? \+', '', '')
+  let l:fcncall = substitute(l:fcncall, ' \+abort$', '', '')
+
+  call histadd('cmd', 'call ' .. l:fcncall)
+
+  execute 'call ' .. l:fcncall
+endfunction
+
 " -------------------------------------------------------------------
 
 " ------------------------------------------------------
