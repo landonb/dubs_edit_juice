@@ -5,7 +5,14 @@
 
 " -------------------------------------------------------------------
 
-if exists("g:loaded_dubs_edit_juice_plugin_inject_date_and_time") || &cp
+" GUARD: Press <F9> to reload this plugin (or :source it).
+" - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
+
+if expand('%:p') ==# expand('<sfile>:p')
+  unlet! g:loaded_dubs_edit_juice_plugin_inject_date_and_time
+endif
+
+if exists('g:loaded_dubs_edit_juice_plugin_inject_date_and_time') || &cp
 
   finish
 endif
