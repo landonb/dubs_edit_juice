@@ -144,7 +144,7 @@ function! s:wire_keys_delete_backwards_c_s_bs()
   "     Specifically the three files:
   "       https://github.com/DepoXy/depoxy/blob/release/home/.config/alacritty/alacritty.toml#L282-L350
   "       https://github.com/DepoXy/depoxy/blob/release/home/.hammerspoon/depoxy-hs.lua#L124-L175
-  "       https://github.com/DepoXy/depoxy/blob/release/home/.vim/pack/DepoXy/start/vim-depoxy/plugin/vim-shift-ctrl-bindings.vim
+  "       https://github.com/DepoXy/vim-depoxy/blob/release/plugin/vim-shift-ctrl-bindings.vim
   inoremap <m-s-w> <C-O>:<C-U>call dubs_edit_juice_backspace#delete_back_line()<CR>
 endfunction
 
