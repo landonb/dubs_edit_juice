@@ -796,7 +796,7 @@ vnoremap <M-S-F2> :<C-U>execute "'<,'>!parT " . (virtcol("$") - 1) . "qr"<CR>
 " ------------------------------------------------------
 
 " Ctrl-<CR> starts a new line without the comment leader.
-nmap <C-CR> <C-o><Home><Down>i<CR><Up>
+nmap <C-CR> <Home><Down>i<CR><Up>
 imap <C-CR> <C-o><Home><Down><CR><Up>
 
 " -------------------------------------------------------------------
