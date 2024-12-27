@@ -1258,8 +1258,8 @@ call s:CreateAutocmdMapsVimFunctions()
 
 function! s:CallSelected(text) abort
   let l:fcncall = a:text
-  let l:fcncall = substitute(l:fcncall, '^function!\? \+', '', '')
-  let l:fcncall = substitute(l:fcncall, ' \+abort$', '', '')
+  let l:fcncall = substitute(l:fcncall, '^\%(\s\|\r\|\n\)*function!\?\%(\s\|\r\|\n\)\+', '', '')
+  let l:fcncall = substitute(l:fcncall, '\%(\s\|\r\|\n\)\+abort\%(\s\|\r\|\n\)*$', '', '')
 
   call histadd('cmd', 'call ' .. l:fcncall)
 
