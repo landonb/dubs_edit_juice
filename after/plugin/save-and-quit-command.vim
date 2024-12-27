@@ -18,7 +18,7 @@
 function! s:MapCtrlSSaveAndExitForSpecialApps()
   if $VIM_EDIT_JUICE_EXIT_ON_SAVE != ""
     " Ctrl-s to save and exit from any mode.
-    noremap <C-s> :wq<CR>
+    nnoremap <C-s> :wq<CR>
     vnoremap <C-s> <C-o>:wq<CR>
     inoremap <C-s> <C-o>:wq<CR>
   endif
