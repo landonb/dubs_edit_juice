@@ -1243,7 +1243,7 @@ function! s:CreateAutocmdMapsVimFunctions() abort
     " - Note the escape in case selection contains double quotes,
     "   e.g., --> 'foo "bar" <-- --> "'baz' quux" <--
     autocmd FileType vim,rst,md,txt vnoremap <buffer>
-      \ :" :<C-U><CR>gvy:call histadd('cmd', 'echom "' .. escape(@", '"') .. '"')<CR>:echom <C-R>"<CR>
+      \ :" :<C-U><CR>gvy:call histadd('cmd', 'echom ' .. escape(@", '"'))<CR>:echom <C-R>"<CR>
 
     " SAVVY/2024-12-26 08:14: Select text and type :> to |:call| it.
     " - Dunno, :) seems obvious, because Fcn() has parentheses. But :>
