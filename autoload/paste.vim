@@ -7,6 +7,9 @@
 " USYNC: Check the Vim source file occasionally.
 " - CXREF: ~/.local/share/vim/vim91/autoload/paste.vim
 "   - DXY: ~/.kit/clang/vim/runtime/autoload/paste.vim
+"   MACOS: ~/.local/share/vim/vim91/autoload/paste.vim
+"          /usr/share/vim/vim91/autoload/paste.vim
+"   /Applications/MacVim.app/Contents/Resources/vim/runtime/autoload/paste.vim
 " REFER: See also the <C-c> Copy and <C-v> Paste mappings:
 " - CXREF: ~/.local/share/vim/vim91/mswin.vim
 "   - DXY: ~/.kit/clang/vim/runtime/mswin.vim

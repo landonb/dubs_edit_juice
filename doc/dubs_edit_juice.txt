@@ -172,8 +172,9 @@ Q			Start recording (qq); End recording (q); Reply (Q).
 <Ctrl-V>	or		*<Ctrl-V>* *<C-V>* *<Shift-Insert>* *<S-Insert>*
 <Shift-Insert>		Paste clipboard.
 
-				*<Ctrl-T>* *<C-T>*
-<Ctrl-T>		Transpose Characters.
+				*i_<Ctrl-T>* *i_<C-T>*
+<Ctrl-T>		Transpose Characters. (See |CTRL-T| for the normal
+			mode builtin.)
 
 				*r*
 r			Replace Character.
