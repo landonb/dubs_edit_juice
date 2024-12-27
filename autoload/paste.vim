@@ -17,6 +17,26 @@
 " Define the string to use for items that are present both in Edit, Popup and
 " Toolbar menu.  Also used in mswin.vim and macmap.vim.
 
+" silent! doesn't work here... visual mode paste echoes `:call paste#Paste()`
+" - Nor does setting `vnormap <silent>, even manually after starting Vim, e.g.:
+"     exe 'vnoremap <script> <silent> <C-V> ' . paste#paste_cmd['v']
+"   - As found in sources:
+"     - macOS:
+"       ~/.kit/clang/vim/runtime/macmap.vim
+"         execute 'vnoremap <script> <special> <D-v>' paste#paste_cmd['v']
+"       ~/.kit/clang/vim/runtime/mswin.vim
+"       /Applications/MacVim.app/Contents/Resources/vim/runtime/mswin.vim
+"         exe 'vnoremap <script> <C-V> ' . paste#paste_cmd['v']
+"   - Even if you `vunmap <c-v>` it still echoes that text! Some weird
+"     sorta Vimoodoo going on.
+"       " This works!
+"       exe 'vnoremap <script> <silent> <M-v> ' . paste#paste_cmd['v']
+"       " This doesn't change it either:
+"       exe 'vnoremap <script> <silent> <D-v> ' . paste#paste_cmd['v']
+"       " Nor this...
+"       vmap <C-v> echom 'foo'
+"       " This doesn't even disable it...
+"       noremap <C-V> <C-V>
 let paste#paste_cmd = {'n': ":call paste#Paste()<CR>"}
 let paste#paste_cmd['v'] = '"-c<Esc>' . paste#paste_cmd['n']
 let paste#paste_cmd['i'] = "\<c-\>\<c-o>\"+gP"
