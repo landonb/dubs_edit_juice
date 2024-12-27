@@ -92,7 +92,7 @@ call <SID>wire_keys_move_to_word_previous_and_next()
 function! s:wire_keys_select_text_to_line_beg_and_end() abort
   " Alt-Shift-Left selects from cursor to start of line
   " (same as Shift-Home)
-  noremap <M-S-Left> v0<C-G>
+  nnoremap <M-S-Left> v0<C-G>
   inoremap <M-S-Left> <C-O>v0<C-G>
   " 2020-05-23: I added <CTRL-G> to switch from Visual mode to Select mode,
   " otherwise if the user Ctrl-C copies, the selection is deselected, which
@@ -102,7 +102,7 @@ function! s:wire_keys_select_text_to_line_beg_and_end() abort
 
   " Alt-Shift-Right selects from cursor to end of line
   " (same as Shift-End)
-  noremap <M-S-Right> v$<C-G>
+  nnoremap <M-S-Right> v$<C-G>
   inoremap <M-S-Right> <C-O>v$<C-G>
   vnoremap <M-S-Right> $
 endfunction
@@ -204,11 +204,11 @@ endfunction
 function! s:wire_keys_cursor_to_line_first_and_last() abort
   " Ctrl-PageUp moves cursor to the top of the window, or, if
   " it's already there, it scrolls up one viewable-window-full.
-  noremap <C-PageUp> :call <SID>Smart_PageUpDown(1)<CR>
+  nnoremap <C-PageUp> :call <SID>Smart_PageUpDown(1)<CR>
   inoremap <C-PageUp> <C-O>:call <SID>Smart_PageUpDown(1)<CR>
   " Ctrl-PageDown moves cursor to the bottom of the window, or, if
   " it's already there, it scrolls down one viewable-window-full.
-  noremap <C-PageDown> :call <SID>Smart_PageUpDown(-1)<CR>
+  nnoremap <C-PageDown> :call <SID>Smart_PageUpDown(-1)<CR>
   inoremap <C-PageDown> <C-O>:call <SID>Smart_PageUpDown(-1)<CR>
 endfunction
 
@@ -234,11 +234,11 @@ call <SID>wire_keys_cursor_to_line_first_and_last()
 
 function! s:add_alt_left_alt_right_maps_move_cursor_to_line_beg_line_end() abort
   " Alt-Left moves the cursor to the beginning of the line.
-  noremap <M-Left> <Home>
+  nnoremap <M-Left> <Home>
   inoremap <M-Left> <C-O><Home>
   vnoremap <M-Left> :<C-U> <CR>gvy :execute "normal! 0"<CR>
   " Alt-Right moves the cursor to the end of the line.
-  noremap <M-Right> <End>
+  nnoremap <M-Right> <End>
   inoremap <M-Right> <C-O><End>
   vnoremap <M-Right> :<C-U> <CR>gvy :execute "normal! $"<CR>
 endfunction
@@ -248,11 +248,11 @@ call <SID>add_alt_left_alt_right_maps_move_cursor_to_line_beg_line_end()
 " For macOS Parity (where <Cmd-Left>/<Cmd-Right> move cursor to line start/end).
 function! s:add_cmd_left_cmd_right_maps_move_cursor_to_line_beg_line_end() abort
   " Cmd-Left moves the cursor to the beginning of the line.
-  noremap <D-Left> <Home>
+  nnoremap <D-Left> <Home>
   inoremap <D-Left> <C-O><Home>
   vnoremap <D-Left> :<C-U> <CR>gvy :execute "normal! 0"<CR>
   " Cmd-Right moves the cursor to the end of the line.
-  noremap <D-Right> <End>
+  nnoremap <D-Right> <End>
   inoremap <D-Right> <C-O><End>
   vnoremap <D-Right> :<C-U> <CR>gvy :execute "normal! $"<CR>
 endfunction
@@ -271,14 +271,14 @@ call <SID>add_cmd_left_cmd_right_maps_move_cursor_to_line_beg_line_end()
 " - This was mapped to Alt-End, but that did not feel right,
 "   e.g.,
 "
-"     noremap <M-End> M0i
+"     nnoremap <M-End> M0i
 "     inoremap <M-End> <C-O>M<C-O>0
 "     vnoremap <M-End> :<C-U>
 "       \ <CR>gvy
 "       \ :execute "normal! M0"<CR>
 "
 function! s:wire_key_insert_mode_middle_line() abort
-  noremap <M-F12> M0i
+  nnoremap <M-F12> M0i
   inoremap <M-F12> <C-O>M<C-O>0
   vnoremap <M-F12> :<C-U>
     \ <CR>gvy
@@ -314,10 +314,10 @@ if !hasmapto('<Plug>DubsEditJuice_ToggleTabHighlighting')
   " HSTRY/2024-12-09: Was <Leader>tab (as in \-t-a-b) but this feature
   " is rarely used, and I want to reclaim <Leader>t for motion commands).
   " - Moved under \d prefix along with other Dubs maps.
-  map <silent> <unique> <Leader>dt
+  nnoremap <silent> <unique> <Leader>dt
     \ <Plug>DubsEditJuice_ToggleTabHighlighting
   " Map <Plug> to an <SID> function.
-  noremap <silent> <unique> <script>
+  nnoremap <silent> <unique> <script>
     \ <Plug>DubsEditJuice_ToggleTabHighlighting
     \ :call <SID>ToggleTabHighlighting()<CR>
 endif
@@ -375,9 +375,9 @@ endfunction
 "  \ gV
 "  \ g<C-G>
 
-"noremap <Leader>k :g<C-G>
-":noremap <Leader>k "sy:.,$s/<C-r>s//gc<Left><Left><Left>
-":noremap <Leader>k g<C-G>
+"nnoremap <Leader>k :g<C-G>
+"nnoremap <Leader>k "sy:.,$s/<C-r>s//gc<Left><Left><Left>
+"nnoremap <Leader>k g<C-G>
 
 " DO THIS INSTEAD:
 " I couldn't get the previous to work, so just do this:
@@ -414,7 +414,7 @@ vnoremap <C-Y> :<C-U>
 
 " NOTE For whatever reason, trying to map C-S-Z also remaps
 "      C-Z, so I can't make Ctrl-Shift-Z into redo!
-" Doesn't work: noremap <C-S-Z> :redo<CR>
+" Doesn't work: nnoremap <C-S-Z> :redo<CR>
 " 2015.01.14: Experience shows that the Ctrl-[a-z] key mappings
 "             are case insensitive... oh, well, too bad for us.
 
@@ -784,9 +784,9 @@ vnoremap <M-S-F2> :<C-U>execute "'<,'>!parT " . (virtcol("$") - 1) . "qr"<CR>
 " register (@/) so you can continue a previous
 " search, if desired (i.e., the previous search
 " doesn't become '/' or '\').
-:nnoremap <silent> f/
+nnoremap <silent> f/
   \ :let tmp=@/<CR>:s:\\:/:ge<CR>:let @/=tmp<CR>
-:nnoremap <silent> f<Bslash>
+nnoremap <silent> f<Bslash>
   \ :let tmp=@/<CR>:s:/:\\:ge<CR>:let @/=tmp<CR>
 
 " -------------------------------------------------------------------
@@ -796,8 +796,8 @@ vnoremap <M-S-F2> :<C-U>execute "'<,'>!parT " . (virtcol("$") - 1) . "qr"<CR>
 " ------------------------------------------------------
 
 " Ctrl-<CR> starts a new line without the comment leader.
-nmap <C-CR> <Home><Down>i<CR><Up>
-imap <C-CR> <C-o><Home><Down><CR><Up>
+nnoremap <C-CR> <Home><Down>i<CR><Up>
+inoremap <C-CR> <C-o><Home><Down><CR><Up>
 
 " -------------------------------------------------------------------
 
@@ -890,11 +890,11 @@ endfunc
 " HSTRY/2024-12-10: Was \ct but I've been moving Dubs maps under \d prefix.
 " - HSTRY/2024-04-29: These used to be more prominent bindings, but this
 "   resource is rarely (if ever) accessed.
-"     nmap <M-!> <Plug>CT_CharTable
-"     imap <M-!> <C-o><Plug>CT_CharTable<ESC>
+"     nnoremap <M-!> <Plug>CT_CharTable
+"     inoremap <M-!> <C-o><Plug>CT_CharTable<ESC>
 " - Mnemonic: \dA → Dubs ASCII
-nmap <Leader>dA <Plug>CT_CharTable
-imap <Leader>dA <C-o><Plug>CT_CharTable<ESC>
+nnoremap <Leader>dA <Plug>CT_CharTable
+inoremap <Leader>dA <C-o><Plug>CT_CharTable<ESC>
 
 " TODO imap does not restore i-mode when ct done
 " NOTE Modified chartab.vim to alias <ESC> and
@@ -914,12 +914,12 @@ imap <Leader>dA <C-o><Plug>CT_CharTable<ESC>
 " Show the ctags list.
 " - HSTRY/2024-04-29: Previously at <Shift-Alt-6>. Promoted to see
 "   if tag list will get used now. (Decade-long A/B testing.)
-"     nmap <M-^> :TlistToggle<CR>
-"     imap <M-^> <C-O>:TlistToggle<CR>
+"     nnoremap <M-^> :TlistToggle<CR>
+"     inoremap <M-^> <C-O>:TlistToggle<CR>
 "     " cmap <M-^> <C-C>TlistToggle<ESC>
 "     " omap <M-^> <C-C>TlistToggle<ESC>
-nmap <M-!> :TlistToggle<CR>
-imap <M-!> <C-O>:TlistToggle<CR>
+nnoremap <M-!> :TlistToggle<CR>
+inoremap <M-!> <C-O>:TlistToggle<CR>
 
 " -------------------------------------------------------------------
 
@@ -963,7 +963,7 @@ inoremap <silent> <M-[> <C-]>
 " Ctrl-] jumps to the tag under the cursor, but only in normal mode.
 " Let's make it work in Insert mode, too.
 " - SPIKE/2024-12-11: Does this inhibit <C-]> from completing iabbrev?
-"noremap <silent> <C-]> :call <SID>GrepPrompt_Auto_Prev_Location("<C-R><C-W>")<CR>
+"nnoremap <silent> <C-]> :call <SID>GrepPrompt_Auto_Prev_Location("<C-R><C-W>")<CR>
 inoremap <silent> <C-]> <C-O>:tag <C-R><C-W><CR>
 " Selected word
 vnoremap <silent> <C-]> :<C-U>
@@ -984,7 +984,7 @@ vnoremap <silent> <C-]> :<C-U>
 "  \ gV
 "  \ :normal <C-t><CR>
 " Whatever, use Alt-] to jump a tag back.
-noremap <M-]> :normal <C-t><CR>
+nnoremap <M-]> :normal <C-t><CR>
 inoremap <M-]> <C-O>:normal <C-t><CR>
 vnoremap <M-]> :<C-U>
   \ <CR>gvy
@@ -1361,9 +1361,9 @@ function! s:DiffToggle(window) abort
   call setpos('.', l:save_cursor)
 endfunction
 " Toggle diff view on the left, center, or right windows
-nmap <silent> <Leader>dTl :call <SID>DiffToggle(1)<cr>
-nmap <silent> <Leader>dTc :call <SID>DiffToggle(2)<cr>
-nmap <silent> <Leader>dTr :call <SID>DiffToggle(3)<cr>
+nnoremap <silent> <Leader>dTl :call <SID>DiffToggle(1)<cr>
+nnoremap <silent> <Leader>dTc :call <SID>DiffToggle(2)<cr>
+nnoremap <silent> <Leader>dTr :call <SID>DiffToggle(3)<cr>
 
 " -------------------------------------------------------------------
 
@@ -1558,8 +1558,8 @@ endfunction
 " https://stackoverflow.com/questions/833838/delete-word-after-or-around-cursor-in-vim
 " See:
 "  :help diw
-imap <M-d> <C-o>diw
-nmap <M-d> diw
+nnoremap <M-d> diw
+inoremap <M-d> <C-o>diw
 
 " -------------------------------------------------------------------
 
