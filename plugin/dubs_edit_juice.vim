@@ -818,15 +818,17 @@ inoremap <C-CR> <C-o><Home><Down><CR><Up>
 "      the 3 lefts position the cursor between the second set of sticks.
 "
 " 2018-06-11: Here's the mapping that's served so well these past many years:
-"   noremap <Leader>s "sy:.,$s/<C-r>s//gc<Left><Left><Left>
+"   nnoremap <Leader>s "sy:.,$s/<C-r>s//gc<Left><Left><Left>
 "
 " 2018-06-11: SO RAD!! And here's the mapping that'll serve me even better:
 " Center each substitution candidate as it's selected and highlighted!
 com! -nargs=* -complete=command ZZWrap let &scrolloff=999 | exec <q-args> | let &so=0
-noremap <Leader>s "sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
+
+vnoremap <Leader>s "sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
+
 " 2024-08-07: Alternative \S# uses '#' delims instead of '/', e.g., to
 "             make it easier to write patterns that include path strings.
-noremap <Leader>S# "sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
+vnoremap <Leader>S# "sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
 
 " See also: QuickfixSubstituteAll in plugin/dubs_quickfix_wrap.vim,
 " which defines <Leader>S (\S) which find-replaces in all files
