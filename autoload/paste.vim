@@ -36,7 +36,8 @@
 "       " Nor this...
 "       vmap <C-v> echom 'foo'
 "       " This doesn't even disable it...
-"       noremap <C-V> <C-V>
+"       vmap <C-V> <C-V>
+"       vunmap <C-V>
 let paste#paste_cmd = {'n': ":call paste#Paste()<CR>"}
 let paste#paste_cmd['v'] = '"-c<Esc>' . paste#paste_cmd['n']
 let paste#paste_cmd['i'] = "\<c-\>\<c-o>\"+gP"
