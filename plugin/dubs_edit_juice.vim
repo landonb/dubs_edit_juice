@@ -844,6 +844,9 @@ inoremap <C-CR> <C-o><Home><Down><CR><Up>
 "
 " 2018-06-11: SO RAD!! And here's the mapping that'll serve me even better:
 " Center each substitution candidate as it's selected and highlighted!
+" - SAVVY: Sometimes when you can the substitute command, the window
+"   will continue to center as you change lines.
+"   - Run :ZZwrap again if this happens (or let &so=0).
 com! -nargs=* -complete=command ZZWrap let &scrolloff=999 | exec <q-args> | let &so=0
 
 nnoremap <Leader>s :ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
