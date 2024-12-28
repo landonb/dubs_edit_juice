@@ -1220,6 +1220,11 @@ command! -nargs=+ -complete=command TabMessage call <SID>TabMessage(<q-args>)
 "   :Tab<TAB>     using autocompletion
 "   :ta<TAB><TAB> also works
 
+" ***
+
+nnoremap <silent> <Leader>dT :exec 'tabedit ' .. expand('%')<CR>
+inoremap <silent> <Leader>dT <C-o>:exec 'tabedit ' .. expand('%')<CR>
+
 " -------------------------------------------------------------------
 
 " ------------------------------------------------------
