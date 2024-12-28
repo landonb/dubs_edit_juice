@@ -21,6 +21,16 @@ let g:loaded_dubs_edit_juice_enable_behave_mswin = 1
 
 " -------------------------------------------------------------------
 
+" CXREF: Some places you might find mswin.vim:
+"
+"   /usr/share/vim/vim*/mswin.vim
+"
+"   /Applications/MacVim.app/Contents/Resources/vim/runtime/mswin.vim
+"
+"   ~/.local/share/vim/vim*/mswin.vim
+
+" -------------------------------------------------------------------
+
 " ------------------------------------------------------
 " So-called MS Windows mode
 " ------------------------------------------------------
@@ -100,13 +110,11 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 "   try `:help Ctrl-B\>`
 if !s:running_windows
   " Map <Ctrl-V>, <Ctrl-X>, and <Ctrl-C> keys, and insert mode <Ctrl-Z>.
-  "	  - CXREF: ~/.local/share/vim/vim91/mswin.vim
-  "	    /Applications/MacVim.app/Contents/Resources/vim/runtime/mswin.vim @ 117
   source $VIMRUNTIME/mswin.vim
   behave mswin
 endif
 
-" Unmask nasty maps.
+" Unmask mvwin.vim maps.
 " - Do not overtake Ctrl-F. Not that I use Ctrl-F/Ctrl-B, because I generally
 "   navigate away from the home row and use PageDown/PageUp instead, but I
 "   know some hardcore Vimmers would riducule me for taking these keys away.
