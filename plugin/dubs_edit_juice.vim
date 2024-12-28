@@ -1231,6 +1231,10 @@ inoremap <silent> <Leader>dT <C-o>:exec 'tabedit ' .. expand('%')<CR>
 " Start Command w/ Selected Text
 " ------------------------------------------------------
 
+" Default: let &history=50
+" - REFER: |'history'|
+set history=1000
+
 " For help with Command Line commands, see :h cmdline
 " Note that <C-R> is search in Insert mode but starts a
 " put in Command mode. Also note that <Ctrl-R> is
