@@ -432,6 +432,12 @@ vnoremap <C-Y> :<C-U>
 "      cursor is anywhere but the first column,
 "      but use 'xp' otherwise.
 function! s:TransposeCharacters() abort
+  if !&modifiable
+    echom "Cannot modify this buffer"
+
+    return
+  endif
+
   let l:cursorCol = col('.')
 
   if 1 == l:cursorCol
