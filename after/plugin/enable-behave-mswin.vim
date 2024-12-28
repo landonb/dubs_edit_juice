@@ -114,38 +114,42 @@ endif
 "   for Ctrl-BS; in order to get the help for Ctrl-B (the 'b' character),
 "   try `:help Ctrl-B\>`
 
-" Map <Ctrl-V>, <Ctrl-X>, and <Ctrl-C> keys, and insert mode <Ctrl-Z>, etc.
-source $VIMRUNTIME/mswin.vim
+function! s:EnableMswinDotVim() abort
+  " Map <Ctrl-V>, <Ctrl-X>, and <Ctrl-C> keys, and insert mode <Ctrl-Z>, etc.
+  source $VIMRUNTIME/mswin.vim
 
-behave mswin
+  behave mswin
 
-" Unmask mvwin.vim maps.
-" - Do not overtake Ctrl-F. Not that I use Ctrl-F/Ctrl-B, because I generally
-"   navigate away from the home row and use PageDown/PageUp instead, but I
-"   know some hardcore Vimmers would riducule me for taking these keys away.
-"   (In my defense, Ctrl-F and Ctrl-B are akward to type; I'd rather use one
-"   hand and one finger and not have to stretch pinky and another finger to
-"   scroll down and up through a file.)
-" - SAVVY/2024-12-14: This doesn't seem to matter in MacVim — there is not
-"   <C-f> find dialog map. Also in console (Mac)Vim, <C-f> in both insert
-"   and normal modes starts a / search. In GUI MacVim, normal <C-f> pages
-"   down, and insert <C-f> moves cursor forward a character.
-"   - SPIKE: I'm curious if latest Linux Vim is the same.
-"     - Also do we really need *two* unmap commands?
-if has("gui_running")
-  unmap <C-F>
-endif
-" Make sure to remove Find dialog response for Insert mode.
-if has("gui_running")
-  unmap! <C-F>
-endif
-" NOTE: Ctrl-F and Ctrl-B do not PageDown/PageUp from Insert mode,
-"       but rather enter their respective characters into the buffer.
+  " Unmask mvwin.vim maps.
+  " - Do not overtake Ctrl-F. Not that I use Ctrl-F/Ctrl-B, because I generally
+  "   navigate away from the home row and use PageDown/PageUp instead, but I
+  "   know some hardcore Vimmers would riducule me for taking these keys away.
+  "   (In my defense, Ctrl-F and Ctrl-B are akward to type; I'd rather use one
+  "   hand and one finger and not have to stretch pinky and another finger to
+  "   scroll down and up through a file.)
+  " - SAVVY/2024-12-14: This doesn't seem to matter in MacVim — there is not
+  "   <C-f> find dialog map. Also in console (Mac)Vim, <C-f> in both insert
+  "   and normal modes starts a / search. In GUI MacVim, normal <C-f> pages
+  "   down, and insert <C-f> moves cursor forward a character.
+  "   - SPIKE: I'm curious if latest Linux Vim is the same.
+  "     - Also do we really need *two* unmap commands?
+  if has("gui_running")
+    unmap <C-F>
+  endif
+  " Make sure to remove Find dialog response for Insert mode.
+  if has("gui_running")
+    unmap! <C-F>
+  endif
+  " NOTE: Ctrl-F and Ctrl-B do not PageDown/PageUp from Insert mode,
+  "       but rather enter their respective characters into the buffer.
 
-" Unsure why mswin.vim doesn't also map the reverse...
-"
-" CTRL-Tab is Previous window
-" - REFER: :h CTRL-W_W
-nnoremap <C-S-Tab> <C-W>W
-inoremap <C-S-Tab> <C-O><C-W>W
+  " Unsure why mswin.vim doesn't also map the reverse...
+  "
+  " CTRL-Tab is Previous window
+  " - REFER: :h CTRL-W_W
+  nnoremap <C-S-Tab> <C-W>W
+  inoremap <C-S-Tab> <C-O><C-W>W
+endfunction
+
+call s:EnableMswinDotVim()
 
