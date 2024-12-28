@@ -849,7 +849,8 @@ com! -nargs=* -complete=command ZZWrap let &scrolloff=999 | exec <q-args> | let 
 nnoremap <Leader>s :ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
 " Don't do insert mode, as \s is common enough in regex. Try \S# instead.
 "  inoremap <Leader>s <C-o>:ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
-vnoremap <Leader>s "sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
+" - SAVVY: Using vnoremap doesn't add user's command to command line history.
+vmap <Leader>s :<C-U><CR>gv"sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
 
 " 2024-08-07: Alternative \S# uses '#' delims instead of '/', e.g., to
 "             make it easier to write patterns that include path strings.
@@ -859,7 +860,8 @@ nnoremap <Leader>S# :ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
 " times you do use this, just be aware that you'll see the UX pause as Vim
 " waits to see if you're typing this map or something else.
 inoremap <Leader>S# <C-o>:ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
-vnoremap <Leader>S# "sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
+" - SAVVY: Using vnoremap doesn't add user's command to command line history.
+vmap <Leader>S# :<C-U><CR>gv"sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
 
 " See also: QuickfixSubstituteAll in plugin/dubs_quickfix_wrap.vim,
 " which defines <Leader>S (\S) which find-replaces in all files
