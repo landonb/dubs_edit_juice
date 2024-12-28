@@ -447,23 +447,27 @@ function! s:TransposeCharacters() abort
   endif
 endfunction
 
-" BWARE: This steals Vim's built-in i_CTRL-T, which inserts 'one shiftwidth of
-" indent'. But this plugin relocates that command to <Shift-Ctrl-D>, which by
-" default does the same as <C-D> and deletes 'one shiftwidth of indent'.
-" - Stock Vim: i_CTRL-T indents, and i_CTRL-D (and i_CTRL-SHIFT-D) dedents.
-" - Dubs Vim: i_CTRL-T transposes; i_CTRL-D dedents; and i_CTRL-SHIFT-D indents.
-"
-" SAVVY: Not adding a normal mode map. So CTRL-T still the Vim default,
-"          'Jump to [count] older entry in the tag stack (default 1).'
-" - Consequently, this binding findable via `:TabMessage imap`, but not `:TabMessage map`.
+function! s:CreateMaps_TransposeCharacters() abort
+  " BWARE: This steals Vim's built-in i_CTRL-T, which inserts 'one shiftwidth of
+  " indent'. But this plugin relocates that command to <Shift-Ctrl-D>, which by
+  " default does the same as <C-D> and deletes 'one shiftwidth of indent'.
+  " - Stock Vim: i_CTRL-T indents, and i_CTRL-D (and i_CTRL-SHIFT-D) dedents.
+  " - Dubs Vim: i_CTRL-T transposes; i_CTRL-D dedents; and i_CTRL-SHIFT-D indents.
+  "
+  " SAVVY: Not adding a normal mode map. So CTRL-T still the Vim default,
+  "          'Jump to [count] older entry in the tag stack (default 1).'
+  " - Consequently, this binding findable via `:TabMessage imap`, but not `:TabMessage map`.
 
-inoremap <silent> <C-T> <C-o>:call <SID>TransposeCharacters()<CR>
-" For parity with DepoXy/dot-inputrc:
-"   \et": transpose-chars
-"   \eT": transpose-words
-" https://github.com/DepoXy/dot-inputrc#🎛️
-" - Though note we're not adding transpose-words.
-inoremap <silent> <M-T> <C-o>:call <SID>TransposeCharacters()<CR>
+  inoremap <silent> <C-T> <C-o>:call <SID>TransposeCharacters()<CR>
+  " For parity with DepoXy/dot-inputrc:
+  "   \et": transpose-chars
+  "   \eT": transpose-words
+  " https://github.com/DepoXy/dot-inputrc#🎛️
+  " - Though note we're not adding transpose-words.
+  inoremap <silent> <M-T> <C-o>:call <SID>TransposeCharacters()<CR>
+endfunction
+
+call s:CreateMaps_TransposeCharacters()
 
 " -------------------------------------------------------------------
 
