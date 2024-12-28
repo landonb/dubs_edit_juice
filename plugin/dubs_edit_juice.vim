@@ -314,8 +314,7 @@ if !hasmapto('<Plug>DubsEditJuice_ToggleTabHighlighting')
   " HSTRY/2024-12-09: Was <Leader>tab (as in \-t-a-b) but this feature
   " is rarely used, and I want to reclaim <Leader>t for motion commands).
   " - Moved under \d prefix along with other Dubs maps.
-  nnoremap <silent> <unique> <Leader>dt
-    \ <Plug>DubsEditJuice_ToggleTabHighlighting
+  nnoremap <silent> <unique> <Leader>dt <Plug>DubsEditJuice_ToggleTabHighlighting
   " Map <Plug> to an <SID> function.
   nnoremap <silent> <unique> <script>
     \ <Plug>DubsEditJuice_ToggleTabHighlighting
@@ -1199,8 +1198,7 @@ function! s:TabMessage(cmd) abort
 endfunction
 " Map our TabMessage function to an Ex :command
 " of the same name
-command! -nargs=+ -complete=command
-  \ TabMessage call <SID>TabMessage(<q-args>)
+command! -nargs=+ -complete=command TabMessage call <SID>TabMessage(<q-args>)
 " Usage, e.g.,
 "   :TabMessage highlight
 "   :TabMessage ec g:
