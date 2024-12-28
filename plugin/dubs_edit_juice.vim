@@ -451,13 +451,13 @@ endfunction
 "          'Jump to [count] older entry in the tag stack (default 1).'
 " - Consequently, this binding findable via `:TabMessage imap`, but not `:TabMessage map`.
 
-inoremap <C-T> <C-o>:call <SID>TransposeCharacters()<CR>
+inoremap <silent> <C-T> <C-o>:call <SID>TransposeCharacters()<CR>
 " For parity with DepoXy/dot-inputrc:
 "   \et": transpose-chars
 "   \eT": transpose-words
 " https://github.com/DepoXy/dot-inputrc#🎛️
 " - Though note we're not adding transpose-words.
-inoremap <M-T> <C-o>:call <SID>TransposeCharacters()<CR>
+inoremap <silent> <M-T> <C-o>:call <SID>TransposeCharacters()<CR>
 
 " -------------------------------------------------------------------
 
