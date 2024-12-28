@@ -25,8 +25,12 @@
 " GUARD: Press <F9> to reload this plugin (or :source it).
 " - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
 
+let s:sourcing = 0
+
 if expand('%:p') ==# expand('<sfile>:p')
   unlet! g:loaded_dubs_edit_juice_plugin
+
+  let s:sourcing = 1
 endif
 
 if exists('g:loaded_dubs_edit_juice_plugin') || &cp
@@ -311,6 +315,15 @@ call s:YankSelectedTextAutomatically_ExceptOnmacOS()
 " ------------------------------------------------------
 
 if !hasmapto('<Plug>DubsEditJuice_ToggleTabHighlighting')
+  " MAYBE/2024-12-28 14:06: Add s:sourcing so you can use <unique>?
+  " - FIXME/2024-12-28 14:07: You should at least normalize usage.
+  " - FIXME/2024-12-28 14:07: Also everything should be configurable
+  "   so that when you change {lhs} you don't Breaking change everything.
+  if s:sourcing
+    nunmap <Leader>dt
+    iunmap <Leader>dt
+  endif
+
   " HSTRY/2024-12-09: Was <Leader>tab (as in \-t-a-b) but this feature
   " is rarely used, and I want to reclaim <Leader>t for motion commands).
   " - Moved under \d prefix along with other Dubs maps.
