@@ -12,7 +12,7 @@ to key combinations to help delete text, select text,
 edit text, move the cursor around the buffer.
 
 This author originally created this script to emulate
-`EditPlus <https://www.editplus.com/>`__/>, which the author
+`EditPlus <https://www.editplus.com/>`__, which the author
 used in the early aughts on Windows before making the
 leap to Vim.
 
