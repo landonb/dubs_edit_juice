@@ -448,6 +448,26 @@ endfunction
 
 call s:CreateMaps_TransposeCharacters()
 
+" ***
+
+" Vim wires Insert mode <Ctrl-T> to insert indent |i_CTRL-T|.
+" - Dubs puts indent at <Shift-Ctrl-D>, opposite <Ctrl-D> dedent.
+"   - (Albeit using Alacritty.toml magic to enable <Shift-Ctrl> in
+"      MacVim (because normally MacVim doesn't recognize <Shift-Ctrl>
+"      differently than <Ctrl>, because of how Control sequences work)).
+" - And since insert mode <Ctrl-T> doesn't work in help windows, anyway,
+"   we might as well make it work like normal mode <Ctrl-T>, which is a
+"   very common command to run in a help window!
+function! s:CreateAutocmds_HelpFileInsertModeTagStackJump() abort
+  augroup dubs-edit-juice--filetype-help-c-t
+    au!
+
+    autocmd FileType help if !&modifiable | inoremap <buffer> <C-t> <C-o>:exe "normal \<C-t>"<CR> | endif
+  augroup END
+endfunction
+
+call s:CreateAutocmds_HelpFileInsertModeTagStackJump()
+
 " -------------------------------------------------------------------
 
 " ------------------------------------------------------
