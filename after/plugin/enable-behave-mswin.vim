@@ -5,6 +5,22 @@
 
 " -------------------------------------------------------------------
 
+" GUARD: Press <F9> to reload this plugin (or :source it).
+" - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
+
+if expand('%:p') ==# expand('<sfile>:p')
+  unlet! g:loaded_dubs_edit_juice_enable_behave_mswin
+endif
+
+if exists('g:loaded_dubs_edit_juice_enable_behave_mswin') || &cp
+
+  finish
+endif
+
+let g:loaded_dubs_edit_juice_enable_behave_mswin = 1
+
+" -------------------------------------------------------------------
+
 " ------------------------------------------------------
 " So-called MS Windows mode
 " ------------------------------------------------------
