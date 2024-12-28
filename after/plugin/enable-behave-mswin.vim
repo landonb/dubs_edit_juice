@@ -134,10 +134,6 @@ function! s:EnableMswinDotVim() abort
   "   - SPIKE: I'm curious if latest Linux Vim is the same.
   "     - Also do we really need *two* unmap commands?
   if has("gui_running")
-    unmap <C-F>
-  endif
-  " Make sure to remove Find dialog response for Insert mode.
-  if has("gui_running")
     unmap! <C-F>
   endif
   " NOTE: Ctrl-F and Ctrl-B do not PageDown/PageUp from Insert mode,
