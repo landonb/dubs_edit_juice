@@ -315,6 +315,7 @@ if !hasmapto('<Plug>DubsEditJuice_ToggleTabHighlighting')
   " is rarely used, and I want to reclaim <Leader>t for motion commands).
   " - Moved under \d prefix along with other Dubs maps.
   nnoremap <silent> <unique> <Leader>dt <Plug>DubsEditJuice_ToggleTabHighlighting
+  inoremap <silent> <unique> <Leader>dt <C-o><Plug>DubsEditJuice_ToggleTabHighlighting
   " Map <Plug> to an <SID> function.
   nnoremap <silent> <unique> <script>
     \ <Plug>DubsEditJuice_ToggleTabHighlighting
