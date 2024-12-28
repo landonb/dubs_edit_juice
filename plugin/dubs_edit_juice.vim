@@ -639,7 +639,7 @@ function! s:MoveParagraphDown() abort
   endif
 endfunction
 
-function! s:CreateMaps_MoveParagraph(seq_up = '<Leader>dU', seq_down = '<Leader>dD') abort
+function! s:CreateMaps_MoveParagraph(seq_up = '<Leader>dK', seq_down = '<Leader>dJ') abort
   " Default Vim makes <Up> and <CTRL-P> map to [count] lines upward |linewise|.
   " Default Vim makes <CTRL-O> Go to [count] Older cursor posit in jump list.
   " Default Vim makes <CTRL-O> in insert mode start a replace operation...
@@ -678,7 +678,7 @@ function! s:CreateMaps_MoveParagraph(seq_up = '<Leader>dU', seq_down = '<Leader>
   " file buffer, mru, tag, ... finder with an intuitive interface."
 endfunction
 
-call s:CreateMaps_MoveParagraph('<Leader>dU', '<Leader>dD')
+call s:CreateMaps_MoveParagraph('<Leader>dK', '<Leader>dJ')
 
 " -------------------------------------------------------------------
 
