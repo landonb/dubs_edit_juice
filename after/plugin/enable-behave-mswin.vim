@@ -140,6 +140,8 @@ function! s:EnableMswinDotVim() abort
   "       but rather enter their respective characters into the buffer.
 
   " Unsure why mswin.vim doesn't also map the reverse...
+  " - Oh, maybe because it's a <Shift-Ctrl> binding.
+  "   - Though still works without any "magic".
   "
   " CTRL-Tab is Previous window
   " - REFER: :h CTRL-W_W
