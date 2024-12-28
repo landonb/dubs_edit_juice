@@ -115,6 +115,18 @@ endif
 "   try `:help Ctrl-B\>`
 
 function! s:EnableMswinDotVim() abort
+  " Restore <C-F> and <C-H> if user (another plugin) customized them.
+  " - mswin.vim changes Vim's builtin <C-F> (PageDown) to opening Find dialog.
+  "   - CoC overrides <C-F> to work with its floating window.
+  " - mswin.vim changes Vim's builtin <C-H> (<Left>) to opening replace dialog.
+  "   - Author's vim-blinky-search plugin changes <C-H> to :nohlsearch.
+  let l:abbrev = 0
+  let l:retdict = 1
+  let l:old_n_ctrl_f = maparg('<C-f>', 'n', l:abbrev, l:retdict)
+  let l:old_i_ctrl_f = maparg('<C-f>', 'i', l:abbrev, l:retdict)
+  let l:old_n_ctrl_h = maparg('<C-h>', 'n', l:abbrev, l:retdict)
+  let l:old_i_ctrl_h = maparg('<C-h>', 'i', l:abbrev, l:retdict)
+
   " Map <Ctrl-V>, <Ctrl-X>, and <Ctrl-C> keys, and insert mode <Ctrl-Z>, etc.
   source $VIMRUNTIME/mswin.vim
 
@@ -133,11 +145,14 @@ function! s:EnableMswinDotVim() abort
   "   down, and insert <C-f> moves cursor forward a character.
   "   - SPIKE: I'm curious if latest Linux Vim is the same.
   "     - Also do we really need *two* unmap commands?
-  if has("gui_running")
-    unmap! <C-F>
-  endif
   " NOTE: Ctrl-F and Ctrl-B do not PageDown/PageUp from Insert mode,
   "       but rather enter their respective characters into the buffer.
+  "       - Though CoC wires i_CRTL-F to navigating its float window,
+  "         or to <Right>.
+  call s:RestoreMap(l:old_n_ctrl_f)
+  call s:RestoreMap(l:old_i_ctrl_f)
+  call s:RestoreMap(l:old_n_ctrl_h)
+  call s:RestoreMap(l:old_i_ctrl_h)
 
   " Unsure why mswin.vim doesn't also map the reverse...
   " - Oh, maybe because it's a <Shift-Ctrl> binding.
@@ -148,6 +163,33 @@ function! s:EnableMswinDotVim() abort
   nnoremap <C-S-Tab> <C-W>W
   inoremap <C-S-Tab> <C-O><C-W>W
 endfunction
+
+" ***
+
+" REFER: maparg w/ Dict includes, e.g.:
+"   {'lhs': '<C-F>', 'mode': 'n', 'expr': 1, 'sid': 0, 'lnum': 0, 'noremap': 1, 'nowait': 1,
+"    'rhs': 'coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"', 'lhsraw': '<80><fc>^DF',
+"    'abbr': 0, 'lhsrawalt': '^F', 'script': 0, 'mode_bits': 1, 'silent': 1, 'buffer': 0,
+"    'scriptversion': 0}
+function! s:RestoreMap(old_map) abort
+  if empty(a:old_map)
+
+    return
+  endif
+
+  let l:remap =
+    \ a:old_map.mode .. (a:old_map.noremap ? 'noremap ' : ' ')
+    \ .. (a:old_map.buffer ? '<buffer> ' : ' ')
+    \ .. (a:old_map.expr ? '<expr> ' : ' ')
+    \ .. (a:old_map.nowait ? '<nowait> ' : ' ')
+    \ .. (a:old_map.script ? '<script> ' : ' ')
+    \ .. (a:old_map.silent ? '<silent> ' : ' ')
+    \ .. a:old_map.lhs .. ' ' .. a:old_map.rhs
+
+  exec l:remap
+endfunction
+
+" ***
 
 call s:EnableMswinDotVim()
 
