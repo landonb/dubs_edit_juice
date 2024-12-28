@@ -424,28 +424,7 @@ vnoremap <C-Y> :<C-U>
 " Character Transposition
 " ------------------------------------------------------
 
-" Transpose two characters when in Insert mode
-" NOTE We can't just 'Xp' and be all happy --
-"      rather, if we're at the first column
-"      (start) of the line, 'Xp' does something
-"      completely different. So use 'Xp' if the
-"      cursor is anywhere but the first column,
-"      but use 'xp' otherwise.
-function! s:TransposeCharacters() abort
-  if !&modifiable
-    echom "Cannot modify this buffer"
-
-    return
-  endif
-
-  let l:cursorCol = col('.')
-
-  if 1 == l:cursorCol
-    execute 'normal ' . 'xp'
-  else
-    execute 'normal ' . 'Xp'
-  endif
-endfunction
+" Transpose two characters when in Insert mode.
 
 function! s:CreateMaps_TransposeCharacters() abort
   " BWARE: This steals Vim's built-in i_CTRL-T, which inserts 'one shiftwidth of
@@ -458,13 +437,13 @@ function! s:CreateMaps_TransposeCharacters() abort
   "          'Jump to [count] older entry in the tag stack (default 1).'
   " - Consequently, this binding findable via `:TabMessage imap`, but not `:TabMessage map`.
 
-  inoremap <silent> <C-T> <C-o>:call <SID>TransposeCharacters()<CR>
+  inoremap <silent> <C-T> <C-o>:call g:embrace#edit_juice#TransposeCharacters()<CR>
   " For parity with DepoXy/dot-inputrc:
   "   \et": transpose-chars
   "   \eT": transpose-words
   " https://github.com/DepoXy/dot-inputrc#🎛️
   " - Though note we're not adding transpose-words.
-  inoremap <silent> <M-T> <C-o>:call <SID>TransposeCharacters()<CR>
+  inoremap <silent> <M-T> <C-o>:call g:embrace#edit_juice#TransposeCharacters()<CR>
 endfunction
 
 call s:CreateMaps_TransposeCharacters()
