@@ -42,6 +42,11 @@ let g:loaded_dubs_edit_juice_enable_behave_mswin = 1
 " See what OS we're on
 let s:running_windows = has("win16") || has("win32") || has("win64")
 
+if s:running_windows
+
+  finish
+endif
+
 " So-called MS Windows mode
 " ------------------------------------------------------
 " 2017-04-03: After updating to Vim 8.0, I've noticed that the new mswin,
@@ -108,11 +113,11 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 "   Vim to find the correct help, e.g., `:help Ctrl-B` returns dubs' help
 "   for Ctrl-BS; in order to get the help for Ctrl-B (the 'b' character),
 "   try `:help Ctrl-B\>`
-if !s:running_windows
-  " Map <Ctrl-V>, <Ctrl-X>, and <Ctrl-C> keys, and insert mode <Ctrl-Z>.
-  source $VIMRUNTIME/mswin.vim
-  behave mswin
-endif
+
+" Map <Ctrl-V>, <Ctrl-X>, and <Ctrl-C> keys, and insert mode <Ctrl-Z>, etc.
+source $VIMRUNTIME/mswin.vim
+
+behave mswin
 
 " Unmask mvwin.vim maps.
 " - Do not overtake Ctrl-F. Not that I use Ctrl-F/Ctrl-B, because I generally
