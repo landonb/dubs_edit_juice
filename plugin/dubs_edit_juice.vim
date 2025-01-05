@@ -1594,13 +1594,13 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 "         about, but when you rediscover this comment, at least you can
 "         demo the feature without needing to change anything.
 inoremap <S-M-B> <C-O>:call <SID>HighlightNearCursor()<CR>
-function! s:HighlightNearCursor() abort
-  if !exists("w:highlightcursor")
-    match Todo /\k*\%#\k*/
-    let w:highlightcursor=1
+function! s:highlight_cursor_match_id() abort
+  if !exists("w:highlight_cursor_match_id")
+    let l:priority = 100
+    let w:highlight_cursor_match_id = matchadd('Todo', '\k*\%#\k*', l:priority)
   else
-    match None
-    unlet w:highlightcursor
+    silent! call matchdelete(w:highlight_cursor_match_id)
+    unlet w:highlight_cursor_match_id
   endif
 endfunction
 
