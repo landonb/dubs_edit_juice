@@ -346,27 +346,22 @@ function! s:ToggleTabHighlighting() abort
   "  on the text terminal for reasons I haven't been able to determine.) The
   "  following incantation will tell vim to match tabs, underline them in gvim,
   "  and highlight them in blue in color terminals."
-  "
-  " Should this be s:variable or a b:variable?
+
   if !exists('w:whitespace_tab_match_id')
-    let w:whitespace_tab_match_id = 0
-  else
-    let w:whitespace_tab_match_id = w:whitespace_tab_match_id + 1
-    if (w:whitespace_tab_match_id > 1)
-      let w:whitespace_tab_match_id = 0
-    endif
+    let w:whitespace_tab_match_id = -1
   endif
-  if (0 == w:whitespace_tab_match_id)
+
+  if w:whitespace_tab_match_id == -1
     if !hlexists('WhitespaceTab')
       highlight WhitespaceTab gui=underline guifg=blue ctermbg=blue
     endif
-    match WhitespaceTab /\t/
+    let l:priority = 100
+    let w:whitespace_tab_match_id = matchadd('WhitespaceTab', '\t', l:priority)
     echo "Enabled Whitespace highlighing"
-  elseif (1 == w:whitespace_tab_match_id)
-    match none
-    echo "Disabled Whitespace highlighing"
   else
-    call confirm('Cyclopath.vim: Programmer Error!', 'OK')
+    silent! call matchdelete(w:whitespace_tab_match_id)
+    let w:whitespace_tab_match_id = -1
+    echo "Disabled Whitespace highlighing"
   endif
 endfunction
 
