@@ -348,19 +348,19 @@ function! s:ToggleTabHighlighting() abort
   "  and highlight them in blue in color terminals."
   "
   " Should this be s:variable or a b:variable?
-  if !exists('b:cyclopath_tab_toggle_index')
-    let b:cyclopath_tab_toggle_index = 0
+  if !exists('w:cyclopath_tab_toggle_index')
+    let w:cyclopath_tab_toggle_index = 0
   else
-    let b:cyclopath_tab_toggle_index = b:cyclopath_tab_toggle_index + 1
-    if (b:cyclopath_tab_toggle_index > 1)
-      let b:cyclopath_tab_toggle_index = 0
+    let w:cyclopath_tab_toggle_index = w:cyclopath_tab_toggle_index + 1
+    if (w:cyclopath_tab_toggle_index > 1)
+      let w:cyclopath_tab_toggle_index = 0
     endif
   endif
-  if (0 == b:cyclopath_tab_toggle_index)
+  if (0 == w:cyclopath_tab_toggle_index)
     highlight Tab gui=underline guifg=blue ctermbg=blue
     match Tab /\t/
     echo "Tab highlighing enabled"
-  elseif (1 == b:cyclopath_tab_toggle_index)
+  elseif (1 == w:cyclopath_tab_toggle_index)
     match none
     echo "Tab highlighing disabled"
   else
