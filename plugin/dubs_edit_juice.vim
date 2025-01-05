@@ -347,11 +347,17 @@ function! s:ToggleTabHighlighting() abort
   "  following incantation will tell vim to match tabs, underline them in gvim,
   "  and highlight them in blue in color terminals."
 
+  " REFER: If you're testing and the highlight remains enabled:
+  "
+  "   call clearmatches(winnr())
+
   if !exists('w:whitespace_tab_match_id')
     let w:whitespace_tab_match_id = -1
   endif
 
   if w:whitespace_tab_match_id == -1
+    " some tabs: (		   			       					  	   					)
+    " some em spaces: (                                       )
     if !hlexists('WhitespaceTab')
       highlight WhitespaceTab gui=underline guifg=blue ctermbg=blue
     endif
