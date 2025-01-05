@@ -355,12 +355,18 @@ function! s:ToggleTabHighlighting() abort
     if !hlexists('WhitespaceTab')
       highlight WhitespaceTab gui=underline guifg=blue ctermbg=blue
     endif
+    if !hlexists('WhitespaceEmSpace')
+      highlight WhitespaceEmSpace gui=reverse cterm=reverse
+    endif
     let l:priority = 100
     let w:whitespace_tab_match_id = matchadd('WhitespaceTab', '\t', l:priority)
+    let w:whitespace_ems_match_id = matchadd('WhitespaceEmSpace', ' ', l:priority)
     echo "Enabled Whitespace highlighing"
   else
     silent! call matchdelete(w:whitespace_tab_match_id)
+    silent! call matchdelete(w:whitespace_ems_match_id)
     let w:whitespace_tab_match_id = -1
+    let w:whitespace_ems_match_id = -1
     echo "Disabled Whitespace highlighing"
   endif
 endfunction
