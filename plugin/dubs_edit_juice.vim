@@ -359,10 +359,10 @@ function! s:ToggleTabHighlighting() abort
   if (0 == w:whitespace_tab_match_id)
     highlight Tab gui=underline guifg=blue ctermbg=blue
     match Tab /\t/
-    echo "Tab highlighing enabled"
+    echo "Enabled Whitespace highlighing"
   elseif (1 == w:whitespace_tab_match_id)
     match none
-    echo "Tab highlighing disabled"
+    echo "Disabled Whitespace highlighing"
   else
     call confirm('Cyclopath.vim: Programmer Error!', 'OK')
   endif
