@@ -357,8 +357,10 @@ function! s:ToggleTabHighlighting() abort
     endif
   endif
   if (0 == w:whitespace_tab_match_id)
-    highlight Tab gui=underline guifg=blue ctermbg=blue
-    match Tab /\t/
+    if !hlexists('WhitespaceTab')
+      highlight WhitespaceTab gui=underline guifg=blue ctermbg=blue
+    endif
+    match WhitespaceTab /\t/
     echo "Enabled Whitespace highlighing"
   elseif (1 == w:whitespace_tab_match_id)
     match none
