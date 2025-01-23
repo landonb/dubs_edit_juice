@@ -1261,7 +1261,7 @@ vnoremap :: :<C-U>
   \ <CR>gvy
   \ :<C-R>"
 
-function! s:CreateAutocmdMapsVimFunctions() abort
+function! s:CreateAutocmdMapsVimFunctions(noshowmode = 1) abort
   augroup dubs_edit_juice-vim-commands
     au!
 
@@ -1282,8 +1282,14 @@ function! s:CreateAutocmdMapsVimFunctions() abort
       \ :? :<C-U><CR>gvy:call histadd('cmd', 'help ' .. escape(@", '"'))<CR>:help <C-R>"<CR>
 
     " SAVVY/2024-12-22: Select text and type `:?` to |:echom| it.
-    " - DUNNO: Should this use echo instead?
-    "   - Should this send final <CR> or not?
+    " - BWARE: If modeline shows `-- INSERT --`, user won't see echom
+    "   message. They can read it via :messages, but it feels weird that
+    "   nothing seems to happen.
+    "   - As such, disable showmode |smd| by default so user sees `echom`
+    "     message immediately when they run the `:"` command.
+    if a:noshowmode == 1
+      set noshowmode
+    endif
     " - Note the escape in case selection contains double quotes,
     "   e.g., --> 'foo "bar" <-- --> "'baz' quux" <--
     autocmd FileType vim,rst,md,txt vnoremap <buffer>
