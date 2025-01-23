@@ -106,4 +106,3 @@ inoremap <C-k> <C-O>:BufferRingForward<CR>
 "   cnoremap <C-k> <C-C>:BufferRingForward<CR>
 "   onoremap <C-k> <C-C>:BufferRingForward<CR>
 
-
