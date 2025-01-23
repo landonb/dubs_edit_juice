@@ -18,6 +18,11 @@
 "   /Applications/MacVim.app/Contents/Resources/vim/runtime/mswin.vim
 "   ~/.local/share/vim/vim91/mswin.vim
 
+" SAVVY: When loaded via |Plug|, after/ loads alphabetically, so this file
+" loads before 'enable-behave-mswin.vim', and `behave mswin` reassigns <C-S>.
+" - But our load wrapper saves and restores <C-S>, so we don't have to worry
+"   about load order; these assignments will always stick.
+
 function! s:MapSilentCtrlSSave()
   if get(g:, 'dubs_edit_juice_silent_save', 1) == 0
 

@@ -126,6 +126,9 @@ function! s:EnableMswinDotVim() abort
   let l:old_i_ctrl_f = maparg('<C-f>', 'i', l:abbrev, l:retdict)
   let l:old_n_ctrl_h = maparg('<C-h>', 'n', l:abbrev, l:retdict)
   let l:old_i_ctrl_h = maparg('<C-h>', 'i', l:abbrev, l:retdict)
+  let l:old_n_ctrl_s = maparg('<C-s>', 'n', l:abbrev, l:retdict)
+  let l:old_i_ctrl_s = maparg('<C-s>', 'i', l:abbrev, l:retdict)
+  let l:old_v_ctrl_s = maparg('<C-s>', 'v', l:abbrev, l:retdict)
 
   " Map <Ctrl-V>, <Ctrl-X>, and <Ctrl-C> keys, and insert mode <Ctrl-Z>, etc.
   source $VIMRUNTIME/mswin.vim
@@ -153,6 +156,9 @@ function! s:EnableMswinDotVim() abort
   call s:RestoreMap(l:old_i_ctrl_f)
   call s:RestoreMap(l:old_n_ctrl_h)
   call s:RestoreMap(l:old_i_ctrl_h)
+  call s:RestoreMap(l:old_n_ctrl_s)
+  call s:RestoreMap(l:old_i_ctrl_s)
+  call s:RestoreMap(l:old_v_ctrl_s)
 
   " Unsure why mswin.vim doesn't also map the reverse...
   " - Oh, maybe because it's a <Shift-Ctrl> binding.
