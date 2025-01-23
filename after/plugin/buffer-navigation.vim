@@ -84,8 +84,10 @@ endfunction
 " ------------------------------------------------------
 " Ctrl-J/Ctrl-K Traverse Buffer History
 " ------------------------------------------------------
-nnoremap <C-j> :BufferRingReverse<CR>
-inoremap <C-j> <C-O>:BufferRingReverse<CR>
+nnoremap <silent> <C-j> :if exists('*BufferRingReverse') \|
+  \ exec 'BufferRingReverse' \| else \| exec ':bprev' \| endif<CR>
+inoremap <silent> <C-j> <C-O>:if exists('*BufferRingReverse') \|
+  \ exec 'BufferRingReverse' \| else \| exec ':bprev' \| endif<CR>
 " Enable these if you want <C-j> to work from command mode
 " or operator-pending mode. Which seems silly, IMO.
 "   cnoremap <C-j> <C-C>:BufferRingReverse<CR>
@@ -99,8 +101,11 @@ inoremap <C-l> <C-k>
 
 " 2017-06-10: Vim's Ctrl-K maps to a :digraph feature, and we cannot remap
 "  otherwise access the feature except through Ctrl-K...
-nnoremap <C-k> :BufferRingForward<CR>
-inoremap <C-k> <C-O>:BufferRingForward<CR>
+nnoremap <silent> <C-k> :if exists('*BufferRingForward') \|
+  \ exec 'BufferRingForward' \| else \| exec ':bnext' \| endif<CR>
+inoremap <silent> <C-k> <C-O>:if exists('*BufferRingForward') \|
+  \ exec 'BufferRingForward' \| else \| exec ':bnext' \| endif<CR>
+
 " Enable these if you want <C-k> to work from command mode
 " or operator-pending mode. Which seems silly, IMO.
 "   cnoremap <C-k> <C-C>:BufferRingForward<CR>
