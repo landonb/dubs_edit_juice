@@ -115,6 +115,11 @@ endif
 "   try `:help Ctrl-B\>`
 
 function! s:EnableMswinDotVim() abort
+  if has('nvim')
+
+    return
+  endif
+
   " Restore <C-F> and <C-H> if user (another plugin) customized them.
   " - mswin.vim changes Vim's builtin <C-F> (PageDown) to opening Find dialog.
   "   - CoC overrides <C-F> to work with its floating window.
