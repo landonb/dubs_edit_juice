@@ -1211,6 +1211,8 @@ nnoremap Q @q
 " and pastes the output to a new buffer
 " in a new tab
 function! s:TabMessage(cmd) abort
+  " Avoid "E121: Undefined variable: l:message":
+  let l:message = ''
   " Redirect Ex output to a varibale
   " we'll call 'message'
   redir => l:message
