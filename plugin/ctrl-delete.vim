@@ -262,7 +262,7 @@ endfunction
 function! s:wire_keys_delete_forwards_c_del()
   " Map the function to Ctrl-Delete in normal and
   " insert modes.
-  noremap <C-Del> :call <SID>Del2EndOfWsAz09OrPunct('n', 0)<CR>
+  nnoremap <C-Del> :call <SID>Del2EndOfWsAz09OrPunct('n', 0)<CR>
   " 2020-05-15: I switched from using <Esc> to <C-O>,
   " to break out of insert mode. My rationale was:
   "   - If we <C-O> and the cursor is on either the last
@@ -290,22 +290,22 @@ endfunction
 function! s:wire_keys_delete_forwards_c_s_del()
   " Ctrl-Shift-Delete deletes to end of line.
   " - Sort like
-  "       noremap <C-S-Del> d$
+  "       nnoremap <C-S-Del> d$
   "       inoremap <C-S-Del> <C-O>d$
   "   but more robuster.
-  noremap <C-S-Del> :call <SID>Del2EndOfWsAz09OrPunct('n', 1)<CR>
+  nnoremap <C-S-Del> :call <SID>Del2EndOfWsAz09OrPunct('n', 1)<CR>
   inoremap <C-S-Del> <C-O>:call <SID>Del2EndOfWsAz09OrPunct('i', 1)<CR>
 endfunction
 
 function! s:wire_keys_delete_forwards_m_del()
   " 2011.02.01 Doing same [as Ctrl-Shift-Delete] for Alt-Delete.
-  noremap <M-Del> :call <SID>Del2EndOfWsAz09OrPunct('n', 1)<CR>
+  nnoremap <M-Del> :call <SID>Del2EndOfWsAz09OrPunct('n', 1)<CR>
   inoremap <M-Del> <C-O>:call <SID>Del2EndOfWsAz09OrPunct('i', 1)<CR>
 endfunction
 
 function! s:wire_keys_delete_forwards_m_s_del()
   " Alt-Shift-Delete deletes the entire line. Which `dd` does perfectly.
-  noremap <M-S-Del> dd
+  nnoremap <M-S-Del> dd
   inoremap <M-S-Del> <C-O>dd
 endfunction
 
