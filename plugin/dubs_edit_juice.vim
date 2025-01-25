@@ -995,6 +995,7 @@ endif
 "   the abbreviation and the non-abbrev character are inserted).
 "   Or as Vim puts it:
 "     *Trigger abbreviation, without inserting a character.*
+" DUNNO/2025-01-24: <Ctrl-]> works in Insert mode for me...
 "
 " 2021-01-16: For the past, I dunno, decade, I guess, I've mapped
 " Ctrl-] to jump to declaration from either Insert or Normal mode.
