@@ -115,11 +115,6 @@ endif
 "   try `:help Ctrl-B\>`
 
 function! s:EnableMswinDotVim() abort
-  if has('nvim')
-
-    return
-  endif
-
   " Restore <C-F> and <C-H> if user (another plugin) customized them.
   " - mswin.vim changes Vim's builtin <C-F> (PageDown) to opening Find dialog.
   "   - CoC overrides <C-F> to work with its floating window.
@@ -138,7 +133,14 @@ function! s:EnableMswinDotVim() abort
   " Map <Ctrl-V>, <Ctrl-X>, and <Ctrl-C> keys, and insert mode <Ctrl-Z>, etc.
   source $VIMRUNTIME/mswin.vim
 
-  behave mswin
+  if has('nvim')
+    " Could call :runtime instead:
+    "   runtime mswin.vim
+    " but this location is conventional.
+    source $VIMRUNTIME/mswin.vim
+  else
+    behave mswin
+  endif
 
   " Unmask mvwin.vim maps.
   " - Do not overtake Ctrl-F. Not that I use Ctrl-F/Ctrl-B, because I generally
