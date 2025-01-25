@@ -262,7 +262,13 @@ endfunction
 function! s:wire_keys_delete_forwards_c_del()
   " Map the function to Ctrl-Delete in normal and
   " insert modes.
-  nnoremap <C-Del> :call <SID>Del2EndOfWsAz09OrPunct('n', 0)<CR>
+  " - Use <silent> — You'll still see a search pattern echoed in the
+  "   command line, but Neovide won't animate the cursor jumping to
+  "   the command line and back to the buffer. [2025-01-25: I'm new
+  "   to Neovide, and I should probably disable cursor animation, but
+  "   it's an interesting feature, and it supplants blinky-search
+  "   functionality à la Damian Conway's die_blinkënmatchen.vim]
+  nnoremap <silent> <C-Del> :call <SID>Del2EndOfWsAz09OrPunct('n', 0)<CR>
   " 2020-05-15: I switched from using <Esc> to <C-O>,
   " to break out of insert mode. My rationale was:
   "   - If we <C-O> and the cursor is on either the last
@@ -284,7 +290,7 @@ function! s:wire_keys_delete_forwards_c_del()
   "   those issues, and I prefer <C-O>, so that I can run a one-off
   "   command and not have to worry about 'i' later, or explicitly
   "   re-entering insert mode.
-  inoremap <C-Del> <C-O>:call <SID>Del2EndOfWsAz09OrPunct('i', 0)<CR>
+  inoremap <silent> <C-Del> <C-O>:call <SID>Del2EndOfWsAz09OrPunct('i', 0)<CR>
 endfunction
 
 function! s:wire_keys_delete_forwards_c_s_del()
