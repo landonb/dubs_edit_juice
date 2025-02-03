@@ -6,7 +6,7 @@
 " -------------------------------------------------------------------
 
 " CXREF:
-" ~/.kit/git/tig-newtons/bin/editor-vim-0-0-insert-minimal.vimrc
+" ~/.kit/nvim/nvim-depoxy/bin/editor-vim-0-0-insert-minimal.vimrc
 if $VIM_EDIT_JUICE_EXIT_ON_SAVE != ''
 
   finish
