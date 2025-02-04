@@ -23,7 +23,7 @@
 " - But our load wrapper saves and restores <C-S>, so we don't have to worry
 "   about load order; these assignments will always stick.
 
-function! s:MapSilentCtrlSSave()
+function! s:MapSilentCtrlSSave() abort
   if get(g:, 'dubs_edit_juice_silent_save', 1) == 0
 
     return
@@ -51,7 +51,7 @@ call s:MapSilentCtrlSSave()
 "   run the command if you forgot special <C-s> exits
 "   you).
 
-function! s:MapCtrlSSaveAndExitForSpecialApps()
+function! s:MapCtrlSSaveAndExitForSpecialApps() abort
   if $VIM_EDIT_JUICE_EXIT_ON_SAVE != ''
     " Ctrl-s to save and exit from any mode.
     nnoremap <C-s> :wq<CR>
