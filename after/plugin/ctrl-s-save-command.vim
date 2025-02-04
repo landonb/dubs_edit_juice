@@ -29,7 +29,7 @@ function! s:MapSilentCtrlSSave()
     return
   endif
 
-  if $VIM_EDIT_JUICE_EXIT_ON_SAVE == ""
+  if $VIM_EDIT_JUICE_EXIT_ON_SAVE == ''
     nnoremap <silent> <C-S> :update<CR>
     vnoremap <silent> <C-S> <C-C>:update<CR>
     inoremap <silent> <C-S> <Esc>:update<CR>gi
@@ -52,7 +52,7 @@ call s:MapSilentCtrlSSave()
 "   you).
 
 function! s:MapCtrlSSaveAndExitForSpecialApps()
-  if $VIM_EDIT_JUICE_EXIT_ON_SAVE != ""
+  if $VIM_EDIT_JUICE_EXIT_ON_SAVE != ''
     " Ctrl-s to save and exit from any mode.
     nnoremap <C-s> :wq<CR>
     vnoremap <C-s> <C-o>:wq<CR>
