@@ -72,6 +72,16 @@ iabbrev <expr> TTTTtt strftime("%Y-%m-%dT%H:%M")
 " HH:MM
 iabbrev <expr> ttt strftime("%H:%M")
 
+" TRYME/2025-02-07: Trying a quicker abbreviation, under the assumption
+" that you'd never type comma *not* followed by a space in text or code.
+" - BEGET: https://www.reddit.com/r/neovim/comments/16mijcz/comment/k18jbee/
+"   https://www.reddit.com/r/neovim/comments/16mijcz/anyone_here_use_iabbrev/
+"   - FOREX:
+"       vim.cmd("iabbrev <expr> ,d strftime('%Y-%m-%d')")
+"       vim.cmd("iabbrev <expr> ,t strftime('%Y-%m-%dT%TZ')")
+iabbrev <expr> ,t strftime("%Y-%m-%d")
+iabbrev <expr> ,T strftime("%Y-%m-%d %H:%M")
+
 " -------------------------------------------------------------------
 
 " /YYYY-MM-DD HH:MM:
