@@ -1,4 +1,4 @@
-" Author: Landon Bouma <https://tallybark.com/> 
+" Author: Landon Bouma <https://tallybark.com/>
 " Project: https://github.com/landonb/dubs_edit_juice#🧃
 " Summary: Normal mode <Backspace> and <Delete> like in Insert mode
 

@@ -1,5 +1,5 @@
 " Improved `db` motion, to work at end of line ($).
-" Author: Landon Bouma <https://tallybark.com/> 
+" Author: Landon Bouma <https://tallybark.com/>
 " Project: https://github.com/landonb/dubs_edit_juice#🧃
 " License: https://creativecommons.org/publicdomain/zero/1.0/
 
