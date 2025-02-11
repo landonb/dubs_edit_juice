@@ -101,6 +101,8 @@ let g:loaded_dubs_edit_juice_plugin = 1
 "       undoing built-in <Ctrl-W> restores all deleted words at once.
 "     - Each undo puts the cursor at the start of the restored word,
 "       and not at the end of it (like <Ctrl-W> does).
+"     - The operation is not dot-repeatable (not that you're likely to
+"       dot-repeat an Insert mode map).
 "   - I also tried an approach using a |g@|-repeatable |opfunc|, but I had
 "     similar issues as using |db|.
 "   - Fortunately this kludgy-feeling &g:undolevels approach seems to work well.
