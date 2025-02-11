@@ -57,7 +57,7 @@ let g:loaded_dubs_edit_juice_plugin = 1
 " REFER:
 "   :help i_CTRL-U Insert mode: <c-u> deletes text entered in the current line.
 "   :help i_CTRL-W Insert mode: <c-w> deletes word before cursor.
-"   :help i_CTRL-G_u Insert mode: <c-g> u starts a new change.
+"   :help i_CTRL-G_u Insert mode: <c-g>u starts a new change.
 "   :help ins-special-special Insert mode: Commands which start a new change.
 "   :help undo-break
 
