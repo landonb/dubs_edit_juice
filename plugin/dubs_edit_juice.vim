@@ -84,13 +84,38 @@ let g:loaded_dubs_edit_juice_plugin = 1
 "   CTRL-\ CTRL-O is like CTRL-O but don't move the cursor
 " - SAVVY: Without the <C-\>, if cursor is at end of line,
 "   then <Ctrl-w> leaves last character of word undeleted.
-inoremap <C-w> <C-g>u<C-\><C-o>db
+" REFER: |undo-break| "Setting the value of 'undolevels' also closes
+" the undo block.  Even when the new value is equal to the old value."
+" - Somehow the <C-w> incantation below makes it so if you append to an
+"   existing word and press <C-w>, Vim deletes the whole word, and not
+"   just what you appended. (Because sometimes with built-in <Ctrl-W>,
+"   you have to press it twice to delete to the start of the word.)
+" - It took me a while to arrive at this solution, which seems to work
+"   precisely how I want.
+"   - My first approach was using |db| (or |dB|):
+"         inoremap <C-w> <C-g>u<C-\><C-o>db
+"     But this has some caveats:
+"     - When cursor is at start of line, |db| deletes the last word
+"       from the previous line, but it doesn't delete the newline.
+"     - Each undo (e.g., <Ctrl-Z>) restores a single word at a time, whereas
+"       undoing built-in <Ctrl-W> restores all deleted words at once.
+"     - Each undo puts the cursor at the start of the restored word,
+"       and not at the end of it (like <Ctrl-W> does).
+"   - I also tried an approach using a |g@|-repeatable |opfunc|, but I had
+"     similar issues as using |db|.
+"   - Fortunately this kludgy-feeling &g:undolevels approach seems to work well.
+inoremap <C-w> <C-\><C-o>:if col('.') < col('$') \| let &g:undolevels = &g:undolevels \| endif<CR><C-w>
 
 " Treat <C-u> (delete to start of line) similarly.
 " - Here's the basic approach that deletes to start of
 "   current insertion:
 "     inoremap <C-u> <C-g>u<c-u>
-inoremap <C-u> <C-g>u<C-\><C-o>d0
+" - Here's an approach whose undo leaves cursor at start of line,
+"   not at the end:
+"     inoremap <C-u> <C-g>u<C-\><C-o>d0
+" And here's the approach same as we do for <C-w>, which means you
+" never have to <Ctrl-U> twice to delete a line:
+inoremap <C-u> <C-\><C-o>:if col('.') < col('$') \| let &g:undolevels = &g:undolevels \| endif<CR><C-u>
 
 " -------------------------------------------------------------------
 
