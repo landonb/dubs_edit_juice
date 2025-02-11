@@ -80,7 +80,7 @@ let g:loaded_dubs_edit_juice_plugin = 1
 "   inoremap <C-w> <C-o>db
 " Or more clobbery (which is how terminal readline <Ctrl-w> works):
 "   inoremap <C-w> <C-o>dB
-" REFER: |i_CTRL-\_CTRL-O|
+" REFER: |i_CTRL-\_CTRL-O| Re: <C-\><C-o> —
 "   CTRL-\ CTRL-O is like CTRL-O but don't move the cursor
 " - SAVVY: Without the <C-\>, if cursor is at end of line,
 "   then <Ctrl-w> leaves last character of word undeleted.
