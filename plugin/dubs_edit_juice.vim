@@ -1301,8 +1301,11 @@ set history=1000
 " The :? :" :> maps are restricted to certain files types,
 " but :: seems like it might be useful from any buffer.
 "  vnoremap : :<C-U><CR>gvy:<C-R>"
+
+" SAVVY: Without histadd, only adds to history if you edit command first.
 vnoremap :: :<C-U>
   \ <CR>gvy
+  \ :call histadd('cmd', @")<CR>
   \ :<C-R>"
 
 function! s:CreateAutocmdMapsVimFunctions(noshowmode = 1) abort
