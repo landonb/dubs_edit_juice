@@ -898,6 +898,10 @@ com! -nargs=* -complete=command ZZWrap
   \ | exec <q-args>
   \ | let &so=0
 
+" FIXME/2024-12-28: The maps below should be <Plug> maps,
+" and the map sequences should be moved to init.lua/.vimrc.
+" - Until then, dubs_edit_juice is simply very opinionated.
+
 nnoremap <Leader>s :ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
 " Don't do insert mode, as \s is common enough in regex. Try \S# instead.
 "  inoremap <Leader>s <C-o>:ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
