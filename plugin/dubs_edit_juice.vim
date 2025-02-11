@@ -1299,6 +1299,9 @@ function! s:TabMessage(cmd) abort
   " Tell Vim not to ask us to save
   " when we close the buffer
   setlocal buftype=nowrite
+  " Hide new buffers when they're unloaded from a window,
+  " so you don't end up with a bunch on [No Name] buffers.
+  setlocal bufhidden=wipe
 endfunction
 " Map our TabMessage function to an Ex :command
 " of the same name
