@@ -60,9 +60,37 @@ let g:loaded_dubs_edit_juice_plugin = 1
 "   :help i_CTRL-G_u Insert mode: <c-g>u starts a new change.
 "   :help ins-special-special Insert mode: Commands which start a new change.
 "   :help undo-break
+"
+" REFER: Re: |i_backspacing| — Dubs uses backspace=indent,eol,start 
+" - If 'start' omitted, you can only backspace over characters you
+"   inserted from the current Insert session. Wow, that's a minf duck!
+" - Note that 'start' stops at the start position of the current edit.
+" - From the help: "allow backspacing over the start position of insert;
+"   CTRL-W and CTRL-U stop once at the start position"
+" - For example, if you type "foo", then move the cursor (anywhere) and
+"   move it back to the end of "foo", then you type "bar", i.e., you've
+"   typed "foobar". Now you <C-W> but Vim only deletes "bar", leaving
+"   you with the "foo" scraps. So it takes 2 <C-W> sometimes to delete
+"   a word. And while I sorta get this behavior, my brain's never adapted.
+" - Use the db or dB motion instead.
+"   - THANX: https://github.com/vim/vim/issues/964
+" TL_DR: This <C-w> deletes to beg. of undo set, not beg. of word:
+"   inoremap <c-w> <c-g>u<c-w>
+" Here's a basic approach:
+"   inoremap <C-w> <C-o>db
+" Or more clobbery (which is how terminal readline <Ctrl-w> works):
+"   inoremap <C-w> <C-o>dB
+" REFER: |i_CTRL-\_CTRL-O|
+"   CTRL-\ CTRL-O is like CTRL-O but don't move the cursor
+" - SAVVY: Without the <C-\>, if cursor is at end of line,
+"   then <Ctrl-w> leaves last character of word undeleted.
+inoremap <C-w> <C-g>u<C-\><C-o>db
 
-inoremap <c-u> <c-g>u<c-u>
-inoremap <c-w> <c-g>u<c-w>
+" Treat <C-u> (delete to start of line) similarly.
+" - Here's the basic approach that deletes to start of
+"   current insertion:
+"     inoremap <C-u> <C-g>u<c-u>
+inoremap <C-u> <C-g>u<C-\><C-o>d0
 
 " -------------------------------------------------------------------
 
