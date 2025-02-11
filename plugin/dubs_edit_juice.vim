@@ -913,6 +913,15 @@ nnoremap <Leader>S# :ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
 inoremap <Leader>S# <C-o>:ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
 vnoremap <Leader>S# :<C-U><CR>gv"sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
 
+" ALTLY: These maps work with inccommand=nosplit
+"
+nnoremap <Leader>Ss :.,$s/<C-R><C-W>//gc<Left><Left><Left>
+vnoremap <Leader>Ss :<C-U><CR>gv"sy:.,$s/<C-r>s//gc<Left><Left><Left>
+"
+nnoremap <Leader>SS# :.,$s#<C-R><C-W>##gc<Left><Left><Left>
+inoremap <Leader>SS# <C-o>:.,$s#<C-R><C-W>##gc<Left><Left><Left>
+vnoremap <Leader>SS# :<C-U><CR>gv"sy:.,$s#<C-r>s##gc<Left><Left><Left>
+
 " See also: QuickfixSubstituteAll in plugin/dubs_quickfix_wrap.vim,
 " which defines <Leader>S (\S) which find-replaces in all files
 " listed in the quickfix window.
