@@ -892,12 +892,15 @@ inoremap <C-CR> <C-o><Home><Down><CR><Up>
 " BWARE/2025-01-24: Using this before :substitute command inhibits
 " live preview if you `set inccommand=nosplit` or `=split`.
 " - Depends how badly you like the `zz` behavior while you sub.
-com! -nargs=* -complete=command ZZWrap let &scrolloff=999 | exec <q-args> | let &so=0
+com! -nargs=* -complete=command ZZWrap
+  \ call histadd(':', ':ZZWrap ' .. <q-args>)
+  \ | let &scrolloff=999
+  \ | exec <q-args>
+  \ | let &so=0
 
 nnoremap <Leader>s :ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
 " Don't do insert mode, as \s is common enough in regex. Try \S# instead.
 "  inoremap <Leader>s <C-o>:ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
-" - SAVVY: Using vnoremap doesn't add user's command to command line history.
 vmap <Leader>s :<C-U><CR>gv"sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
 
 " 2024-08-07: Alternative \S# uses '#' delims instead of '/', e.g., to
@@ -908,7 +911,6 @@ nnoremap <Leader>S# :ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
 " times you do use this, just be aware that you'll see the UX pause as Vim
 " waits to see if you're typing this map or something else.
 inoremap <Leader>S# <C-o>:ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
-" - SAVVY: Using vnoremap doesn't add user's command to command line history.
 vmap <Leader>S# :<C-U><CR>gv"sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
 
 " See also: QuickfixSubstituteAll in plugin/dubs_quickfix_wrap.vim,
