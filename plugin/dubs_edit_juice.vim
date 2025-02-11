@@ -888,6 +888,10 @@ inoremap <C-CR> <C-o><Home><Down><CR><Up>
 " - SAVVY: Sometimes when you can the substitute command, the window
 "   will continue to center as you change lines.
 "   - Run :ZZwrap again if this happens (or let &so=0).
+"
+" BWARE/2025-01-24: Using this before :substitute command inhibits
+" live preview if you `set inccommand=nosplit` or `=split`.
+" - Depends how badly you like the `zz` behavior while you sub.
 com! -nargs=* -complete=command ZZWrap let &scrolloff=999 | exec <q-args> | let &so=0
 
 nnoremap <Leader>s :ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
@@ -910,6 +914,19 @@ vmap <Leader>S# :<C-U><CR>gv"sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
 " See also: QuickfixSubstituteAll in plugin/dubs_quickfix_wrap.vim,
 " which defines <Leader>S (\S) which find-replaces in all files
 " listed in the quickfix window.
+
+" -------------------------------------------------------------------
+
+" Show substitute changes as you craft the :s command.
+" - Though note this doesn't work with the :ZZWrap commands, above.
+"
+" THANX:
+" https://bluz71.github.io/2019/03/11/find-replace-helpers-for-vim.html
+
+if has("nvim")
+  " Enable :substitute live preview.
+  set inccommand=nosplit
+endif
 
 " -------------------------------------------------------------------
 
