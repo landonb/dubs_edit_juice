@@ -106,7 +106,7 @@ let g:loaded_dubs_edit_juice_plugin = 1
 "   - I also tried an approach using a |g@|-repeatable |opfunc|, but I had
 "     similar issues as using |db|.
 "   - Fortunately this kludgy-feeling &g:undolevels approach seems to work well.
-inoremap <C-w> <C-\><C-o>:if col('.') < col('$') \| let &g:undolevels = &g:undolevels \| endif<CR><C-w>
+inoremap <silent> <C-w> <C-\><C-o>:if col('.') < col('$') \| let &g:undolevels = &g:undolevels \| endif<CR><C-w>
 
 " Treat <C-u> (delete to start of line) similarly.
 " - Here's the basic approach that deletes to start of
@@ -117,7 +117,7 @@ inoremap <C-w> <C-\><C-o>:if col('.') < col('$') \| let &g:undolevels = &g:undol
 "     inoremap <C-u> <C-g>u<C-\><C-o>d0
 " And here's the approach same as we do for <C-w>, which means you
 " never have to <Ctrl-U> twice to delete a line:
-inoremap <C-u> <C-\><C-o>:if col('.') < col('$') \| let &g:undolevels = &g:undolevels \| endif<CR><C-u>
+inoremap <silent> <C-u> <C-\><C-o>:if col('.') < col('$') \| let &g:undolevels = &g:undolevels \| endif<CR><C-u>
 
 " -------------------------------------------------------------------
 
