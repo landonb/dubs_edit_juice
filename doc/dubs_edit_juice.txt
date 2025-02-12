@@ -1,6 +1,6 @@
 *dubs_edit_juice.txt*	`Edit` `Juice` For `Dubs` `Vim`.	2015 Jan 23
 
-Edit Juice 🧃 For Searching, Editing, and Replacing Text; and a Few Dev Cmds.~
+Edit Juice 🧃 For Searching, Editing, and Replacing Text; and a Few Dev Cmds. ~
 
 EDIT JUICE				*dubs-edit-juice*
 
@@ -39,19 +39,19 @@ Project page: https://github.com/landonb/dubs_edit_juice
 
 These features run automatically.
 
-Dubs Vim Features~
+Dubs Vim Features ~
 -----------------
 
 - Recover from accidental Ctrl-U
 
   - See: http://vim.wikia.com/wiki/Recover_from_accidental_Ctrl-U
 
-Included Vendor Plugins~
+Included Vendor Plugins ~
 -----------------------
 
 This plugin includes the following third-party plugins.
 
-Smart Tabs~
+Smart Tabs ~
 
 The `Smart Tabs` feature, located in ``dubs_edit_juice/plugin/smart-tabs.vim``,
 translates tabs to spaces if you're tabbing but not indenting, i.e.,
@@ -62,7 +62,7 @@ are added when <Tab> is pressed, otherwise <Spaces> are inserted instead.
 See also, "Indent with tabs, align with space"
  http://vim.wikia.com/wiki/Indent_with_tabs,_align_with_spaces
 
-Optional Vendor Plugins~
+Optional Vendor Plugins ~
 -----------------------
 
 You can enable additional functionality by installing the following
@@ -294,7 +294,7 @@ M			Move the cursor to the middle line of the window.
 It's easy to switch between buffers between the next
 and last buffers in the history stack.
 
-Walking the buffer chain~
+Walking the buffer chain ~
 
 				*<Ctrl-J>* *<C-J>*
 <Ctrl-j>		Traverse buffer history backwards by most recently
@@ -438,7 +438,7 @@ m{char}		later		*m{char}* *'{char}*
 <Leader>dd		Left-justify the current line (remove leading whitespace).
 
 
-Hints~
+Hints ~
 
 A little search-and-replace trick, courtesy
 http://www.moolenaar.net/habits.html.
