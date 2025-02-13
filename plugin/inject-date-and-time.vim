@@ -97,7 +97,6 @@ iabbrev <expr> ,T strftime("%Y-%m-%d %H:%M")
 "
 " - I tried using the abbreviation, '::', but the '/' after the FIVER is
 "   not a keyword character, and neither is ':', so an iabbrev doesn't work.
-silent! iunmap <Leader>t
-inoremap <silent> <unique> <Leader>t <C-R>=strftime("/%Y-%m-%d: ")<CR>
+inoremap <silent> <Leader>t <C-R>=strftime("/%Y-%m-%d: ")<CR>
 inoremap <silent> <F12> <C-R>=strftime("/%Y-%m-%d %H:%M: ")<CR>
 
