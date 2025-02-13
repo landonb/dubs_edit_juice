@@ -99,5 +99,5 @@ iabbrev <expr> ,T strftime("%Y-%m-%d %H:%M")
 "   not a keyword character, and neither is ':', so an iabbrev doesn't work.
 silent! iunmap <Leader>t
 inoremap <silent> <unique> <Leader>t <C-R>=strftime("/%Y-%m-%d: ")<CR>
-inoremap <F12> <C-R>=strftime("/%Y-%m-%d %H:%M: ")<CR>
+inoremap <silent> <F12> <C-R>=strftime("/%Y-%m-%d %H:%M: ")<CR>
 
