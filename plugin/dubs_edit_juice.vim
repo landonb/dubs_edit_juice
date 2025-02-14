@@ -1342,6 +1342,10 @@ command! -nargs=+ -complete=command TabMessage call <SID>TabMessage(<q-args>)
 
 " ***
 
+" CALSO: <Alt-W>o aliases <Ctrl-W>o | <Alt-F>o aliases \dT
+" - From https://github.com/landonb/dubs_appearance#💅
+"   ~/.kit/nvim/landonb/start/dubs_appearance/plugin/mimic_menu_keymap.vim
+
 nnoremap <silent> <Leader>dT :exec 'tabedit ' .. expand('%')<CR>
 inoremap <silent> <Leader>dT <C-o>:exec 'tabedit ' .. expand('%')<CR>
 
