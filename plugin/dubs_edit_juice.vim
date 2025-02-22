@@ -978,6 +978,25 @@ endif
 nnoremap <Leader>dz zz
 inoremap <Leader>dz <C-O>zz
 
+" REFER: One user's mnemonic:
+"
+"     +--------------------------------+
+"     ↑                                |
+"     | c-e (keep cursor)              |
+"     | H(igh)             zt (top)    |
+"     |                    ^           |
+"     |            ze      |      zs   |
+"     | M(iddle)  zh/zH <--zz--> zl/zL |
+"     |                    |           |
+"     |                    v           |
+"     | L(ow)              zb (bottom) |
+"     | c-y (keep cursor)              |
+"     ↓                                |
+"     +--------------------------------+
+"
+" THANX: MacMartin
+" https://stackoverflow.com/a/60607857/5332257
+
 " -------------------------------------------------------------------
 
 " ------------------------------------------------------
