@@ -28,6 +28,17 @@ let g:loaded_dubs_edit_juice_enable_behave_mswin = 1
 "   /Applications/MacVim.app/Contents/Resources/vim/runtime/mswin.vim
 "
 "   ~/.local/share/vim/vim*/mswin.vim
+"
+" - Also in Neovim, e.g.,
+"
+"   /opt/homebrew/Cellar/neovim/0.10.4/share/nvim/runtime/mswin.vim
+"
+"   - Aka:
+"
+"     /opt/homebrew/var/homebrew/linked/neovim/share/nvim/runtime/mswin.vim
+"     /opt/homebrew/share/nvim/runtime/mswin.vim
+"     /opt/homebrew/opt/nvim/share/nvim/runtime/mswin.vim
+"     /opt/homebrew/opt/neovim/share/nvim/runtime/mswin.vim
 
 " -------------------------------------------------------------------
 
