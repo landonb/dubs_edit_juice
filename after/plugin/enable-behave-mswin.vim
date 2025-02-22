@@ -131,6 +131,9 @@ function! s:EnableMswinDotVim() abort
   "   - CoC overrides <C-F> to work with its floating window.
   " - mswin.vim changes Vim's builtin <C-H> (<Left>) to opening replace dialog.
   "   - Author's vim-blinky-search plugin changes <C-H> to :nohlsearch.
+  " - Note that mswin.vim always sets <C-s>, but it skips <C-f> and <C-h>
+  "   unless has('gui'). So unless other plugins have loaded and set these,
+  "   the latter two bindings might not be set yet.
   let l:abbrev = 0
   let l:retdict = 1
   let l:old_n_ctrl_f = maparg('<C-f>', 'n', l:abbrev, l:retdict)
