@@ -978,6 +978,10 @@ endif
 nnoremap <Leader>dz zz
 inoremap <Leader>dz <C-O>zz
 
+" Reposition cursor line 5 from the top.
+nnoremap <Leader>dZ :exec "normal! zt5\<C-y>"<CR>
+inoremap <Leader>dZ <C-O>:exec "normal! zt5\<C-y>"<CR>
+
 " REFER: One user's mnemonic:
 "
 "     +--------------------------------+
