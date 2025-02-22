@@ -78,7 +78,7 @@ function! s:DeleteForwardLogically(mode, deleteToEndOfLine)
   if (a:mode == 'i') && (l:last_col == (l:curswant + 1))
     " Use case: In insert mode, and in penultimate column.
     " - Just delete the last character, and fix the cursor.
-    normal! x
+    normal! "_x
     call s:trace("X marks the spot")
     return
   endif
@@ -180,7 +180,7 @@ function! s:DeleteForwardWord()
     \ . "\\)"
   " Here's the same on one line, for easy copy-paste, or ::<CR>.
   "  let @/ = "\\(\\_^\\zs\\|\\<\\zs\\|\\>\\zs[^\\n]\\|\\s\\+\\zs\\)"
-  normal! dn
+  normal! "_dn
   let @/ = l:last_pttrn
   call s:trace("the pattern is the pattern")
 endfunction
