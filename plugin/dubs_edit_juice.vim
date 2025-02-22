@@ -1387,6 +1387,10 @@ set history=1000
 " but :: seems like it might be useful from any buffer.
 "  vnoremap : :<C-U><CR>gvy:<C-R>"
 
+" REFER: Neovim (0.10+?) supports
+"        `:lua` to run selected code, or
+"        `:.lua` to run current line.
+
 " SAVVY: Without histadd, only adds to history if you edit command first.
 vnoremap :: :<C-U>
   \ <CR>gvy
