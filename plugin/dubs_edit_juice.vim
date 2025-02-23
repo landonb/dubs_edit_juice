@@ -929,19 +929,54 @@ com! -nargs=* -complete=command ZZWrap
 " and the map sequences should be moved to init.lua/.vimrc.
 " - Until then, dubs_edit_juice is simply very opinionated.
 
-nnoremap <Leader>s :ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
+" BUGGN/2025-02-23: Since when did this start happening? (Neovide)
+" - Normal mode \s doesn't affect cursor, though if you type, it
+"   updates the command line correctly. And <Left>/<Right> work
+"   in the command line, but there's no cursor (there's an errant
+"   one in the buffer that didn't move when you pressed \n, though).
+"   So it ~sorta~ works...
+" - It's not an issue with ZZWrap — this has same problem:
+"   nnoremap <Leader>s :.,$s/<C-R><C-W>//gc<Left><Left><Left>
+" - WEIRD: This works and sends cursor to command line immediately:
+"     nnoremap <Leader>s :.,$s/<C-R><C-W>//gc
+"   - This sorta works but cursor doesn't go their until you use
+"     the <Left> arrow or type a character! Huh:
+"     nnoremap <Leader>s :ZZWrap .,$s/<C-R><C-W>//gc
+" - At least the vmap approach works correctly! Which is what I
+"   almost exclusively use. Which is probably why I hadn't noticed
+"   this yet.
+"   - Also I'd suggest demoing more advanced tree-sitter and LSP
+"     substitute commands... though I appreciate this raw take on
+"     it, and it "just works".
+if exists('g:neovide')
+  " KLUGE
+  nnoremap <Leader>s :.,$s/<C-R><C-W>//gc
+else
+  nnoremap <Leader>s :ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
+endif
+"
 " Don't do insert mode, as \s is common enough in regex. Try \S# instead.
 "  inoremap <Leader>s <C-o>:ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
 vnoremap <Leader>s :<C-U><CR>gv"sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
 
 " 2024-08-07: Alternative \S# uses '#' delims instead of '/', e.g., to
 "             make it easier to write patterns that include path strings.
-nnoremap <Leader>S# :ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
+if exists('g:neovide')
+  " KLUGE
+  nnoremap <Leader>S# :.,$s#<C-R><C-W>##gc
+else
+  nnoremap <Leader>S# :ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
+endif
 " We'll try this map in insert mode — in |regexp|, \S is opposite of \s and
 " selects non-whitespace characters, which author rarely uses. So the few
 " times you do use this, just be aware that you'll see the UX pause as Vim
 " waits to see if you're typing this map or something else.
-inoremap <Leader>S# <C-o>:ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
+if exists('g:neovide')
+  " KLUGE
+  inoremap <Leader>S# <C-o>:.,$s#<C-R><C-W>##gc
+else
+  inoremap <Leader>S# <C-o>:ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
+endif
 vnoremap <Leader>S# :<C-U><CR>gv"sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
 
 " ALTLY: These maps work with inccommand=nosplit
