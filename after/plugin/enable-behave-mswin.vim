@@ -145,13 +145,24 @@ function! s:EnableMswinDotVim() abort
   let l:old_v_ctrl_s = maparg('<C-s>', 'v', l:abbrev, l:retdict)
 
   " Map <Ctrl-V>, <Ctrl-X>, and <Ctrl-C> keys, and insert mode <Ctrl-Z>, etc.
-  source $VIMRUNTIME/mswin.vim
-
   if has('nvim')
-    " Could call :runtime instead:
+    " Neovim v0.10.4
+    let l:mswin = $VIMRUNTIME .. "/mswin.vim"
+
+    if ! filereadable(mswin)
+      " Neovim v0.11.0-dev-{sha}-Homebrew
+      let l:mswin = $VIMRUNTIME .. "/scripts/mswin.vim"
+    endif
+
+    if ! filereadable(mswin)
+      echom "ERROR: Failed to find mswin.vim"
+
+      return
+    endif
+
+    " See also :runtime, though fails silently:
     "   runtime mswin.vim
-    " but this location is conventional.
-    source $VIMRUNTIME/mswin.vim
+    exec "source " .. l:mswin
   else
     behave mswin
   endif
