@@ -189,6 +189,16 @@ function! s:EnableMswinDotVim() abort
   " - REFER: :h CTRL-W_W
   nnoremap <C-S-Tab> <C-W>W
   inoremap <C-S-Tab> <C-O><C-W>W
+
+  " Note the x, d, c, and s commands copy to the unnamed register,
+  " and if you set clipboard=unnamedplus, they also copy to the
+  " system clipboard. Which makes mswin.vim's `vnoremap <BS> d`
+  " behave like cut, not delete. Here we make it like delete.
+  vnoremap <BS> "_d
+
+  " DUNNO/2025-02-23: mswin.vim maps <S-Del> same as <C-x>:
+  "   vnoremap <S-Del> "+x
+  " but for me, <S-Del> inserts a literal "<S-Del>".
 endfunction
 
 " ***
