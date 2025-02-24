@@ -874,10 +874,12 @@ vnoremap <M-S-F2> :<C-U>execute "'<,'>!parT " . (virtcol("$") - 1) . "qr"<CR>
 " register (@/) so you can continue a previous
 " search, if desired (i.e., the previous search
 " doesn't become '/' or '\').
-nnoremap <silent> f/
-  \ :let tmp=@/<CR>:s:\\:/:ge<CR>:let @/=tmp<CR>
-nnoremap <silent> f<Bslash>
-  \ :let tmp=@/<CR>:s:/:\\:ge<CR>:let @/=tmp<CR>
+if 0
+  nnoremap <silent> f/
+    \ :let tmp=@/<CR>:s:\\:/:ge<CR>:let @/=tmp<CR>
+  nnoremap <silent> f<Bslash>
+    \ :let tmp=@/<CR>:s:/:\\:ge<CR>:let @/=tmp<CR>
+endif
 
 " -------------------------------------------------------------------
 
