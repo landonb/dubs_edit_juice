@@ -225,6 +225,18 @@ function! s:RestoreMap(old_map) abort
     return
   endif
 
+  " DUNNO/2025-02-23: After editing the startup scripts, if I next run
+  " nvim via tig to, e.g., craft a commit message, lazy downloads the
+  " new plugins, but then there's an error here:
+  "   <SNR>156_EnableMswinDotVim[59]..<SNR>156_RestoreMap, line 6:
+  "     Vim(let):E716: Key not present in Dictionary: "rhs"
+  " Which is weird, because either a:old_map should be {} and we
+  " returned, or it's not empty, it should be the return from
+  " maparg which should include rhs.
+  if !exists('a:old_map.rhs')
+    echom 'ERROR: a:old_map.rhs missing?! ' .. a:old_map
+  endif
+
   let l:remap =
     \ a:old_map.mode .. (a:old_map.noremap ? 'noremap ' : ' ')
     \ .. (a:old_map.buffer ? '<buffer> ' : ' ')
