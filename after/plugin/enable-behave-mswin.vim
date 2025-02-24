@@ -234,7 +234,7 @@ function! s:RestoreMap(old_map) abort
   " returned, or it's not empty, it should be the return from
   " maparg which should include rhs.
   if !exists('a:old_map.rhs')
-    echom 'ERROR: a:old_map.rhs missing?! ' .. a:old_map
+    echom 'ERROR: a:old_map.rhs missing?! ' .. string(a:old_map)
   endif
 
   let l:remap =
