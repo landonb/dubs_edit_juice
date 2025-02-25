@@ -965,9 +965,9 @@ vnoremap <Leader>s :<C-U><CR>gv"sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
 "             make it easier to write patterns that include path strings.
 if exists('g:neovide')
   " KLUGE
-  nnoremap <Leader>S# :.,$s#<C-R><C-W>##gc
+  nnoremap <Leader>SS :.,$s#<C-R><C-W>##gc
 else
-  nnoremap <Leader>S# :ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
+  nnoremap <Leader>SS :ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
 endif
 " We'll try this map in insert mode — in |regexp|, \S is opposite of \s and
 " selects non-whitespace characters, which author rarely uses. So the few
@@ -975,11 +975,11 @@ endif
 " waits to see if you're typing this map or something else.
 if exists('g:neovide')
   " KLUGE
-  inoremap <Leader>S# <C-o>:.,$s#<C-R><C-W>##gc
+  inoremap <Leader>SS <C-o>:.,$s#<C-R><C-W>##gc
 else
-  inoremap <Leader>S# <C-o>:ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
+  inoremap <Leader>SS <C-o>:ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
 endif
-vnoremap <Leader>S# :<C-U><CR>gv"sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
+vnoremap <Leader>SS :<C-U><CR>gv"sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
 
 " When inccommand=nosplit, if you select multiple iskeywords, it yanks
 " the word after what's selected. So disable it.
