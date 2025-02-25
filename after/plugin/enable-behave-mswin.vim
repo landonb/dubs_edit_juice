@@ -242,7 +242,7 @@ function! s:RestoreMap(old_map) abort
     \ .. (a:old_map.buffer ? '<buffer> ' : '')
     \ .. (a:old_map.expr ? '<expr> ' : '')
     \ .. (a:old_map.nowait ? '<nowait> ' : '')
-    \ .. (a:old_map.script ? '<script> ' : '')
+    \ .. (v:version < 900 ? '' : (a:old_map.script ? '<script> ' : ''))
     \ .. (a:old_map.silent ? '<silent> ' : '')
     \ .. a:old_map.lhs .. ' ' .. a:old_map.rhs
 
