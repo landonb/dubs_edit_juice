@@ -981,14 +981,18 @@ else
 endif
 vnoremap <Leader>S# :<C-U><CR>gv"sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
 
-" ALTLY: These maps work with inccommand=nosplit
-"
-nnoremap <Leader>Ss :.,$s/<C-R><C-W>//gc<Left><Left><Left>
-vnoremap <Leader>Ss :<C-U><CR>gv"sy:.,$s/<C-r>s//gc<Left><Left><Left>
-"
-nnoremap <Leader>SS# :.,$s#<C-R><C-W>##gc<Left><Left><Left>
-inoremap <Leader>SS# <C-o>:.,$s#<C-R><C-W>##gc<Left><Left><Left>
-vnoremap <Leader>SS# :<C-U><CR>gv"sy:.,$s#<C-r>s##gc<Left><Left><Left>
+" When inccommand=nosplit, if you select multiple iskeywords, it yanks
+" the word after what's selected. So disable it.
+if get(g:, 'dubs_edit_juice_inccommand', 0)
+  " ALTLY: These maps work with inccommand=nosplit
+  "
+  nnoremap <Leader>Ss :.,$s/<C-R><C-W>//gc<Left><Left><Left>
+  vnoremap <Leader>Ss :<C-U><CR>gv"sy:.,$s/<C-r>s//gc<Left><Left><Left>
+  "
+  nnoremap <Leader>SS# :.,$s#<C-R><C-W>##gc<Left><Left><Left>
+  inoremap <Leader>SS# <C-o>:.,$s#<C-R><C-W>##gc<Left><Left><Left>
+  vnoremap <Leader>SS# :<C-U><CR>gv"sy:.,$s#<C-r>s##gc<Left><Left><Left>
+endif
 
 " See also: QuickfixSubstituteAll in plugin/dubs_quickfix_wrap.vim,
 " which defines <Leader>S (\S) which find-replaces in all files
@@ -1003,8 +1007,12 @@ vnoremap <Leader>SS# :<C-U><CR>gv"sy:.,$s#<C-r>s##gc<Left><Left><Left>
 " https://bluz71.github.io/2019/03/11/find-replace-helpers-for-vim.html
 
 if has("nvim")
-  " Enable :substitute live preview.
-  set inccommand=nosplit
+  if get(g:, 'dubs_edit_juice_inccommand', 0)
+    " Enable :substitute live preview.
+    set inccommand=nosplit
+  else
+    set inccommand=
+  endif
 endif
 
 " -------------------------------------------------------------------
