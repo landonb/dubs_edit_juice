@@ -238,12 +238,12 @@ function! s:RestoreMap(old_map) abort
   endif
 
   let l:remap =
-    \ a:old_map.mode .. (a:old_map.noremap ? 'noremap ' : ' ')
-    \ .. (a:old_map.buffer ? '<buffer> ' : ' ')
-    \ .. (a:old_map.expr ? '<expr> ' : ' ')
-    \ .. (a:old_map.nowait ? '<nowait> ' : ' ')
-    \ .. (a:old_map.script ? '<script> ' : ' ')
-    \ .. (a:old_map.silent ? '<silent> ' : ' ')
+    \ a:old_map.mode .. (a:old_map.noremap ? 'noremap ' : 'map ')
+    \ .. (a:old_map.buffer ? '<buffer> ' : '')
+    \ .. (a:old_map.expr ? '<expr> ' : '')
+    \ .. (a:old_map.nowait ? '<nowait> ' : '')
+    \ .. (a:old_map.script ? '<script> ' : '')
+    \ .. (a:old_map.silent ? '<silent> ' : '')
     \ .. a:old_map.lhs .. ' ' .. a:old_map.rhs
 
   exec l:remap
