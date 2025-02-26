@@ -661,7 +661,7 @@ vnoremap <C-D> <gv
 " Left Justify Current Line
 " -------------------------
 
-" This just left-justifies (completed dedents) the current line.
+" This just left-justifies (completely dedents) the current line.
 " - HSTRY/2024-12-11: This was previously \x.
 "   - But I've since moved most Dubs maps under \d.
 "   - Trying \dd, mnemonic: dedent.
