@@ -160,11 +160,14 @@ q		and		*qq* *q* *Q*
 Q			Start recording (qq); End recording (q); Replay (Q).
 			Hint: Use <Ctrl-o>q if ending in Insert mode.
 
-			NOTE: This replaces the built-in |Q| command,
-			which switches to |Ex| mode. But you can also
-			switch to |Ex| mode using |gQ|, albeit the
-			latter enables command line editing, completion,
-			etc.
+			NOTE: In Classic Vim, this replaces the built-in |Q|
+			command (see: |normal-index|), which switches to |Ex|
+			mode. But you can also switch to |Ex| mode using |gQ|,
+			albeit the latter enables command line editing,
+			completion, etc.
+			- In Neovim, |Q| will "Repeat the last recorded
+			  register [count] times. See |reg_recorded()|."
+			  - See also: See |recording|
 
 <Ctrl-C>	or		*<Ctrl-C>* *<C-C>* *<Ctrl-Insert>* *<C-Insert>*
 <Ctrl-Insert>		Copy selected text.
