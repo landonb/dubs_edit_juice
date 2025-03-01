@@ -39,6 +39,10 @@ let g:loaded_dubs_edit_juice_enable_behave_mswin = 1
 "     /opt/homebrew/share/nvim/runtime/mswin.vim
 "     /opt/homebrew/opt/nvim/share/nvim/runtime/mswin.vim
 "     /opt/homebrew/opt/neovim/share/nvim/runtime/mswin.vim
+"
+"   - More lately under scripts, e.g.,:
+"
+"     /opt/homebrew/Cellar/neovim/HEAD-228fe50_1/share/nvim/runtime/scripts/mswin.vim
 
 " -------------------------------------------------------------------
 
