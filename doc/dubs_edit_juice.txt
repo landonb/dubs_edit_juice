@@ -157,7 +157,7 @@ f\			Change forward slashes to backslashes on current line.
 
 qq		and
 q		and		*qq* *q* *Q*
-Q			Start recording (qq); End recording (q); Reply (Q).
+Q			Start recording (qq); End recording (q); Replay (Q).
 			Hint: Use <Ctrl-o>q if ending in Insert mode.
 
 			NOTE: This replaces the built-in |Q| command,
