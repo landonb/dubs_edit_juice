@@ -265,7 +265,7 @@ function! s:Smart_PageUpDown(direction) abort
     endif
     " Move cursor to first visible line; make
     " sure it's in the first column, too
-    execute 'normal H0'
+    execute 'normal! H0'
   elseif a:direction == -1
     let window_last_line = line("w$")
     if cursor_cur_line == window_last_line
@@ -274,7 +274,7 @@ function! s:Smart_PageUpDown(direction) abort
     endif
     " Move cursor to last visible line; make
     " sure it's in the first column, too
-    execute 'normal L0'
+    execute 'normal! L0'
   else
     call confirm('EditPlus.vim: Programmer Error!', 'OK')
   endif
