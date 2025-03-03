@@ -415,15 +415,15 @@ if !hasmapto('<Plug>DubsEditJuice_ToggleTabHighlighting')
   " - FIXME/2024-12-28 14:07: Also everything should be configurable
   "   so that when you change {lhs} you don't Breaking change everything.
   if s:sourcing
-    nunmap <Leader>dt
-    iunmap <Leader>dt
+    nunmap <LocalLeader>dt
+    iunmap <LocalLeader>dt
   endif
 
-  " HSTRY/2024-12-09: Was <Leader>tab (as in \-t-a-b) but this feature
-  " is rarely used, and I want to reclaim <Leader>t for motion commands).
+  " HSTRY/2024-12-09: Was <LocalLeader>tab (as in \-t-a-b) but this feature
+  " is rarely used, and I want to reclaim <LocalLeader>t for motion commands).
   " - Moved under \d prefix along with other Dubs maps.
-  nnoremap <silent> <unique> <Leader>dt <Plug>DubsEditJuice_ToggleTabHighlighting
-  inoremap <silent> <unique> <Leader>dt <C-o><Plug>DubsEditJuice_ToggleTabHighlighting
+  nnoremap <silent> <unique> <LocalLeader>dt <Plug>DubsEditJuice_ToggleTabHighlighting
+  inoremap <silent> <unique> <LocalLeader>dt <C-o><Plug>DubsEditJuice_ToggleTabHighlighting
   " Map <Plug> to an <SID> function.
   nnoremap <silent> <unique> <script>
     \ <Plug>DubsEditJuice_ToggleTabHighlighting
@@ -492,9 +492,9 @@ endfunction
 "  \ gV
 "  \ g<C-G>
 
-"nnoremap <Leader>k :g<C-G>
-"nnoremap <Leader>k "sy:.,$s/<C-r>s//gc<Left><Left><Left>
-"nnoremap <Leader>k g<C-G>
+"nnoremap <LocalLeader>k :g<C-G>
+"nnoremap <LocalLeader>k "sy:.,$s/<C-r>s//gc<Left><Left><Left>
+"nnoremap <LocalLeader>k g<C-G>
 
 " DO THIS INSTEAD:
 " I couldn't get the previous to work, so just do this:
@@ -709,8 +709,8 @@ vnoremap <C-D> <gv
 " - HSTRY/2024-12-11: This was previously \x.
 "   - But I've since moved most Dubs maps under \d.
 "   - Trying \dd, mnemonic: dedent.
-nnoremap <silent> <leader>dd :left<cr><END>a
-inoremap <silent> <leader>dd <C-O>:left<cr><END>
+nnoremap <silent> <LocalLeader>dd :left<cr><END>a
+inoremap <silent> <LocalLeader>dd <C-O>:left<cr><END>
 
 " -------------------------------------------------------------------
 
@@ -764,7 +764,7 @@ function! s:MoveParagraphDown() abort
   endif
 endfunction
 
-function! s:CreateMaps_MoveParagraph(seq_up = '<Leader>dK', seq_down = '<Leader>dJ') abort
+function! s:CreateMaps_MoveParagraph(seq_up = '<LocalLeader>dK', seq_down = '<LocalLeader>dJ') abort
   " Default Vim makes <Up> and <CTRL-P> map to [count] lines upward |linewise|.
   " Default Vim makes <CTRL-O> Go to [count] Older cursor posit in jump list.
   " Default Vim makes <CTRL-O> in insert mode start a replace operation...
@@ -803,7 +803,7 @@ function! s:CreateMaps_MoveParagraph(seq_up = '<Leader>dK', seq_down = '<Leader>
   " file buffer, mru, tag, ... finder with an intuitive interface."
 endfunction
 
-call s:CreateMaps_MoveParagraph('<Leader>dK', '<Leader>dJ')
+call s:CreateMaps_MoveParagraph('<LocalLeader>dK', '<LocalLeader>dJ')
 
 " -------------------------------------------------------------------
 
@@ -954,7 +954,7 @@ inoremap <C-CR> <C-o><Home><Down><CR><Up>
 "      the 3 lefts position the cursor between the second set of sticks.
 "
 " 2018-06-11: Here's the mapping that's served so well these past many years:
-"   nnoremap <Leader>s "sy:.,$s/<C-r>s//gc<Left><Left><Left>
+"   nnoremap <LocalLeader>s "sy:.,$s/<C-r>s//gc<Left><Left><Left>
 "
 " 2018-06-11: SO RAD!! And here's the mapping that'll serve me even better:
 " Center each substitution candidate as it's selected and highlighted!
@@ -982,12 +982,12 @@ com! -nargs=* -complete=command ZZWrap
 "   one in the buffer that didn't move when you pressed \n, though).
 "   So it ~sorta~ works...
 " - It's not an issue with ZZWrap — this has same problem:
-"   nnoremap <Leader>s :.,$s/<C-R><C-W>//gc<Left><Left><Left>
+"   nnoremap <LocalLeader>s :.,$s/<C-R><C-W>//gc<Left><Left><Left>
 " - WEIRD: This works and sends cursor to command line immediately:
-"     nnoremap <Leader>s :.,$s/<C-R><C-W>//gc
+"     nnoremap <LocalLeader>s :.,$s/<C-R><C-W>//gc
 "   - This sorta works but cursor doesn't go their until you use
 "     the <Left> arrow or type a character! Huh:
-"     nnoremap <Leader>s :ZZWrap .,$s/<C-R><C-W>//gc
+"     nnoremap <LocalLeader>s :ZZWrap .,$s/<C-R><C-W>//gc
 " - At least the vmap approach works correctly! Which is what I
 "   almost exclusively use. Which is probably why I hadn't noticed
 "   this yet.
@@ -996,22 +996,22 @@ com! -nargs=* -complete=command ZZWrap
 "     it, and it "just works".
 if exists('g:neovide')
   " KLUGE
-  nnoremap <Leader>s :.,$s/<C-R><C-W>//gc
+  nnoremap <LocalLeader>s :.,$s/<C-R><C-W>//gc
 else
-  nnoremap <Leader>s :ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
+  nnoremap <LocalLeader>s :ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
 endif
 "
 " Don't do insert mode, as \s is common enough in regex. Try \S# instead.
-"  inoremap <Leader>s <C-o>:ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
-vnoremap <Leader>s :<C-U><CR>gv"sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
+"  inoremap <LocalLeader>s <C-o>:ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
+vnoremap <Localleader>s :<C-U><CR>gv"sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
 
 " 2024-08-07: Alternative \S# uses '#' delims instead of '/', e.g., to
 "             make it easier to write patterns that include path strings.
 if exists('g:neovide')
   " KLUGE
-  nnoremap <Leader>SS :.,$s#<C-R><C-W>##gc
+  nnoremap <LocalLeader>SS :.,$s#<C-R><C-W>##gc
 else
-  nnoremap <Leader>SS :ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
+  nnoremap <LocalLeader>SS :ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
 endif
 " We'll try this map in insert mode — in |regexp|, \S is opposite of \s and
 " selects non-whitespace characters, which author rarely uses. So the few
@@ -1019,27 +1019,27 @@ endif
 " waits to see if you're typing this map or something else.
 if exists('g:neovide')
   " KLUGE
-  inoremap <Leader>SS <C-o>:.,$s#<C-R><C-W>##gc
+  inoremap <LocalLeader>SS <C-o>:.,$s#<C-R><C-W>##gc
 else
-  inoremap <Leader>SS <C-o>:ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
+  inoremap <LocalLeader>SS <C-o>:ZZWrap .,$s#<C-R><C-W>##gc<Left><Left><Left>
 endif
-vnoremap <Leader>SS :<C-U><CR>gv"sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
+vnoremap <LocalLeader>SS :<C-U><CR>gv"sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
 
 " When inccommand=nosplit, if you select multiple iskeywords, it yanks
 " the word after what's selected. So disable it.
 if get(g:, 'dubs_edit_juice_inccommand', 0)
   " ALTLY: These maps work with inccommand=nosplit
   "
-  nnoremap <Leader>Ss :.,$s/<C-R><C-W>//gc<Left><Left><Left>
-  vnoremap <Leader>Ss :<C-U><CR>gv"sy:.,$s/<C-r>s//gc<Left><Left><Left>
+  nnoremap <LocalLeader>Ss :.,$s/<C-R><C-W>//gc<Left><Left><Left>
+  vnoremap <LocalLeader>Ss :<C-U><CR>gv"sy:.,$s/<C-r>s//gc<Left><Left><Left>
   "
-  nnoremap <Leader>SS# :.,$s#<C-R><C-W>##gc<Left><Left><Left>
-  inoremap <Leader>SS# <C-o>:.,$s#<C-R><C-W>##gc<Left><Left><Left>
-  vnoremap <Leader>SS# :<C-U><CR>gv"sy:.,$s#<C-r>s##gc<Left><Left><Left>
+  nnoremap <LocalLeader>SS# :.,$s#<C-R><C-W>##gc<Left><Left><Left>
+  inoremap <LocalLeader>SS# <C-o>:.,$s#<C-R><C-W>##gc<Left><Left><Left>
+  vnoremap <LocalLeader>SS# :<C-U><CR>gv"sy:.,$s#<C-r>s##gc<Left><Left><Left>
 endif
 
 " See also: QuickfixSubstituteAll in plugin/dubs_quickfix_wrap.vim,
-" which defines <Leader>S (\S) which find-replaces in all files
+" which defines <LocalLeader>S (\S) which find-replaces in all files
 " listed in the quickfix window.
 
 " -------------------------------------------------------------------
@@ -1064,12 +1064,12 @@ endif
 " SAVVY/2024-12-18: Send cursor line to middle of window — Now from Insert mode!
 " - AKA reposition the cursor line vertically in the middle of the window.
 
-nnoremap <Leader>dz zz
-inoremap <Leader>dz <C-O>zz
+nnoremap <LocalLeader>dz zz
+inoremap <LocalLeader>dz <C-O>zz
 
 " Reposition cursor line 5 from the top.
-nnoremap <Leader>dZ :exec "normal! zt5\<C-y>"<CR>
-inoremap <Leader>dZ <C-O>:exec "normal! zt5\<C-y>"<CR>
+nnoremap <LocalLeader>dZ :exec "normal! zt5\<C-y>"<CR>
+inoremap <LocalLeader>dZ <C-O>:exec "normal! zt5\<C-y>"<CR>
 
 " REFER: One user's mnemonic:
 "
@@ -1130,7 +1130,7 @@ endfunc
 "   by Christian Habermann,
 "   - CharTab
 "     http://www.vim.org/scripts/script.php?script_id=898
-" - SAVVY: Does not work: nnoremap <M-!> <Leader>ct
+" - SAVVY: Does not work: nnoremap <M-!> <LocalLeader>ct
 "
 " REFER/2024-12-10: Author for past number of years has referred
 " to a Unicode table instead. I have it wired to OS <Cmd-U>, so
@@ -1143,8 +1143,8 @@ endfunc
 "     nnoremap <M-!> <Plug>CT_CharTable
 "     inoremap <M-!> <C-o><Plug>CT_CharTable<ESC>
 " - Mnemonic: \dA → Dubs ASCII
-nnoremap <Leader>dA <Plug>CT_CharTable
-inoremap <Leader>dA <C-o><Plug>CT_CharTable<ESC>
+nnoremap <LocalLeader>dA <Plug>CT_CharTable
+inoremap <LocalLeader>dA <C-o><Plug>CT_CharTable<ESC>
 
 " TODO imap does not restore i-mode when ct done
 " NOTE Modified chartab.vim to alias <ESC> and
@@ -1458,8 +1458,8 @@ command! -nargs=+ -complete=command TabMessage call <SID>TabMessage(<q-args>)
 " - From https://github.com/landonb/dubs_appearance#💅
 "   ~/.kit/nvim/landonb/dubs_appearance/plugin/mimic_menu_keymap.vim
 
-nnoremap <silent> <Leader>dT :exec 'tabedit ' .. expand('%')<CR>
-inoremap <silent> <Leader>dT <C-o>:exec 'tabedit ' .. expand('%')<CR>
+nnoremap <silent> <LocalLeader>dT :exec 'tabedit ' .. expand('%')<CR>
+inoremap <silent> <LocalLeader>dT <C-o>:exec 'tabedit ' .. expand('%')<CR>
 
 " -------------------------------------------------------------------
 
@@ -1651,9 +1651,9 @@ function! s:DiffToggle(window) abort
   call setpos('.', l:save_cursor)
 endfunction
 " Toggle diff view on the left, center, or right windows
-nnoremap <silent> <Leader>dDl :call <SID>DiffToggle(1)<cr>
-nnoremap <silent> <Leader>dDc :call <SID>DiffToggle(2)<cr>
-nnoremap <silent> <Leader>dDr :call <SID>DiffToggle(3)<cr>
+nnoremap <silent> <LocalLeader>dDl :call <SID>DiffToggle(1)<cr>
+nnoremap <silent> <LocalLeader>dDc :call <SID>DiffToggle(2)<cr>
+nnoremap <silent> <LocalLeader>dDr :call <SID>DiffToggle(3)<cr>
 
 " -------------------------------------------------------------------
 
