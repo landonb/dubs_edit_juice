@@ -374,7 +374,7 @@ function! s:wire_key_insert_mode_middle_line() abort
   inoremap <M-F12> <C-O>M<C-O>0
   vnoremap <M-F12> :<C-U>
     \ <CR>gvy
-    \ :execute "normal! M0"<CR>
+    \ :execute "normal! M0"<CR>:startinsert<CR>
 endfunction
 
 call <SID>wire_key_insert_mode_middle_line()
