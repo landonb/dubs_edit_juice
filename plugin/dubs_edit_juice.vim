@@ -203,15 +203,19 @@ function! s:wire_keys_select_lines_to_window_first_and_last() abort
   " the window or to the bottom of the window, respectively, without changing
   " the view, Ctrl-Shift-PageUp and Ctrl-Shift-PageDown select text from the
   " cursor to the top or bottom of the window without shifting the view.
+  " - When selecting from Insert mode, use <C-G> to change from Visual to Select
+  "   mode, so that if user uses arrow keys after, it stops the selection (though
+  "   if you start a visual mode selection and use <C-S-PageUp|PageDown>, it'll
+  "   stay in Visual mode, and then arrow keys will adjust the selection).
 
   " Ctrl-Shift-PageUp selects from cursor to first line of window
   nnoremap <C-S-PageUp> vH
-  inoremap <C-S-PageUp> <C-O>vH
+  inoremap <C-S-PageUp> <C-O>vH<C-G>
   vnoremap <C-S-PageUp> H
 
   " Ctrl-Shift-PageDown selects from cursor to last line of window
   nnoremap <C-S-PageDown> vL
-  inoremap <C-S-PageDown> <C-O>vL
+  inoremap <C-S-PageDown> <C-O>vL<C-G>
   vnoremap <C-S-PageDown> L
 endfunction
 
