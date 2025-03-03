@@ -155,7 +155,7 @@ function! s:wire_keys_move_to_word_previous_and_next() abort
   "   vnoremap <C-Right> e
 endfunction
 
-call <SID>wire_keys_move_to_word_previous_and_next()
+call s:wire_keys_move_to_word_previous_and_next()
 
 " -------------------------------------------------------------------
 
@@ -184,7 +184,7 @@ function! s:wire_keys_select_text_to_line_beg_and_end() abort
   vnoremap <M-S-Right> $
 endfunction
 
-call <SID>wire_keys_select_text_to_line_beg_and_end()
+call s:wire_keys_select_text_to_line_beg_and_end()
 
 " -------------------------------------------------------------------
 
@@ -215,7 +215,7 @@ function! s:wire_keys_select_lines_to_window_first_and_last() abort
   vnoremap <C-S-PageDown> L
 endfunction
 
-call <SID>wire_keys_select_lines_to_window_first_and_last()
+call s:wire_keys_select_lines_to_window_first_and_last()
 
 " -------------------------------------------------------------------
 
@@ -243,7 +243,7 @@ function! s:wire_keys_scroll_window_sticky_cursor() abort
   inoremap <C-Down> <C-O><C-e>
 endfunction
 
-call <SID>wire_keys_scroll_window_sticky_cursor()
+call s:wire_keys_scroll_window_sticky_cursor()
 
 " -------------------------------------------------------------------
 
@@ -297,7 +297,7 @@ function! s:wire_keys_cursor_to_line_first_and_last() abort
   inoremap <C-PageDown> <C-O>:call <SID>Smart_PageUpDown(-1)<CR>
 endfunction
 
-call <SID>wire_keys_cursor_to_line_first_and_last()
+call s:wire_keys_cursor_to_line_first_and_last()
 
 " -------
 
@@ -345,7 +345,7 @@ function! s:add_cmd_left_cmd_right_maps_move_cursor_to_line_beg_line_end() abort
   vnoremap <D-Right> :<C-U> <CR>gvy :execute "normal! $"<CR>
 endfunction
 
-call <SID>add_cmd_left_cmd_right_maps_move_cursor_to_line_beg_line_end()
+call s:add_cmd_left_cmd_right_maps_move_cursor_to_line_beg_line_end()
 
 " -------
 
