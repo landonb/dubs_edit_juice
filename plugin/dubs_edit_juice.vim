@@ -349,7 +349,9 @@ function! s:add_cmd_left_cmd_right_maps_move_cursor_to_line_beg_line_end() abort
   vnoremap <D-Right> :<C-U> <CR>gvy :execute "normal! $"<CR>
 endfunction
 
-call s:add_cmd_left_cmd_right_maps_move_cursor_to_line_beg_line_end()
+if $NVIM_APPNAME == 'nvim_depoxy'
+  call s:add_cmd_left_cmd_right_maps_move_cursor_to_line_beg_line_end()
+endif
 
 " -------
 
@@ -522,10 +524,12 @@ endfunction
 "      to uppercase or lowercase the selected text.
 " HELP: To get help on <C-u>, in command mode (following the colon), try:
 "          h c_CTRL-u
-vnoremap <C-Z> :<C-U>
-  \ :undo<CR>
-vnoremap <C-Y> :<C-U>
-  \ :redo<CR>
+if $NVIM_APPNAME == 'nvim_depoxy'
+  vnoremap <C-Z> :<C-U>
+    \ :undo<CR>
+  vnoremap <C-Y> :<C-U>
+    \ :redo<CR>
+endif
 
 " NOTE For whatever reason, trying to map C-S-Z also remaps
 "      C-Z, so I can't make Ctrl-Shift-Z into redo!
@@ -565,7 +569,9 @@ function! s:CreateMaps_TransposeCharacters() abort
   endif
 endfunction
 
-call s:CreateMaps_TransposeCharacters()
+if $NVIM_APPNAME == 'nvim_depoxy'
+  call s:CreateMaps_TransposeCharacters()
+endif
 
 " ***
 
