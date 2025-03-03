@@ -57,6 +57,6 @@ endif
 " - Let's try \dS for 'swap'
 silent! unmap <Leader>dS
 vnoremap <Leader>dS "ax"+gP:let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
-nnoremap <Leader>dS :let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
-inoremap <Leader>dS <C-O>:let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
+nnoremap <Leader>dS        :let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
+inoremap <Leader>dS   <C-O>:let @x=@+ \| let @+=@a \| let @a=@x \| let @"=@+ \| let @*=@+<CR>
 
