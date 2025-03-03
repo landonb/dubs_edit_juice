@@ -115,8 +115,10 @@ endif
 "     and in Insert or Command-line mode, it would insert Ctrl-Z as a
 "     normal character. Are either of those behaviors useful?)
 " - CTRL-Y is Redo (although not repeat).
-"     (In Vanilla Vim, Ctrl-Y would 'Scroll window [count] lines
-"     upwards in the buffer' which is not a feature I ever used.)
+"     (In Classic Vim, Ctrl-Y will 'Scroll window [count] lines
+"     upwards in the buffer'; it's complement is <Ctrl-E>. Both
+"     of those bindings are commonly mapped for similar situations,
+"     e.g., scrolling a completion menu, etc.)
 " - Alt-Space is System menu.
 " - CTRL-Tab is Next window.
 " - CTRL-F4 is Close window.

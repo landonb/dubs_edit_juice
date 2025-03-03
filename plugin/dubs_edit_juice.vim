@@ -125,6 +125,21 @@ inoremap <silent> <C-u> <C-\><C-o>:if col('.') < col('$') \| let &g:undolevels =
 " Wire Ctrl-Left/-Right to Jumping Cursor by Word
 " -------------------------------------------------------------------
 
+" In both Normal and Insert modes, built-in <Ctrl-Left|Right> moves
+" the cursor to start of prev|next word.
+" - LazyVim reassigns <Ctrl-Left|Right> to resizing the window.
+" - The <Ctrl-Right> here moves the cursor to end of the current word,
+"   i.e., before the space, unlike built-in <Ctrl-Right>.
+"
+" DUNNO: I tried to inhibit the completion menu, which is kinda
+" annoying as it pops up for every movement, but adding this
+"   <C-O>:lua pcall(function() require("blink-cmp").hide() end)<CR>
+" either before or after the <C-O>b and <C-O>e<Right> each causes error:
+"   Error in decoration provider blink_cmp_ghost_text.line:
+"     Error executing lua:
+"       ...y/blink.cmp/lua/blink/cmp/completion/trigger/context.lua:105:
+"     Cannot get line number 323 in cmdline mode. Only 0 is supported
+
 function! s:wire_keys_move_to_word_previous_and_next() abort
   nnoremap <C-Left> b
   inoremap <C-Left> <C-O>b
@@ -147,6 +162,9 @@ call <SID>wire_keys_move_to_word_previous_and_next()
 " -------------------------------------------------------------------
 " Wire Alt-Shift-Left/-Right to Selecting from Cursor to Edge of Line
 " -------------------------------------------------------------------
+
+" Built-in <Shift-Alt-Left|Right> jumps to start of prev|next word,
+" and in Insert mode stops Insert mode.
 
 function! s:wire_keys_select_text_to_line_beg_and_end() abort
   " Alt-Shift-Left selects from cursor to start of line
@@ -173,6 +191,12 @@ call <SID>wire_keys_select_text_to_line_beg_and_end()
 " ---------------------------------------------------------------------------
 " Wire Ctrl-Shift-PageUp/-PageDown to Selecting from Cursor to Edge of Window
 " ---------------------------------------------------------------------------
+
+" Built-in <Shift-Ctrl-PageUp|PageDown> does nothing in Insert mode, but
+" in Normal mode it starts Insert mode.
+" - <Ctrl-PageUp|PageDown> does nothing in either mode.
+" - Built-in <Shift-Alt-PageUp|PageDown is same as <Shift-PageUp|PageDown>
+" and selects text by the pageful.
 
 function! s:wire_keys_select_lines_to_window_first_and_last() abort
   " Much like Ctrl-PageUp and Ctrl-PageDown move the cursor to the top of
@@ -254,6 +278,8 @@ endfunction
 
 " -------
 
+" Builtin <Ctrl-PageUp|PageDown> does nothing in either mode.
+
 " - EditPlus, among other editors, maps Ctrl-PageUp and Ctrl-PageDown to moving the
 "   cursor to the top and bottom of the window (equivalent to H and L in Vim (which
 "   also defines M to jump to the middle of the window, which is not mapped here)).
@@ -290,6 +316,9 @@ call <SID>wire_keys_cursor_to_line_first_and_last()
 " in my brain. I use 'em all the time.
 
 " SAVVY/2024-05-07: gvy: `gv` reselects the previous Visual area; `y` yanks.
+
+" Built-in <M-Left|Right> moves cursor left or right, and stops
+" Insert mode when run from Insert mode.
 
 function! s:add_alt_left_alt_right_maps_move_cursor_to_line_beg_line_end() abort
   " Alt-Left moves the cursor to the beginning of the line.
@@ -368,6 +397,11 @@ call s:YankSelectedTextAutomatically_ExceptOnmacOS()
 " ------------------------------------------------------
 " Toggle Tab Highlighting
 " ------------------------------------------------------
+
+" Enable to draw tabs with blue underline, and em spaces (digraph 1M).
+" - Note that LazyVim shows tab characters with a very light angle >.
+"   - SPIKE: What's the LazyVim plugin that does this?
+"     - MAYBE: Add a toggle for the LazyVim feature.
 
 if !hasmapto('<Plug>DubsEditJuice_ToggleTabHighlighting')
   " MAYBE/2024-12-28 14:06: Add s:sourcing so you can use <unique>?
