@@ -452,10 +452,9 @@ function s:SetLocalKeyMappings()
     " [lb] Added 2009.08.28 to fit better w/ my EditPlus-esque vimrc
                                          " alias 'ESC' and Alt-Shift-1 to 'q'
     nnoremap <buffer> <silent> <ESC> :call <SID>CT_Exit()<cr>
+    nnoremap <buffer> <silent> <M-!> :call <SID>CT_Exit()<cr>
     if has('macunix')
       nnoremap <buffer> <silent> ¡ :call <SID>CT_Exit()<cr>
-    else
-      nnoremap <buffer> <silent> <M-!> :call <SID>CT_Exit()<cr>
     endif
 
 endfunction

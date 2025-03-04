@@ -562,10 +562,9 @@ function! s:CreateMaps_TransposeCharacters() abort
   "   \eT": transpose-words
   " https://github.com/DepoXy/dot-inputrc#🎛️
   " - Though note we're not adding transpose-words.
+  inoremap <silent> <M-T> <C-o>:call g:embrace#edit_juice#TransposeCharacters()<CR>
   if has('macunix')
     inoremap <silent> † <C-o>:call g:embrace#edit_juice#TransposeCharacters()<CR>
-  else
-    inoremap <silent> <M-T> <C-o>:call g:embrace#edit_juice#TransposeCharacters()<CR>
   endif
 endfunction
 
@@ -1168,12 +1167,11 @@ inoremap <LocalLeader>dA <C-o><Plug>CT_CharTable<ESC>
 "     inoremap <M-^> <C-O>:TlistToggle<CR>
 "     " cmap <M-^> <C-C>TlistToggle<ESC>
 "     " omap <M-^> <C-C>TlistToggle<ESC>
+nnoremap <M-!> :TlistToggle<CR>
+inoremap <M-!> <C-O>:TlistToggle<CR>
 if has('macunix')
   nnoremap ⁄ :TlistToggle<CR>
   inoremap ⁄ <C-O>:TlistToggle<CR>
-else
-  nnoremap <M-!> :TlistToggle<CR>
-  inoremap <M-!> <C-O>:TlistToggle<CR>
 endif
 
 " -------------------------------------------------------------------
@@ -1849,12 +1847,11 @@ endfunction
 " https://stackoverflow.com/questions/833838/delete-word-after-or-around-cursor-in-vim
 " See:
 "  :help diw
+nnoremap <M-d> diw
+inoremap <M-d> <C-o>diw
 if has('macunix')
   nnoremap ∂ diw
   inoremap ∂ <C-o>diw
-else
-  nnoremap <M-d> diw
-  inoremap <M-d> <C-o>diw
 endif
 
 " -------------------------------------------------------------------
