@@ -1089,6 +1089,15 @@ inoremap <LocalLeader>dZ <C-O>:exec "normal! zt5\<C-y>"<CR>
 " THANX: MacMartin
 " https://stackoverflow.com/a/60607857/5332257
 
+nnoremap <LocalLeader>zz zz
+inoremap <LocalLeader>zz <C-O>zz
+
+nnoremap <LocalLeader>zb zb
+inoremap <LocalLeader>zb <C-O>zb
+
+nnoremap <LocalLeader>zt zt
+inoremap <LocalLeader>zt <C-O>zt
+
 " -------------------------------------------------------------------
 
 " ------------------------------------------------------
