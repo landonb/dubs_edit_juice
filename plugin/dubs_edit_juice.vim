@@ -1305,30 +1305,6 @@ vnoremap <M-]> :<C-U>
 " -------------------------------------------------------------------
 
 " ------------------------------------------------------
-" easytags configuration
-" ------------------------------------------------------
-
-" Don't print message when tags are updated.
-let g:easytags_suppress_report = 1
-
-" Use project-specific tags files and not the global ~/.vimtags.
-" 2017-11-08: Ug. This is the culprit. Out, damn spot!
-"   (Let project-specific tags= work on boot, e.g., via .trustme.vim.)
-"set tags=./tags
-
-"let g:easytags_dynamic_files = 1
-let g:easytags_dynamic_files = 2
-
-" [lb] seeing a sluggish Vim after saving a file (closing and reopening
-" the file works until the next save; this problem does not always happen,
-" either), so trying aynchronous easytags updating.
-let g:easytags_async = 1
-
-let g:easytags_auto_update = 0
-
-" -------------------------------------------------------------------
-
-" ------------------------------------------------------
 " Vim Wild Menu (wildmenu)
 " ------------------------------------------------------
 
