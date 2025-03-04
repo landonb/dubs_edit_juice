@@ -1104,16 +1104,16 @@ inoremap <LocalLeader>zt <C-O>zt
 " Truncate and Pad Line to Specific Width
 " ------------------------------------------------------
 "
-"http://vim.wikia.com/wiki/Add_trailing_blanks_to_lines_for_easy_visual_blocks
+" http://vim.wikia.com/wiki/Add_trailing_blanks_to_lines_for_easy_visual_blocks
 
 " truncate line 'line' to no more than 'limit' width
-function! Truncate(line, limit) abort
+function! LineTruncate(line, limit) abort
   call cursor(a:line,a:limit)
   norm d$
 endfunc
 
 " Pad all lines with trailing blanks to 'limit' length.
-function! AtOnce(limit) abort
+function! LinesPadTo(limit) abort
   norm mm
   g/^/norm 100A
   g/^/call Truncate(getline('.'), a:limit)
