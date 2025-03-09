@@ -503,27 +503,20 @@ endfunction
 " Count of Characters Selected
 " ------------------------------------------------------
 
-" NOTE I'm using Ctrl-# for now. It hurts my fingers to
-"      combine such keys, but I don't use this command
-"      that often and using the pound key seems intuitive.
-" DEBAR/FIXEM Make this work on word-under-cursor
-" NOTE Cannot get this to work on <C-3>, so using Alt instead
-"vnoremap <M-3> :<C-U>
-"  \ :.s/\S/&/g<CR>
-"  \ :'<,'>s/./&/g<CR>
-
-"vnoremap <M-3> :<C-U>
-"  \ <CR>gvy
-"  \ gV
-"  \ g<C-G>
-
-"nnoremap <LocalLeader>k :g<C-G>
-"nnoremap <LocalLeader>k "sy:.,$s/<C-r>s//gc<Left><Left><Left>
-"nnoremap <LocalLeader>k g<C-G>
-
-" DO THIS INSTEAD:
-" I couldn't get the previous to work, so just do this:
-"  Select your text, type <Ctrl-o>, then g<Ctrl-g>
+" USAGE: Use |g_CTRL-G| to see count details about selected text:
+"
+" - Select your text, type <Ctrl-o>, then g<Ctrl-g>
+"
+" - You'll see, e.g.,
+"
+"   Selected 1 of 2020 Lines; 12 of 11221 Words; 56 of 84086 Chars; 56 of 84181 Bytes
+"
+" - Here's how you might create maps (though why would you need this?):
+"
+"   nnoremap <LocalLeader>k g<C-G>
+"   " This Insert mode has a slight delay... 
+"   inoremap <LocalLeader>k <C-O>g<C-G><Esc>
+"   vnoremap <LocalLeader>k :<C-U><CR>gvygVg<C-G>
 
 " -------------------------------------------------------------------
 
