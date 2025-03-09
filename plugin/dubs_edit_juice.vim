@@ -582,6 +582,8 @@ function! s:CreateMaps_TransposeCharacters() abort
   " - Though note we're not adding transpose-words.
   inoremap <silent> <M-T> <C-o>:call g:embrace#edit_juice#TransposeCharacters()<CR>
   if has('macunix')
+    " DUNNO: Neither <T-T> nor <A-T> work, e.g.,
+    "   inoremap <silent> <T-T> <C-o>:call g:embrace#edit_juice#TransposeCharacters()<CR>
     inoremap <silent> † <C-o>:call g:embrace#edit_juice#TransposeCharacters()<CR>
   endif
 endfunction
