@@ -1369,7 +1369,14 @@ let tlist_actionscript_settings = 'actionscript;c:class;f:method;p:property;v:va
 "   command-line editing and completion enabled.
 " - DUNNO: Why doesn't `normal! Q` or `execute 'normal! Q'` bypass the map?
 
-nnoremap Q @q
+" REFER: |recording| — In Classic Vim, |Q| switches to Ex mode.
+" - But in Neovim, |Q| will "Repeat the last recorded register
+"   [count] times."
+"   - In other words, Neovim copied this behavior, ha! =)
+"   - REFER: |v_Q-default|
+if !has('nvim')
+  nnoremap Q @
+endif
 
 " -------------------------------------------------------------------
 
@@ -1857,9 +1864,15 @@ endif
 "   I-beam cursor appears to go backward one character, but what really
 "   happens is the cursor changes back to block but does not get updated
 "   until you now type a movement command.
-let &t_SI = "\<Esc>[6 q"
-let &t_SR = "\<Esc>[4 q"
-let &t_EI = "\<Esc>[2 q"
+" ISOFF/2025-03-03: Skip if Neovim (otherwise just a no-op). Per |t_xx|:
+" - "Nvim does not have special `t_XX` options nor <t_XX> keycodes to configure
+"    terminal capabilities. Instead Nvim treats the terminal as any other UI,
+"    e.g. 'guicursor' sets the terminal cursor style if possible.""
+if !has('nvim')
+  let &t_SI = "\<Esc>[6 q"
+  let &t_SR = "\<Esc>[4 q"
+  let &t_EI = "\<Esc>[2 q"
+endif
 
 " -------------------------------------------------------------------
 
