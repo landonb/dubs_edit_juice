@@ -878,6 +878,7 @@ function! s:CreateMaps_MoveParagraph(seq_up = '<LocalLeader>dK', seq_down = '<Lo
   execute 'nnoremap ' .. a:seq_up .. ' :call <SID>MoveParagraphUp()<CR>'
   execute 'inoremap ' .. a:seq_up .. ' <C-O>:call <SID>MoveParagraphUp()<CR>'
   execute 'nnoremap ' .. a:seq_down .. ' :call <SID>MoveParagraphDown()<CR>'
+  execute 'inoremap ' .. a:seq_down .. ' <C-O>:call <SID>MoveParagraphDown()<CR>'
 endfunction
 
 call s:CreateMaps_MoveParagraph('<LocalLeader>dK', '<LocalLeader>dJ')
