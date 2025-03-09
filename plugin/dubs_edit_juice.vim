@@ -658,17 +658,17 @@ vnoremap <S-Tab> <gv
 "
 " REFER- Fortunately I found copy-pasta:
 "   https://vi.stackexchange.com/questions/18310/keep-relative-cursor-position-after-indenting-with
-func! CursorFriendlyIndent(ind)
+function! CursorFriendlyIndent(ind) abort
   if &sol
     set nostartofline
   endif
-  let vcol = virtcol('.')
+  let l:vcol = virtcol('.')
   if a:ind
-    norm! >>
-    exe "norm!". (vcol + shiftwidth()) . '|'
-  else
-    norm! <<
-    exe "norm!". (vcol - shiftwidth()) . '|'
+    normal! >>
+    exe "normal!". (l:vcol + shiftwidth()) . '|'
+  elseif match(getline('.'), '^\s') != -1
+    normal! <<
+    exe "normal!". (l:vcol - shiftwidth()) . '|'
   endif
 endfunc
 "
