@@ -171,6 +171,9 @@ function! s:EnableMswinDotVim() abort
     exec "source " .. l:mswin
   else
     behave mswin
+    " DUNNO/2025-03-07: Since when did `behave mswin` start not doing
+    " anything in MacVim?
+    exec "source " .. $VIMRUNTIME .. "/mswin.vim"
   endif
 
   " Unmask mvwin.vim maps.
