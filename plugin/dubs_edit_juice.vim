@@ -117,7 +117,32 @@ inoremap <silent> <C-w> <C-\><C-o>:if col('.') < col('$') \| let &g:undolevels =
 "     inoremap <C-u> <C-g>u<C-\><C-o>d0
 " And here's the approach same as we do for <C-w>, which means you
 " never have to <Ctrl-U> twice to delete a line:
-inoremap <silent> <C-u> <C-\><C-o>:if col('.') < col('$') \| let &g:undolevels = &g:undolevels \| endif<CR><C-u>
+"
+" - ISOFF: This inhibits which-key <Ctrl-U> scroll up from working in
+"   Insert mode (not that that's a big deal; but if you press <Ctrl-r>
+"   in Insert mode to bring up the registers window, you can <BS> to
+"   see all Insert mode bindings, which can be useful!).
+"   - SAVVY: Ha, actually, Neovim's enhanced <C-u> also blocks which-key:
+"     - Neovim --noplugin `imap <C-u>` reports:
+"         i  <C-U>       * <C-G>u<C-U>
+"                          :help i_CTRL-U-default
+"     - And which-key <C-u> won't work unless you unmap it:
+"         iunmap <C-u>
+" FTREQ/LOPRI/INERT: You could reactivate this: Detect if which-key is
+" showing and fallback built-in <C-u> if so. (But also why waste your
+" time trying to figure this out.)
+" - ORNOT: Note that Neovim uses an enhanced <C-u> that starts a new
+"   undo block — <C-G>u<C-U> — but it won't delete the whole line if you
+"   start insert mode, append text to the line, and then press <C-u>
+"   (it'll only delete you what appended, as discusses above, and then
+"   you can <C-U> again to finish off the rest of the line).
+"   - BWARE: If you `iunmap <C-U>` the <C-U> is not undoable!
+"     - E.g., run `iunmap <C-U>`, enter insert mode, type a line,
+"       press <C-U> to delete the line, then <Esc>, and press `u`
+"       to undo, but your deletion won't undo!
+if 0
+  inoremap <silent> <C-u> <C-\><C-o>:if col('.') < col('$') \| let &g:undolevels = &g:undolevels \| endif<CR><C-u>
+endif
 
 " -------------------------------------------------------------------
 
