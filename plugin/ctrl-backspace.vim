@@ -127,7 +127,7 @@ function! s:wire_keys_delete_backwards_c_s_bs()
   " Ctrl-Shift-W like Ctrl-Shift-BS (default <c-s-w> is same as <c-w>).
   " - SAVVY: Works in Debian Vim, but not MacVim (where Shift-Control
   "   input maps to unshifted Control-only).
-  inoremap <c-s-w> <C-O>:<C-U>call dubs_edit_juice_backspace#delete_back_line()<CR>
+  inoremap <C-S-W> <C-O>:<C-U>call dubs_edit_juice_backspace#delete_back_line()<CR>
   " OKILL: Also map to <Shift-Alt-W> (aka <M-S-W> <S-M-W> <Alt-Shift-W>)
   " - Note that macOS `vim`/MacVim does not distinguish <Shift-Ctrl-W> apart
   "   from <Ctrl-W> (they're both intrepeted as the same escape sequence),
@@ -145,7 +145,7 @@ function! s:wire_keys_delete_backwards_c_s_bs()
   "       https://github.com/DepoXy/depoxy/blob/release/home/.config/alacritty/alacritty.toml#L282-L350
   "       https://github.com/DepoXy/depoxy/blob/release/home/.hammerspoon/depoxy-hs.lua#L124-L175
   "       https://github.com/DepoXy/vim-depoxy/blob/release/plugin/vim-shift-ctrl-bindings.vim
-  inoremap <m-s-w> <C-O>:<C-U>call dubs_edit_juice_backspace#delete_back_line()<CR>
+  inoremap <M-S-W> <C-O>:<C-U>call dubs_edit_juice_backspace#delete_back_line()<CR>
 endfunction
 
 function! s:wire_keys_delete_backwards()
