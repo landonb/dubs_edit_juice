@@ -3,6 +3,13 @@
 " License: GPLv3
 " Copyright © 2015, 2017-2018, 2024 Landon Bouma.
 
+" Don't run in Neovim (this script still works, but author
+" ported a subset of mswin.vim to Lua, and it's much better).
+if has('nvim')
+
+  finish
+endif
+
 " -------------------------------------------------------------------
 
 " GUARD: Press <F9> to reload this plugin (or :source it).
