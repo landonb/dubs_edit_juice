@@ -618,20 +618,95 @@ call s:CreateAutocmds_HelpFileInsertModeTagStackJump()
 " Indent Selected Text
 " ------------------------------------------------------
 
-" Vim's <Tab> is used to move the cursor
-" according to the jump list, but it's silly.
-" I.e., in Insert mode, if you have nothing
-" selected, <Tab> does what? Inserts a <Tab>.
-" What happens if you have text selected?
-" And I mean besides entering visual edit mode?
-" My computer rings the bell and the Vim window
-" does a quiet beep (so... nothing!).
+" BECUZ: We'll use <Tab>/<Shift-Tab> for indent/dedent from Visual and
+" Select modes, and from Normal mode, because it shouldn't affect any
+" built-in that you care about:
 "
-" Thusly, use Tab/Shift-Tab to add/remove indents
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
+" - Built-in Normal mode <Tab> moves the cursor to newer cursor
+"   position in jump list, same as <Ctrl-I>.
+"
+"   - <Ctrl-O> moves to older cursor posit, but there's no equivalent
+"     <Tab> combination (i.e., there's no <Shift-Tab> to go to older
+"     cursor posit).
+"
+"   - While we could nmap <S-Tab> to <Ctrl-O>, I generally use
+"     <Ctrl-I>/<Ctrl-O> if I use the jump list feature at all
+"     - So let's repurpose Normal mode <Tab>.
+"
+" - In Insert mode, pressing <Tab> or <Shift-Tab> inserts a <Tab> character.
+"   - So let's repurpose Insert mode <Tab>.
+"
+" - In Classic Vim, pressing <Tab> in Select mode rings the bell and the Vim
+"   window does a quiet beep.
+"
+"   - In Neovim, <Tab> or <Shift-Tab> do nothing from Visual or Select modes.
+"
+"   - So let's repurpose Visual/Select mode <Tab>.
+"
+" SAVVY: nvim_lazyb (LazyVim) uses smap <buffer> <Tab>/<Shift-Tab> for blink.cmp.
+"
+" - It'll fallback the global smap/vmap if completion not active.
+"
+" - ASIDE: Note you can set a vmap and smap, or vmap and xmap, but if
+"   you set both smap and xmap, they replace a vmap. And setting vmap
+"   replaces both smap and xmap with the same {lhs}.
+"   - E.g.,
+"     :lua vim.keymap.set('v', '<tab>', 'echom "Visual & Select 1"', { desc = "Lost me!" } )
+"     :lua vim.keymap.set('v', '<tab>', 'echom "Visual & Select 2"', { desc = "Got me!" } )
+"     :smap <Tab> 'echom "Select mode"'
+"     :xmap <Tab> 'echom "Visual mode"'
+"   - blimp.cmp uses a buffer smap, which a global smap will not overwrite.
+"   - But another buffer map will overwrite it, e.g.,
+"     :lua vim.keymap.set('v', '<tab>', 'echom "Vmap"', { buffer = true, desc = "Buf Vmap" } )
+"     :smap <buffer> <Tab> 'echom "Buffer Select mode"'
+"     :xmap <buffer> <Tab> 'echom "Buffer Visual mode"'
+
+" DUNNO/2025-03-03: nvim-depoxy (author's old Vim plugins running in Neovim)
+" works fine with vmap, e.g.,
+"   vnoremap <Tab> >gv
+"   vnoremap <S-Tab> <gv
+" but nvim-lazyb (LazyVim derivative) needs them separated (xmap and smap).
+
+" USAGE: The blink.cmp buffer smap somehow caches the global map, so after
+" making changes here, if you don't want to restart Neovim or to delete the
+" buffer, you'll need to unmap the blink.cmp smap's:
+"   sunmap <buffer> <Tab>
+"   sunmap <buffer> <S-Tab>
+
+" NOTE: With these maps, you'll have lots of indent/dedent options!:
+" - Normal mode >>/<<                 (built-in)
+" - Normal/Visual mode <Tab>/<S-Tab>  (defined here)
+" - Insert mode <Ctrl-D>/<S-Ctrl-D>   (former built-in, latter from nvim-depoxy/nvim-lazyb)
+" - Insert mode <LocalLeader>==       (auto-indent, defined here)
+" - Visual mode >/<                   (as defined by LazyVim)
+
+xnoremap <Tab> >gv
+xnoremap <S-Tab> <gv
+snoremap <Tab> <C-o>>gv<C-g>
+snoremap <S-Tab> <C-o><gv<C-g>
+
 " SAVVY: Also remember that == smartly fixes
 "        the indent of the line-under-cursor.
+" - In keeping with the spirit of nvim-depoxy/nvim-lazyb,
+"   we'll make a similar Insert mode map.
+inoremap <LocalLeader>== <C-o>==
+
+" HSTRY/2025-03-03: This seems useful... though if you
+" discover a better use for Normal mode <Tab>/<S-Tab>,
+" remove these, and remember to use >>/<< instead.
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+" Note that Insert mode <Shift-Tab> same as <Tab> — it just enters
+" a Tab or spaces until the next &shiftwidth-divisible column.
+" - We could make a complementary imap <S-Tab>, but it wouldn't
+"   exactly be complementary. E.g., if you used this map:
+"     inoremap <S-Tab> <C-O><<
+"   the <Tab> enters whitespace where the cursor is,
+"   but <Shift-Tab> would not remove that whitespace
+"   unless it was at the beginning of the line.
+"   - So might as well just not map it.
+
+" ***
 
 " REFER: See Vim's built-in i_CTRL-D and i_CTRL-T
 " - i_CTRL-D dedents and i_CTRL-T indents by default.
@@ -645,9 +720,12 @@ vnoremap <S-Tab> <gv
 " SAVVY: On macOS, sending <Shift-Ctrl> is tricky business.
 " - It requires Alacritty (or similar terminal) bindings to work from terminal Vim:
 "     https://github.com/DepoXy/depoxy/blob/1.2.13/home/.config/alacritty/alacritty.toml#L282-L350
-" - And it requires Hammerspoon (or similar event interceptor) bindings to work from MacVim:
+" - And it requires Hammerspoon (or similar event interceptor) bindings to work from GUI
+"   (e.g., MacVim or Neovide):
 "     https://github.com/DepoXy/depoxy/blob/1.2.13/home/.hammerspoon/depoxy-hs.lua#L124-L175
-" - From DepoXy development environment orchestrator:
+" - These other files are part of the DepoXy development environment orchestrator
+"   (basically the author's dot-files repo, which coordinates features between
+"   disparate projects):
 "     https://github.com/DepoXy/depoxy#🍯
 
 " SAVVY: This naive approach works, but it either moves the cursor to the first
@@ -656,8 +734,17 @@ vnoremap <S-Tab> <gv
 " 
 "   inoremap <S-C-D> <C-O>:normal >><CR>
 "
-" REFER- Fortunately I found copy-pasta:
+" REFER: Fortunately, I found a better solution:
 "   https://vi.stackexchange.com/questions/18310/keep-relative-cursor-position-after-indenting-with
+"
+" Like built-in >> and << but keep cursor in same relative character position.
+" - E.g., consider text with cursor between "foo" and "bar":
+"     foo|bar
+"   After built-in >>, cursor remains in same column, but moves relative
+"   to where it was previously:
+"       f|oobar
+"   Whereas this function keeps the cursor relatively where it was at:
+"       foo|bar
 function! CursorFriendlyIndent(ind) abort
   if &sol
     set nostartofline
@@ -671,52 +758,56 @@ function! CursorFriendlyIndent(ind) abort
     exe "normal!". (l:vcol - shiftwidth()) . '|'
   endif
 endfunc
-"
-" CRUMB: <Shift-Ctrl-D> <S-C-D> <Ctrl-Shift-D> <C-S-D>
-inoremap <S-C-D> <C-O>:call CursorFriendlyIndent(1)<CR>
-" Except in MacVim where <S-C-*> maps to <C-*>, use <Shift-Alt-D> instead.
-" - CRUMB: <Shift-Alt-D> (aka <M-S-D> <S-M-D> <Alt-Shift-D>)
-" - Note that macOS `vim`/MacVim does not distinguish <Shift-Ctrl-D> apart
-"   from <Ctrl-D> (they're both intrepeted as the same escape sequence),
-"   so we'll also map <Shift-Alt-D> to indent.
-" - REFER: Note there is a crafty way to make <Ctrl-Shift> work in vim/MacVim.
-"   - See comment re: DepoXy in plugin/ctrl-backspace.vim
-"     ~/.kit/nvim/landonb/dubs_edit_juice/plugin/ctrl-backspace.vim
-inoremap <S-M-D> <C-O>:call CursorFriendlyIndent(1)<CR>
-"
-" Not necessary (builtin <C-D> behaves the same):
-inoremap <C-D> <C-O>:call CursorFriendlyIndent(0)<CR>
-"
-" But we can 'enchance' built-in << and >>:
+
+" 'Enhance' built-in << and >>.
 nnoremap >> :call CursorFriendlyIndent(1)<cr>
 nnoremap << :call CursorFriendlyIndent(0)<cr>
-"
-" Visual mode is easy, because cursor position doesn't matter.
-vnoremap <S-C-D> >gv
-" For MacVim, where <S-C> input is stripped of the <S> (see comment above).
-vnoremap <S-M-D> >gv
 
-" Note that built-in normal mode CTRL-D Scrolls window Downwards
-" (and CTRL-U Upwards).
-" - Author mostly scrolls using PgDown and PgUp, as I'm sure lots of folx,
-"   do, though sometimes I use <C-D> to scroll when my right hand is busy.
-" - Dubs Vim reassigns CTRL-U to moving paragraph up (and CTRL-P down).
-"   - This sorta leave normal CTRL-D all alone, i.e., there's no matching
-"     binding to scroll up.
+" CRUMB: <Shift-Ctrl-D> <S-C-D> <Ctrl-Shift-D> <C-S-D>
+" - Note the nvim-depoxy and nvim-lazyb create an imap using "",
+"   a PUA character used to bind <Shift-Ctrl> sequences.
+inoremap <S-C-D> <C-O>:call CursorFriendlyIndent(1)<CR>
+
+" Visual mode is easy, because cursor position doesn't matter.
+" ISOFF/2025-03-03: nvim_lazyb (LazyVim) uses vmap <C-D> to scroll down
+" the which-key popup.
+" - And while I like the parity with Insert mode, and I like that
+"   this works from Select mode (from Visual mode, using ">" and "<"
+"   is probably easier)...
+if 0
+  vnoremap <S-C-D> >gv
+endif
+
+" Built-in normal mode CTRL-D Scrolls window Downwards (and CTRL-U Upwards).
 " - However, <S-C-D> by default is same as <C-D>.
 "   - So we can assign scroll up to <S-C-D>.
-"   - And then we can say that while Dubs changes the <C-U> binding, it at
-"     least reassigns the original command to a different binding. So in
-"     the end, no original command is left unbound, they've just been moved.
+" - See nvim-depoxy/nvim-lazyb for PUA "" binding, to make <Shift-Ctrl> maps work.
+" - This doesn't really belong here, because its rhs is not indent-related,
+"   but it's lhs *is* related, so might as well 'allow' it.
 nnoremap <S-C-D> <C-U><CR>
 
+" We don't need to replace built-in <Ctrl-d>, which behaves the same.
+" - ISOFF: This inhibits which-key <Ctrl-D> scroll down from working in
+"   Insert mode (not that that's a big deal; but if you press <Ctrl-r>
+"   in Insert mode to bring up the registers window, you can <BS> to
+"   see all Insert mode bindings, which can be useful!).
+" FTREQ/LOPRI/INERT: You could reactivate this: Detect if which-key is
+" showing and fallback built-in <C-u> if so. (But also why waste your
+" time trying to figure this out.)
+if 0
+  inoremap <C-D> <C-O>:call CursorFriendlyIndent(0)<CR>
+endif
+
 " Make visual mode <C-D> work like built-in i_CTRL-D: dedent the selection.
-" - Default visual mode <C-D> more like normal mode <C-D>: it scrolls
+" - Default visual mode <C-D> works like normal mode <C-D>: it scrolls
 "   downward (and extends the selection).
 "   - This strikes the author as counterintuitive. I generally expect
 "     visual mode bindings to behave like their insert mode counterparts.
 "     I.e., I'd except <C-D> to dedent the selection; so we do that here.
-vnoremap <C-D> <gv
+" ISOFF/2025-03-03: Leave vmap <C-D>/<S-C-D> for which-key.
+if 0
+  vnoremap <C-D> <gv
+endif
 
 " ***
 
