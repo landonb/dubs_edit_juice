@@ -1314,15 +1314,28 @@ endif
 "   inoremap <silent> <M-[> <C-]>
 " endif
 
-" Ctrl-] jumps to the tag under the cursor, but only in normal mode.
-" Let's make it work in Insert mode, too.
-" - SPIKE/2024-12-11: Does this inhibit <C-]> from completing iabbrev?
-"nnoremap <silent> <C-]> :call <SID>GrepPrompt_Auto_Prev_Location("<C-R><C-W>")<CR>
-inoremap <silent> <C-]> <C-O>:tag <C-R><C-W><CR>
-" Selected word
-vnoremap <silent> <C-]> :<C-U>
-  \ <CR>gvy
-  \ :execute "tag " . @@<CR>
+" Ctrl-] jumps to the tag under the cursor, or the selected tag.
+" - But it's not wired by default in Insert mode.
+" - REFER: |CTRL-]| |v_CTRL-]|
+" - CXREF: See nvim-lazyb for an Insert mode <C-]> implementation.
+" - This naïve approach doesn't complete iabbrev like normal:
+"     inoremap <silent> <C-]> <C-]><C-O>:tag <C-R><C-W><CR>
+" - This approach completes iabbrev:
+"     inoremap <silent> <C-]> <C-]><C-O>:tag <C-R><C-W><CR>
+"   However, because there's nothing under the cursor after the
+"   abbreviation expands, Vim prints:
+"     E348: No string under cursor
+"   and the cursor is left in the cmdline, at the end of an
+"   incomplete `tag ` command.
+"   - ASIDE: Normal mode Ctrl-] retorts a little differently
+"     if nothing under the cursor:
+"       E349: No identifier under cursor
+" - I tried a few Vimscript+Lua approaches, including
+"     inoremap <silent> <C-]> <C-]><C-O>:lua pcall(function()
+"       \ vim.cmd([[exec "normal :tag \<C-R>\<C-W>\<CR>"]]) end)<CR>
+"   but that prints
+"     E5107: Error loading lua [string ":lua"]:1: unfinished long string near '<eof>'
+"   and then I gave up and got something similar working from Lua config.
 
 " Ctrl-t jumps back after a Ctrl-], but I have two issues with this. One,
 " I've got Ctrl-t mapped to Transpose Characters in Insert mode. But more
