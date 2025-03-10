@@ -1540,9 +1540,11 @@ inoremap <silent> <LocalLeader>dT <C-o>:exec 'tabedit ' .. expand('%')<CR>
 " Start Command w/ Selected Text
 " ------------------------------------------------------
 
-" Default: let &history=50
+" Default: Vim: let &history=50 | Neovim: let &history=10000
 " - REFER: |'history'|
-set history=1000
+if !has('nvim')
+  set history=1000
+endif
 
 " For help with Command Line commands, see :h cmdline
 " Note that <C-R> is search in Insert mode but starts a
