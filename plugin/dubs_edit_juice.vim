@@ -1774,8 +1774,12 @@ if ! exists("g:DUBS_TRUST_ME_PLUGIN_DIR")
   let g:DUBS_TRUST_ME_PLUGIN_DIR = ".trustme"
 endif
 
-autocmd BufEnter * call s:SeekForSecurityHolePluginFileToLoad(0, 'BufEnter')
-autocmd BufWritePost * call s:SeekForSecurityHolePluginFileToLoad(1, 'BufWritePost')
+" MAYBE: Revive in nvim-lazyb. Or not- I assume there's a better way
+" to handle this functionality with a modern plugin...
+if get(g:, 'dubs_edit_juice_everything', 0)
+  autocmd BufEnter * call s:SeekForSecurityHolePluginFileToLoad(0, 'BufEnter')
+  autocmd BufWritePost * call s:SeekForSecurityHolePluginFileToLoad(1, 'BufWritePost')
+endif
 
 " Search updards for a specially named file to be sourced at runtime,
 " whenever the buffer of a file in a directory thereunder is opened.
