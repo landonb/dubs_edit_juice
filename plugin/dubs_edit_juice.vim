@@ -1681,9 +1681,12 @@ command! -nargs=0 Foobar :normal! ifoo, bar, baz, qux, quux, quuz, corge, grault
 "      /usr/share/vim/vim74/gvimrc_example.vim
 " ------------------------------------------------------
 
-" Convenient command to see the difference between the current
-" buffer and the file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
+" Convenient command to see the difference between the current buffer
+" and the file it was loaded from, thus the unsaved changes you made.
+"
+" HSTRY/2025-03-03: I've never used this. It's an interesting invocation
+" though. But also outdated. There's probably a way to do this similar
+" to gitsigns (or just use gitsigns to see uncommitted changes you made).
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
     \ | wincmd p | diffthis
@@ -1728,7 +1731,8 @@ function! s:DiffToggle(window) abort
   diffupdate
   call setpos('.', l:save_cursor)
 endfunction
-" Toggle diff view on the left, center, or right windows
+" Toggle diff view on the left, center, or right windows.
+" - HSTRY/2025-03-03: I don't use these...
 nnoremap <silent> <LocalLeader>dDl :call <SID>DiffToggle(1)<cr>
 nnoremap <silent> <LocalLeader>dDc :call <SID>DiffToggle(2)<cr>
 nnoremap <silent> <LocalLeader>dDr :call <SID>DiffToggle(3)<cr>
