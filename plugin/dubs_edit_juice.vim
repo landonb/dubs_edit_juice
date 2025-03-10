@@ -1605,6 +1605,9 @@ function! s:CreateAutocmdMapsVimFunctions(noshowmode = 1) abort
     " - FTREQ: Strip leading 'function!' and esp. trailing 'abort'
     autocmd FileType vim,lua,rst,markdown,txt vnoremap <buffer> <silent>
       \ :> :<C-U><CR>gvy:call <SID>CallSelected(@")<CR>
+
+    " |:L| is like |::| but starts Lua command.
+    autocmd FileType vim,lua,rst,markdown,txt vnoremap <buffer> :L :<C-U><CR>gvy:call histadd('cmd', 'lua ' .. escape(@", '"'))<CR>:lua <C-R>"<CR>
   augroup END
 endfunction
 
