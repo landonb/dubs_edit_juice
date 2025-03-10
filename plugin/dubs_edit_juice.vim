@@ -1431,38 +1431,6 @@ endif
 
 " -------------------------------------------------------------------
 
-" ------------------------------------------------------
-" Obsolete ActionScript tags code...
-" ------------------------------------------------------
-
-" From
-" http://vim-taglist.sourceforge.net/extend.html
-" actionscript language
-let tlist_actionscript_settings = 'actionscript;c:class;f:method;p:property;v:variable'
-
-" FIXME add ctags to Makefile instead of daily.sh
-"CTAGLANGS = --langdef=actionscript \
-"--langmap=actionscript:.as \
-"--regex-actionscript='/^[ \t]*[(private| public|static) ( \t)]*function[\t]+([A-Za-z0-9_]+)[ \t]*\(/\1/f, function, functions/' \
-"--regex-actionscript='/^[ \t]*[(public) ( \t)]*function[ \t]+(set|get) [ \t]+([A-Za-z0-9_]+)[ \t]*\(/\1 \2/p,property, properties/' \
-"--regex-actionscript='/^[ \t]*[(private| public|static) ( \t)]*var[  \t]+([A-Za-z0-9_]+)[\t]*/\1/v,variable, variables/' \
-"--regex-actionscript='/.*\.prototype \.([A-Za-z0-9 ]+)=([ \t]?)function( [  \t]?)*\(/\1/f,function, functions/' \
-"--regex-actionscript='/^[ \t]*class[ \t]+([A-Za-z0-9_]+)[ \t]*/\1/c,class, classes/'
-"
-".PHONY: ctags
-"ctags:
-"-rm -f TAGS
-"find . -name "*.as" -or -name "*.mxml" | ctags -eL - $(CTAGLANGS)
-"
-" FIXME The article at http://vim-taglist.sourceforge.net/extend.html
-"       is wrong
-"       Specifically, it doesn't recognize override or protected, and set|get
-"       is broken. See my .ctags file for the appropriate command.
-
-"--regex-actionscript=/^[ \t]*[(override)[ \t]+]?[(private|protected|public)][ \t]+[(static)[ \t]+]?function[ \t]+[(set|get)]*[ \t]+([A-Za-z0-9_]+)[ \t]*\(/\1 \2/p,property, properties/
-
-" -------------------------------------------------------------------
-
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Macros
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
