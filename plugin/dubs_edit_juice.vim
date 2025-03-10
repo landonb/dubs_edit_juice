@@ -1985,6 +1985,10 @@ endif
 " 2024-12-12: Helpful joiner
 " -------------------------------------------------------------------------
 
+" Neovim default: &formatoptions = "tcqj"
+" nvim-lazyb (LazyVim) default: &formatoptions = "jncroql"
+" nvim-depoxy default: &formatoptions = "jcroql"
+
 " As inspired by tpope/vim-sensible:
 " 'Delete comment character when joining commented lines.'
 " - USAGE: Works with the `J` command.
