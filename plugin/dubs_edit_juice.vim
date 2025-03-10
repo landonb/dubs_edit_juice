@@ -374,7 +374,7 @@ function! s:add_cmd_left_cmd_right_maps_move_cursor_to_line_beg_line_end() abort
   vnoremap <D-Right> :<C-U> <CR>gvy :execute "normal! $"<CR>
 endfunction
 
-if $NVIM_APPNAME == 'nvim_depoxy'
+if get(g:, 'dubs_edit_juice_everything', 0)
   call s:add_cmd_left_cmd_right_maps_move_cursor_to_line_beg_line_end()
 endif
 
@@ -542,7 +542,7 @@ endfunction
 "      to uppercase or lowercase the selected text.
 " HELP: To get help on <C-u>, in command mode (following the colon), try:
 "          h c_CTRL-u
-if $NVIM_APPNAME == 'nvim_depoxy'
+if get(g:, 'dubs_edit_juice_everything', 0)
   vnoremap <C-Z> :<C-U>
     \ :undo<CR>
   vnoremap <C-Y> :<C-U>
@@ -588,7 +588,7 @@ function! s:CreateMaps_TransposeCharacters() abort
   endif
 endfunction
 
-if $NVIM_APPNAME == 'nvim_depoxy'
+if get(g:, 'dubs_edit_juice_everything', 0)
   call s:CreateMaps_TransposeCharacters()
 endif
 
