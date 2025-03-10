@@ -1920,7 +1920,6 @@ endif
 "       - We'll keep this alive as a zombie feature that you'll forget
 "         about, but when you rediscover this comment, at least you can
 "         demo the feature without needing to change anything.
-inoremap <S-M-B> <C-O>:call <SID>HighlightNearCursor()<CR>
 function! s:highlight_cursor_match_id() abort
   if !exists("w:highlight_cursor_match_id")
     let l:priority = 100
@@ -1930,6 +1929,11 @@ function! s:highlight_cursor_match_id() abort
     unlet w:highlight_cursor_match_id
   endif
 endfunction
+
+inoremap <S-M-B> <C-O>:call <SID>highlight_cursor_match_id()<CR>
+if has('macunix')
+  inoremap ı <C-O>:call <SID>highlight_cursor_match_id()<CR>
+endif
 
 " -------------------------------------------------------------------
 
