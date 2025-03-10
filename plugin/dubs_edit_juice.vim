@@ -1410,11 +1410,24 @@ vnoremap <M-]> :<C-U>
 " Vim Wild Menu (wildmenu)
 " ------------------------------------------------------
 
-" In Insert mode, use Ctrl-P and Ctrl-N to cycle through
-" an auto-completion list from your tags file.
-" Completion happens according to wildmode.
-" See also :help cmdline-completion
-set wildmode=list:longest,full
+" REFER: |wildmode| |cmdline-completion|
+" - --noplugin default: &wildmode = 'full'
+" - LazyVim default: `&wildmode = 'longest:full,full'
+"   - When auto-completion activated in the command line,
+"     e.g., `:e ~/<Tab>`, and when Noice not running,
+"     shows a drop-up menu with one option per line.
+"   - When Noice is running, shows matches in drop-down
+"     list below the command line floating window.
+" - `&wildmode = 'list:longest,full'
+"   - When Noice is running, behaves same as previous
+"     setting, 'longest:full,full'.
+"   - Otherwise, shows all matches in rows/columns atop the
+"     popup, and shows one row on bottom you can cycle
+"     through with Ctrl-n/Ctrl-p or Tab/Shift-Tab.
+
+if get(g:, 'dubs_edit_juice_everything', 0)
+  set wildmode=list:longest,full
+endif
 
 " -------------------------------------------------------------------
 
