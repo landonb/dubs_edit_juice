@@ -1344,13 +1344,15 @@ endif
 " <Esc>, and I've already got enough escapes mapped).
 
 " Hmpf. I cannot get this to work right now. It remaps all my other Escapes,
-" too... and <C-}>, <C-S-]> and <C-S-}> don't work, either
-"inoremap <C-[> <C-O>:normal <C-t><CR>
-"vnoremap <C-[> :<C-U>
-"  \ <CR>gvy
-"  \ gV
-"  \ :normal <C-t><CR>
-" Whatever, use Alt-] to jump a tag back.
+" too... and <C-}>, <C-S-]> and <C-S-}> don't work, either.
+"   inoremap <C-[> <C-O>:normal <C-t><CR>
+"   vnoremap <C-[> :<C-U>
+"     \ <CR>gvy
+"     \ gV
+"     \ :normal <C-t><CR>
+" - Note that CTRL-[ same as <Esc>, and doesn't seem remappable...
+" Whatever, use Alt-] to jump a back (same as <C-t>, though yanks
+" selection, and works from Insert mode).
 nnoremap <M-]> :normal <C-t><CR>
 inoremap <M-]> <C-O>:normal <C-t><CR>
 vnoremap <M-]> :<C-U>
