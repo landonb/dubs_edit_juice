@@ -1246,17 +1246,22 @@ inoremap <LocalLeader>dA <C-o><Plug>CT_CharTable<ESC>
 " Toggle Tag List
 " ---------------------------------------
 " Show the ctags list.
+" - REFER:
+"   https://github.com/landonb/vim-classic-taglist
 " - HSTRY/2024-04-29: Previously at <Shift-Alt-6>. Promoted to see
 "   if tag list will get used now. (Decade-long A/B testing.)
 "     nnoremap <M-^> :TlistToggle<CR>
 "     inoremap <M-^> <C-O>:TlistToggle<CR>
 "     " cmap <M-^> <C-C>TlistToggle<ESC>
 "     " omap <M-^> <C-C>TlistToggle<ESC>
-nnoremap <M-!> :TlistToggle<CR>
-inoremap <M-!> <C-O>:TlistToggle<CR>
-if has('macunix')
-  nnoremap ⁄ :TlistToggle<CR>
-  inoremap ⁄ <C-O>:TlistToggle<CR>
+if get(g:, 'dubs_edit_juice_everything', 0)
+  nnoremap <M-!> :TlistToggle<CR>
+  inoremap <M-!> <C-O>:TlistToggle<CR>
+  if has('macunix')
+    " DUNNO: Neither <T-!> nor <A-!> work, but literal char. does.
+    nnoremap ⁄ :TlistToggle<CR>
+    inoremap ⁄ <C-O>:TlistToggle<CR>
+  endif
 endif
 
 " -------------------------------------------------------------------
