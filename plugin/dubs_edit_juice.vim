@@ -1081,7 +1081,7 @@ endif
 "  inoremap <LocalLeader>s <C-o>:ZZWrap .,$s/<C-R><C-W>//gc<Left><Left><Left>
 vnoremap <Localleader>s :<C-U><CR>gv"sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
 
-" 2024-08-07: Alternative \S# uses '#' delims instead of '/', e.g., to
+" 2024-08-07: Alternative \SS uses '#' delims instead of '/', e.g., to
 "             make it easier to write patterns that include path strings.
 if exists('g:neovide')
   " KLUGE
@@ -1102,16 +1102,15 @@ endif
 vnoremap <LocalLeader>SS :<C-U><CR>gv"sy:ZZWrap .,$s#<C-r>s##gc<Left><Left><Left>
 
 " When inccommand=nosplit, if you select multiple iskeywords, it yanks
-" the word after what's selected. So disable it.
+" the word *after* what's selected.
+" - Set g:'dubs_edit_juice_inccommand to demo for yourself.
 if get(g:, 'dubs_edit_juice_inccommand', 0)
-  " ALTLY: These maps work with inccommand=nosplit
-  "
   nnoremap <LocalLeader>Ss :.,$s/<C-R><C-W>//gc<Left><Left><Left>
   vnoremap <LocalLeader>Ss :<C-U><CR>gv"sy:.,$s/<C-r>s//gc<Left><Left><Left>
   "
-  nnoremap <LocalLeader>SS# :.,$s#<C-R><C-W>##gc<Left><Left><Left>
-  inoremap <LocalLeader>SS# <C-o>:.,$s#<C-R><C-W>##gc<Left><Left><Left>
-  vnoremap <LocalLeader>SS# :<C-U><CR>gv"sy:.,$s#<C-r>s##gc<Left><Left><Left>
+  nnoremap <LocalLeader>S# :.,$s#<C-R><C-W>##gc<Left><Left><Left>
+  inoremap <LocalLeader>S# <C-o>:.,$s#<C-R><C-W>##gc<Left><Left><Left>
+  vnoremap <LocalLeader>S# :<C-U><CR>gv"sy:.,$s#<C-r>s##gc<Left><Left><Left>
 endif
 
 " See also: QuickfixSubstituteAll in plugin/dubs_quickfix_wrap.vim,
