@@ -694,8 +694,14 @@ inoremap <LocalLeader>== <C-o>==
 " HSTRY/2025-03-03: This seems useful... though if you
 " discover a better use for Normal mode <Tab>/<S-Tab>,
 " remove these, and remember to use >>/<< instead.
-nnoremap <Tab> >>
-nnoremap <S-Tab> <<
+" - ORNOT: Oh, yeah, <Tab> is same as <Ctrl-I>, and
+"   if you map <Tab>, you change <Ctrl-I>, ha! I.e.,
+"   this changes <Ctrl-I> into Indent, and not jump
+"   to newer cursor position.
+"
+"  nnoremap <Tab> >>
+"  nnoremap <S-Tab> <<
+"
 " Note that Insert mode <Shift-Tab> same as <Tab> — it just enters
 " a Tab or spaces until the next &shiftwidth-divisible column.
 " - We could make a complementary imap <S-Tab>, but it wouldn't
