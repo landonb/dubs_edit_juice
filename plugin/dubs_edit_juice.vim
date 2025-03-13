@@ -152,6 +152,7 @@ endif
 
 " In both Normal and Insert modes, built-in <Ctrl-Left|Right> moves
 " the cursor to start of prev|next word.
+" - REFER: |B| |W|
 " - LazyVim reassigns <Ctrl-Left|Right> to resizing the window.
 " - The <Ctrl-Right> here moves the cursor to end of the current word,
 "   i.e., before the space, unlike built-in <Ctrl-Right>.
@@ -165,22 +166,28 @@ endif
 "       ...y/blink.cmp/lua/blink/cmp/completion/trigger/context.lua:105:
 "     Cannot get line number 323 in cmdline mode. Only 0 is supported
 
-function! s:wire_keys_move_to_word_previous_and_next() abort
-  nnoremap <C-Left> b
-  inoremap <C-Left> <C-O>b
-  " Don't vmap C-Left, or after C-S-Left it'll keep selecting without
-  " Shift pressed anymore:
-  "   vnoremap <C-Left> b
+" On macOS, by default, <Ctrl-Up> invokes Mission Control, and
+" <Ctrl-Down> shows Application windows — which the author rebinds
+" to <Ctrl-Alt-Up> and <Ctrl-Alt-Down>.
+" - By default, <Ctrl-Left|Right> navigates Spaces — which the
+"   author rebinds to ~~<Ctrl-Alt-Left|Right>~~ <Cmd-Alt-Left|Right>...
 
-  " Note the <right> (or `l`), otherwise cursor ends up between last two chars.
+function! s:wire_keys_move_to_word_previous_and_next_normal() abort
+  " Compare to default Normal mode <C-Left>, which runs |B|.
+  nnoremap <C-Left> b
+  " Compare to default Normal mode <C-Right>, which runs |W|.
+  " - Note the `l`, otherwise cursor ends up between last two chars.
   nnoremap <C-Right> el
-  inoremap <C-Right> <C-O>e<Right>
-  " Don't vmap C-Right, or after C-S-Right it'll keep selecting without
-  " Shift pressed anymore:
-  "   vnoremap <C-Right> e
 endfunction
 
-call s:wire_keys_move_to_word_previous_and_next()
+function! s:wire_keys_move_to_word_previous_and_next_insert() abort
+  inoremap <C-Left> <C-O>b
+  " Note the <right>, otherwise cursor ends up between last two chars.
+  inoremap <C-Right> <C-O>e<Right>
+endfunction
+
+call s:wire_keys_move_to_word_previous_and_next_normal()
+call s:wire_keys_move_to_word_previous_and_next_insert()
 
 " -------------------------------------------------------------------
 
