@@ -192,8 +192,27 @@ function! s:wire_keys_move_to_word_previous_and_next_insert() abort
   inoremap <C-M-Right> <C-O>E<Right>
 endfunction
 
+function! s:wire_keys_move_to_word_previous_and_next_visual() abort
+  " DUNNO: Why don't these vmaps work, but as separate xmap/smap they do?
+  " - In Select mode, these <Ctrl-Left|Right> leave the selection selected
+  "     (i.e., without <Shift> being pressed):
+  "   vnoremap <silent> <C-Left> <Esc>:normal b<CR>
+  "   vnoremap <silent> <C-Right> <Esc>:normal e<CR>
+
+  " Note without <C-M-Left|Right> visual/select maps,
+  " using <C-M-Left|Right> from visual/select mode
+  " runs the <C-Left|Right> map instead.
+
+  xnoremap <silent> <C-Left> <Esc>:normal b<CR>
+  snoremap <silent> <C-Left> <Esc>:normal b<CR>
+
+  xnoremap <silent> <C-Right> <Esc>:normal e<CR>
+  snoremap <silent> <C-Right> <Esc>:normal e<CR>
+endfunction
+
 call s:wire_keys_move_to_word_previous_and_next_normal()
 call s:wire_keys_move_to_word_previous_and_next_insert()
+call s:wire_keys_move_to_word_previous_and_next_visual()
 
 " -------------------------------------------------------------------
 
