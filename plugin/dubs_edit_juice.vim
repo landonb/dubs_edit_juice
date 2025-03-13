@@ -150,46 +150,117 @@ endif
 " Wire Ctrl-Left/-Right to Jumping Cursor by Word
 " -------------------------------------------------------------------
 
-" In both Normal and Insert modes, built-in <Ctrl-Left|Right> moves
-" the cursor to start of prev|next word.
-" - REFER: |B| |W|
-" - LazyVim reassigns <Ctrl-Left|Right> to resizing the window.
-" - The <Ctrl-Right> here moves the cursor to end of the current word,
-"   i.e., before the space, unlike built-in <Ctrl-Right>.
-"
-" DUNNO: I tried to inhibit the completion menu, which is kinda
-" annoying as it pops up for every movement, but adding this
-"   <C-O>:lua pcall(function() require("blink-cmp").hide() end)<CR>
-" either before or after the <C-O>b and <C-O>e<Right> each causes error:
-"   Error in decoration provider blink_cmp_ghost_text.line:
-"     Error executing lua:
-"       ...y/blink.cmp/lua/blink/cmp/completion/trigger/context.lua:105:
-"     Cannot get line number 323 in cmdline mode. Only 0 is supported
+" Built-in Normal mode |<C-Right>|/|<C-Left>| is W/B, which moves the
+" cursor by the WORDful.
+" - Our Normal mode <C-Right>/<C-Left> below uses either w/b or el/b,
+"   which causes the cursor to stop more frequently, by the word-ful.
+"   - The author used to prefer <C-Right> to the |e| end of words,
+"     but in Insert mode, that tends to trigger the blink.cmp completion
+"     menu. So now I brew to <C-Right> to the beginning of the next |w|
+"     word, which doesn't evoke the wrath of blink.
+" Note that built-in Insert mode i_CTRL-Right/i_CTRL-Left behaves like w/b
+" (tho I didn't find documentation, just empircal evidence).
+" - So really what we're doing is making Normal and Insert mode behavior
+"   the same!
+"   - <C-Left>/<C-Right> is a more particular word jumper, stopping more
+"     frequently. And <C-M-Left>/<C-M-Right> are the larger WORD jumpers.
 
-" On macOS, by default, <Ctrl-Up> invokes Mission Control, and
+" ASIDE: Note that LazyVim reassigns <Ctrl-Left|Right> to resizing the window.
+" - If that's a distro you use...
+" And on macOS, by default, <Ctrl-Up> invokes Mission Control, and
 " <Ctrl-Down> shows Application windows — which the author rebinds
 " to <Ctrl-Alt-Up> and <Ctrl-Alt-Down>.
 " - By default, <Ctrl-Left|Right> navigates Spaces — which the
-"   author rebinds to ~~<Ctrl-Alt-Left|Right>~~ <Cmd-Alt-Left|Right>...
+"   author rebinds to <Cmd-Alt-Left|Right>...
+"   - Just FYI if you need to tinker with OS settings to make these
+"     maps work.
+
+" SAVVY: One nice thing about |w| vs. |e| is that it |w| does not
+"        trigger the completion dropdown as *incessently* as |e|!
+"        - (Author: At least not with blink.cmp running.)
+" - If you are used to the alt. behavior, b/e, there's only one
+"   big change, I'd say: if you are used to word-replace from
+"   Insert using |e|, you would <C-Right> and then delete a word
+"   using <Ctrl-BS> or <Ctrl-W>. But if you |w| jump to the start
+"   of a word to remove, you'll use <Ctrl-Delete> instead, to
+"   delete for-word. Or, ya know, <Escape> and run `ciw`.
+" DUNNO: I tried to inhibit the blink.cmp completion menu, which is kinda
+" annoying as it pops up for every movement, but adding this didn't help:
+"   <C-O>:lua pcall(function() require("blink-cmp").hide() end)<CR>
+" (and I've since replaced the <C-O>: with <Cmd>). In any case, I've
+" switched to using |w| instead of |e| to mitigate this annoyance.
 
 function! s:wire_keys_move_to_word_previous_and_next_normal() abort
   " Compare to default Normal mode <C-Left>, which runs |B|.
   nnoremap <C-Left> b
-  " Compare to default Normal mode <C-Right>, which runs |W|.
-  " - Note the `l`, otherwise cursor ends up between last two chars.
-  nnoremap <C-Right> el
-
+  " 'Move' Normal mode <C-Left>/<C-Right> B/W to <C-M-Left>/<C-M-Right>.
   nnoremap <C-M-Left> B
-  nnoremap <C-M-Right> E
+  " Compare to default Normal mode <C-Right>, which runs |W|.
+  if get(g:, 'dubs_edit_juice_right_to_end', 1)
+    " Note the `l`, otherwise cursor ends up between last two chars.
+    nnoremap <C-Right> el
+    nnoremap <C-M-Right> E
+  else
+    nnoremap <C-Right> w
+    nnoremap <C-M-Right> W
+  endif
 endfunction
 
 function! s:wire_keys_move_to_word_previous_and_next_insert() abort
-  inoremap <C-Left> <C-O>b
-  " Note the <right>, otherwise cursor ends up between last two chars.
-  inoremap <C-Right> <C-O>e<Right>
+  " OHWOW: <C-Right> using |e| causes completion to popup —
+  " but only if using <C-O> and not <Cmd>!
+  " - This call can trigger completion on every usage when
+  "   it stops at the end of each word:
+  "     inoremap <C-Right> <C-O>e<Right>
+  " - But using <Cmd>, which doesn't change to Normal mode,
+  "   does not trigger completion!:
+  "     inoremap <C-Right> <Cmd>normal el<CR>
+  " - Unfortunately (there's always an unfortunately!), the
+  "   latter <Cmd>'s |l| or <Right> doesn't work on the final
+  "   word! It stops at the second-to-last column on the line...
+  "   - Oh word, we can kludge it using a deferred :startinsert!.
+  "
+  " Here are the less ideal <C-O> bindings — the UX is less smooth 
+  " because <C-O> switches to cmdline mode momentarily, and (for
+  " whatever reason, perhaps the mode changes) the e/E commands
+  " can invoke the completion dropdown on every word jump (but if
+  " you e/E from a <Cmd> instead, no such issue):
+  "   inoremap <C-Left> <C-O>b
+  "   " BWARE: These two <C-Right> have a tendency to trigger completion!
+  "   inoremap <C-Right> <C-O>e<Right>
+  "   inoremap <C-Right> <C-O>w
+  "   inoremap <C-M-Left> <C-O>B
+  "   inoremap <C-M-Right> <C-O>E<Right>
+  "   inoremap <C-M-Right> <C-O>W
 
-  inoremap <C-M-Left> <C-O>B
-  inoremap <C-M-Right> <C-O>E<Right>
+  inoremap <C-Left> <Cmd>normal b<CR>
+  inoremap <C-M-Left> <Cmd>normal B<CR>
+  if get(g:, 'dubs_edit_juice_right_to_end', 1)
+    " Note the |l| (<Right>), otherwise cursor ends up between last two chars.
+    " - Because block cursor on last char, and Vim reenters Insert mode like
+    "   |i|, not like |a|.
+    inoremap <C-Right> <Cmd>call <SID>move_to_end_of_next_word("el")<CR>
+    inoremap <C-M-Right> <Cmd>call <SID>move_to_end_of_next_word("El")<CR>
+  else
+    inoremap <C-Right> <Cmd>normal w<CR>
+    inoremap <C-M-Right> <Cmd>normal W<CR>
+  endif
+endfunction
+
+function! s:move_to_end_of_next_word(cmd) abort
+  exec "normal " .. a:cmd
+  if (col(".") + 1) == col("$")
+    stopinsert
+    " Kludgerific! Ha, running :startinsert! directly
+    " doesn't work, but a delayed call works!!
+    " - This because <Cmd> re-enters insert mode like
+    "   |i| does it, but we want to put cursor at the
+    "   end of the line, like |a| does it. Or, in this
+    "   case, like |A|, which :startinsert! calls.
+    " - Note this causes a noticeable cursor jump, but
+    "   it's not too annoying.
+    call timer_start(0, { -> execute('startinsert!', '')})
+  endif
 endfunction
 
 function! s:wire_keys_move_to_word_previous_and_next_visual() abort
