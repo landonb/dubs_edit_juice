@@ -178,12 +178,18 @@ function! s:wire_keys_move_to_word_previous_and_next_normal() abort
   " Compare to default Normal mode <C-Right>, which runs |W|.
   " - Note the `l`, otherwise cursor ends up between last two chars.
   nnoremap <C-Right> el
+
+  nnoremap <C-M-Left> B
+  nnoremap <C-M-Right> E
 endfunction
 
 function! s:wire_keys_move_to_word_previous_and_next_insert() abort
   inoremap <C-Left> <C-O>b
   " Note the <right>, otherwise cursor ends up between last two chars.
   inoremap <C-Right> <C-O>e<Right>
+
+  inoremap <C-M-Left> <C-O>B
+  inoremap <C-M-Right> <C-O>E<Right>
 endfunction
 
 call s:wire_keys_move_to_word_previous_and_next_normal()
