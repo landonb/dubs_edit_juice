@@ -364,6 +364,8 @@ call s:wire_keys_select_lines_to_window_first_and_last()
 " states. Really, it just moves the scrollbar,
 " i.e., scrolls your view without moving your
 " cursor.
+" CALSO: Scroll 1 ll. up/down: <Ctrl-Up>/<Ctrl-Down>, <Shift-Ctrl-E>/<Ctrl-e>
+"          via dubs_edit_juice, nvim_lazy.
 function! s:wire_keys_scroll_window_sticky_cursor() abort
   " 2018-09-17/EXPLAIN: What's the magic that maps <C-y> to
   " scroll window upward, as opposed to Redo (which Dubs maps
@@ -2046,8 +2048,10 @@ endif
 " -------------------------------------------------------------------
 
 " -------------------------------------------------------------------------
-" 2018-02-20: Remove word under cursor. Sorta like Bash's Alt-d.
+" 2018-02-20: Remove word under cursor.
 " -------------------------------------------------------------------------
+" - Sorta like readline Alt-d, but the whole word, not just the end.
+"   Or maybe like Ctrl-w, but the whole word, not just the start.
 
 " https://stackoverflow.com/questions/833838/delete-word-after-or-around-cursor-in-vim
 " See:
