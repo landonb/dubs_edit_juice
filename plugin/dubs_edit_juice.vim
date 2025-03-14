@@ -2056,11 +2056,13 @@ endif
 " https://stackoverflow.com/questions/833838/delete-word-after-or-around-cursor-in-vim
 " See:
 "  :help diw
-nnoremap <M-d> diwi
-inoremap <M-d> <C-o>diw
-if has('macunix')
-  nnoremap ∂ diwi
-  inoremap ∂ <C-o>diw
+if get(g:, 'dubs_edit_juice_everything', 0)
+  nnoremap <M-d> diwi
+  inoremap <M-d> <C-o>diw
+  if has('macunix')
+    nnoremap ∂ diwi
+    inoremap ∂ <C-o>diw
+  endif
 endif
 
 " -------------------------------------------------------------------
