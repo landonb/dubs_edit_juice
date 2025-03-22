@@ -934,9 +934,8 @@ endif
 " This just left-justifies (completely dedents) the current line.
 " - HSTRY/2024-12-11: This was previously \x.
 "   - But I've since moved most Dubs maps under \d.
-"   - Trying \dd, mnemonic: dedent.
-nnoremap <silent> <LocalLeader>dd :left<cr><END>a
-inoremap <silent> <LocalLeader>dd <C-O>:left<cr><END>
+nnoremap <silent> <LocalLeader>d< :left<cr><END>a
+inoremap <silent> <LocalLeader>d< <C-O>:left<cr><END>
 
 " -------------------------------------------------------------------
 
