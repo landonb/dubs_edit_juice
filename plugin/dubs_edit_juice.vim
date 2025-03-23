@@ -1697,7 +1697,7 @@ function! s:CreateAutocmdMapsVimFunctions(noshowmode = 1) abort
     "   though you'll see the tag listed in the tags file.
     "   - We'll still escape them, though, so user doesn't see error
     "     from the map, just from :help.
-    autocmd FileType vim,lua,rst,markdown,txt vnoremap <buffer>
+    autocmd FileType help,vim,lua,rst,markdown,txt vnoremap <buffer>
       \ :? :<C-U><CR>gvy:call histadd('cmd', 'help ' .. escape(@", '"'))<CR>:help <C-R>"<CR>
 
     " SAVVY/2024-12-22: Select text and type `:?` to |:echom| it.
@@ -1711,18 +1711,18 @@ function! s:CreateAutocmdMapsVimFunctions(noshowmode = 1) abort
     endif
     " - Note the escape in case selection contains double quotes,
     "   e.g., --> 'foo "bar" <-- --> "'baz' quux" <--
-    autocmd FileType vim,lua,rst,markdown,txt vnoremap <buffer>
+    autocmd FileType help,vim,lua,rst,markdown,txt vnoremap <buffer>
       \ :" :<C-U><CR>gvy:call histadd('cmd', 'echom ' .. escape(@", '"'))<CR>:echom <C-R>"<CR>
 
     " SAVVY/2024-12-26 08:14: Select text and type :> to |:call| it.
     " - Dunno, :) seems obvious, because Fcn() has parentheses. But :>
     "   is easier to type (and period sometimes means to run something?).
     " - FTREQ: Strip leading 'function!' and esp. trailing 'abort'
-    autocmd FileType vim,lua,rst,markdown,txt vnoremap <buffer> <silent>
+    autocmd FileType help,vim,lua,rst,markdown,txt vnoremap <buffer> <silent>
       \ :> :<C-U><CR>gvy:call <SID>CallSelected(@")<CR>
 
     " |:L| is like |::| but starts Lua command.
-    autocmd FileType vim,lua,rst,markdown,txt vnoremap <buffer> :L :<C-U><CR>gvy:call histadd('cmd', 'lua ' .. escape(@", '"'))<CR>:lua <C-R>"<CR>
+    autocmd FileType help,vim,lua,rst,markdown,txt vnoremap <buffer> :L :<C-U><CR>gvy:call histadd('cmd', 'lua ' .. escape(@", '"'))<CR>:lua <C-R>"<CR>
   augroup END
 endfunction
 
