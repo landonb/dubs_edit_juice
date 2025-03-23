@@ -106,7 +106,9 @@ let g:loaded_dubs_edit_juice_plugin = 1
 "   - I also tried an approach using a |g@|-repeatable |opfunc|, but I had
 "     similar issues as using |db|.
 "   - Fortunately this kludgy-feeling &g:undolevels approach seems to work well.
-inoremap <silent> <C-w> <C-\><C-o>:if col('.') < col('$') \| let &g:undolevels = &g:undolevels \| endif<CR><C-w>
+if get(g:, 'dubs_edit_juice_everything', 0)
+  inoremap <silent> <C-w> <C-\><C-o>:if col('.') < col('$') \| let &g:undolevels = &g:undolevels \| endif<CR><C-w>
+endif
 
 " Treat <C-u> (delete to start of line) similarly.
 " - Here's the basic approach that deletes to start of
