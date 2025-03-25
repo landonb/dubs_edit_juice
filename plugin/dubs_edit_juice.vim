@@ -446,15 +446,15 @@ call s:wire_keys_cursor_to_line_first_and_last()
 " (or is it to make our fingers frolicsome?).
 
 " 2020-05-23: See long comment in wire_keys_jump_to_window_directionally:
-" the fifteen seconds I tried to move Alt-Left/-Right to other keys, so
-" that I could wire all Alt-Arrow keys to tmux-esque window pane switching.
-" It was a disaster. These two motions, Alt-Left and Alt-Right, are hardwired
-" in my brain. I use 'em all the time.
+" I demoed moving Alt-Left/-Right to other keys, so that I could wire all
+" Alt-Arrow keys to tmux-esque window pane switching. But it was a disaster.
+" These two motions, Alt-Left and Alt-Right, are hardwired in my brain.
+" I use 'em all the time.
 
 " SAVVY/2024-05-07: gvy: `gv` reselects the previous Visual area; `y` yanks.
 
-" Built-in <M-Left|Right> moves cursor left or right, and stops
-" Insert mode when run from Insert mode.
+" By default, Normal <Alt-Left|Right> same as <Left|Right>; or in
+" Insert mode, leaves Insert mode, then does <Left|Right>.
 
 function! s:add_alt_left_alt_right_maps_move_cursor_to_line_beg_line_end() abort
   " Alt-Left moves the cursor to the beginning of the line.
