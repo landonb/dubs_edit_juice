@@ -425,12 +425,12 @@ endfunction
 function! s:wire_keys_cursor_to_line_first_and_last() abort
   " Ctrl-PageUp moves cursor to the top of the window, or, if
   " it's already there, it scrolls up one viewable-window-full.
-  nnoremap <C-PageUp> :call <SID>Smart_PageUpDown(1)<CR>
-  inoremap <C-PageUp> <C-O>:call <SID>Smart_PageUpDown(1)<CR>
+  nnoremap <silent> <C-PageUp> :call <SID>Smart_PageUpDown(1)<CR>
+  inoremap <silent> <C-PageUp> <C-O>:call <SID>Smart_PageUpDown(1)<CR>
   " Ctrl-PageDown moves cursor to the bottom of the window, or, if
   " it's already there, it scrolls down one viewable-window-full.
-  nnoremap <C-PageDown> :call <SID>Smart_PageUpDown(-1)<CR>
-  inoremap <C-PageDown> <C-O>:call <SID>Smart_PageUpDown(-1)<CR>
+  nnoremap <silent> <C-PageDown> :call <SID>Smart_PageUpDown(-1)<CR>
+  inoremap <silent> <C-PageDown> <C-O>:call <SID>Smart_PageUpDown(-1)<CR>
 endfunction
 
 call s:wire_keys_cursor_to_line_first_and_last()
