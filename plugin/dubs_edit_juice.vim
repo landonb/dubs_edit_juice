@@ -1724,7 +1724,8 @@ function! s:CreateAutocmdMapsVimFunctions(noshowmode = 1) abort
       \ :> :<C-U><CR>gvy:call histadd('cmd', 'lua ' .. @")<CR>:call <SID>CallSelected(@")<CR>
 
     " |:L| is like |::| but starts Lua command.
-    autocmd FileType help,vim,lua,rst,markdown,txt vnoremap <buffer> :L :<C-U><CR>gvy:call histadd('cmd', 'lua ' .. escape(@", '"'))<CR>:lua <C-R>"<CR>
+    autocmd FileType help,vim,lua,rst,markdown,txt vnoremap <buffer>
+      \ :L :<C-U><CR>gvy:call histadd('cmd', 'lua ' .. @")<CR>:lua <C-R>"<CR>
   augroup END
 endfunction
 
