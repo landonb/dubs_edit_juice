@@ -301,9 +301,9 @@ function! s:wire_keys_select_text_to_line_beg_and_end() abort
   " (same as Shift-Home)
   nnoremap <M-S-Left> v0<C-G>
   inoremap <M-S-Left> <C-O>v0<C-G>
-  " 2020-05-23: I added <CTRL-G> to switch from Visual mode to Select mode,
-  " otherwise if the user Ctrl-C copies, the selection is deselected, which
-  " is abnormal behavior.
+  " 2020-05-23: I added <CTRL-G> to switch from Visual mode to Select
+  " mode, otherwise if the user <Ctrl-C> copies, the selection is
+  " deselected, which is abnormal behavior.
   " - Because this is a visual mode mapping, is it still needed?
   vnoremap <M-S-Left> 0
 
