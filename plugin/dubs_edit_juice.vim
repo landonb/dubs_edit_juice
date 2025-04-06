@@ -339,12 +339,12 @@ function! s:wire_keys_select_lines_to_window_first_and_last() abort
   "   stay in Visual mode, and then arrow keys will adjust the selection).
 
   " Ctrl-Shift-PageUp selects from cursor to first line of window
-  nnoremap <C-S-PageUp> :set selection=exclusive<CR>vH
+  nnoremap <C-S-PageUp> :set selection=exclusive<CR>vH<C-G>
   inoremap <C-S-PageUp> <C-O>:set selection=exclusive<CR><C-O>vH<C-G>
   vnoremap <C-S-PageUp> H
 
   " Ctrl-Shift-PageDown selects from cursor to last line of window
-  nnoremap <C-S-PageDown> :set selection=exclusive<CR>vL
+  nnoremap <C-S-PageDown> :set selection=exclusive<CR>vL<C-G>
   inoremap <C-S-PageDown> <C-O>:set selection=exclusive<CR><C-O>vL<C-G>
   vnoremap <C-S-PageDown> L
 endfunction
