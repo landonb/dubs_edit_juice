@@ -1646,8 +1646,10 @@ command! -nargs=+ -complete=command TabMessage call <SID>TabMessage(<q-args>)
 " - From https://github.com/landonb/dubs_appearance#💅
 "   ~/.kit/nvim/landonb/dubs_appearance/plugin/mimic_menu_keymap.vim
 
-nnoremap <silent> <LocalLeader>dT :exec 'tabedit ' .. expand('%')<CR>
-inoremap <silent> <LocalLeader>dT <C-o>:exec 'tabedit ' .. expand('%')<CR>
+if get(g:, 'dubs_edit_juice_everything', 0)
+  nnoremap <silent> <LocalLeader>dT :exec 'tabedit ' .. expand('%')<CR>
+  inoremap <silent> <LocalLeader>dT <C-o>:exec 'tabedit ' .. expand('%')<CR>
+endif
 
 " -------------------------------------------------------------------
 
