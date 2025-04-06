@@ -299,8 +299,8 @@ call s:wire_keys_move_to_word_previous_and_next_visual()
 function! s:wire_keys_select_text_to_line_beg_and_end() abort
   " Alt-Shift-Left selects from cursor to start of line
   " (same as Shift-Home)
-  nnoremap <M-S-Left> :set selection=exclusive<CR>v0<C-G>
-  inoremap <M-S-Left> <C-O>:set selection=exclusive<CR><C-O>v0<C-G>
+  nnoremap <silent> <M-S-Left> :set selection=exclusive<CR>v0<C-G>
+  inoremap <silent> <M-S-Left> <C-O>:set selection=exclusive<CR><C-O>v0<C-G>
   " 2020-05-23: I added <CTRL-G> to switch from Visual mode to Select
   " mode, otherwise if the user <Ctrl-C> copies, the selection is
   " deselected, which is abnormal behavior.
@@ -309,8 +309,8 @@ function! s:wire_keys_select_text_to_line_beg_and_end() abort
 
   " Alt-Shift-Right selects from cursor to end of line
   " (same as Shift-End)
-  nnoremap <M-S-Right> :set selection=exclusive<CR>v$<C-G>
-  inoremap <M-S-Right> <C-O>:set selection=exclusive<CR><C-O>v$<C-G>
+  nnoremap <silent> <M-S-Right> :set selection=exclusive<CR>v$<C-G>
+  inoremap <silent> <M-S-Right> <C-O>:set selection=exclusive<CR><C-O>v$<C-G>
   vnoremap <M-S-Right> $
 endfunction
 
