@@ -461,14 +461,18 @@ function! s:add_alt_left_alt_right_maps_move_cursor_to_line_beg_line_end() abort
   nnoremap <M-Left> <Home>
   inoremap <M-Left> <C-O><Home>
   " vnoremap <M-Left> :<C-U><CR>gvy:execute "normal! 0"<CR>
-  xnoremap <M-Left> :<C-U><CR>:normal! 0<CR>
+  " " If you wanted <Alt-Left> from Visual mode to stop selecting:
+  " "  xnoremap <M-Left> :<C-U><CR>:normal! 0<CR>
+  xnoremap <M-Left> 0
   snoremap <M-Left> <Esc>:normal! 0<CR>
 
   " Alt-Right moves the cursor to the end of the line.
   nnoremap <M-Right> <End>
   inoremap <M-Right> <C-O><End>
   " vnoremap <M-Right> :<C-U><CR>gvy:execute "normal! $"<CR>
-  xnoremap <M-Right> :<C-U><CR>:normal! $<CR>
+  " " If you wanted <Alt-Right> from Visual mode to stop selecting:
+  " "  xnoremap <M-Right> :<C-U><CR>:normal! $<CR>
+  xnoremap <M-Right> $
   snoremap <M-Right> <Esc>:normal! $<CR>
 endfunction
 
