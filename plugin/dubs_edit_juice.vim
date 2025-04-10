@@ -314,7 +314,9 @@ function! s:wire_keys_select_text_to_line_beg_and_end() abort
   vnoremap <M-S-Right> $
 endfunction
 
-call s:wire_keys_select_text_to_line_beg_and_end()
+if get(g:, 'dubs_edit_juice_everything', 0)
+  call s:wire_keys_select_text_to_line_beg_and_end()
+endif
 
 " -------------------------------------------------------------------
 
@@ -349,7 +351,9 @@ function! s:wire_keys_select_lines_to_window_first_and_last() abort
   vnoremap <C-S-PageDown> L
 endfunction
 
-call s:wire_keys_select_lines_to_window_first_and_last()
+if get(g:, 'dubs_edit_juice_everything', 0)
+  call s:wire_keys_select_lines_to_window_first_and_last()
+endif
 
 " -------------------------------------------------------------------
 
