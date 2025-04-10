@@ -289,9 +289,9 @@ call s:wire_keys_move_to_word_previous_and_next_visual()
 
 " -------------------------------------------------------------------
 
-" -------------------------------------------------------------------
-" Wire Alt-Shift-Left/-Right to Selecting from Cursor to Edge of Line
-" -------------------------------------------------------------------
+" ------------------------------------------------------------------
+" Wire Alt-Shift-Left/-Right to Selecting from Cursor to End of Line
+" ------------------------------------------------------------------
 
 " Built-in <Shift-Alt-Left|Right> jumps to start of prev|next word,
 " and in Insert mode stops Insert mode.
