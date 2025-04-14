@@ -252,16 +252,19 @@ endfunction
 function! s:move_to_end_of_next_word(cmd) abort
   exec "normal " .. a:cmd
   if (col(".") + 1) == col("$")
-    stopinsert
-    " Kludgerific! Ha, running :startinsert! directly
-    " doesn't work, but a delayed call works!!
+    " HSTRY: Originally used deferred startinsert!.
+    "     stopinsert
+    "     call timer_start(0, { -> execute('startinsert!', '')})
     " - This because <Cmd> re-enters insert mode like
     "   |i| does it, but we want to put cursor at the
     "   end of the line, like |a| does it. Or, in this
     "   case, like |A|, which :startinsert! calls.
     " - Note this causes a noticeable cursor jump, but
     "   it's not too annoying.
-    call timer_start(0, { -> execute('startinsert!', '')})
+    " LATER: Convert to Lua:
+    "   local cur_win = 0
+    "   vim.api.nvim_win_set_cursor(cur_win, { vim.fn.line("."), vim.fn.col("$") })
+    call setcursorcharpos(line("."), col("$"))
   endif
 endfunction
 
