@@ -241,8 +241,8 @@ function! s:wire_keys_move_to_word_previous_and_next_insert() abort
     " Note the |l| (<Right>), otherwise cursor ends up between last two chars.
     " - Because block cursor on last char, and Vim reenters Insert mode like
     "   |i|, not like |a|.
-    inoremap <C-Right> <Cmd>call <SID>move_to_end_of_next_word("el")<CR>
-    inoremap <C-M-Right> <Cmd>call <SID>move_to_end_of_next_word("El")<CR>
+    inoremap <C-Right> <Cmd>call <SID>move_to_end_of_next_word("e")<CR>
+    inoremap <C-M-Right> <Cmd>call <SID>move_to_end_of_next_word("E")<CR>
   else
     inoremap <C-Right> <Cmd>normal w<CR>
     inoremap <C-M-Right> <Cmd>normal W<CR>
@@ -265,6 +265,8 @@ function! s:move_to_end_of_next_word(cmd) abort
     "   local cur_win = 0
     "   vim.api.nvim_win_set_cursor(cur_win, { vim.fn.line("."), vim.fn.col("$") })
     call setcursorcharpos(line("."), col("$"))
+  else
+    exec "normal l"
   endif
 endfunction
 
