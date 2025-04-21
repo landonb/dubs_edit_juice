@@ -90,7 +90,7 @@ else
 endif
 
 if !exists('g:ctab_disable_tab_maps') || ! g:ctab_disable_tab_maps
-  exe  'imap '.s:buff_map.'<silent> <expr> <tab> InsertSmartTab()'
+  exe 'imap '.s:buff_map.'<silent> <expr> <tab> InsertSmartTab()'
 endif
 
 " Insert a smart tab.
