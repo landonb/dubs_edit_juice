@@ -814,7 +814,9 @@ call s:CreateAutocmds_HelpFileInsertModeTagStackJump()
 
 xnoremap <Tab> >gv
 xnoremap <S-Tab> <gv
-snoremap <Tab> <C-o>>gv<C-g>
+if get(g:, 'dubs_edit_juice_everything', 0)
+  snoremap <Tab> <C-o>>gv<C-g>
+endif
 snoremap <S-Tab> <C-o><gv<C-g>
 
 " SAVVY: Also remember that == smartly fixes
