@@ -958,6 +958,10 @@ endif
 " This just left-justifies (completely dedents) the current line.
 nnoremap <silent> <LocalLeader>d< :left<CR><END>a
 inoremap <silent> <LocalLeader>d< <C-O>:left<CR><END>
+" Note this removes all leading whitespace, but if you want to use
+" a common indent, call :left directly, e.g., `:left 2` indents the
+" selection with 2 spaces for each line in the selection.
+vnoremap <LocalLeader>d< :left<CR>
 
 " -------------------------------------------------------------------
 
