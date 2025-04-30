@@ -819,12 +819,6 @@ if get(g:, 'dubs_edit_juice_everything', 0)
 endif
 snoremap <S-Tab> <C-o><gv<C-g>
 
-" SAVVY: Also remember that == smartly fixes
-"        the indent of the line-under-cursor.
-" - This Insert mode map is keeping with the spirit of
-"   nvim-depoxy/nvim-lazyb Normal-mode-maps-from-Insert-mode.
-inoremap <LocalLeader>== <C-o>==
-
 " HSTRY/2025-03-03: This seems useful... though if you
 " discover a better use for Normal mode <Tab>/<S-Tab>,
 " remove these, and remember to use >>/<< instead.
@@ -936,9 +930,15 @@ vnoremap <C-S-D> <C-O><C-U>
 nnoremap <C-S-U> <C-D>
 vnoremap <C-S-U> <C-O><C-D>
 
-" -------------------------
-" Left Justify Current Line
-" -------------------------
+" *** Auto-Indent Current Line
+
+" SAVVY: Also remember that == smartly fixes
+"        the indent of the line-under-cursor.
+" - This Insert mode map is keeping with the spirit of
+"   nvim-depoxy/nvim-lazyb Normal-mode-maps-from-Insert-mode.
+inoremap <LocalLeader>== <C-o>==
+
+" *** Left Justify Current Line
 
 " This just left-justifies (completely dedents) the current line.
 nnoremap <silent> <LocalLeader>d< :left<CR><END>a
