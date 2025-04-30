@@ -805,12 +805,12 @@ call s:CreateAutocmds_HelpFileInsertModeTagStackJump()
 "   sunmap <buffer> <Tab>
 "   sunmap <buffer> <S-Tab>
 
-" NOTE: With these maps, you'll have lots of indent/dedent options!:
+" REFER: With these maps, you'll have lots of indent/dedent options!:
 " - Normal mode >>/<<                 (built-in)
-" - Normal/Visual mode <Tab>/<S-Tab>  (defined here)
-" - Insert mode <Ctrl-D>/<S-Ctrl-D>   (former built-in, latter from nvim-depoxy/nvim-lazyb)
-" - Insert mode <LocalLeader>==       (auto-indent, defined here)
+" - Insert mode <Ctrl-D>/<S-Ctrl-D>   (former built-in, latter below, and in nvim-lazyb)
+" - Select/Visual mode <Tab>/<S-Tab>  (defined below)
 " - Visual mode >/<                   (as defined by LazyVim)
+" - Insert mode <LocalLeader>==       (auto-indent (fix indent), defined below)
 
 xnoremap <Tab> >gv
 xnoremap <S-Tab> <gv
