@@ -821,8 +821,8 @@ snoremap <S-Tab> <C-o><gv<C-g>
 
 " SAVVY: Also remember that == smartly fixes
 "        the indent of the line-under-cursor.
-" - In keeping with the spirit of nvim-depoxy/nvim-lazyb,
-"   we'll make a similar Insert mode map.
+" - This Insert mode map is keeping with the spirit of
+"   nvim-depoxy/nvim-lazyb Normal-mode-maps-from-Insert-mode.
 inoremap <LocalLeader>== <C-o>==
 
 " HSTRY/2025-03-03: This seems useful... though if you
