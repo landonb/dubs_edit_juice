@@ -924,7 +924,7 @@ endif
 " - See nvim-depoxy/nvim-lazyb for PUA "" binding, to make <Shift-Ctrl> maps work.
 " - This doesn't really belong here, because its rhs is not indent-related,
 "   but it's lhs *is* related, so might as well 'allow' it.
-nnoremap <S-C-D> <C-U><CR>
+nnoremap <C-S-D> <C-U>
 
 " We don't need to replace built-in <Ctrl-d>, which behaves the same.
 " - ISOFF: This inhibits which-key <Ctrl-D> scroll down from working in
