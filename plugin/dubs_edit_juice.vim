@@ -906,7 +906,8 @@ nnoremap << :call CursorFriendlyIndent(0)<cr>
 " BNDNG: <Shift-Ctrl-D> <C-S-D> <Ctrl-Shift-D> <C-S-D>
 " - Note the nvim-depoxy and nvim-lazyb create an imap using "",
 "   a PUA character used to bind <Shift-Ctrl> sequences.
-inoremap <S-C-D> <C-O>:call CursorFriendlyIndent(1)<CR>
+inoremap <C-S-D> <C-O>:call CursorFriendlyIndent(1)<CR>
+
 " ISOFF: Avoid Insert mode and select mode <Ctrl-D> maps,
 " which break which-key scroll down.
 " - So not this, which is same as built-in i_CTRL-D — it
