@@ -956,12 +956,6 @@ endif
 " -------------------------
 
 " This just left-justifies (completely dedents) the current line.
-" - HSTRY/2024-12-11: This was previously \x.
-"   - But I've since moved most Dubs maps under \d.
-" - INERT: Can you restore relative cursor position after dedenting?
-"   (Note that setting a mark and then dedenting doesn't move mark.
-"   We could compute how many characters leftward to shift cursor.
-"   Or maybe use extmark.)
 nnoremap <silent> <LocalLeader>d< :left<CR><END>a
 inoremap <silent> <LocalLeader>d< <C-O>:left<CR><END>
 
