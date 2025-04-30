@@ -1496,6 +1496,14 @@ vnoremap <M-]> :<C-U>
   \ <CR>gvy
   \ gV
   \ :normal <C-t><CR>
+if has('macunix')
+  nnoremap <‘> :normal <C-t><CR>
+  inoremap <‘> <C-O>:normal <C-t><CR>
+  vnoremap <‘> :<C-U>
+    \ <CR>gvy
+    \ gV
+    \ :normal <C-t><CR>
+endif
 
 " ctags
 " cd $cp/pyserver
