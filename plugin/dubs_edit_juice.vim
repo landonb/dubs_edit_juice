@@ -933,6 +933,9 @@ inoremap <C-S-D> <C-O>:call CursorFriendlyIndent(1)<CR>
 nnoremap <C-S-D> <C-U>
 vnoremap <C-S-D> <C-O><C-U>
 
+nnoremap <C-S-U> <C-D>
+vnoremap <C-S-U> <C-O><C-D>
+
 " -------------------------
 " Left Justify Current Line
 " -------------------------
