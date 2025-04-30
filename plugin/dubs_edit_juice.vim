@@ -962,8 +962,8 @@ endif
 "   (Note that setting a mark and then dedenting doesn't move mark.
 "   We could compute how many characters leftward to shift cursor.
 "   Or maybe use extmark.)
-nnoremap <silent> <LocalLeader>d< :left<cr><END>a
-inoremap <silent> <LocalLeader>d< <C-O>:left<cr><END>
+nnoremap <silent> <LocalLeader>d< :left<CR><END>a
+inoremap <silent> <LocalLeader>d< <C-O>:left<CR><END>
 
 " -------------------------------------------------------------------
 
