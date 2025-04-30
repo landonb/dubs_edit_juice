@@ -1317,6 +1317,10 @@ inoremap <LocalLeader>zb <C-O>zb
 nnoremap <LocalLeader>zt zt
 inoremap <LocalLeader>zt <C-O>zt
 
+" Note that \za works from Normal mode without this map.
+nnoremap <LocalLeader>za za
+inoremap <LocalLeader>za <C-O>za
+
 " -------------------------------------------------------------------
 
 " ------------------------------------------------------
