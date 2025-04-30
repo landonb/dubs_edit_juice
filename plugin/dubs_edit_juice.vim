@@ -872,7 +872,7 @@ inoremap <LocalLeader>== <C-o>==
 " non-blank character (:set startofline); or it keeps the cursor position which
 " changes relative to the text as you indent (:set nostartofline):
 " 
-"   inoremap <S-C-D> <C-O>:normal >><CR>
+"   inoremap <C-S-D> <C-O>:normal >><CR>
 "
 " REFER: Fortunately, I found a better solution:
 "   https://vi.stackexchange.com/questions/18310/keep-relative-cursor-position-after-indenting-with
@@ -903,7 +903,7 @@ endfunc
 nnoremap >> :call CursorFriendlyIndent(1)<cr>
 nnoremap << :call CursorFriendlyIndent(0)<cr>
 
-" CRUMB: <Shift-Ctrl-D> <S-C-D> <Ctrl-Shift-D> <C-S-D>
+" BNDNG: <Shift-Ctrl-D> <C-S-D> <Ctrl-Shift-D> <C-S-D>
 " - Note the nvim-depoxy and nvim-lazyb create an imap using "",
 "   a PUA character used to bind <Shift-Ctrl> sequences.
 inoremap <S-C-D> <C-O>:call CursorFriendlyIndent(1)<CR>
@@ -919,8 +919,8 @@ if 0
 endif
 
 " Built-in normal mode CTRL-D Scrolls window Downwards (and CTRL-U Upwards).
-" - However, <S-C-D> by default is same as <C-D>.
-"   - So we can assign scroll up to <S-C-D>.
+" - However, <C-S-D> by default is same as <C-D>.
+"   - So we can assign scroll up to <C-S-D>.
 " - See nvim-depoxy/nvim-lazyb for PUA "" binding, to make <Shift-Ctrl> maps work.
 " - This doesn't really belong here, because its rhs is not indent-related,
 "   but it's lhs *is* related, so might as well 'allow' it.
@@ -2054,9 +2054,9 @@ endif
 "   - Not that we couldn't use a different scroll mapping for coc.nvim,
 "     but that alerted me to this stale feature that we might as well nix.
 "     - Though I do sorta like the realtime `match` usage, kinda nifty.
-"     - ALTLY: Change <C-B> → <S-C-B>, long live HighlightNearCursor!
-"       - Well, not <S-C-B>, MacVim doesn't honor <Shift-Ctrl>, so
-"         how about <S-M-B>.
+"     - ALTLY: Change <C-B> → <C-S-B>, long live HighlightNearCursor!
+"       - Well, not <C-S-B>, MacVim doesn't honor <Shift-Ctrl>, so
+"         how about <M-S-B>.
 "       - We'll keep this alive as a zombie feature that you'll forget
 "         about, but when you rediscover this comment, at least you can
 "         demo the feature without needing to change anything.
@@ -2070,7 +2070,7 @@ function! s:highlight_cursor_match_id() abort
   endif
 endfunction
 
-inoremap <S-M-B> <C-O>:call <SID>highlight_cursor_match_id()<CR>
+inoremap <M-S-B> <C-O>:call <SID>highlight_cursor_match_id()<CR>
 if has('macunix')
   inoremap ı <C-O>:call <SID>highlight_cursor_match_id()<CR>
 endif
