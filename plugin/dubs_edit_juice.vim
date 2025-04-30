@@ -907,16 +907,21 @@ nnoremap << :call CursorFriendlyIndent(0)<cr>
 " - Note the nvim-depoxy and nvim-lazyb create an imap using "",
 "   a PUA character used to bind <Shift-Ctrl> sequences.
 inoremap <S-C-D> <C-O>:call CursorFriendlyIndent(1)<CR>
-
-" Visual mode is easy, because cursor position doesn't matter.
-" ISOFF/2025-03-03: nvim_lazyb (LazyVim) uses vmap <C-D> to scroll down
-" the which-key popup.
-" - And while I like the parity with Insert mode, and I like that
-"   this works from Select mode (from Visual mode, using ">" and "<"
-"   is probably easier)...
-if 0
-  vnoremap <S-C-D> >gv
-endif
+" ISOFF: Avoid Insert mode and select mode <Ctrl-D> maps,
+" which break which-key scroll down.
+" - So not this, which is same as built-in i_CTRL-D — it
+"   dedents and preserves the relative cursor position:
+"     inoremap <C-D> <C-O>:call CursorFriendlyIndent(0)<CR>
+" - And not these, which would be a nice select mode dedent/indent:
+"     vnoremap <C-D> <gv
+"     vnoremap <C-S-D> >gv
+"   - So instead, use <Tab>/<Shift-Tab> to indent/dedent from
+"     Visual or Select mode; use ">" or "<" from Visual mode
+"     (but not Select mode); use <Shift-Ctrl-D>/<Ctrl-D> from
+"     Insert mode; or use ">>" or "<<" from Normal mode.
+"     - Note that using <Shift-Ctrl-D>/<Ctrl-D> from a select
+"       mode extends the selection upwards/downwards by half
+"       the window.
 
 " Built-in normal mode CTRL-D Scrolls window Downwards (and CTRL-U Upwards).
 " - However, <C-S-D> by default is same as <C-D>.
@@ -926,31 +931,6 @@ endif
 "   but it's lhs *is* related, so might as well 'allow' it.
 nnoremap <C-S-D> <C-U>
 vnoremap <C-S-D> <C-O><C-U>
-
-" We don't need to replace built-in <Ctrl-d>, which behaves the same.
-" - ISOFF: This inhibits which-key <Ctrl-D> scroll down from working in
-"   Insert mode (not that that's a big deal; but if you press <Ctrl-r>
-"   in Insert mode to bring up the registers window, you can <BS> to
-"   see all Insert mode bindings, which can be useful!).
-" FTREQ/LOPRI/INERT: You could reactivate this: Detect if which-key is
-" showing and fallback built-in <C-u> if so. (But also why waste your
-" time trying to figure this out.)
-if 0
-  inoremap <C-D> <C-O>:call CursorFriendlyIndent(0)<CR>
-endif
-
-" Make visual mode <C-D> work like built-in i_CTRL-D: dedent the selection.
-" - Default visual mode <C-D> works like normal mode <C-D>: it scrolls
-"   downward (and extends the selection).
-"   - This strikes the author as counterintuitive. I generally expect
-"     visual mode bindings to behave like their insert mode counterparts.
-"     I.e., I'd except <C-D> to dedent the selection; so we do that here.
-" ISOFF/2025-03-03: Leave vmap <C-D>/<S-C-D> for which-key.
-if 0
-  vnoremap <C-D> <gv
-endif
-
-" ***
 
 " -------------------------
 " Left Justify Current Line
