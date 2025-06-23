@@ -576,8 +576,8 @@ if !hasmapto('<Plug>DubsEditJuice_ToggleTabHighlighting')
   " - FIXME/2024-12-28 14:07: Also everything should be configurable
   "   so that when you change {lhs} you don't Breaking change everything.
   if s:sourcing
-    nunmap <LocalLeader>dt
-    iunmap <LocalLeader>dt
+    silent! nunmap <LocalLeader>dt
+    silent! iunmap <LocalLeader>dt
   endif
 
   " HSTRY/2024-12-09: Was <LocalLeader>tab (as in \-t-a-b) but this feature
