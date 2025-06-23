@@ -548,9 +548,13 @@ function! s:YankSelectedTextAutomatically_ExceptOnmacOS() abort
   " - When text is selected, it is yanked into register *.
   " - Note that on macOS, this copies into the system clipboard,
   "   unlike on Linux, so we don't enable this on Mac.
-  if !has('macunix')
-    set guioptions+=a
-  endif
+  if !has("gui_running") | return | endif
+
+  if !exists("+guioptions") | return | endif
+
+  if has('macunix') | return | endif
+
+  set guioptions+=a
 endfunction
 
 call s:YankSelectedTextAutomatically_ExceptOnmacOS()
