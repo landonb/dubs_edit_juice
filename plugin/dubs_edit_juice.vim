@@ -2016,7 +2016,7 @@ endfunction
 " See also :help synstack()
 "
 " REFER: Try :Inspect in Neovim to see Tree-sitter highlighting information.
-" - In LazyVim, use <Leader>ui
+" - In LazyVim, use <Leader>ui, not <F10>, to show syntax info under cursor.
 if get(g:, 'dubs_edit_juice_everything', 0)
   nnoremap <silent> <F10> :echo "hi<"
     \ . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
