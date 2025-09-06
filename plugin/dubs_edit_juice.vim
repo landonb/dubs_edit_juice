@@ -1243,6 +1243,11 @@ if get(g:, 'dubs_edit_juice_inccommand', 0)
   vnoremap <LocalLeader>S# :<C-U><CR>gv"sy:.,$s#<C-r>s##gc<Left><Left><Left>
 endif
 
+" Mnemonic: \S4 to strip PS4 prompt.
+exec "nnoremap <LocalLeader>S4 :ZZWrap .,$s/" . expand("$USER") . "@.*\\$/\\$/gc"
+" ALTLY: So you don't have to depress the Shift key mid-map:
+exec "nnoremap <LocalLeader>S$ :ZZWrap .,$s/" . expand("$USER") . "@.*\\$/\\$/gc"
+
 " See also: QuickfixSubstituteAll in plugin/dubs_quickfix_wrap.vim,
 " which defines <LocalLeader>S (\S) which find-replaces in all files
 " listed in the quickfix window.
